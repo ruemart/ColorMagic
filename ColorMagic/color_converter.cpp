@@ -187,42 +187,42 @@ ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::linear_srgb_deep_
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::grey_true_to_rgb_true(ColorSpaces::grey_truecolor color)
 {
-	return ColorSpaces::rgb_truecolor();
+	return ColorSpaces::rgb_truecolor(color.m_grey, color.m_alpha);
 }
 
 ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::grey_true_to_rgb_deep(ColorSpaces::grey_truecolor color)
 {
-	return ColorSpaces::rgb_deepcolor();
+	return ColorSpaces::rgb_deepcolor(color.m_grey / 255.f, color.m_alpha / 255.f);
 }
 
 ColorSpaces::grey_deepcolor ColorManipulation::color_converter::grey_true_to_grey_deep(ColorSpaces::grey_truecolor color)
 {
-	return ColorSpaces::grey_deepcolor();
+	return ColorSpaces::grey_deepcolor(color.m_grey / 255.f, color.m_alpha / 255.f);
 }
 
 ColorSpaces::cmyk ColorManipulation::color_converter::grey_true_to_cmyk(ColorSpaces::grey_truecolor color)
 {
-	return ColorSpaces::cmyk();
+	return ColorManipulation::color_converter::rgb_deep_to_cmyk(ColorManipulation::color_converter::grey_true_to_rgb_deep(color));
 }
 
 ColorSpaces::hsv ColorManipulation::color_converter::grey_true_to_hsv(ColorSpaces::grey_truecolor color)
 {
-	return ColorSpaces::hsv();
+	return ColorManipulation::color_converter::rgb_deep_to_hsv(ColorManipulation::color_converter::grey_true_to_rgb_deep(color));
 }
 
 ColorSpaces::hsl ColorManipulation::color_converter::grey_true_to_hsl(ColorSpaces::grey_truecolor color)
 {
-	return ColorSpaces::hsl();
+	return ColorManipulation::color_converter::rgb_deep_to_hsl(ColorManipulation::color_converter::grey_true_to_rgb_deep(color));
 }
 
 ColorSpaces::xyz ColorManipulation::color_converter::grey_true_to_xyz(ColorSpaces::grey_truecolor color)
 {
-	return ColorSpaces::xyz();
+	return ColorManipulation::color_converter::rgb_deep_to_xyz(ColorManipulation::color_converter::grey_true_to_rgb_deep(color));
 }
 
 ColorSpaces::lab ColorManipulation::color_converter::grey_true_to_lab(ColorSpaces::grey_truecolor color, reference_white reference)
 {
-	return ColorSpaces::lab();
+	return ColorManipulation::color_converter::rgb_deep_to_lab(ColorManipulation::color_converter::grey_true_to_rgb_deep(color), reference);
 }
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::grey_deep_to_rgb_true(ColorSpaces::grey_deepcolor color)

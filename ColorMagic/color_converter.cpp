@@ -13,7 +13,27 @@ ColorManipulation::reference_white ColorManipulation::reference_white_presets::I
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::hexcode_to_rgb_true(std::string hex_code)
 {
-	return ColorSpaces::rgb_truecolor();
+	if (hex_code[0] == '#')
+	{
+		hex_code = hex_code.substr(1);
+	}
+
+	unsigned short r, g, b, a;
+	if (hex_code.length() == 6)
+	{
+		scanf_s(hex_code.c_str(), "%02x%02x%02x", &r, &g, &b);
+		a = 255;
+	}
+	else if (hex_code.length() == 8)
+	{
+		scanf_s(hex_code.c_str(), "%02x%02x%02x", &r, &g, &b, &a);
+	}
+	else
+	{
+		throw std::invalid_argument("Wrong hex code format. Use one of the following formats: #AARRGGBB, #RRGGBB, AARRGGBB, RRGGBB");
+	}
+
+	return ColorSpaces::rgb_truecolor((unsigned char)r, (unsigned char)g, (unsigned char)b, (unsigned char)a);
 }
 
 ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::rgb_true_to_rgb_deep(ColorSpaces::rgb_truecolor color)

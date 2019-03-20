@@ -38,42 +38,44 @@ ColorSpaces::rgb_truecolor ColorManipulation::color_converter::hexcode_to_rgb_tr
 
 ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::rgb_true_to_rgb_deep(ColorSpaces::rgb_truecolor color)
 {
-	return ColorSpaces::rgb_deepcolor();
+	return ColorSpaces::rgb_deepcolor(color.m_red / 255.f, color.m_green / 255.f, color.m_blue / 255.f, color.m_alpha / 255.f);
 }
 
 ColorSpaces::grey_truecolor ColorManipulation::color_converter::rgb_true_to_grey_true(ColorSpaces::rgb_truecolor color)
 {
-	return ColorSpaces::grey_truecolor();
+	auto avg = (color.m_red + color.m_green + color.m_blue) / 3;
+	return ColorSpaces::grey_truecolor(avg, color.m_alpha);
 }
 
 ColorSpaces::grey_deepcolor ColorManipulation::color_converter::rgb_true_to_grey_deep(ColorSpaces::rgb_truecolor color)
 {
-	return ColorSpaces::grey_deepcolor();
+	auto grey_true = ColorManipulation::color_converter::rgb_true_to_grey_true(color);
+	return ColorSpaces::grey_deepcolor(grey_true.m_grey / 255.f, grey_true.m_alpha / 255.f);
 }
 
 ColorSpaces::cmyk ColorManipulation::color_converter::rgb_true_to_cmyk(ColorSpaces::rgb_truecolor color)
 {
-	return ColorSpaces::cmyk();
+	return ColorManipulation::color_converter::rgb_deep_to_cmyk(ColorManipulation::color_converter::rgb_true_to_rgb_deep(color));
 }
 
 ColorSpaces::hsv ColorManipulation::color_converter::rgb_true_to_hsv(ColorSpaces::rgb_truecolor color)
 {
-	return ColorSpaces::hsv();
+	return ColorManipulation::color_converter::rgb_deep_to_hsv(ColorManipulation::color_converter::rgb_true_to_rgb_deep(color));
 }
 
 ColorSpaces::hsl ColorManipulation::color_converter::rgb_true_to_hsl(ColorSpaces::rgb_truecolor color)
 {
-	return ColorSpaces::hsl();
+	return ColorManipulation::color_converter::rgb_deep_to_hsl(ColorManipulation::color_converter::rgb_true_to_rgb_deep(color));
 }
 
 ColorSpaces::xyz ColorManipulation::color_converter::rgb_true_to_xyz(ColorSpaces::rgb_truecolor color)
 {
-	return ColorSpaces::xyz();
+	return ColorManipulation::color_converter::rgb_deep_to_xyz(ColorManipulation::color_converter::rgb_true_to_rgb_deep(color));
 }
 
 ColorSpaces::lab ColorManipulation::color_converter::rgb_true_to_lab(ColorSpaces::rgb_truecolor color, reference_white reference)
 {
-	return ColorSpaces::lab();
+	return ColorManipulation::color_converter::rgb_deep_to_lab(ColorManipulation::color_converter::rgb_true_to_rgb_deep(color), reference);
 }
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::rgb_deep_to_rgb_true(ColorSpaces::rgb_deepcolor color)
@@ -93,7 +95,7 @@ ColorSpaces::grey_deepcolor ColorManipulation::color_converter::rgb_deep_to_grey
 
 ColorSpaces::cmyk ColorManipulation::color_converter::rgb_deep_to_cmyk(ColorSpaces::rgb_deepcolor color)
 {
-	return ColorSpaces::cmyk();
+	
 }
 
 ColorSpaces::hsv ColorManipulation::color_converter::rgb_deep_to_hsv(ColorSpaces::rgb_deepcolor color)

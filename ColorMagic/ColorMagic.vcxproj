@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -147,17 +148,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ColorConverter.h" />
+    <ClInclude Include="ColorMagic.h" />
+    <ClInclude Include="ColorSpaces\cmyk.h" />
+    <ClInclude Include="ColorSpaces\grey_deepcolor.h" />
+    <ClInclude Include="ColorSpaces\grey_truecolor.h" />
+    <ClInclude Include="ColorSpaces\hsl.h" />
+    <ClInclude Include="ColorSpaces\hsv.h" />
+    <ClInclude Include="ColorSpaces\lab.h" />
+    <ClInclude Include="ColorSpaces\rgb_deepcolor.h" />
+    <ClInclude Include="ColorSpaces\rgb_truecolor.h" />
+    <ClInclude Include="ColorSpaces\xyz.h" />
+    <ClInclude Include="color_converter.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="ColorMagic.cpp" />
+    <ClCompile Include="ColorSpaces\cmyk.cpp" />
+    <ClCompile Include="ColorSpaces\grey_deepcolor.cpp" />
+    <ClCompile Include="ColorSpaces\grey_truecolor.cpp" />
+    <ClCompile Include="ColorSpaces\hsl.cpp" />
+    <ClCompile Include="ColorSpaces\hsv.cpp" />
+    <ClCompile Include="ColorSpaces\lab.cpp" />
+    <ClCompile Include="ColorSpaces\rgb_deepcolor.cpp" />
+    <ClCompile Include="ColorSpaces\rgb_truecolor.cpp" />
+    <ClCompile Include="ColorSpaces\xyz.cpp" />
+    <ClCompile Include="color_converter.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

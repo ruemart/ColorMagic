@@ -55,6 +55,8 @@ namespace ColorManipulation
 		static ColorSpaces::hsl rgb_deep_to_hsl(ColorSpaces::rgb_deepcolor color);
 		static ColorSpaces::xyz rgb_deep_to_xyz(ColorSpaces::rgb_deepcolor color);
 		static ColorSpaces::lab rgb_deep_to_lab(ColorSpaces::rgb_deepcolor color, reference_white reference = reference_white_presets::CIE_D65);
+		static ColorSpaces::rgb_deepcolor rgb_deep_to_linear_srgb_deep(ColorSpaces::rgb_deepcolor color);
+		static ColorSpaces::rgb_deepcolor linear_srgb_deep_to_rgb_deep(ColorSpaces::rgb_deepcolor color);
 
 		static ColorSpaces::rgb_truecolor grey_true_to_rgb_true(ColorSpaces::grey_truecolor color);
 		static ColorSpaces::rgb_deepcolor grey_true_to_rgb_deep(ColorSpaces::grey_truecolor color);

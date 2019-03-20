@@ -80,42 +80,109 @@ ColorSpaces::lab ColorManipulation::color_converter::rgb_true_to_lab(ColorSpaces
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::rgb_deep_to_rgb_true(ColorSpaces::rgb_deepcolor color)
 {
-	return ColorSpaces::rgb_truecolor();
+	return ColorSpaces::rgb_truecolor(color.m_red * 255.f, color.m_green * 255.f, color.m_blue * 255.f, color.m_alpha * 255.f);
 }
 
 ColorSpaces::grey_truecolor ColorManipulation::color_converter::rgb_deep_to_grey_true(ColorSpaces::rgb_deepcolor color)
 {
-	return ColorSpaces::grey_truecolor();
+	return ColorManipulation::color_converter::rgb_true_to_grey_true(ColorManipulation::color_converter::rgb_deep_to_rgb_true(color));
 }
 
 ColorSpaces::grey_deepcolor ColorManipulation::color_converter::rgb_deep_to_grey_deep(ColorSpaces::rgb_deepcolor color)
 {
-	return ColorSpaces::grey_deepcolor();
+	auto avg = ((color.m_red + color.m_green + color.m_blue) / 3.f);
+	return ColorSpaces::grey_deepcolor(avg, color.m_alpha);
 }
 
 ColorSpaces::cmyk ColorManipulation::color_converter::rgb_deep_to_cmyk(ColorSpaces::rgb_deepcolor color)
 {
-	
+	auto k = 1 - std::fmaxf(std::fmaxf(color.m_red, color.m_green), color.m_blue);
+	auto c = (1 - color.m_red - k) / (1.f - k);
+	auto m = (1 - color.m_green - k) / (1.f - k);
+	auto y = (1 - color.m_blue - k) / (1.f - k);
+	return ColorSpaces::cmyk(c, m, y, k);
 }
 
 ColorSpaces::hsv ColorManipulation::color_converter::rgb_deep_to_hsv(ColorSpaces::rgb_deepcolor color)
 {
-	return ColorSpaces::hsv();
+	auto min = std::fmin(std::fmin(color.m_red, color.m_green), color.m_blue);
+	auto max = std::fmax(std::fmax(color.m_red, color.m_green), color.m_blue);
+	if (max == min) // red = green = blue
+	{
+		return ColorSpaces::hsv(0.f, 0.f, min);
+	}
+	else
+	{
+		float delta;
+		if (min == color.m_red) delta = color.m_green - color.m_blue;
+		else if (min == color.m_green) delta = color.m_blue - color.m_red;
+		else delta = color.m_red - color.m_green;
+
+		float temp_h;
+		if (min == color.m_red) temp_h = 3.f;
+		else if (min == color.m_green) temp_h = 1.f;
+		else temp_h = 5.f;
+
+		auto hue = 60.f * (temp_h - delta / (max - min));
+		auto saturation = (max - min) / max;
+		auto value = max;
+		return ColorSpaces::hsv(hue, saturation, value);
+	}
 }
 
 ColorSpaces::hsl ColorManipulation::color_converter::rgb_deep_to_hsl(ColorSpaces::rgb_deepcolor color)
 {
-	return ColorSpaces::hsl();
+	return ColorManipulation::color_converter::hsv_to_hsl(ColorManipulation::color_converter::rgb_deep_to_hsv(color));
 }
 
 ColorSpaces::xyz ColorManipulation::color_converter::rgb_deep_to_xyz(ColorSpaces::rgb_deepcolor color)
 {
-	return ColorSpaces::xyz();
+	color = rgb_deep_to_linear_srgb_deep(color);
+	auto x = color.m_red * 0.4124564f + color.m_green * 0.3575761f + color.m_blue * 0.1804375f;
+	auto y = color.m_red * 0.2126729f + color.m_green * 0.7151522f + color.m_blue * 0.0721750f;
+	auto z = color.m_red * 0.0193339f + color.m_green * 0.1191920f + color.m_blue * 0.9503041f;
+	return ColorSpaces::xyz(x, y, z);
 }
 
 ColorSpaces::lab ColorManipulation::color_converter::rgb_deep_to_lab(ColorSpaces::rgb_deepcolor color, reference_white reference)
 {
-	return ColorSpaces::lab();
+	return ColorManipulation::color_converter::xyz_to_lab(ColorManipulation::color_converter::rgb_deep_to_xyz(color), reference);
+}
+
+ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::rgb_deep_to_linear_srgb_deep(ColorSpaces::rgb_deepcolor color)
+{
+	float components[3] = { color.m_red, color.m_green, color.m_blue };
+	for (auto component : components)
+	{
+		if (component <= 0.04045f)
+		{
+			component /= 12.92f;
+		}
+		else
+		{
+			component = std::powf((component + 0.055f) / 1.055f, 2.4f);
+		}
+	}
+
+	return ColorSpaces::rgb_deepcolor(components[0], components[1], components[2], color.m_alpha);
+}
+
+ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::linear_srgb_deep_to_rgb_deep(ColorSpaces::rgb_deepcolor color)
+{
+	float components[3] = { color.m_red, color.m_green, color.m_blue };
+	for (auto component : components)
+	{
+		if (component <= 0.0031308f)
+		{
+			component *= 12.92f;
+		}
+		else
+		{
+			component = std::powf(component * 1.055f, 1.f / 2.4f) - 0.055f;
+		}
+	}
+
+	return ColorSpaces::rgb_deepcolor(components[0], components[1], components[2], color.m_alpha);
 }
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::grey_true_to_rgb_true(ColorSpaces::grey_truecolor color)

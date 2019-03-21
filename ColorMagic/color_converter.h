@@ -112,16 +112,17 @@ namespace ColorManipulation
 		static ColorSpaces::hsl xyz_to_hsl(ColorSpaces::xyz color);
 		static ColorSpaces::lab xyz_to_lab(ColorSpaces::xyz color, reference_white reference = reference_white_presets::CIE_D65);
 
-		static ColorSpaces::rgb_truecolor lab_to_rgb_true(ColorSpaces::lab color);
-		static ColorSpaces::rgb_deepcolor lab_to_rgb_deep(ColorSpaces::lab color);
-		static ColorSpaces::grey_truecolor lab_to_grey_true(ColorSpaces::lab color);
-		static ColorSpaces::grey_deepcolor lab_to_grey_deep(ColorSpaces::lab color);
-		static ColorSpaces::cmyk lab_to_cmyk(ColorSpaces::lab color);
-		static ColorSpaces::hsv lab_to_hsv(ColorSpaces::lab color);
-		static ColorSpaces::hsl lab_to_hsl(ColorSpaces::lab color);
-		static ColorSpaces::xyz lab_to_xyz(ColorSpaces::lab color);
+		static ColorSpaces::rgb_truecolor lab_to_rgb_true(ColorSpaces::lab color, reference_white reference = reference_white_presets::CIE_D65);
+		static ColorSpaces::rgb_deepcolor lab_to_rgb_deep(ColorSpaces::lab color, reference_white reference = reference_white_presets::CIE_D65);
+		static ColorSpaces::grey_truecolor lab_to_grey_true(ColorSpaces::lab color, reference_white reference = reference_white_presets::CIE_D65);
+		static ColorSpaces::grey_deepcolor lab_to_grey_deep(ColorSpaces::lab color, reference_white reference = reference_white_presets::CIE_D65);
+		static ColorSpaces::cmyk lab_to_cmyk(ColorSpaces::lab color, reference_white reference = reference_white_presets::CIE_D65);
+		static ColorSpaces::hsv lab_to_hsv(ColorSpaces::lab color, reference_white reference = reference_white_presets::CIE_D65);
+		static ColorSpaces::hsl lab_to_hsl(ColorSpaces::lab color, reference_white reference = reference_white_presets::CIE_D65);
+		static ColorSpaces::xyz lab_to_xyz(ColorSpaces::lab color, reference_white reference = reference_white_presets::CIE_D65);
 
 	private:
 		static float xyz_to_lab_helper(float color_component);
+		static float lab_to_xyz_helper(float color_component, bool out_y_component = false);
 	};
 }

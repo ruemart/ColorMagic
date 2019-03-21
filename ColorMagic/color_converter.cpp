@@ -467,44 +467,49 @@ ColorSpaces::lab ColorManipulation::color_converter::xyz_to_lab(ColorSpaces::xyz
 	return ColorSpaces::lab(l, a, b);
 }
 
-ColorSpaces::rgb_truecolor ColorManipulation::color_converter::lab_to_rgb_true(ColorSpaces::lab color)
+ColorSpaces::rgb_truecolor ColorManipulation::color_converter::lab_to_rgb_true(ColorSpaces::lab color, reference_white reference)
 {
-	return ColorSpaces::rgb_truecolor();
+	return ColorManipulation::color_converter::xyz_to_rgb_true(ColorManipulation::color_converter::lab_to_xyz(color, reference));
 }
 
-ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::lab_to_rgb_deep(ColorSpaces::lab color)
+ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::lab_to_rgb_deep(ColorSpaces::lab color, reference_white reference)
 {
-	return ColorSpaces::rgb_deepcolor();
+	return ColorManipulation::color_converter::xyz_to_rgb_deep(ColorManipulation::color_converter::lab_to_xyz(color, reference));
 }
 
-ColorSpaces::grey_truecolor ColorManipulation::color_converter::lab_to_grey_true(ColorSpaces::lab color)
+ColorSpaces::grey_truecolor ColorManipulation::color_converter::lab_to_grey_true(ColorSpaces::lab color, reference_white reference)
 {
-	return ColorSpaces::grey_truecolor();
+	return ColorManipulation::color_converter::xyz_to_grey_true(ColorManipulation::color_converter::lab_to_xyz(color, reference));
 }
 
-ColorSpaces::grey_deepcolor ColorManipulation::color_converter::lab_to_grey_deep(ColorSpaces::lab color)
+ColorSpaces::grey_deepcolor ColorManipulation::color_converter::lab_to_grey_deep(ColorSpaces::lab color, reference_white reference)
 {
-	return ColorSpaces::grey_deepcolor();
+	return ColorManipulation::color_converter::xyz_to_grey_deep(ColorManipulation::color_converter::lab_to_xyz(color, reference));
 }
 
-ColorSpaces::cmyk ColorManipulation::color_converter::lab_to_cmyk(ColorSpaces::lab color)
+ColorSpaces::cmyk ColorManipulation::color_converter::lab_to_cmyk(ColorSpaces::lab color, reference_white reference)
 {
-	return ColorSpaces::cmyk();
+	return ColorManipulation::color_converter::xyz_to_cmyk(ColorManipulation::color_converter::lab_to_xyz(color, reference));
 }
 
-ColorSpaces::hsv ColorManipulation::color_converter::lab_to_hsv(ColorSpaces::lab color)
+ColorSpaces::hsv ColorManipulation::color_converter::lab_to_hsv(ColorSpaces::lab color, reference_white reference)
 {
-	return ColorSpaces::hsv();
+	return ColorManipulation::color_converter::xyz_to_hsv(ColorManipulation::color_converter::lab_to_xyz(color, reference));
 }
 
-ColorSpaces::hsl ColorManipulation::color_converter::lab_to_hsl(ColorSpaces::lab color)
+ColorSpaces::hsl ColorManipulation::color_converter::lab_to_hsl(ColorSpaces::lab color, reference_white reference)
 {
-	return ColorSpaces::hsl();
+	return ColorManipulation::color_converter::xyz_to_hsl(ColorManipulation::color_converter::lab_to_xyz(color, reference));
 }
 
-ColorSpaces::xyz ColorManipulation::color_converter::lab_to_xyz(ColorSpaces::lab color)
+ColorSpaces::xyz ColorManipulation::color_converter::lab_to_xyz(ColorSpaces::lab color, reference_white reference)
 {
-	return ColorSpaces::xyz();
+	auto f_y = (color.m_luminance + 16.f) / 116.f;
+	auto y_temp = lab_to_xyz_helper(color.m_luminance, true);
+	auto x_temp = lab_to_xyz_helper((color.m_a / 500.f) + f_y);
+	auto z_temp = lab_to_xyz_helper(f_y - (color.m_b / 200.f));
+	
+	return ColorSpaces::xyz(x_temp * reference.x, y_temp * reference.y, z_temp * reference.z);
 }
 
 float ColorManipulation::color_converter::xyz_to_lab_helper(float color_component)
@@ -516,5 +521,35 @@ float ColorManipulation::color_converter::xyz_to_lab_helper(float color_componen
 	else
 	{
 		return ((24389.f / 27.f) * color_component + 16.f) / 116.f;
+	}
+}
+
+float ColorManipulation::color_converter::lab_to_xyz_helper(float color_component, bool out_y_component)
+{
+	auto epsilon = 216.f / 24389.f;
+	auto k = 24389.f / 27.f;
+
+	if (out_y_component)
+	{
+		if (color_component > epsilon * k)
+		{
+			return std::powf(((color_component + 16.f) / 116.f), 3.f);
+		}
+		else
+		{
+			return color_component / k;
+		}
+	}
+	else
+	{
+		auto component = std::powf(color_component, 3.f);
+		if (component > epsilon)
+		{
+			return component;
+		}
+		else
+		{
+			return (116.f * color_component - 16.f) / k;
+		}
 	}
 }

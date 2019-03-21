@@ -120,5 +120,8 @@ namespace ColorManipulation
 		static ColorSpaces::hsv lab_to_hsv(ColorSpaces::lab color);
 		static ColorSpaces::hsl lab_to_hsl(ColorSpaces::lab color);
 		static ColorSpaces::xyz lab_to_xyz(ColorSpaces::lab color);
+
+	private:
+		static float xyz_to_lab_helper(float color_component);
 	};
 }

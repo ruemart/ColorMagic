@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "color_converter.h"
 
+#define N_ROOT(x, n) std::powf(x, 1.f / n)
 
 ColorManipulation::reference_white ColorManipulation::reference_white_presets::CIE_D50 = ColorManipulation::reference_white::reference_white(96.42f, 100.f, 82.51f);
 ColorManipulation::reference_white ColorManipulation::reference_white_presets::CIE_D55 = ColorManipulation::reference_white::reference_white(95.68f, 100.f, 92.14f);
@@ -178,7 +179,7 @@ ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::linear_srgb_deep_
 		}
 		else
 		{
-			component = std::powf(component * 1.055f, 1.f / 2.4f) - 0.055f;
+			component = N_ROOT(component * 1.055f, 2.4f) - 0.055f;
 		}
 	}
 
@@ -227,7 +228,7 @@ ColorSpaces::lab ColorManipulation::color_converter::grey_true_to_lab(ColorSpace
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::grey_deep_to_rgb_true(ColorSpaces::grey_deepcolor color)
 {
-	return ColorSpaces::rgb_truecolor((unsigned char)color.m_grey * 255, (unsigned char) color.m_alpha * 255);
+	return ColorSpaces::rgb_truecolor((unsigned char)color.m_grey * 255, (unsigned char)color.m_alpha * 255);
 }
 
 ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::grey_deep_to_rgb_deep(ColorSpaces::grey_deepcolor color)
@@ -309,7 +310,7 @@ ColorSpaces::lab ColorManipulation::color_converter::cmyk_to_lab(ColorSpaces::cm
 }
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::hsv_to_rgb_true(ColorSpaces::hsv color)
-{	
+{
 	return ColorManipulation::color_converter::rgb_deep_to_rgb_true(ColorManipulation::color_converter::hsv_to_rgb_deep(color));
 }
 
@@ -422,42 +423,48 @@ ColorSpaces::lab ColorManipulation::color_converter::hsl_to_lab(ColorSpaces::hsl
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::xyz_to_rgb_true(ColorSpaces::xyz color)
 {
-	return ColorSpaces::rgb_truecolor();
+	return ColorManipulation::color_converter::rgb_deep_to_rgb_true(ColorManipulation::color_converter::xyz_to_rgb_deep(color));
 }
 
 ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::xyz_to_rgb_deep(ColorSpaces::xyz color)
 {
-	return ColorSpaces::rgb_deepcolor();
+	auto r = color.m_x * 3.2404542f + color.m_y * -1.5371385f + color.m_z * 0.4985314f;
+	auto g = color.m_x * -0.9692660f + color.m_y * 1.8760108f + color.m_z * 0.0415560f;
+	auto b = color.m_x * 0.0556434f + color.m_y * -0.2040259f + color.m_z * 1.0572252f;
+	return ColorSpaces::rgb_deepcolor(linear_srgb_deep_to_rgb_deep(ColorSpaces::rgb_deepcolor(r, g, b)));
 }
 
 ColorSpaces::grey_truecolor ColorManipulation::color_converter::xyz_to_grey_true(ColorSpaces::xyz color)
 {
-	return ColorSpaces::grey_truecolor();
+	return ColorManipulation::color_converter::rgb_deep_to_grey_true(ColorManipulation::color_converter::xyz_to_rgb_deep(color));
 }
 
 ColorSpaces::grey_deepcolor ColorManipulation::color_converter::xyz_to_grey_deep(ColorSpaces::xyz color)
 {
-	return ColorSpaces::grey_deepcolor();
+	return ColorManipulation::color_converter::rgb_deep_to_grey_deep(ColorManipulation::color_converter::xyz_to_rgb_deep(color));
 }
 
 ColorSpaces::cmyk ColorManipulation::color_converter::xyz_to_cmyk(ColorSpaces::xyz color)
 {
-	return ColorSpaces::cmyk();
+	return ColorManipulation::color_converter::rgb_deep_to_cmyk(ColorManipulation::color_converter::xyz_to_rgb_deep(color));
 }
 
 ColorSpaces::hsv ColorManipulation::color_converter::xyz_to_hsv(ColorSpaces::xyz color)
 {
-	return ColorSpaces::hsv();
+	return ColorManipulation::color_converter::rgb_deep_to_hsv(ColorManipulation::color_converter::xyz_to_rgb_deep(color));
 }
 
 ColorSpaces::hsl ColorManipulation::color_converter::xyz_to_hsl(ColorSpaces::xyz color)
 {
-	return ColorSpaces::hsl();
+	return ColorManipulation::color_converter::rgb_deep_to_hsl(ColorManipulation::color_converter::xyz_to_rgb_deep(color));
 }
 
 ColorSpaces::lab ColorManipulation::color_converter::xyz_to_lab(ColorSpaces::xyz color, reference_white reference)
 {
-	return ColorSpaces::lab();
+	auto l = 116.f * xyz_to_lab_helper(color.m_y / reference.y) - 16.f;
+	auto a = 500.f * (xyz_to_lab_helper(color.m_x / reference.x) - xyz_to_lab_helper(color.m_y / reference.y));
+	auto b = 200.f * (xyz_to_lab_helper(color.m_y / reference.y) - xyz_to_lab_helper(color.m_z / reference.z));
+	return ColorSpaces::lab(l, a, b);
 }
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::lab_to_rgb_true(ColorSpaces::lab color)
@@ -498,4 +505,16 @@ ColorSpaces::hsl ColorManipulation::color_converter::lab_to_hsl(ColorSpaces::lab
 ColorSpaces::xyz ColorManipulation::color_converter::lab_to_xyz(ColorSpaces::lab color)
 {
 	return ColorSpaces::xyz();
+}
+
+float ColorManipulation::color_converter::xyz_to_lab_helper(float color_component)
+{
+	if (color_component > 216.f / 24389.f)
+	{
+		return N_ROOT(color_component, 3.f);
+	}
+	else
+	{
+		return ((24389.f / 27.f) * color_component + 16.f) / 116.f;
+	}
 }

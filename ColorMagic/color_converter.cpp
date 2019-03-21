@@ -267,42 +267,45 @@ ColorSpaces::lab ColorManipulation::color_converter::grey_deep_to_lab(ColorSpace
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::cmyk_to_rgb_true(ColorSpaces::cmyk color)
 {
-	return ColorSpaces::rgb_truecolor();
+	return ColorManipulation::color_converter::rgb_deep_to_rgb_true(ColorManipulation::color_converter::cmyk_to_rgb_deep(color));
 }
 
 ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::cmyk_to_rgb_deep(ColorSpaces::cmyk color)
 {
-	return ColorSpaces::rgb_deepcolor();
+	auto r = (1 - color.m_cyan) * (1 - color.m_black);
+	auto g = (1 - color.m_magenta) * (1 - color.m_black);
+	auto b = (1 - color.m_yellow) * (1 - color.m_black);
+	return ColorSpaces::rgb_deepcolor(r, g, b);
 }
 
 ColorSpaces::grey_truecolor ColorManipulation::color_converter::cmyk_to_grey_true(ColorSpaces::cmyk color)
 {
-	return ColorSpaces::grey_truecolor();
+	return ColorManipulation::color_converter::rgb_deep_to_grey_true(ColorManipulation::color_converter::cmyk_to_rgb_deep(color));
 }
 
 ColorSpaces::grey_deepcolor ColorManipulation::color_converter::cmyk_to_grey_deep(ColorSpaces::cmyk color)
 {
-	return ColorSpaces::grey_deepcolor();
+	return ColorManipulation::color_converter::rgb_deep_to_grey_deep(ColorManipulation::color_converter::cmyk_to_rgb_deep(color));
 }
 
 ColorSpaces::hsv ColorManipulation::color_converter::cmyk_to_hsv(ColorSpaces::cmyk color)
 {
-	return ColorSpaces::hsv();
+	return ColorManipulation::color_converter::rgb_deep_to_hsv(ColorManipulation::color_converter::cmyk_to_rgb_deep(color));
 }
 
 ColorSpaces::hsl ColorManipulation::color_converter::cmyk_to_hsl(ColorSpaces::cmyk color)
 {
-	return ColorSpaces::hsl();
+	return ColorManipulation::color_converter::rgb_deep_to_hsl(ColorManipulation::color_converter::cmyk_to_rgb_deep(color));
 }
 
 ColorSpaces::xyz ColorManipulation::color_converter::cmyk_to_xyz(ColorSpaces::cmyk color)
 {
-	return ColorSpaces::xyz();
+	return ColorManipulation::color_converter::rgb_deep_to_xyz(ColorManipulation::color_converter::cmyk_to_rgb_deep(color));
 }
 
 ColorSpaces::lab ColorManipulation::color_converter::cmyk_to_lab(ColorSpaces::cmyk color, reference_white reference)
 {
-	return ColorSpaces::lab();
+	return ColorManipulation::color_converter::rgb_deep_to_lab(ColorManipulation::color_converter::cmyk_to_rgb_deep(color), reference);
 }
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::hsv_to_rgb_true(ColorSpaces::hsv color)

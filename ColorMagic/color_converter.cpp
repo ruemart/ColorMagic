@@ -366,42 +366,58 @@ ColorSpaces::lab ColorManipulation::color_converter::hsv_to_lab(ColorSpaces::hsv
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::hsl_to_rgb_true(ColorSpaces::hsl color)
 {
-	return ColorSpaces::rgb_truecolor();
+	return ColorManipulation::color_converter::rgb_deep_to_rgb_true(ColorManipulation::color_converter::hsl_to_rgb_deep(color));
 }
 
 ColorSpaces::rgb_deepcolor ColorManipulation::color_converter::hsl_to_rgb_deep(ColorSpaces::hsl color)
 {
-	return ColorSpaces::rgb_deepcolor();
+	auto chroma = (1.f - std::abs(2.f * color.m_lightness - 1.f)) * color.m_saturation;
+	auto h_temp = (int)(color.m_hue / 60.f);
+	auto x = chroma * (1.f - std::abs((h_temp % 2) - 1.f));
+	auto m = color.m_lightness - chroma / 2.f;
+	float r_temp, g_temp, b_temp;
+	if (h_temp >= 0 && h_temp <= 1)		{ r_temp = chroma;	g_temp = x;			b_temp = 0.f; }
+	else if (h_temp > 1 && h_temp <= 2) { r_temp = x;		g_temp = chroma;	b_temp = 0.f; }
+	else if (h_temp > 2 && h_temp <= 3) { r_temp = 0.f;		g_temp = chroma;	b_temp = x; }
+	else if (h_temp > 3 && h_temp <= 4) { r_temp = 0.f;		g_temp = x;			b_temp = chroma; }
+	else if (h_temp > 4 && h_temp <= 5) { r_temp = x;		g_temp = 0.f;		b_temp = chroma; }
+	else if (h_temp > 5 && h_temp <= 6) { r_temp = chroma;	g_temp = 0.f;		b_temp = x; }
+	else								{ r_temp = 0.f;		g_temp = 0.f;		b_temp = 0.f; }
+	return ColorSpaces::rgb_deepcolor(r_temp + m, g_temp + m, b_temp + m);
 }
 
 ColorSpaces::grey_truecolor ColorManipulation::color_converter::hsl_to_grey_true(ColorSpaces::hsl color)
 {
-	return ColorSpaces::grey_truecolor();
+	return ColorManipulation::color_converter::rgb_deep_to_grey_true(ColorManipulation::color_converter::hsl_to_rgb_deep(color));
 }
 
 ColorSpaces::grey_deepcolor ColorManipulation::color_converter::hsl_to_grey_deep(ColorSpaces::hsl color)
 {
-	return ColorSpaces::grey_deepcolor();
+	return ColorManipulation::color_converter::rgb_deep_to_grey_deep(ColorManipulation::color_converter::hsl_to_rgb_deep(color));
 }
 
 ColorSpaces::cmyk ColorManipulation::color_converter::hsl_to_cmyk(ColorSpaces::hsl color)
 {
-	return ColorSpaces::cmyk();
+	return ColorManipulation::color_converter::rgb_deep_to_cmyk(ColorManipulation::color_converter::hsl_to_rgb_deep(color));
 }
 
 ColorSpaces::hsv ColorManipulation::color_converter::hsl_to_hsv(ColorSpaces::hsl color)
 {
-	return ColorSpaces::hsv();
+	color.m_lightness *= 2.f;
+	color.m_saturation *= (color.m_lightness <= 1.f) ? color.m_lightness : (2.f - color.m_lightness);
+	auto v = (color.m_lightness + color.m_saturation) / 2.f;
+	auto s = (2.f * color.m_saturation) / (color.m_lightness + color.m_saturation);
+	return ColorSpaces::hsv(color.m_hue, s, v);
 }
 
 ColorSpaces::xyz ColorManipulation::color_converter::hsl_to_xyz(ColorSpaces::hsl color)
 {
-	return ColorSpaces::xyz();
+	return ColorManipulation::color_converter::rgb_deep_to_xyz(ColorManipulation::color_converter::hsl_to_rgb_deep(color));
 }
 
 ColorSpaces::lab ColorManipulation::color_converter::hsl_to_lab(ColorSpaces::hsl color, reference_white reference)
 {
-	return ColorSpaces::lab();
+	return ColorManipulation::color_converter::rgb_deep_to_lab(ColorManipulation::color_converter::hsl_to_rgb_deep(color), reference);
 }
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::xyz_to_rgb_true(ColorSpaces::xyz color)

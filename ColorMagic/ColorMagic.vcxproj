@@ -148,13 +148,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="ColorMagic.h" />
     <ClInclude Include="ColorSpaces\cmyk.h" />
+    <ClInclude Include="ColorSpaces\color_type.h" />
     <ClInclude Include="ColorSpaces\grey_deepcolor.h" />
     <ClInclude Include="ColorSpaces\grey_truecolor.h" />
     <ClInclude Include="ColorSpaces\hsl.h" />
     <ClInclude Include="ColorSpaces\hsv.h" />
+    <ClInclude Include="ColorSpaces\icolor.h" />
     <ClInclude Include="ColorSpaces\lab.h" />
     <ClInclude Include="ColorSpaces\rgb_deepcolor.h" />
     <ClInclude Include="ColorSpaces\rgb_truecolor.h" />
@@ -164,7 +165,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="ColorMagic.cpp" />
     <ClCompile Include="ColorSpaces\cmyk.cpp" />
     <ClCompile Include="ColorSpaces\grey_deepcolor.cpp" />

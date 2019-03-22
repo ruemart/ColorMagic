@@ -21,12 +21,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ColorMagic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorConverter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ColorSpaces\cmyk.h">
       <Filter>ColorSpaces</Filter>
     </ClInclude>
@@ -60,15 +54,21 @@
     <ClInclude Include="color_converter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ColorMagic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorSpaces\icolor.h">
+      <Filter>ColorSpaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorSpaces\color_type.h">
+      <Filter>ColorSpaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ColorSpaces\cmyk.cpp">

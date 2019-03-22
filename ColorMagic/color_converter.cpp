@@ -30,7 +30,7 @@ ColorSpaces::icolor* ColorManipulation::color_converter::convertTo(ColorSpaces::
 	case ColorSpaces::color_type::HSL:
 		return ColorManipulation::color_converter::from_hsl(dynamic_cast<ColorSpaces::hsl*>(in_color), out_color);
 	case ColorSpaces::color_type::XYZ:
-		break;
+		return ColorManipulation::color_converter::from_xyz(dynamic_cast<ColorSpaces::xyz*>(in_color), out_color);
 	case ColorSpaces::color_type::LAB:
 		break;
 	default:
@@ -764,6 +764,33 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_hsl(ColorSpaces::
 		return ColorManipulation::color_converter::hsl_to_xyz(in_color);
 	case ColorSpaces::color_type::LAB:
 		return ColorManipulation::color_converter::hsl_to_lab(in_color);
+	default:
+		return nullptr;
+	}
+}
+
+ColorSpaces::icolor * ColorManipulation::color_converter::from_xyz(ColorSpaces::xyz * in_color, ColorSpaces::color_type out_type)
+{
+	switch (out_type)
+	{
+	case ColorSpaces::color_type::RGB_TRUE:
+		return ColorManipulation::color_converter::xyz_to_rgb_true(in_color);
+	case ColorSpaces::color_type::RGB_DEEP:
+		return ColorManipulation::color_converter::xyz_to_rgb_deep(in_color);
+	case ColorSpaces::color_type::GREY_TRUE:
+		return ColorManipulation::color_converter::xyz_to_grey_true(in_color);
+	case ColorSpaces::color_type::GREY_DEEP:
+		return ColorManipulation::color_converter::xyz_to_grey_deep(in_color);
+	case ColorSpaces::color_type::CMYK:
+		return ColorManipulation::color_converter::xyz_to_cmyk(in_color);
+	case ColorSpaces::color_type::HSV:
+		return ColorManipulation::color_converter::xyz_to_hsv(in_color);
+	case ColorSpaces::color_type::HSL:
+		return ColorManipulation::color_converter::xyz_to_hsl(in_color);
+	case ColorSpaces::color_type::XYZ:
+		return in_color;
+	case ColorSpaces::color_type::LAB:
+		return ColorManipulation::color_converter::xyz_to_lab(in_color);
 	default:
 		return nullptr;
 	}

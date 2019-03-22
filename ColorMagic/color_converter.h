@@ -130,5 +130,6 @@ namespace ColorManipulation
 		static float lab_to_xyz_helper(float color_component, bool out_y_component = false);
 
 		static ColorSpaces::icolor* from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_rgb_deep(ColorSpaces::rgb_deepcolor* in_color, ColorSpaces::color_type out_type);
 	};
 }

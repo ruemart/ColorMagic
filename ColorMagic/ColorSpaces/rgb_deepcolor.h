@@ -2,15 +2,9 @@
 
 #include <string>
 
-#ifdef COLORMAGIC_EXPORTS
-#define COLORMAGIC_API __declspec(dllexport)
-#else
-#define COLORMAGIC_API __declspec(dllimport)
-#endif
-
 namespace ColorSpaces
 {
-	class COLORMAGIC_API rgb_deepcolor
+	class rgb_deepcolor
 	{
 	public:
 		rgb_deepcolor();

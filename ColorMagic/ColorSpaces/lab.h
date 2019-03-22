@@ -2,12 +2,6 @@
 
 #include <string>
 
-#ifdef COLORMAGIC_EXPORTS
-#define COLORMAGIC_API __declspec(dllexport)
-#else
-#define COLORMAGIC_API __declspec(dllimport)
-#endif
-
 namespace ColorSpaces
 {
 	class lab

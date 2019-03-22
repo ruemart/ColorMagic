@@ -3,15 +3,9 @@
 #include <string>
 #include <vector>
 
-#ifdef COLORMAGIC_EXPORTS
-#define COLORMAGIC_API __declspec(dllexport)
-#else
-#define COLORMAGIC_API __declspec(dllimport)
-#endif
-
 namespace ColorSpaces
 {
-	class COLORMAGIC_API grey_truecolor
+	class grey_truecolor
 	{
 	public:
 		grey_truecolor();

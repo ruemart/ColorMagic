@@ -40,7 +40,18 @@ namespace ColorManipulation
 	{
 	public:
 		static ColorSpaces::icolor* convertTo(ColorSpaces::icolor* in_color, ColorSpaces::color_type out_color);
-		
+
+		static ColorSpaces::icolor* from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_rgb_deep(ColorSpaces::rgb_deepcolor* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_grey_true(ColorSpaces::grey_truecolor* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_grey_deep(ColorSpaces::grey_deepcolor* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_cmyk(ColorSpaces::cmyk* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_hsv(ColorSpaces::hsv* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_hsl(ColorSpaces::hsl* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_xyz(ColorSpaces::xyz* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_lab(ColorSpaces::lab* in_color, ColorSpaces::color_type out_type);
+
+	protected:
 		static ColorSpaces::rgb_truecolor* hexcode_to_rgb_true(std::string hex_code);
 		static ColorSpaces::rgb_deepcolor* rgb_true_to_rgb_deep(ColorSpaces::rgb_truecolor* color);
 		static ColorSpaces::grey_truecolor* rgb_true_to_grey_true(ColorSpaces::rgb_truecolor* color);
@@ -128,15 +139,5 @@ namespace ColorManipulation
 	private:
 		static float xyz_to_lab_helper(float color_component);
 		static float lab_to_xyz_helper(float color_component, bool out_y_component = false);
-
-		static ColorSpaces::icolor* from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type);
-		static ColorSpaces::icolor* from_rgb_deep(ColorSpaces::rgb_deepcolor* in_color, ColorSpaces::color_type out_type);
-		static ColorSpaces::icolor* from_grey_true(ColorSpaces::grey_truecolor* in_color, ColorSpaces::color_type out_type);
-		static ColorSpaces::icolor* from_grey_deep(ColorSpaces::grey_deepcolor* in_color, ColorSpaces::color_type out_type);
-		static ColorSpaces::icolor* from_cmyk(ColorSpaces::cmyk* in_color, ColorSpaces::color_type out_type);
-		static ColorSpaces::icolor* from_hsv(ColorSpaces::hsv* in_color, ColorSpaces::color_type out_type);
-		static ColorSpaces::icolor* from_hsl(ColorSpaces::hsl* in_color, ColorSpaces::color_type out_type);
-		static ColorSpaces::icolor* from_xyz(ColorSpaces::xyz* in_color, ColorSpaces::color_type out_type);
-		static ColorSpaces::icolor* from_lab(ColorSpaces::lab* in_color, ColorSpaces::color_type out_type);
 	};
 }

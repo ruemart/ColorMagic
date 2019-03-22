@@ -20,7 +20,7 @@ ColorSpaces::icolor* ColorManipulation::color_converter::convertTo(ColorSpaces::
 	case ColorSpaces::color_type::RGB_DEEP:
 		return ColorManipulation::color_converter::from_rgb_deep(dynamic_cast<ColorSpaces::rgb_deepcolor*>(in_color), out_color);
 	case ColorSpaces::color_type::GREY_TRUE:
-		break;
+		return ColorManipulation::color_converter::from_grey_true(dynamic_cast<ColorSpaces::grey_truecolor*>(in_color), out_color);
 	case ColorSpaces::color_type::GREY_DEEP:
 		break;
 	case ColorSpaces::color_type::CMYK:
@@ -629,6 +629,33 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_rgb_deep(ColorSpa
 		return ColorManipulation::color_converter::rgb_deep_to_xyz(in_color);
 	case ColorSpaces::color_type::LAB:
 		return ColorManipulation::color_converter::rgb_deep_to_lab(in_color);
+	default:
+		return nullptr;
+	}
+}
+
+ColorSpaces::icolor * ColorManipulation::color_converter::from_grey_true(ColorSpaces::grey_truecolor * in_color, ColorSpaces::color_type out_type)
+{
+	switch (out_type)
+	{
+	case ColorSpaces::color_type::RGB_TRUE:
+		return ColorManipulation::color_converter::grey_true_to_rgb_true(in_color);
+	case ColorSpaces::color_type::RGB_DEEP:
+		return ColorManipulation::color_converter::grey_true_to_rgb_deep(in_color);
+	case ColorSpaces::color_type::GREY_TRUE:
+		return in_color;
+	case ColorSpaces::color_type::GREY_DEEP:
+		return ColorManipulation::color_converter::grey_true_to_grey_deep(in_color);
+	case ColorSpaces::color_type::CMYK:
+		return ColorManipulation::color_converter::grey_true_to_cmyk(in_color);
+	case ColorSpaces::color_type::HSV:
+		return ColorManipulation::color_converter::grey_true_to_hsv(in_color);
+	case ColorSpaces::color_type::HSL:
+		return ColorManipulation::color_converter::grey_true_to_hsl(in_color);
+	case ColorSpaces::color_type::XYZ:
+		return ColorManipulation::color_converter::grey_true_to_xyz(in_color);
+	case ColorSpaces::color_type::LAB:
+		return ColorManipulation::color_converter::grey_true_to_lab(in_color);
 	default:
 		return nullptr;
 	}

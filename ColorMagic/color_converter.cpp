@@ -81,7 +81,7 @@ ColorSpaces::lab ColorManipulation::color_converter::rgb_true_to_lab(ColorSpaces
 
 ColorSpaces::rgb_truecolor ColorManipulation::color_converter::rgb_deep_to_rgb_true(ColorSpaces::rgb_deepcolor color)
 {
-	return ColorSpaces::rgb_truecolor(color.m_red * 255.f, color.m_green * 255.f, color.m_blue * 255.f, color.m_alpha * 255.f);
+	return ColorSpaces::rgb_truecolor((unsigned char)color.m_red * 255, (unsigned char)color.m_green * 255, (unsigned char)color.m_blue * 255, (unsigned char)color.m_alpha * 255);
 }
 
 ColorSpaces::grey_truecolor ColorManipulation::color_converter::rgb_deep_to_grey_true(ColorSpaces::rgb_deepcolor color)

@@ -27,7 +27,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -89,7 +89,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;COLORMAGIC_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -148,13 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ColorConverter.h" />
-    <ClInclude Include="ColorMagic.h" />
     <ClInclude Include="ColorSpaces\cmyk.h" />
+    <ClInclude Include="ColorSpaces\color_type.h" />
     <ClInclude Include="ColorSpaces\grey_deepcolor.h" />
     <ClInclude Include="ColorSpaces\grey_truecolor.h" />
     <ClInclude Include="ColorSpaces\hsl.h" />
     <ClInclude Include="ColorSpaces\hsv.h" />
+    <ClInclude Include="ColorSpaces\icolor.h" />
     <ClInclude Include="ColorSpaces\lab.h" />
     <ClInclude Include="ColorSpaces\rgb_deepcolor.h" />
     <ClInclude Include="ColorSpaces\rgb_truecolor.h" />
@@ -164,7 +163,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="ColorMagic.cpp" />
     <ClCompile Include="ColorSpaces\cmyk.cpp" />
     <ClCompile Include="ColorSpaces\grey_deepcolor.cpp" />

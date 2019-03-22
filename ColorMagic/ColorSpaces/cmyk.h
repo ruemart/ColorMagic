@@ -1,22 +1,20 @@
 #pragma once
 
+#include "icolor.h"
 #include <string>
-
-#ifdef COLORMAGIC_EXPORTS
-#define COLORMAGIC_API __declspec(dllexport)
-#else
-#define COLORMAGIC_API __declspec(dllimport)
-#endif
 
 namespace ColorSpaces
 {
-	class COLORMAGIC_API cmyk
+	class cmyk : public icolor
 	{
 	public:
 		cmyk();
 		cmyk(float value);
 		cmyk(float cyan, float magenta, float yellow, float black);
 		cmyk(const cmyk& other);
+
+		color_type get_color_type() override { return color_type::CMYK; }
+
 		cmyk& operator=(const cmyk& other);
 		friend bool operator==(const cmyk& lhs, const cmyk& rhs);
 		friend bool operator!=(const cmyk& lhs, const cmyk& rhs);

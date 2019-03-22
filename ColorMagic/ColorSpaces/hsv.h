@@ -1,21 +1,19 @@
 #pragma once
 
+#include "icolor.h"
 #include <string>
-
-#ifdef COLORMAGIC_EXPORTS
-#define COLORMAGIC_API __declspec(dllexport)
-#else
-#define COLORMAGIC_API __declspec(dllimport)
-#endif
 
 namespace ColorSpaces
 {
-	class COLORMAGIC_API hsv
+	class hsv : public icolor
 	{
 	public:
 		hsv();
 		hsv(float hue, float saturation, float value);
 		hsv(const hsv& other);
+
+		color_type get_color_type() override { return color_type::HSV; }
+
 		hsv& operator=(const hsv& other);
 		friend bool operator==(const hsv& lhs, const hsv& rhs);
 		friend bool operator!=(const hsv& lhs, const hsv& rhs);

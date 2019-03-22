@@ -40,7 +40,7 @@ namespace ColorManipulation
 	{
 	public:
 		static ColorSpaces::icolor* convertTo(ColorSpaces::icolor* in_color, ColorSpaces::color_type out_color, reference_white reference = reference_white_presets::CIE_D65);
-
+		static ColorSpaces::icolor* from_hexcode(std::string hex_code, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 		static ColorSpaces::icolor* from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 		static ColorSpaces::icolor* from_rgb_deep(ColorSpaces::rgb_deepcolor* in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 		static ColorSpaces::icolor* from_grey_true(ColorSpaces::grey_truecolor* in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65);

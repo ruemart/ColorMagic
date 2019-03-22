@@ -580,6 +580,11 @@ float ColorManipulation::color_converter::lab_to_xyz_helper(float color_componen
 	}
 }
 
+ColorSpaces::icolor * ColorManipulation::color_converter::from_hexcode(std::string hex_code, ColorSpaces::color_type out_type, reference_white reference)
+{
+	return ColorManipulation::color_converter::from_rgb_true(ColorManipulation::color_converter::hexcode_to_rgb_true(hex_code), out_type, reference);
+}
+
 ColorSpaces::icolor* ColorManipulation::color_converter::from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
 {
 	switch (out_type)

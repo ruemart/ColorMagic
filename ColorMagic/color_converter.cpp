@@ -11,6 +11,32 @@ ColorManipulation::reference_white ColorManipulation::reference_white_presets::C
 ColorManipulation::reference_white ColorManipulation::reference_white_presets::Equal_Energy_Radiator = ColorManipulation::reference_white::reference_white(100.f, 100.f, 100.f);
 ColorManipulation::reference_white ColorManipulation::reference_white_presets::ICC = ColorManipulation::reference_white::reference_white(96.42f, 100.f, 82.49f);
 
+ColorSpaces::icolor* ColorManipulation::color_converter::convertTo(ColorSpaces::icolor* in_color, ColorSpaces::color_type out_color)
+{
+	switch (in_color->get_color_type())
+	{
+	case ColorSpaces::color_type::RGB_TRUE:
+		return ColorManipulation::color_converter::from_rgb_true(dynamic_cast<ColorSpaces::rgb_truecolor*>(in_color), out_color);
+	case ColorSpaces::color_type::RGB_DEEP:
+		break;
+	case ColorSpaces::color_type::GREY_TRUE:
+		break;
+	case ColorSpaces::color_type::GREY_DEEP:
+		break;
+	case ColorSpaces::color_type::CMYK:
+		break;
+	case ColorSpaces::color_type::HSV:
+		break;
+	case ColorSpaces::color_type::HSL:
+		break;
+	case ColorSpaces::color_type::XYZ:
+		break;
+	case ColorSpaces::color_type::LAB:
+		break;
+	default:
+		return nullptr;
+	}
+}
 
 ColorSpaces::rgb_truecolor* ColorManipulation::color_converter::hexcode_to_rgb_true(std::string hex_code)
 {
@@ -551,5 +577,32 @@ float ColorManipulation::color_converter::lab_to_xyz_helper(float color_componen
 		{
 			return (116.f * color_component - 16.f) / k;
 		}
+	}
+}
+
+ColorSpaces::icolor* ColorManipulation::color_converter::from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type)
+{
+	switch (out_type)
+	{
+	case ColorSpaces::color_type::RGB_TRUE:
+		return in_color;
+	case ColorSpaces::color_type::RGB_DEEP:
+		return ColorManipulation::color_converter::rgb_true_to_rgb_deep(in_color);
+	case ColorSpaces::color_type::GREY_TRUE:
+		return ColorManipulation::color_converter::rgb_true_to_grey_true(in_color);
+	case ColorSpaces::color_type::GREY_DEEP:
+		return ColorManipulation::color_converter::rgb_true_to_grey_deep(in_color);
+	case ColorSpaces::color_type::CMYK:
+		return ColorManipulation::color_converter::rgb_true_to_cmyk(in_color);
+	case ColorSpaces::color_type::HSV:
+		return ColorManipulation::color_converter::rgb_true_to_hsv(in_color);
+	case ColorSpaces::color_type::HSL:
+		return ColorManipulation::color_converter::rgb_true_to_hsl(in_color);
+	case ColorSpaces::color_type::XYZ:
+		return ColorManipulation::color_converter::rgb_true_to_xyz(in_color);
+	case ColorSpaces::color_type::LAB:
+		return ColorManipulation::color_converter::rgb_true_to_lab(in_color);
+	default:
+		return nullptr;
 	}
 }

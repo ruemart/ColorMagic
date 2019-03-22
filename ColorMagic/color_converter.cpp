@@ -11,7 +11,7 @@ ColorManipulation::reference_white ColorManipulation::reference_white_presets::C
 ColorManipulation::reference_white ColorManipulation::reference_white_presets::Equal_Energy_Radiator = ColorManipulation::reference_white::reference_white(100.f, 100.f, 100.f);
 ColorManipulation::reference_white ColorManipulation::reference_white_presets::ICC = ColorManipulation::reference_white::reference_white(96.42f, 100.f, 82.49f);
 
-ColorSpaces::icolor* ColorManipulation::color_converter::convertTo(ColorSpaces::icolor* in_color, ColorSpaces::color_type out_color, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor* ColorManipulation::color_converter::convertTo(ColorSpaces::icolor* in_color, ColorSpaces::color_type out_color, reference_white reference)
 {
 	switch (in_color->get_color_type())
 	{
@@ -585,7 +585,7 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_hexcode(std::stri
 	return ColorManipulation::color_converter::from_rgb_true(ColorManipulation::color_converter::hexcode_to_rgb_true(hex_code), out_type, reference);
 }
 
-ColorSpaces::icolor* ColorManipulation::color_converter::from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor* ColorManipulation::color_converter::from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -612,7 +612,7 @@ ColorSpaces::icolor* ColorManipulation::color_converter::from_rgb_true(ColorSpac
 	}
 }
 
-ColorSpaces::icolor * ColorManipulation::color_converter::from_rgb_deep(ColorSpaces::rgb_deepcolor * in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor * ColorManipulation::color_converter::from_rgb_deep(ColorSpaces::rgb_deepcolor * in_color, ColorSpaces::color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -639,7 +639,7 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_rgb_deep(ColorSpa
 	}
 }
 
-ColorSpaces::icolor * ColorManipulation::color_converter::from_grey_true(ColorSpaces::grey_truecolor * in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor * ColorManipulation::color_converter::from_grey_true(ColorSpaces::grey_truecolor * in_color, ColorSpaces::color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -666,7 +666,7 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_grey_true(ColorSp
 	}
 }
 
-ColorSpaces::icolor * ColorManipulation::color_converter::from_grey_deep(ColorSpaces::grey_deepcolor * in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor * ColorManipulation::color_converter::from_grey_deep(ColorSpaces::grey_deepcolor * in_color, ColorSpaces::color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -693,7 +693,7 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_grey_deep(ColorSp
 	}
 }
 
-ColorSpaces::icolor * ColorManipulation::color_converter::from_cmyk(ColorSpaces::cmyk * in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor * ColorManipulation::color_converter::from_cmyk(ColorSpaces::cmyk * in_color, ColorSpaces::color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -720,7 +720,7 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_cmyk(ColorSpaces:
 	}
 }
 
-ColorSpaces::icolor * ColorManipulation::color_converter::from_hsv(ColorSpaces::hsv * in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor * ColorManipulation::color_converter::from_hsv(ColorSpaces::hsv * in_color, ColorSpaces::color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -747,7 +747,7 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_hsv(ColorSpaces::
 	}
 }
 
-ColorSpaces::icolor * ColorManipulation::color_converter::from_hsl(ColorSpaces::hsl * in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor * ColorManipulation::color_converter::from_hsl(ColorSpaces::hsl * in_color, ColorSpaces::color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -774,7 +774,7 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_hsl(ColorSpaces::
 	}
 }
 
-ColorSpaces::icolor * ColorManipulation::color_converter::from_xyz(ColorSpaces::xyz * in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor * ColorManipulation::color_converter::from_xyz(ColorSpaces::xyz * in_color, ColorSpaces::color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -801,7 +801,7 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_xyz(ColorSpaces::
 	}
 }
 
-ColorSpaces::icolor * ColorManipulation::color_converter::from_lab(ColorSpaces::lab * in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65)
+ColorSpaces::icolor * ColorManipulation::color_converter::from_lab(ColorSpaces::lab * in_color, ColorSpaces::color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{

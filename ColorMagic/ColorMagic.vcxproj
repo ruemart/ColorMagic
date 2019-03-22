@@ -148,7 +148,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ColorMagic.h" />
     <ClInclude Include="ColorSpaces\cmyk.h" />
     <ClInclude Include="ColorSpaces\color_type.h" />
     <ClInclude Include="ColorSpaces\grey_deepcolor.h" />

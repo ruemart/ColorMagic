@@ -1,10 +1,11 @@
 #pragma once
 
+#include "icolor.h"
 #include <string>
 
 namespace ColorSpaces
 {
-	class cmyk
+	class cmyk : public icolor
 	{
 	public:
 		cmyk();

@@ -54,9 +54,6 @@
     <ClInclude Include="color_converter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ColorMagic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ColorSpaces\icolor.h">
       <Filter>ColorSpaces</Filter>
     </ClInclude>

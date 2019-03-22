@@ -133,5 +133,6 @@ namespace ColorManipulation
 		static ColorSpaces::icolor* from_rgb_deep(ColorSpaces::rgb_deepcolor* in_color, ColorSpaces::color_type out_type);
 		static ColorSpaces::icolor* from_grey_true(ColorSpaces::grey_truecolor* in_color, ColorSpaces::color_type out_type);
 		static ColorSpaces::icolor* from_grey_deep(ColorSpaces::grey_deepcolor* in_color, ColorSpaces::color_type out_type);
+		static ColorSpaces::icolor* from_cmyk(ColorSpaces::cmyk* in_color, ColorSpaces::color_type out_type);
 	};
 }

@@ -24,7 +24,7 @@ ColorSpaces::icolor* ColorManipulation::color_converter::convertTo(ColorSpaces::
 	case ColorSpaces::color_type::GREY_DEEP:
 		return ColorManipulation::color_converter::from_grey_deep(dynamic_cast<ColorSpaces::grey_deepcolor*>(in_color), out_color);
 	case ColorSpaces::color_type::CMYK:
-		break;
+		return ColorManipulation::color_converter::from_cmyk(dynamic_cast<ColorSpaces::cmyk*>(in_color), out_color);
 	case ColorSpaces::color_type::HSV:
 		break;
 	case ColorSpaces::color_type::HSL:
@@ -683,6 +683,33 @@ ColorSpaces::icolor * ColorManipulation::color_converter::from_grey_deep(ColorSp
 		return ColorManipulation::color_converter::grey_deep_to_xyz(in_color);
 	case ColorSpaces::color_type::LAB:
 		return ColorManipulation::color_converter::grey_deep_to_lab(in_color);
+	default:
+		return nullptr;
+	}
+}
+
+ColorSpaces::icolor * ColorManipulation::color_converter::from_cmyk(ColorSpaces::cmyk * in_color, ColorSpaces::color_type out_type)
+{
+	switch (out_type)
+	{
+	case ColorSpaces::color_type::RGB_TRUE:
+		return ColorManipulation::color_converter::cmyk_to_rgb_true(in_color);
+	case ColorSpaces::color_type::RGB_DEEP:
+		return ColorManipulation::color_converter::cmyk_to_rgb_deep(in_color);
+	case ColorSpaces::color_type::GREY_TRUE:
+		return ColorManipulation::color_converter::cmyk_to_grey_true(in_color);
+	case ColorSpaces::color_type::GREY_DEEP:
+		return ColorManipulation::color_converter::cmyk_to_grey_deep(in_color);
+	case ColorSpaces::color_type::CMYK:
+		return in_color;
+	case ColorSpaces::color_type::HSV:
+		return ColorManipulation::color_converter::cmyk_to_hsv(in_color);
+	case ColorSpaces::color_type::HSL:
+		return ColorManipulation::color_converter::cmyk_to_hsl(in_color);
+	case ColorSpaces::color_type::XYZ:
+		return ColorManipulation::color_converter::cmyk_to_xyz(in_color);
+	case ColorSpaces::color_type::LAB:
+		return ColorManipulation::color_converter::cmyk_to_lab(in_color);
 	default:
 		return nullptr;
 	}

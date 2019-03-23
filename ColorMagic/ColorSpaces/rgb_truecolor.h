@@ -13,6 +13,8 @@ namespace ColorSpaces
 		rgb_truecolor(unsigned char value, unsigned char alpha);
 		rgb_truecolor(unsigned char r, unsigned char g, unsigned char b);
 		rgb_truecolor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+		rgb_truecolor(std::string hex_code);
+		rgb_truecolor(int hex_code);
 		rgb_truecolor(const rgb_truecolor& other);
 
 		color_type get_color_type() override { return color_type::RGB_TRUE; }

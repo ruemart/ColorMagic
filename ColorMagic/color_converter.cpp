@@ -38,31 +38,6 @@ ColorSpaces::icolor* ColorManipulation::color_converter::convertTo(ColorSpaces::
 	}
 }
 
-ColorSpaces::rgb_truecolor* ColorManipulation::color_converter::hexcode_to_rgb_true(std::string hex_code)
-{
-	if (hex_code[0] == '#')
-	{
-		hex_code = hex_code.substr(1);
-	}
-
-	unsigned short r, g, b, a;
-	if (hex_code.length() == 6)
-	{
-		scanf_s(hex_code.c_str(), "%02x%02x%02x", &r, &g, &b);
-		a = 255;
-	}
-	else if (hex_code.length() == 8)
-	{
-		scanf_s(hex_code.c_str(), "%02x%02x%02x", &r, &g, &b, &a);
-	}
-	else
-	{
-		throw std::invalid_argument("Wrong hex code format. Use one of the following formats: #AARRGGBB, #RRGGBB, AARRGGBB, RRGGBB");
-	}
-
-	return new ColorSpaces::rgb_truecolor((unsigned char)r, (unsigned char)g, (unsigned char)b, (unsigned char)a);
-}
-
 ColorSpaces::rgb_deepcolor* ColorManipulation::color_converter::rgb_true_to_rgb_deep(ColorSpaces::rgb_truecolor* color)
 {
 	return new ColorSpaces::rgb_deepcolor(color->m_red / 255.f, color->m_green / 255.f, color->m_blue / 255.f, color->m_alpha / 255.f);
@@ -578,11 +553,6 @@ float ColorManipulation::color_converter::lab_to_xyz_helper(float color_componen
 			return (116.f * color_component - 16.f) / k;
 		}
 	}
-}
-
-ColorSpaces::icolor * ColorManipulation::color_converter::from_hexcode(std::string hex_code, ColorSpaces::color_type out_type, reference_white reference)
-{
-	return ColorManipulation::color_converter::from_rgb_true(ColorManipulation::color_converter::hexcode_to_rgb_true(hex_code), out_type, reference);
 }
 
 ColorSpaces::icolor* ColorManipulation::color_converter::from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type, reference_white reference)

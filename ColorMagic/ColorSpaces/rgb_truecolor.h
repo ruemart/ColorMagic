@@ -2,6 +2,7 @@
 
 #include "icolor.h"
 #include <string>
+#include <regex>
 
 namespace ColorSpaces
 {

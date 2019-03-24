@@ -72,3 +72,11 @@ TEST_F(RGB_True_Test, Constructor_Tests)
 	EXPECT_EQ(*yellow, *(new rgb_truecolor(*yellow)));
 }
 
+TEST_F(RGB_True_Test, Operator_Tests)
+{
+	auto blue = new rgb_truecolor((unsigned char)0, (unsigned char)0, (unsigned char)255, (unsigned char)255);
+	EXPECT_TRUE(*blue != *red);
+	blue = red;
+	EXPECT_TRUE(*blue == *red);
+	delete blue;
+}

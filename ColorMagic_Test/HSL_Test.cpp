@@ -1,0 +1,42 @@
+#include "gtest\gtest.h"
+#include "pch.h"
+#include "..\ColorMagic\ColorSpaces\icolor.h"
+#include "..\ColorMagic\ColorSpaces\hsl.h"
+
+using namespace ColorSpaces;
+
+class HSL_Test : public ::testing::Test {
+protected:
+	hsl* yellow;
+	hsl* black;
+	hsl* white;
+
+	virtual void SetUp()
+	{
+		yellow = new hsl(60.f, 1.f, 0.5f);
+		black = new hsl(0.f, 0.f, 0.f);
+		white = new hsl(0.f, 0.f, 1.f);
+	}
+
+	virtual void TearDown()
+	{
+		delete yellow;
+		delete black;
+		delete white;
+	}
+};
+
+TEST_F(HSL_Test, Constructor_Tests)
+{
+	EXPECT_EQ(*black, *(new hsl()));
+	EXPECT_EQ(*yellow, *(new hsl(60.f, 1.f, 0.5f)));
+	EXPECT_EQ(*white, *(new hsl(0.f, 0.f, 1.f)));
+}
+
+TEST_F(HSL_Test, Operator_Tests)
+{
+	auto blue = new hsl(240.f, 1.f, 0.5f);
+	EXPECT_TRUE(*blue != *yellow);
+	blue = yellow;
+	EXPECT_TRUE(*blue == *yellow);
+}

@@ -61,3 +61,14 @@ TEST_F(RGB_True_Test, From_HexString_Tests)
 	EXPECT_EQ(*white, *(new rgb_truecolor("FFFFFFFF")));
 	EXPECT_EQ(*transparent, *(new rgb_truecolor("00FFFFFF")));
 }
+
+TEST_F(RGB_True_Test, Constructor_Tests)
+{
+	EXPECT_EQ(*black, *(new rgb_truecolor()));
+	EXPECT_EQ(*white, *(new rgb_truecolor((unsigned char)255)));
+	EXPECT_EQ(*transparent, *(new rgb_truecolor((unsigned char)255, (unsigned char)0)));
+	EXPECT_EQ(*yellow, *(new rgb_truecolor((unsigned char)255, (unsigned char)255, (unsigned char)0)));
+	EXPECT_EQ(*yellow, *(new rgb_truecolor((unsigned char)255, (unsigned char)255, (unsigned char)0, (unsigned char)255)));
+	EXPECT_EQ(*yellow, *(new rgb_truecolor(*yellow)));
+}
+

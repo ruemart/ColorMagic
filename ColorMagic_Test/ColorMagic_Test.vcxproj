@@ -41,6 +41,7 @@
     <ClCompile Include="Grey_True_Test.cpp" />
     <ClCompile Include="HSL_Test.cpp" />
     <ClCompile Include="HSV_Test.cpp" />
+    <ClCompile Include="Lab_Test.cpp" />
     <ClCompile Include="RGB_Deep_Test.cpp" />
     <ClCompile Include="RGB_True_Test.cpp" />
     <ClCompile Include="Main_TestAll.cpp" />

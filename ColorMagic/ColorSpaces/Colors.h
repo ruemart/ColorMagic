@@ -164,6 +164,8 @@ class Color
 {
 public:
 	Color(HexcodeColors hex_code) { base = new ColorSpaces::rgb_truecolor(hex_code); }
+	Color() = delete;
+	Color(Color& other) = delete;
 
 	inline ColorSpaces::rgb_truecolor* get_rgb_true() { return base; }
 	inline ColorSpaces::rgb_deepcolor* get_rgb_deep() { return dynamic_cast<ColorSpaces::rgb_deepcolor*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::RGB_DEEP)); }
@@ -175,5 +177,5 @@ public:
 	inline ColorSpaces::xyz* get_xyz() { return dynamic_cast<ColorSpaces::xyz*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::XYZ)); }
 	inline ColorSpaces::lab* get_lab() { return dynamic_cast<ColorSpaces::lab*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::LAB)); }
 private:
-	static ColorSpaces::rgb_truecolor* base;
+	ColorSpaces::rgb_truecolor* base;
 };

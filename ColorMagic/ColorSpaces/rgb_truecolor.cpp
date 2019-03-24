@@ -13,6 +13,13 @@ ColorSpaces::rgb_truecolor::rgb_truecolor(unsigned char r, unsigned char g, unsi
 
 ColorSpaces::rgb_truecolor::rgb_truecolor(std::string hex_code) 
 {
+	std::regex regex("^[#0-9A-Fa-f]+$");
+
+	if (!std::regex_match(hex_code, regex))
+	{
+		throw std::invalid_argument(std::string("The given hex code '" + hex_code + "' contains illegal values. Allowed are only numbers (0-9) and digits (a-f or A-F)."));
+	}
+
 	if (hex_code[0] == '#')
 	{
 		hex_code = hex_code.substr(1);
@@ -20,12 +27,21 @@ ColorSpaces::rgb_truecolor::rgb_truecolor(std::string hex_code)
 
 	if (hex_code.length() == 6)
 	{
-		scanf_s(hex_code.c_str(), "%02x%02x%02x", &m_red, &m_green, &m_blue);
+		int r, g, b;
+		sscanf_s(hex_code.c_str(), "%02x%02x%02x", &r, &g, &b);
 		m_alpha = 255;
+		m_red = (unsigned char)r;
+		m_green = (unsigned char)g;
+		m_blue = (unsigned char)b;
 	}
 	else if (hex_code.length() == 8)
 	{
-		scanf_s(hex_code.c_str(), "%02x%02x%02x", &m_red, &m_green, &m_blue, &m_alpha);
+		int a, r, g, b;
+		sscanf_s(hex_code.c_str(), "%02x%02x%02x%02x", &a, &r, &g, &b);
+		m_alpha = (unsigned char)a;
+		m_red = (unsigned char)r;
+		m_green = (unsigned char)g;
+		m_blue = (unsigned char)b;
 	}
 	else
 	{

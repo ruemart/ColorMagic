@@ -48,5 +48,4 @@ TEST_F(RGB_Deep_Test, Operator_Tests)
 	EXPECT_TRUE(*blue != *red);
 	blue = red;
 	EXPECT_TRUE(*blue == *red);
-	delete blue;
 }

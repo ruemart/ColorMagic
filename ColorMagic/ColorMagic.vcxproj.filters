@@ -60,6 +60,9 @@
     <ClInclude Include="ColorSpaces\color_type.h">
       <Filter>ColorSpaces</Filter>
     </ClInclude>
+    <ClInclude Include="ColorSpaces\Colors.h">
+      <Filter>ColorSpaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">

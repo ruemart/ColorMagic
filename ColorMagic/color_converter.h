@@ -40,7 +40,6 @@ namespace ColorManipulation
 	{
 	public:
 		static ColorSpaces::icolor* convertTo(ColorSpaces::icolor* in_color, ColorSpaces::color_type out_color, reference_white reference = reference_white_presets::CIE_D65);
-		static ColorSpaces::icolor* from_hexcode(std::string hex_code, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 		static ColorSpaces::icolor* from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 		static ColorSpaces::icolor* from_rgb_deep(ColorSpaces::rgb_deepcolor* in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 		static ColorSpaces::icolor* from_grey_true(ColorSpaces::grey_truecolor* in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
@@ -52,7 +51,6 @@ namespace ColorManipulation
 		static ColorSpaces::icolor* from_lab(ColorSpaces::lab* in_color, ColorSpaces::color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 
 	protected:
-		static ColorSpaces::rgb_truecolor* hexcode_to_rgb_true(std::string hex_code);
 		static ColorSpaces::rgb_deepcolor* rgb_true_to_rgb_deep(ColorSpaces::rgb_truecolor* color);
 		static ColorSpaces::grey_truecolor* rgb_true_to_grey_true(ColorSpaces::rgb_truecolor* color);
 		static ColorSpaces::grey_deepcolor* rgb_true_to_grey_deep(ColorSpaces::rgb_truecolor* color);

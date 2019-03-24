@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ColorSpaces\cmyk.h" />
+    <ClInclude Include="ColorSpaces\Colors.h" />
     <ClInclude Include="ColorSpaces\color_type.h" />
     <ClInclude Include="ColorSpaces\grey_deepcolor.h" />
     <ClInclude Include="ColorSpaces\grey_truecolor.h" />

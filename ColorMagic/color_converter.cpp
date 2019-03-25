@@ -115,18 +115,22 @@ ColorSpaces::hsv* ColorManipulation::color_converter::rgb_deep_to_hsv(ColorSpace
 	}
 	else
 	{
-		float delta;
-		if (min == color->m_red) delta = color->m_green - color->m_blue;
-		else if (min == color->m_green) delta = color->m_blue - color->m_red;
-		else delta = color->m_red - color->m_green;
+		float delta = max - min;
+		int hue;
+		if (max == color->m_red)
+		{
+			hue = 60 * (((int)((color->m_green - color->m_blue) / delta)) % 6);
+		}
+		else if (max == color->m_green)
+		{
+			hue = 60 * (int)(((color->m_blue - color->m_red) / delta) + 2);
+		}
+		else 
+		{
+			hue = 60 * (int)(((color->m_red - color->m_green) / delta) + 4);
+		}
 
-		float temp_h;
-		if (min == color->m_red) temp_h = 3.f;
-		else if (min == color->m_green) temp_h = 1.f;
-		else temp_h = 5.f;
-
-		auto hue = 60.f * (temp_h - delta / (max - min));
-		auto saturation = (max - min) / max;
+		auto saturation = delta / max;
 		auto value = max;
 		return new ColorSpaces::hsv(hue, saturation, value);
 	}
@@ -143,7 +147,7 @@ ColorSpaces::xyz* ColorManipulation::color_converter::rgb_deep_to_xyz(ColorSpace
 	auto x = color->m_red * 0.4124564f + color->m_green * 0.3575761f + color->m_blue * 0.1804375f;
 	auto y = color->m_red * 0.2126729f + color->m_green * 0.7151522f + color->m_blue * 0.0721750f;
 	auto z = color->m_red * 0.0193339f + color->m_green * 0.1191920f + color->m_blue * 0.9503041f;
-	return new ColorSpaces::xyz(x, y, z);
+	return new ColorSpaces::xyz(x * 100.f, y * 100.f, z * 100.f);
 }
 
 ColorSpaces::lab* ColorManipulation::color_converter::rgb_deep_to_lab(ColorSpaces::rgb_deepcolor* color, reference_white reference)

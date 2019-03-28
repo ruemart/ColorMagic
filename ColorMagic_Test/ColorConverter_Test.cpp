@@ -265,3 +265,35 @@ TEST_F(ColorConverter_Test, From_HSV)
 	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
 	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
 }
+
+TEST_F(ColorConverter_Test, From_HSL)
+{
+	EXPECT_EQ(*rgb_d_yellow, *dynamic_cast<rgb_deepcolor*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::RGB_DEEP)));
+	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::GREY_TRUE)));
+	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::RGB_TRUE)));
+
+	auto cmyk_converted = dynamic_cast<cmyk*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::CMYK));
+	EXPECT_NEAR(cmyk_yellow->m_cyan, cmyk_converted->m_cyan, avg_error);
+	EXPECT_NEAR(cmyk_yellow->m_magenta, cmyk_converted->m_magenta, avg_error);
+	EXPECT_NEAR(cmyk_yellow->m_yellow, cmyk_converted->m_yellow, avg_error);
+	EXPECT_NEAR(cmyk_yellow->m_black, cmyk_converted->m_black, avg_error);
+
+	auto hsv_converted = dynamic_cast<hsv*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::HSV));
+	EXPECT_NEAR(hsv_yellow->m_hue, hsv_converted->m_hue, avg_error);
+	EXPECT_NEAR(hsv_yellow->m_saturation, hsv_converted->m_saturation, avg_error);
+	EXPECT_NEAR(hsv_yellow->m_value, hsv_converted->m_value, avg_error);
+
+	auto xyz_converted = dynamic_cast<xyz*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::XYZ));
+	EXPECT_NEAR(xyz_yellow->m_x, xyz_converted->m_x, avg_error);
+	EXPECT_NEAR(xyz_yellow->m_y, xyz_converted->m_y, avg_error);
+	EXPECT_NEAR(xyz_yellow->m_z, xyz_converted->m_z, avg_error);
+
+	auto lab_converted = dynamic_cast<lab*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::LAB));
+	EXPECT_NEAR(lab_yellow->m_luminance, lab_converted->m_luminance, avg_error);
+	EXPECT_NEAR(lab_yellow->m_a, lab_converted->m_a, avg_error);
+	EXPECT_NEAR(lab_yellow->m_b, lab_converted->m_b, avg_error);
+
+	auto grey_converted = dynamic_cast<grey_deepcolor*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::GREY_DEEP));
+	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
+	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
+}

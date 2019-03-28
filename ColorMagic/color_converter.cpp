@@ -82,7 +82,7 @@ ColorSpaces::lab* ColorManipulation::color_converter::rgb_true_to_lab(ColorSpace
 
 ColorSpaces::rgb_truecolor* ColorManipulation::color_converter::rgb_deep_to_rgb_true(ColorSpaces::rgb_deepcolor* color)
 {
-	return new ColorSpaces::rgb_truecolor((unsigned char)color->m_red * 255, (unsigned char)color->m_green * 255, (unsigned char)color->m_blue * 255, (unsigned char)color->m_alpha * 255);
+	return new ColorSpaces::rgb_truecolor((unsigned char)roundf(color->m_red * 255), (unsigned char)roundf(color->m_green * 255), (unsigned char)roundf(color->m_blue * 255), (unsigned char)roundf(color->m_alpha * 255));
 }
 
 ColorSpaces::grey_truecolor* ColorManipulation::color_converter::rgb_deep_to_grey_true(ColorSpaces::rgb_deepcolor* color)
@@ -233,7 +233,7 @@ ColorSpaces::lab* ColorManipulation::color_converter::grey_true_to_lab(ColorSpac
 
 ColorSpaces::rgb_truecolor* ColorManipulation::color_converter::grey_deep_to_rgb_true(ColorSpaces::grey_deepcolor* color)
 {
-	return new ColorSpaces::rgb_truecolor((unsigned char)color->m_grey * 255, (unsigned char)color->m_alpha * 255);
+	return new ColorSpaces::rgb_truecolor((unsigned char)roundf(color->m_grey * 255), (unsigned char)roundf(color->m_alpha * 255));
 }
 
 ColorSpaces::rgb_deepcolor* ColorManipulation::color_converter::grey_deep_to_rgb_deep(ColorSpaces::grey_deepcolor* color)
@@ -243,7 +243,7 @@ ColorSpaces::rgb_deepcolor* ColorManipulation::color_converter::grey_deep_to_rgb
 
 ColorSpaces::grey_truecolor* ColorManipulation::color_converter::grey_deep_to_grey_true(ColorSpaces::grey_deepcolor* color)
 {
-	return new ColorSpaces::grey_truecolor((unsigned char)color->m_grey * 255, (unsigned char)color->m_alpha * 255);
+	return new ColorSpaces::grey_truecolor((unsigned char)roundf(color->m_grey * 255), (unsigned char)roundf(color->m_alpha * 255));
 }
 
 ColorSpaces::cmyk* ColorManipulation::color_converter::grey_deep_to_cmyk(ColorSpaces::grey_deepcolor* color)

@@ -433,10 +433,18 @@ ColorSpaces::rgb_truecolor* ColorManipulation::color_converter::xyz_to_rgb_true(
 
 ColorSpaces::rgb_deepcolor* ColorManipulation::color_converter::xyz_to_rgb_deep(ColorSpaces::xyz* color)
 {
-	auto r = color->m_x * 3.2404542f + color->m_y * -1.5371385f + color->m_z * 0.4985314f;
-	auto g = color->m_x * -0.9692660f + color->m_y * 1.8760108f + color->m_z * 0.0415560f;
-	auto b = color->m_x * 0.0556434f + color->m_y * -0.2040259f + color->m_z * 1.0572252f;
-	return linear_srgb_deep_to_rgb_deep(new ColorSpaces::rgb_deepcolor(r, g, b));
+	auto x_temp = color->m_x / 100.f;
+	auto y_temp = color->m_y / 100.f;
+	auto z_temp = color->m_z / 100.f;
+
+	auto r = x_temp * 3.2404542f + y_temp * -1.5371385f + z_temp * 0.4985314f;
+	auto g = x_temp * -0.9692660f + y_temp * 1.8760108f + z_temp * 0.0415560f;
+	auto b = x_temp * 0.0556434f + y_temp * -0.2040259f + z_temp * 1.0572252f;
+	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new ColorSpaces::rgb_deepcolor(r, g, b));
+	rgb_deep->m_red = round_float_to_n_decimals(clamp_float(rgb_deep->m_red, 0.f, 1.f), 1);
+	rgb_deep->m_green = round_float_to_n_decimals(clamp_float(rgb_deep->m_green, 0.f, 1.f), 1);
+	rgb_deep->m_blue = round_float_to_n_decimals(clamp_float(rgb_deep->m_blue, 0.f, 1.f), 1);
+	return rgb_deep;
 }
 
 ColorSpaces::grey_truecolor* ColorManipulation::color_converter::xyz_to_grey_true(ColorSpaces::xyz* color)
@@ -557,6 +565,17 @@ float ColorManipulation::color_converter::lab_to_xyz_helper(float color_componen
 			return (116.f * color_component - 16.f) / k;
 		}
 	}
+}
+
+float ColorManipulation::color_converter::round_float_to_n_decimals(float in_float, int n)
+{
+	auto factor = pow(10, n);
+	return ((int)(in_float * factor + 0.5f) / factor);
+}
+
+float ColorManipulation::color_converter::clamp_float(float in_float, float bottom, float top)
+{
+	return fminf(fmaxf(in_float, bottom), top);
 }
 
 ColorSpaces::icolor* ColorManipulation::color_converter::from_rgb_true(ColorSpaces::rgb_truecolor* in_color, ColorSpaces::color_type out_type, reference_white reference)

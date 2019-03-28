@@ -409,10 +409,10 @@ ColorSpaces::cmyk* ColorManipulation::color_converter::hsl_to_cmyk(ColorSpaces::
 
 ColorSpaces::hsv* ColorManipulation::color_converter::hsl_to_hsv(ColorSpaces::hsl* color)
 {
-	color->m_lightness *= 2.f;
-	color->m_saturation *= (color->m_lightness <= 1.f) ? color->m_lightness : (2.f - color->m_lightness);
-	auto v = (color->m_lightness + color->m_saturation) / 2.f;
-	auto s = (2.f * color->m_saturation) / (color->m_lightness + color->m_saturation);
+	auto l_temp = color->m_lightness * 2.f;
+	auto m_sat = color->m_saturation * (l_temp <= 1.f) ? l_temp : (2.f - l_temp);
+	auto v = (l_temp + m_sat) / 2.f;
+	auto s = (2.f * m_sat) / (l_temp + m_sat);
 	return new ColorSpaces::hsv(color->m_hue, s, v);
 }
 

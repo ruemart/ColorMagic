@@ -1,30 +1,54 @@
 #include "stdafx.h"
 #include "grey_deepcolor.h"
 
-ColorSpaces::grey_deepcolor::grey_deepcolor() : m_grey(0.0f), m_alpha(1.0f) { }
+ColorSpaces::grey_deepcolor::grey_deepcolor() : icolor(2)
+{
+	this->grey(0.f);
+	this->alpha(1.f);
+}
 
-ColorSpaces::grey_deepcolor::grey_deepcolor(float value) : m_grey(value), m_alpha(1.0f) {}
+ColorSpaces::grey_deepcolor::grey_deepcolor(float value) : icolor(2)
+{
+	this->grey(value);
+	this->alpha(1.f);
+}
 
-ColorSpaces::grey_deepcolor::grey_deepcolor(float value, float alpha) : m_grey(value), m_alpha(alpha) {}
+ColorSpaces::grey_deepcolor::grey_deepcolor(float value, float alpha) : icolor(2)
+{
+	this->grey(value);
+	this->alpha(alpha);
+}
 
-ColorSpaces::grey_deepcolor::grey_deepcolor(const ColorSpaces::grey_deepcolor & other) : m_grey(other.m_grey), m_alpha(other.m_alpha) { }
+ColorSpaces::grey_deepcolor::grey_deepcolor(const ColorSpaces::grey_deepcolor & other) : icolor(2) 
+{
+	this->component_vector = other.component_vector;
+}
 
 ColorSpaces::grey_deepcolor & ColorSpaces::grey_deepcolor::operator=(const ColorSpaces::grey_deepcolor & other)
 {
 	if (this != &other)
 	{
-		m_grey = other.m_grey;
-		m_alpha = other.m_alpha;
+		this->component_vector = other.component_vector;
 	}
 	return *this;
 }
 
-bool ColorSpaces::operator==(const ColorSpaces::grey_deepcolor & lhs, const ColorSpaces::grey_deepcolor & rhs)
+float ColorSpaces::grey_deepcolor::grey()
 {
-	return (lhs.m_grey == rhs.m_grey && lhs.m_alpha == rhs.m_alpha);
+	return component_vector[0];
 }
 
-bool ColorSpaces::operator!=(const ColorSpaces::grey_deepcolor & lhs, const ColorSpaces::grey_deepcolor & rhs)
+void ColorSpaces::grey_deepcolor::grey(float new_grey)
 {
-	return !(lhs == rhs);
+	component_vector[0] = new_grey;
+}
+
+float ColorSpaces::grey_deepcolor::alpha()
+{
+	return component_vector[1];
+}
+
+void ColorSpaces::grey_deepcolor::alpha(float new_alpha)
+{
+	component_vector[1] = new_alpha;
 }

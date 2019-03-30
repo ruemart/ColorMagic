@@ -17,11 +17,11 @@ namespace ColorSpaces
 		color_type get_color_type() override { return color_type::GREY_DEEP; }
 
 		grey_deepcolor& operator=(const grey_deepcolor& other);
-		friend bool operator==(const grey_deepcolor& lhs, const grey_deepcolor& rhs);
-		friend bool operator!=(const grey_deepcolor& lhs, const grey_deepcolor& rhs);
-
-		float m_grey;
-		float m_alpha;
+		
+		float grey();
+		void grey(float new_grey);
+		float alpha();
+		void alpha(float new_alpha);
 
 	private:
 

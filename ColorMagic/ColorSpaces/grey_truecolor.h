@@ -17,11 +17,11 @@ namespace ColorSpaces
 		color_type get_color_type() override { return color_type::GREY_TRUE; }
 
 		grey_truecolor& operator=(const grey_truecolor& other);
-		friend bool operator==(const grey_truecolor& lhs, const grey_truecolor& rhs);
-		friend bool operator!=(const grey_truecolor& lhs, const grey_truecolor& rhs);
 
-		unsigned char m_grey;
-		unsigned char m_alpha;
+		unsigned char grey();
+		void grey(unsigned char new_grey);
+		unsigned char alpha();
+		void alpha(unsigned char new_alpha);
 
 	private:
 

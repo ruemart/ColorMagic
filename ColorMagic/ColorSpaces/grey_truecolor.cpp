@@ -1,30 +1,54 @@
 #include "stdafx.h"
 #include "grey_truecolor.h"
 
-ColorSpaces::grey_truecolor::grey_truecolor() : m_grey(0), m_alpha(255) { }
+ColorSpaces::grey_truecolor::grey_truecolor() : icolor(2)
+{
+	this->grey(0);
+	this->alpha(0);
+}
 
-ColorSpaces::grey_truecolor::grey_truecolor(unsigned char value) : m_grey(value), m_alpha(255) {}
+ColorSpaces::grey_truecolor::grey_truecolor(unsigned char value) : icolor(2)
+{
+	this->grey(value);
+	this->alpha(255);
+}
 
-ColorSpaces::grey_truecolor::grey_truecolor(unsigned char value, unsigned char alpha) : m_grey(value),  m_alpha(alpha) {}
+ColorSpaces::grey_truecolor::grey_truecolor(unsigned char value, unsigned char alpha) : icolor(2)
+{
+	this->grey(value);
+	this->alpha(alpha);
+}
 
-ColorSpaces::grey_truecolor::grey_truecolor(const ColorSpaces::grey_truecolor & other) : m_grey(other.m_grey), m_alpha(other.m_alpha) { }
+ColorSpaces::grey_truecolor::grey_truecolor(const ColorSpaces::grey_truecolor & other) : icolor(2)
+{
+	this->component_vector = other.component_vector;
+}
 
 ColorSpaces::grey_truecolor & ColorSpaces::grey_truecolor::operator=(const ColorSpaces::grey_truecolor & other)
 {
 	if (this != &other)
 	{
-		m_grey = other.m_grey;
-		m_alpha = other.m_alpha;
+		this->component_vector = other.component_vector;
 	}
 	return *this;
 }
 
-bool ColorSpaces::operator==(const ColorSpaces::grey_truecolor & lhs, const ColorSpaces::grey_truecolor & rhs)
+unsigned char ColorSpaces::grey_truecolor::grey()
 {
-	return (lhs.m_grey == rhs.m_grey && lhs.m_alpha == rhs.m_alpha);
+	return (unsigned char)component_vector[0];
 }
 
-bool ColorSpaces::operator!=(const ColorSpaces::grey_truecolor & lhs, const ColorSpaces::grey_truecolor & rhs)
+void ColorSpaces::grey_truecolor::grey(unsigned char new_grey)
 {
-	return !(lhs == rhs);
+	component_vector[0] = new_grey;
+}
+
+unsigned char ColorSpaces::grey_truecolor::alpha()
+{
+	return (unsigned char)component_vector[1];
+}
+
+void ColorSpaces::grey_truecolor::alpha(unsigned char new_alpha)
+{
+	component_vector[1] = new_alpha;
 }

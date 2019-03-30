@@ -15,12 +15,13 @@ namespace ColorSpaces
 		color_type get_color_type() override { return color_type::XYZ; }
 
 		xyz& operator=(const xyz& other);
-		friend bool operator==(const xyz& lhs, const xyz& rhs);
-		friend bool operator!=(const xyz& lhs, const xyz& rhs);
 
-		float m_x;
-		float m_y;
-		float m_z;
+		float x();
+		void x(float new_x);
+		float y();
+		void y(float new_y);
+		float z();
+		void z(float new_z);
 
 	private:
 

@@ -1,29 +1,59 @@
 #include "stdafx.h"
 #include "lab.h"
 
-ColorSpaces::lab::lab() : m_luminance(0), m_a(0.0f), m_b(0.0f) { }
+ColorSpaces::lab::lab() : icolor(3)
+{
+	this->luminance(0.f);
+	this->a(0.f);
+	this->b(0.f);
+}
 
-ColorSpaces::lab::lab(float luminance, float a, float b) : m_luminance(luminance), m_a(a), m_b(b) {}
+ColorSpaces::lab::lab(float luminance, float a, float b) : icolor(3)
+{
+	this->luminance(luminance);
+	this->a(a);
+	this->b(b);
+}
 
-ColorSpaces::lab::lab(const ColorSpaces::lab & other) : m_luminance(other.m_luminance), m_a(other.m_a), m_b(other.m_b) { }
-
+ColorSpaces::lab::lab(const ColorSpaces::lab & other) : icolor(3)
+{
+	this->component_vector = other.component_vector;
+}
 ColorSpaces::lab & ColorSpaces::lab::operator=(const ColorSpaces::lab & other)
 {
 	if (this != &other)
 	{
-		m_luminance = other.m_luminance;
-		m_a = other.m_a;
-		m_b = other.m_b;
+		this->component_vector = other.component_vector;
 	}
 	return *this;
 }
 
-bool ColorSpaces::operator==(const ColorSpaces::lab & lhs, const ColorSpaces::lab & rhs)
+float ColorSpaces::lab::luminance()
 {
-	return (lhs.m_luminance == rhs.m_luminance && lhs.m_a == rhs.m_a && lhs.m_b == rhs.m_b);
+	return component_vector[0];
 }
 
-bool ColorSpaces::operator!=(const ColorSpaces::lab & lhs, const ColorSpaces::lab & rhs)
+void ColorSpaces::lab::luminance(float new_luminance)
 {
-	return !(lhs == rhs);
+	component_vector[0] = new_luminance;
+}
+
+float ColorSpaces::lab::a()
+{
+	return component_vector[1];
+}
+
+void ColorSpaces::lab::a(float new_a)
+{
+	component_vector[1] = new_a;
+}
+
+float ColorSpaces::lab::b()
+{
+	return component_vector[2];
+}
+
+void ColorSpaces::lab::b(float new_b)
+{
+	component_vector[2] = new_b;
 }

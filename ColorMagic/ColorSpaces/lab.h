@@ -15,12 +15,13 @@ namespace ColorSpaces
 		color_type get_color_type() override { return color_type::LAB; }
 
 		lab& operator=(const lab& other);
-		friend bool operator==(const lab& lhs, const lab& rhs);
-		friend bool operator!=(const lab& lhs, const lab& rhs);
 
-		float m_luminance;
-		float m_a; // green red
-		float m_b; // yellow blue
+		float luminance();
+		void luminance(float new_luminance);
+		float a(); // green red
+		void a(float new_a);
+		float b(); // yellow blue
+		void b(float new_b);
 
 	private:
 

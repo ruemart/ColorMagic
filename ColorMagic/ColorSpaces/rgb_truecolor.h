@@ -21,13 +21,15 @@ namespace ColorSpaces
 		color_type get_color_type() override { return color_type::RGB_TRUE; }
 
 		rgb_truecolor& operator=(const rgb_truecolor& other);
-		friend bool operator==(const rgb_truecolor& lhs, const rgb_truecolor& rhs);
-		friend bool operator!=(const rgb_truecolor& lhs, const rgb_truecolor& rhs);
 
-		unsigned char m_red;
-		unsigned char m_green;
-		unsigned char m_blue;
-		unsigned char m_alpha;
+		unsigned char red();
+		void red(unsigned char new_red);
+		unsigned char green();
+		void green(unsigned char new_green);
+		unsigned char blue();
+		void blue(unsigned char new_blue);
+		unsigned char alpha();
+		void alpha(unsigned char new_alpha);
 
 	private:
 

@@ -9,8 +9,8 @@ namespace color_space
 	class rgb_truecolor : public icolor
 	{
 	public:
-		rgb_truecolor(unsigned char value = 0, unsigned char alpha = 255);
-		rgb_truecolor(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
+		rgb_truecolor(unsigned char value = (unsigned char)0, unsigned char alpha = (unsigned char)255);
+		rgb_truecolor(unsigned char r, unsigned char g, unsigned char b, unsigned char a = (unsigned char)255);
 		rgb_truecolor(std::string hex_code);
 		rgb_truecolor(int hex_code);
 		rgb_truecolor(const rgb_truecolor& other);

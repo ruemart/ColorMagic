@@ -138,7 +138,7 @@ namespace ColorManipulation
 	private:
 		static float xyz_to_lab_helper(float color_component);
 		static float lab_to_xyz_helper(float color_component, bool out_y_component = false);
-		static float round_float_to_n_decimals(float in_float, int n);
+		static float round_float_to_n_decimals(float in_float, float n);
 		static float clamp_float(float in_float, float bottom, float top);
 	};
 }

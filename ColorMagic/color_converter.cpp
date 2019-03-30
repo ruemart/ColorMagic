@@ -132,7 +132,7 @@ ColorSpaces::hsv* ColorManipulation::color_converter::rgb_deep_to_hsv(ColorSpace
 
 		auto saturation = delta / max;
 		auto value = max;
-		return new ColorSpaces::hsv(hue, saturation, value);
+		return new ColorSpaces::hsv((float)hue, saturation, value);
 	}
 }
 
@@ -321,10 +321,10 @@ ColorSpaces::rgb_truecolor* ColorManipulation::color_converter::hsv_to_rgb_true(
 
 ColorSpaces::rgb_deepcolor* ColorManipulation::color_converter::hsv_to_rgb_deep(ColorSpaces::hsv* color)
 {
-	auto chroma = color->value * color->saturation();
+	auto chroma = color->value() * color->saturation();
 	auto h_temp = (int)(color->hue() / 60.f);
 	auto x = chroma * (1 - std::abs((h_temp % 2) - 1));
-	auto m = color->value - chroma;
+	auto m = color->value() - chroma;
 	float r_temp, g_temp, b_temp;
 	if (h_temp >= 0 && h_temp <= 1) { r_temp = chroma;	g_temp = x;			b_temp = 0.f; }
 	else if (h_temp > 1 && h_temp <= 2) { r_temp = x;		g_temp = chroma;	b_temp = 0.f; }
@@ -353,8 +353,8 @@ ColorSpaces::cmyk* ColorManipulation::color_converter::hsv_to_cmyk(ColorSpaces::
 
 ColorSpaces::hsl* ColorManipulation::color_converter::hsv_to_hsl(ColorSpaces::hsv* color)
 {
-	auto l = (2.f - color->saturation()) * color->value;
-	auto s = color->saturation() * color->value;
+	auto l = (2.f - color->saturation()) * color->value();
+	auto s = color->saturation() * color->value();
 	s /= (l <= 1.f) ? l : 2.f - l;
 	l /= 2.f;
 	return new ColorSpaces::hsl(color->hue(), s, l);
@@ -441,9 +441,9 @@ ColorSpaces::rgb_deepcolor* ColorManipulation::color_converter::xyz_to_rgb_deep(
 	auto g = x_temp * -0.9692660f + y_temp * 1.8760108f + z_temp * 0.0415560f;
 	auto b = x_temp * 0.0556434f + y_temp * -0.2040259f + z_temp * 1.0572252f;
 	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new ColorSpaces::rgb_deepcolor(r, g, b));
-	rgb_deep->red = round_float_to_n_decimals(clamp_float(rgb_deep->red, 0.f, 1.f), 1);
-	rgb_deep->green = round_float_to_n_decimals(clamp_float(rgb_deep->green, 0.f, 1.f), 1);
-	rgb_deep->blue = round_float_to_n_decimals(clamp_float(rgb_deep->blue, 0.f, 1.f), 1);
+	rgb_deep->red(round_float_to_n_decimals(clamp_float(rgb_deep->red(), 0.f, 1.f), 1));
+	rgb_deep->green(round_float_to_n_decimals(clamp_float(rgb_deep->green(), 0.f, 1.f), 1));
+	rgb_deep->blue(round_float_to_n_decimals(clamp_float(rgb_deep->blue(), 0.f, 1.f), 1));
 	return rgb_deep;
 }
 
@@ -567,9 +567,9 @@ float ColorManipulation::color_converter::lab_to_xyz_helper(float color_componen
 	}
 }
 
-float ColorManipulation::color_converter::round_float_to_n_decimals(float in_float, int n)
+float ColorManipulation::color_converter::round_float_to_n_decimals(float in_float, float n)
 {
-	auto factor = pow(10, n);
+	auto factor = powf(10.f, n);
 	return ((int)(in_float * factor + 0.5f) / factor);
 }
 

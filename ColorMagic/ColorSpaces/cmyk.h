@@ -8,9 +8,8 @@ namespace ColorSpaces
 	class cmyk : public icolor
 	{
 	public:
-		cmyk();
-		cmyk(float value);
-		cmyk(float cyan, float magenta, float yellow, float black);
+		cmyk(float value = 0.f);
+		cmyk(float cyan = 0.f, float magenta = 0.f, float yellow = 0.f, float black = 0.f);
 		cmyk(const cmyk& other);
 
 		color_type get_color_type() override { return color_type::CMYK; }

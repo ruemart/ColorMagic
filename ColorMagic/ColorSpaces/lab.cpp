@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "lab.h"
 
-ColorSpaces::lab::lab() : icolor(3)
-{
-	this->luminance(0.f);
-	this->a(0.f);
-	this->b(0.f);
-}
-
 ColorSpaces::lab::lab(float luminance, float a, float b) : icolor(3)
 {
 	this->luminance(luminance);

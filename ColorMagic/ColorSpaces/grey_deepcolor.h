@@ -9,9 +9,8 @@ namespace ColorSpaces
 	class grey_deepcolor : public icolor
 	{
 	public:
-		grey_deepcolor();
-		grey_deepcolor(float value);
-		grey_deepcolor(float value, float alpha);
+		grey_deepcolor(float value = 0.f);
+		grey_deepcolor(float value = 0.f, float alpha = 1.f);
 		grey_deepcolor(const grey_deepcolor& other);
 
 		color_type get_color_type() override { return color_type::GREY_DEEP; }

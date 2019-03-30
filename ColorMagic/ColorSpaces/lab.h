@@ -8,8 +8,7 @@ namespace ColorSpaces
 	class lab : public icolor
 	{
 	public:
-		lab();
-		lab(float luminance, float a, float b);
+		lab(float luminance = 0.f, float a = 0.f, float b = 0.f);
 		lab(const lab& other);
 
 		color_type get_color_type() override { return color_type::LAB; }

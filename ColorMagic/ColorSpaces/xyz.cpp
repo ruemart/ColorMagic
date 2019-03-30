@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "xyz.h"
 
-ColorSpaces::xyz::xyz() : icolor(3)
-{
-	this->x(0.f);
-	this->y(0.f);
-	this->z(0.f);
-}
-
 ColorSpaces::xyz::xyz(float x, float y, float z) : icolor(3)
 {
 	this->x(x);

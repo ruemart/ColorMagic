@@ -1,36 +1,12 @@
 #include "stdafx.h"
 #include "rgb_deepcolor.h"
 
-ColorSpaces::rgb_deepcolor::rgb_deepcolor() : icolor(4)
-{
-	this->red(0.f);
-	this->green(0.f);
-	this->blue(0.f);
-	this->alpha(1.f);
-}
-
-ColorSpaces::rgb_deepcolor::rgb_deepcolor(float value) : icolor(4)
-{
-	this->red(value);
-	this->green(value);
-	this->blue(value);
-	this->alpha(1.f);
-}
-
 ColorSpaces::rgb_deepcolor::rgb_deepcolor(float value, float alpha) : icolor(4)
 {
 	this->red(value);
 	this->green(value);
 	this->blue(value);
 	this->alpha(alpha);
-}
-
-ColorSpaces::rgb_deepcolor::rgb_deepcolor(float r, float g, float b) : icolor(4)
-{
-	this->red(r);
-	this->green(g);
-	this->blue(b);
-	this->alpha(1.f);
 }
 
 ColorSpaces::rgb_deepcolor::rgb_deepcolor(float r, float g, float b, float a) : icolor(4)

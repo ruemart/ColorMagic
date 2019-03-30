@@ -8,8 +8,7 @@ namespace ColorSpaces
 	class hsl : public icolor
 	{
 	public:
-		hsl();
-		hsl(float hue, float saturation, float lightness);
+		hsl(float hue = 0.f, float saturation = 0.f, float lightness = 0.f);
 		hsl(const hsl& other);
 
 		color_type get_color_type() override { return color_type::HSL; }

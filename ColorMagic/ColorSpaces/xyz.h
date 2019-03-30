@@ -8,8 +8,7 @@ namespace ColorSpaces
 	class xyz : public icolor
 	{
 	public:
-		xyz();
-		xyz(float x, float y, float z);
+		xyz(float x = 0.f, float y = 0.f, float z = 0.f);
 		xyz(const xyz& other);
 
 		color_type get_color_type() override { return color_type::XYZ; }

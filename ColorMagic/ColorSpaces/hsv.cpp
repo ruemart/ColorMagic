@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "hsv.h"
 
-ColorSpaces::hsv::hsv() : icolor(3)
-{
-	this->hue(0.f);
-	this->saturation(0.f);
-	this->value(0.f);
-}
-
 ColorSpaces::hsv::hsv(float hue, float saturation, float value) : icolor(3)
 {
 	this->hue(hue);

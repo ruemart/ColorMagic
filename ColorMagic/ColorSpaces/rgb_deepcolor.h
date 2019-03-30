@@ -8,11 +8,8 @@ namespace ColorSpaces
 	class rgb_deepcolor : public icolor
 	{
 	public:
-		rgb_deepcolor();
-		rgb_deepcolor(float value);
-		rgb_deepcolor(float value, float alpha);
-		rgb_deepcolor(float r, float g, float b);
-		rgb_deepcolor(float r, float g, float b, float a);
+		rgb_deepcolor(float value = 0.f, float alpha = 1.f);
+		rgb_deepcolor(float r, float g, float b, float a = 1.f);
 		rgb_deepcolor(const rgb_deepcolor& other);
 
 		color_type get_color_type() override { return color_type::RGB_DEEP; }

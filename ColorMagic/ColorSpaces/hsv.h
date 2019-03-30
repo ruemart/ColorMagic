@@ -8,8 +8,7 @@ namespace ColorSpaces
 	class hsv : public icolor
 	{
 	public:
-		hsv();
-		hsv(float hue, float saturation, float value);
+		hsv(float hue = 0.f, float saturation = 0.f, float value = 0.f);
 		hsv(const hsv& other);
 
 		color_type get_color_type() override { return color_type::HSV; }

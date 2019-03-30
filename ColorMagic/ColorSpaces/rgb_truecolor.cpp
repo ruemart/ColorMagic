@@ -1,36 +1,12 @@
 #include "stdafx.h"
 #include "rgb_truecolor.h"
 
-ColorSpaces::rgb_truecolor::rgb_truecolor() : icolor(4)
-{
-	this->red(0);
-	this->green(0);
-	this->blue(0);
-	this->alpha(255);
-}
-
-ColorSpaces::rgb_truecolor::rgb_truecolor(unsigned char value) : icolor(4)
-{
-	this->red(value);
-	this->green(value);
-	this->blue(value);
-	this->alpha(255);
-}
-
 ColorSpaces::rgb_truecolor::rgb_truecolor(unsigned char value, unsigned char alpha) : icolor(4)
 {
 	this->red(value);
 	this->green(value);
 	this->blue(value);
 	this->alpha(alpha);
-}
-
-ColorSpaces::rgb_truecolor::rgb_truecolor(unsigned char r, unsigned char g, unsigned char b) : icolor(4)
-{
-	this->red(r);
-	this->green(g);
-	this->blue(b);
-	this->alpha(255);
 }
 
 ColorSpaces::rgb_truecolor::rgb_truecolor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) : icolor(4)
@@ -79,7 +55,7 @@ ColorSpaces::rgb_truecolor::rgb_truecolor(std::string hex_code) : icolor(4)
 	}
 }
 
-ColorSpaces::rgb_truecolor::rgb_truecolor(int hex_code)
+ColorSpaces::rgb_truecolor::rgb_truecolor(int hex_code) : icolor(4)
 {
 	this->alpha((hex_code >> 24) & 0xff);
 	this->red((hex_code >> 16) & 0xff);

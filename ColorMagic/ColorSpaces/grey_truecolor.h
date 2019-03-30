@@ -9,9 +9,8 @@ namespace ColorSpaces
 	class grey_truecolor : public icolor
 	{
 	public:
-		grey_truecolor();
-		grey_truecolor(unsigned char value);
-		grey_truecolor(unsigned char value, unsigned char alpha);
+		grey_truecolor(unsigned char value = 0);
+		grey_truecolor(unsigned char value = 0, unsigned char alpha = 1);
 		grey_truecolor(const grey_truecolor& other);
 
 		color_type get_color_type() override { return color_type::GREY_TRUE; }

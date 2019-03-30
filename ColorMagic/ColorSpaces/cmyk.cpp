@@ -1,14 +1,6 @@
 #include "stdafx.h"
 #include "cmyk.h"
 
-ColorSpaces::cmyk::cmyk() : icolor(4)
-{
-	this->cyan(0.0f);
-	this->magenta(0.0f);
-	this->yellow(0.0f);
-	this->black(0.0f);
-}
-
 ColorSpaces::cmyk::cmyk(float value) : icolor(4)
 {
 	this->cyan(value);

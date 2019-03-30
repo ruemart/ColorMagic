@@ -1,12 +1,6 @@
 #include "stdafx.h"
 #include "grey_deepcolor.h"
 
-ColorSpaces::grey_deepcolor::grey_deepcolor() : icolor(2)
-{
-	this->grey(0.f);
-	this->alpha(1.f);
-}
-
 ColorSpaces::grey_deepcolor::grey_deepcolor(float value) : icolor(2)
 {
 	this->grey(value);

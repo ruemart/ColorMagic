@@ -15,12 +15,13 @@ namespace ColorSpaces
 		color_type get_color_type() override { return color_type::HSV; }
 
 		hsv& operator=(const hsv& other);
-		friend bool operator==(const hsv& lhs, const hsv& rhs);
-		friend bool operator!=(const hsv& lhs, const hsv& rhs);
 
-		float m_hue;
-		float m_saturation;
-		float m_value;
+		float hue();
+		void hue(float hue);
+		float saturation();
+		void saturation(float saturation);
+		float value();
+		void value(float value);
 
 	private:
 

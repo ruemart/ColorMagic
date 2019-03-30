@@ -17,7 +17,7 @@ color_space::rgb_deepcolor::rgb_deepcolor(float r, float g, float b, float a) : 
 	this->alpha(a);
 }
 
-color_space::rgb_deepcolor::rgb_deepcolor(const color_space::rgb_deepcolor & other) : icolor(4)
+color_space::rgb_deepcolor::rgb_deepcolor(const color_space::rgb_deepcolor & other) : icolor(4, other.get_component_max(), other.get_component_min())
 {
 	this->m_component_vector = other.m_component_vector;
 }
@@ -27,6 +27,8 @@ color_space::rgb_deepcolor & color_space::rgb_deepcolor::operator=(const color_s
 	if (this != &other)
 	{
 		this->m_component_vector = other.m_component_vector;
+		this->m_max = other.get_component_max();
+		this->m_min = other.get_component_min();
 	}
 	return *this;
 }
@@ -38,7 +40,7 @@ float color_space::rgb_deepcolor::red()
 
 void color_space::rgb_deepcolor::red(float new_red)
 {
-	m_component_vector[0] = new_red;
+	set_component(new_red, 0);
 }
 
 float color_space::rgb_deepcolor::green()
@@ -48,7 +50,7 @@ float color_space::rgb_deepcolor::green()
 
 void color_space::rgb_deepcolor::green(float new_green)
 {
-	m_component_vector[1] = new_green;
+	set_component(new_green, 1);
 }
 
 float color_space::rgb_deepcolor::blue()
@@ -58,7 +60,7 @@ float color_space::rgb_deepcolor::blue()
 
 void color_space::rgb_deepcolor::blue(float new_blue)
 {
-	m_component_vector[2] = new_blue;
+	set_component(new_blue, 2);
 }
 
 float color_space::rgb_deepcolor::alpha()
@@ -68,5 +70,5 @@ float color_space::rgb_deepcolor::alpha()
 
 void color_space::rgb_deepcolor::alpha(float new_alpha)
 {
-	m_component_vector[3] = new_alpha;
+	set_component(new_alpha, 3);
 }

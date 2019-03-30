@@ -9,8 +9,11 @@ namespace color_space
 	class icolor
 	{
 	public:
-		icolor(int component_count) 
+		icolor(int component_count, float component_max = 1.f, float component_min = 0.f)
 		{
+			m_max = component_max;
+			m_min = component_min;
+
 			for (auto i = 0; i < component_count; ++i)
 			{
 				m_component_vector.push_back(-1);
@@ -20,6 +23,9 @@ namespace color_space
 		virtual color_type get_color_type() const {
 			return color_type::UNDEFINED;
 		}
+
+		virtual float get_component_max() const { return m_max; }
+		virtual float get_component_min() const { return m_min; }
 
 		friend bool operator==(const icolor& lhs, const icolor& rhs)
 		{
@@ -47,5 +53,13 @@ namespace color_space
 		}
 
 		std::vector<float> m_component_vector;
+
+	protected:
+		float clamp(float in_value, float max, float min) { return fmaxf(fminf(in_value, max), min); }
+		void set_component(float new_value, int index) { m_component_vector[index] = clamp(new_value, m_max, m_min); }
+		void set_component(float new_value, int index, float max, float min) { m_component_vector[index] = clamp(new_value, max, min); }
+
+		float m_max = 1.f;
+		float m_min = 0.f;
 	};
 }

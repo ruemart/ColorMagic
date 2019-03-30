@@ -23,6 +23,7 @@ namespace color_space
 		void lightness(float new_lightness);
 
 	private:
-
+		float m_degrees_max = 359.f;
+		float m_degrees_min = 0.f;
 	};
 }

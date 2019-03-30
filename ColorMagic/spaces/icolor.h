@@ -9,7 +9,13 @@ namespace color_space
 	class icolor
 	{
 	public:
-		icolor(int component_count) { m_component_vector.reserve(component_count); }
+		icolor(int component_count) 
+		{
+			for (auto i = 0; i < component_count; ++i)
+			{
+				m_component_vector.push_back(-1);
+			}
+		}
 
 		virtual color_type get_color_type() const {
 			return color_type::UNDEFINED;

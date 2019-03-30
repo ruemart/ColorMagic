@@ -1,12 +1,6 @@
 #include "stdafx.h"
 #include "grey_truecolor.h"
 
-color_space::grey_truecolor::grey_truecolor(unsigned char value) : icolor(2)
-{
-	this->grey(value);
-	this->alpha(255);
-}
-
 color_space::grey_truecolor::grey_truecolor(unsigned char value, unsigned char alpha) : icolor(2)
 {
 	this->grey(value);

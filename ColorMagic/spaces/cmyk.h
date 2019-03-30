@@ -8,7 +8,6 @@ namespace color_space
 	class cmyk : public icolor
 	{
 	public:
-		cmyk(float value = 0.f);
 		cmyk(float cyan = 0.f, float magenta = 0.f, float yellow = 0.f, float black = 0.f);
 		cmyk(const cmyk& other);
 

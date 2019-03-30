@@ -9,7 +9,6 @@ namespace color_space
 	class grey_deepcolor : public icolor
 	{
 	public:
-		grey_deepcolor(float value = 0.f);
 		grey_deepcolor(float value = 0.f, float alpha = 1.f);
 		grey_deepcolor(const grey_deepcolor& other);
 

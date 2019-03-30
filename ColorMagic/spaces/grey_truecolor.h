@@ -9,7 +9,6 @@ namespace color_space
 	class grey_truecolor : public icolor
 	{
 	public:
-		grey_truecolor(unsigned char value = 0);
 		grey_truecolor(unsigned char value = 0, unsigned char alpha = 1);
 		grey_truecolor(const grey_truecolor& other);
 

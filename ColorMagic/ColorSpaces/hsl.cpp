@@ -1,29 +1,60 @@
 #include "stdafx.h"
 #include "hsl.h"
 
-ColorSpaces::hsl::hsl() : m_hue(0.0f), m_saturation(0.0f), m_lightness(0.0f) { }
+ColorSpaces::hsl::hsl() : icolor(3)
+{
+	this->hue(0.f);
+	this->saturation(0.f);
+	this->lightness(0.f);
+}
 
-ColorSpaces::hsl::hsl(float hue, float saturation, float value) : m_hue(hue), m_saturation(saturation), m_lightness(value) {}
+ColorSpaces::hsl::hsl(float hue, float saturation, float lightness) : icolor(3)
+{
+	this->hue(hue);
+	this->saturation(saturation);
+	this->lightness(lightness);
+}
 
-ColorSpaces::hsl::hsl(const ColorSpaces::hsl & other) : m_hue(other.m_hue), m_saturation(other.m_saturation), m_lightness(other.m_lightness) { }
+ColorSpaces::hsl::hsl(const ColorSpaces::hsl & other) : icolor(3)
+{
+	this->component_vector = other.component_vector;
+}
 
 ColorSpaces::hsl & ColorSpaces::hsl::operator=(const ColorSpaces::hsl & other)
 {
 	if (this != &other)
 	{
-		m_hue = other.m_hue;
-		m_saturation = other.m_saturation;
-		m_lightness = other.m_lightness;
+		this->component_vector = other.component_vector;
 	}
 	return *this;
 }
 
-bool ColorSpaces::operator==(const ColorSpaces::hsl & lhs, const ColorSpaces::hsl & rhs)
+float ColorSpaces::hsl::hue()
 {
-	return (lhs.m_hue == rhs.m_hue && lhs.m_saturation == rhs.m_saturation && lhs.m_lightness == rhs.m_lightness);
+	return component_vector[0];
 }
 
-bool ColorSpaces::operator!=(const ColorSpaces::hsl & lhs, const ColorSpaces::hsl & rhs)
+void ColorSpaces::hsl::hue(float new_hue)
 {
-	return !(lhs == rhs);
+	component_vector[0] = new_hue;
+}
+
+float ColorSpaces::hsl::saturation()
+{
+	return component_vector[1];
+}
+
+void ColorSpaces::hsl::saturation(float new_saturation)
+{
+	component_vector[1] = new_saturation;
+}
+
+float ColorSpaces::hsl::lightness()
+{
+	return component_vector[2];
+}
+
+void ColorSpaces::hsl::lightness(float new_lightness)
+{
+	component_vector[2] = new_lightness;
 }

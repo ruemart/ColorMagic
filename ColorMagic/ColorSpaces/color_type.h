@@ -12,6 +12,7 @@ namespace ColorSpaces
 		HSV,
 		HSL,
 		XYZ,
-		LAB
+		LAB,
+		UNDEFINED
 	};
 }

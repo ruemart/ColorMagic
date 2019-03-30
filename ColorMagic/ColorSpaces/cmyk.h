@@ -16,13 +16,15 @@ namespace ColorSpaces
 		color_type get_color_type() override { return color_type::CMYK; }
 
 		cmyk& operator=(const cmyk& other);
-		friend bool operator==(const cmyk& lhs, const cmyk& rhs);
-		friend bool operator!=(const cmyk& lhs, const cmyk& rhs);
 
-		float m_cyan;
-		float m_magenta;
-		float m_yellow;
-		float m_black;
+		float cyan();
+		void cyan(float new_cyan);
+		float magenta();
+		void magenta(float new_magenta);
+		float yellow();
+		void yellow(float new_yellow);
+		float black();
+		void black(float new_black);
 
 	private:
 

@@ -1,32 +1,80 @@
 #include "stdafx.h"
 #include "cmyk.h"
 
-ColorSpaces::cmyk::cmyk() : m_cyan(0.0f), m_magenta(0.0f), m_yellow(0.0f), m_black(0.0f) { }
+ColorSpaces::cmyk::cmyk() : icolor(4)
+{
+	this->cyan(0.0f);
+	this->magenta(0.0f);
+	this->yellow(0.0f);
+	this->black(0.0f);
+}
 
-ColorSpaces::cmyk::cmyk(float value) : m_cyan(value), m_magenta(value), m_yellow(value), m_black(value) {}
+ColorSpaces::cmyk::cmyk(float value) : icolor(4)
+{
+	this->cyan(value);
+	this->magenta(value);
+	this->yellow(value);
+	this->black(value);
+}
 
-ColorSpaces::cmyk::cmyk(float cyan, float magenta, float yellow, float black) : m_cyan(cyan), m_magenta(magenta), m_yellow(yellow), m_black(black) {}
+ColorSpaces::cmyk::cmyk(float cyan, float magenta, float yellow, float black) : icolor(4)
+{
+	this->cyan(cyan);
+	this->magenta(magenta);
+	this->yellow(yellow);
+	this->black(black);
+}
 
-ColorSpaces::cmyk::cmyk(const ColorSpaces::cmyk & other) : m_cyan(other.m_cyan), m_magenta(other.m_magenta), m_yellow(other.m_yellow), m_black(other.m_black) { }
+ColorSpaces::cmyk::cmyk(const ColorSpaces::cmyk & other) : icolor(4)
+{
+	this->component_vector = other.component_vector;
+}
 
 ColorSpaces::cmyk & ColorSpaces::cmyk::operator=(const cmyk & other)
 {
 	if (this != &other)
 	{
-		m_cyan = other.m_cyan;
-		m_magenta = other.m_magenta;
-		m_yellow = other.m_yellow;
-		m_black = other.m_black;
+		this->component_vector = other.component_vector;
 	}
 	return *this;
 }
 
-bool ColorSpaces::operator==(const ColorSpaces::cmyk & lhs, const ColorSpaces::cmyk & rhs)
+float ColorSpaces::cmyk::cyan()
 {
-	return (lhs.m_cyan == rhs.m_cyan && lhs.m_magenta == rhs.m_magenta && lhs.m_yellow == rhs.m_yellow && lhs.m_black == rhs.m_black);
+	return component_vector[0];
 }
 
-bool ColorSpaces::operator!=(const ColorSpaces::cmyk & lhs, const ColorSpaces::cmyk & rhs)
+void ColorSpaces::cmyk::cyan(float new_cyan)
 {
-	return !(lhs == rhs);
+	component_vector[0] = new_cyan;
+}
+
+float ColorSpaces::cmyk::magenta()
+{
+	return component_vector[1];
+}
+
+void ColorSpaces::cmyk::magenta(float new_magenta)
+{
+	component_vector[1] = new_magenta;
+}
+
+float ColorSpaces::cmyk::yellow()
+{
+	return component_vector[2];
+}
+
+void ColorSpaces::cmyk::yellow(float new_yellow)
+{
+	component_vector[2] = new_yellow;
+}
+
+float ColorSpaces::cmyk::black()
+{
+	return component_vector[3];
+}
+
+void ColorSpaces::cmyk::black(float new_black)
+{
+	component_vector[3] = new_black;
 }

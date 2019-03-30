@@ -4,7 +4,7 @@
 #include <string>
 #include <regex>
 
-namespace ColorSpaces
+namespace color_space
 {
 	class rgb_truecolor : public icolor
 	{

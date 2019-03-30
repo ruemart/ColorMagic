@@ -1,17 +1,17 @@
 #pragma once
 
 #include "color_type.h"
-#include "icolor.h"
-#include "cmyk.h"
-#include "grey_deepcolor.h"
-#include "grey_truecolor.h"
-#include "hsl.h"
-#include "hsv.h"
-#include "lab.h"
-#include "rgb_deepcolor.h"
-#include "rgb_truecolor.h"
-#include "xyz.h"
-#include "..\color_converter.h"
+#include "..\spaces\icolor.h"
+#include "..\spaces\cmyk.h"
+#include "..\spaces\grey_deepcolor.h"
+#include "..\spaces\grey_truecolor.h"
+#include "..\spaces\hsl.h"
+#include "..\spaces\hsv.h"
+#include "..\spaces\lab.h"
+#include "..\spaces\rgb_deepcolor.h"
+#include "..\spaces\rgb_truecolor.h"
+#include "..\spaces\xyz.h"
+#include "..\manipulation\color_converter.h"
 
 #include <string>
 
@@ -160,22 +160,22 @@ enum HexcodeColors
 	YellowGreen = 0xFF9ACD32,
 };
 
-class Color
+class predefined_color
 {
 public:
-	Color(HexcodeColors hex_code) { base = new ColorSpaces::rgb_truecolor(hex_code); }
-	Color() = delete;
-	Color(Color& other) = delete;
+	predefined_color(HexcodeColors hex_code) { base = new color_space::rgb_truecolor(hex_code); }
+	predefined_color() = delete;
+	predefined_color(predefined_color& other) = delete;
 
-	inline ColorSpaces::rgb_truecolor* get_rgb_true() { return base; }
-	inline ColorSpaces::rgb_deepcolor* get_rgb_deep() { return dynamic_cast<ColorSpaces::rgb_deepcolor*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::RGB_DEEP)); }
-	inline ColorSpaces::grey_truecolor* get_grey_true() { return dynamic_cast<ColorSpaces::grey_truecolor*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::GREY_TRUE)); }
-	inline ColorSpaces::grey_deepcolor* get_grey_deep() { return dynamic_cast<ColorSpaces::grey_deepcolor*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::GREY_DEEP)); }
-	inline ColorSpaces::cmyk* get_cmyk() { return dynamic_cast<ColorSpaces::cmyk*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::CMYK)); }
-	inline ColorSpaces::hsv* get_hsv() { return dynamic_cast<ColorSpaces::hsv*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::HSV)); }
-	inline ColorSpaces::hsl* get_hsl() { return dynamic_cast<ColorSpaces::hsl*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::HSL)); }
-	inline ColorSpaces::xyz* get_xyz() { return dynamic_cast<ColorSpaces::xyz*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::XYZ)); }
-	inline ColorSpaces::lab* get_lab() { return dynamic_cast<ColorSpaces::lab*>(ColorManipulation::color_converter::from_rgb_true(base, ColorSpaces::color_type::LAB)); }
+	inline color_space::rgb_truecolor* get_rgb_true() { return base; }
+	inline color_space::rgb_deepcolor* get_rgb_deep() { return dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::from_rgb_true(base, color_type::RGB_DEEP)); }
+	inline color_space::grey_truecolor* get_grey_true() { return dynamic_cast<color_space::grey_truecolor*>(color_manipulation::color_converter::from_rgb_true(base, color_type::GREY_TRUE)); }
+	inline color_space::grey_deepcolor* get_grey_deep() { return dynamic_cast<color_space::grey_deepcolor*>(color_manipulation::color_converter::from_rgb_true(base, color_type::GREY_DEEP)); }
+	inline color_space::cmyk* get_cmyk() { return dynamic_cast<color_space::cmyk*>(color_manipulation::color_converter::from_rgb_true(base, color_type::CMYK)); }
+	inline color_space::hsv* get_hsv() { return dynamic_cast<color_space::hsv*>(color_manipulation::color_converter::from_rgb_true(base, color_type::HSV)); }
+	inline color_space::hsl* get_hsl() { return dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::from_rgb_true(base, color_type::HSL)); }
+	inline color_space::xyz* get_xyz() { return dynamic_cast<color_space::xyz*>(color_manipulation::color_converter::from_rgb_true(base, color_type::XYZ)); }
+	inline color_space::lab* get_lab() { return dynamic_cast<color_space::lab*>(color_manipulation::color_converter::from_rgb_true(base, color_type::LAB)); }
 private:
-	ColorSpaces::rgb_truecolor* base;
+	color_space::rgb_truecolor* base;
 };

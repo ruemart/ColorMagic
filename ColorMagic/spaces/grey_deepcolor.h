@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace ColorSpaces
+namespace color_space
 {
 	class grey_deepcolor : public icolor
 	{

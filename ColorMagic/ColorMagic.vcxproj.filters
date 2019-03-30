@@ -13,7 +13,13 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ColorSpaces">
+    <Filter Include="utils">
+      <UniqueIdentifier>{0d3f104c-b627-436c-bac3-f6c3cd3d0f21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manipulation">
+      <UniqueIdentifier>{725c8be8-94fe-44ba-a299-7cf6ae8e72aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="spaces">
       <UniqueIdentifier>{9ac353fc-d697-4708-8f68-d99ae2cb4207}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -21,47 +27,47 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ColorSpaces\cmyk.h">
-      <Filter>ColorSpaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorSpaces\grey_deepcolor.h">
-      <Filter>ColorSpaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorSpaces\grey_truecolor.h">
-      <Filter>ColorSpaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorSpaces\hsl.h">
-      <Filter>ColorSpaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorSpaces\hsv.h">
-      <Filter>ColorSpaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorSpaces\lab.h">
-      <Filter>ColorSpaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorSpaces\rgb_deepcolor.h">
-      <Filter>ColorSpaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorSpaces\rgb_truecolor.h">
-      <Filter>ColorSpaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorSpaces\xyz.h">
-      <Filter>ColorSpaces</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="color_converter.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="utils\color_type.h">
+      <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="ColorSpaces\icolor.h">
-      <Filter>ColorSpaces</Filter>
+    <ClInclude Include="utils\colors.h">
+      <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="ColorSpaces\color_type.h">
-      <Filter>ColorSpaces</Filter>
+    <ClInclude Include="manipulation\color_converter.h">
+      <Filter>manipulation</Filter>
     </ClInclude>
-    <ClInclude Include="ColorSpaces\Colors.h">
-      <Filter>ColorSpaces</Filter>
+    <ClInclude Include="spaces\cmyk.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\grey_deepcolor.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\grey_truecolor.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\hsl.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\hsv.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\icolor.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\lab.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\rgb_deepcolor.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\rgb_truecolor.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\xyz.h">
+      <Filter>spaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -71,38 +77,38 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ColorSpaces\cmyk.cpp">
-      <Filter>ColorSpaces</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorSpaces\grey_deepcolor.cpp">
-      <Filter>ColorSpaces</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorSpaces\grey_truecolor.cpp">
-      <Filter>ColorSpaces</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorSpaces\hsl.cpp">
-      <Filter>ColorSpaces</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorSpaces\hsv.cpp">
-      <Filter>ColorSpaces</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorSpaces\lab.cpp">
-      <Filter>ColorSpaces</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorSpaces\rgb_deepcolor.cpp">
-      <Filter>ColorSpaces</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorSpaces\rgb_truecolor.cpp">
-      <Filter>ColorSpaces</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorSpaces\xyz.cpp">
-      <Filter>ColorSpaces</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="color_converter.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="manipulation\color_converter.cpp">
+      <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\cmyk.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\grey_deepcolor.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\grey_truecolor.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\hsl.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\hsv.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\lab.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\rgb_deepcolor.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\rgb_truecolor.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\xyz.cpp">
+      <Filter>spaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

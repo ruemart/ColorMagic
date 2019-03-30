@@ -3,7 +3,7 @@
 #include "icolor.h"
 #include <string>
 
-namespace ColorSpaces
+namespace color_space
 {
 	class lab : public icolor
 	{

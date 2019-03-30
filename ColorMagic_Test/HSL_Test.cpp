@@ -1,9 +1,9 @@
 #include "gtest\gtest.h"
 #include "pch.h"
-#include "..\ColorMagic\ColorSpaces\icolor.h"
-#include "..\ColorMagic\ColorSpaces\hsl.h"
+#include "..\ColorMagic\spaces\icolor.h"
+#include "..\ColorMagic\spaces\hsl.h"
 
-using namespace ColorSpaces;
+using namespace color_space;
 
 class HSL_Test : public ::testing::Test {
 protected:

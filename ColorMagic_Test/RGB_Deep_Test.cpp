@@ -1,9 +1,9 @@
 #include "gtest\gtest.h"
 #include "pch.h"
-#include "..\ColorMagic\ColorSpaces\icolor.h"
-#include "..\ColorMagic\ColorSpaces\rgb_deepcolor.h"
+#include "..\ColorMagic\spaces\icolor.h"
+#include "..\ColorMagic\spaces\rgb_deepcolor.h"
 
-using namespace ColorSpaces;
+using namespace color_space;
 
 class RGB_Deep_Test : public ::testing::Test {
 protected:

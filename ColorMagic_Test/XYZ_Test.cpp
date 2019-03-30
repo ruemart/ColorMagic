@@ -1,9 +1,9 @@
 #include "gtest\gtest.h"
 #include "pch.h"
-#include "..\ColorMagic\ColorSpaces\icolor.h"
-#include "..\ColorMagic\ColorSpaces\xyz.h"
+#include "..\ColorMagic\spaces\icolor.h"
+#include "..\ColorMagic\spaces\xyz.h"
 
-using namespace ColorSpaces;
+using namespace color_space;
 
 class XYZ_Test : public ::testing::Test {
 protected:

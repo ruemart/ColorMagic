@@ -1,9 +1,9 @@
 #include "gtest\gtest.h"
 #include "pch.h"
-#include "..\ColorMagic\ColorSpaces\icolor.h"
-#include "..\ColorMagic\ColorSpaces\grey_truecolor.h"
+#include "..\ColorMagic\spaces\icolor.h"
+#include "..\ColorMagic\spaces\grey_truecolor.h"
 
-using namespace ColorSpaces;
+using namespace color_space;
 
 class Grey_True_Test : public ::testing::Test {
 protected:

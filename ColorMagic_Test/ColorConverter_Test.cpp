@@ -1,18 +1,18 @@
 #include "gtest\gtest.h"
 #include "pch.h"
-#include "..\ColorMagic\ColorSpaces\icolor.h"
-#include "..\ColorMagic\ColorSpaces\cmyk.h"
-#include "..\ColorMagic\ColorSpaces\grey_deepcolor.h"
-#include "..\ColorMagic\ColorSpaces\grey_truecolor.h"
-#include "..\ColorMagic\ColorSpaces\hsl.h"
-#include "..\ColorMagic\ColorSpaces\hsv.h"
-#include "..\ColorMagic\ColorSpaces\lab.h"
-#include "..\ColorMagic\ColorSpaces\rgb_deepcolor.h"
-#include "..\ColorMagic\ColorSpaces\rgb_truecolor.h"
-#include "..\ColorMagic\ColorSpaces\xyz.h"
-#include "..\ColorMagic\color_converter.h"
+#include "..\ColorMagic\spaces\icolor.h"
+#include "..\ColorMagic\spaces\cmyk.h"
+#include "..\ColorMagic\spaces\grey_deepcolor.h"
+#include "..\ColorMagic\spaces\grey_truecolor.h"
+#include "..\ColorMagic\spaces\hsl.h"
+#include "..\ColorMagic\spaces\hsv.h"
+#include "..\ColorMagic\spaces\lab.h"
+#include "..\ColorMagic\spaces\rgb_deepcolor.h"
+#include "..\ColorMagic\spaces\rgb_truecolor.h"
+#include "..\ColorMagic\spaces\xyz.h"
+#include "..\ColorMagic\manipulation\color_converter.h"
 
-using namespace ColorSpaces;
+using namespace color_space;
 
 class ColorConverter_Test : public ::testing::Test {
 protected:
@@ -57,317 +57,317 @@ protected:
 
 TEST_F(ColorConverter_Test, From_RGB_True)
 {
-	EXPECT_EQ(*cmyk_yellow, *dynamic_cast<cmyk*>(ColorManipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::CMYK)));
-	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(ColorManipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::GREY_TRUE)));
-	EXPECT_EQ(*rgb_d_yellow, *dynamic_cast<rgb_deepcolor*>(ColorManipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::RGB_DEEP)));
+	EXPECT_EQ(*cmyk_yellow, *dynamic_cast<cmyk*>(color_manipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::CMYK)));
+	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(color_manipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::GREY_TRUE)));
+	EXPECT_EQ(*rgb_d_yellow, *dynamic_cast<rgb_deepcolor*>(color_manipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::RGB_DEEP)));
 
-	auto hsv_converted = dynamic_cast<hsv*>(ColorManipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::HSV));
-	EXPECT_NEAR(hsv_yellow->m_hue, hsv_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_saturation, hsv_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_value, hsv_converted->m_value, avg_error);
+	auto hsv_converted = dynamic_cast<hsv*>(color_manipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::HSV));
+	EXPECT_NEAR(hsv_yellow->hue(), hsv_converted->hue(), avg_error);
+	EXPECT_NEAR(hsv_yellow->saturation(), hsv_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsv_yellow->value(), hsv_converted->value(), avg_error);
 
-	auto hsl_converted = dynamic_cast<hsl*>(ColorManipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::HSL));
-	EXPECT_NEAR(hsl_yellow->m_hue, hsl_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_saturation, hsl_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_lightness, hsl_converted->m_lightness, avg_error);
+	auto hsl_converted = dynamic_cast<hsl*>(color_manipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::HSL));
+	EXPECT_NEAR(hsl_yellow->hue(), hsl_converted->hue(), avg_error);
+	EXPECT_NEAR(hsl_yellow->saturation(), hsl_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsl_yellow->lightness(), hsl_converted->lightness(), avg_error);
 	
-	auto xyz_converted = dynamic_cast<xyz*>(ColorManipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::XYZ));
-	EXPECT_NEAR(xyz_yellow->m_x, xyz_converted->m_x, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_y, xyz_converted->m_y, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_z, xyz_converted->m_z, avg_error);
+	auto xyz_converted = dynamic_cast<xyz*>(color_manipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::XYZ));
+	EXPECT_NEAR(xyz_yellow->x(), xyz_converted->x(), avg_error);
+	EXPECT_NEAR(xyz_yellow->y(), xyz_converted->y(), avg_error);
+	EXPECT_NEAR(xyz_yellow->z(), xyz_converted->z(), avg_error);
 
-	auto lab_converted = dynamic_cast<lab*>(ColorManipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::LAB));
-	EXPECT_NEAR(lab_yellow->m_luminance, lab_converted->m_luminance, avg_error);
-	EXPECT_NEAR(lab_yellow->m_a, lab_converted->m_a, avg_error);
-	EXPECT_NEAR(lab_yellow->m_b, lab_converted->m_b, avg_error);
+	auto lab_converted = dynamic_cast<lab*>(color_manipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::LAB));
+	EXPECT_NEAR(lab_yellow->luminance(), lab_converted->luminance(), avg_error);
+	EXPECT_NEAR(lab_yellow->a(), lab_converted->a(), avg_error);
+	EXPECT_NEAR(lab_yellow->b(), lab_converted->b(), avg_error);
 
-	auto grey_converted = dynamic_cast<grey_deepcolor*>(ColorManipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::GREY_DEEP));
-	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
-	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
+	auto grey_converted = dynamic_cast<grey_deepcolor*>(color_manipulation::color_converter::from_rgb_true(rgb_t_yellow, color_type::GREY_DEEP));
+	EXPECT_NEAR(grey_d->grey(), grey_converted->grey(), avg_error);
+	EXPECT_NEAR(grey_d->alpha(), grey_converted->alpha(), avg_error);
 }
 
 TEST_F(ColorConverter_Test, From_RGB_Deep)
 {
-	EXPECT_EQ(*cmyk_yellow, *dynamic_cast<cmyk*>(ColorManipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::CMYK)));
-	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(ColorManipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::GREY_TRUE)));
-	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(ColorManipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::RGB_TRUE)));
+	EXPECT_EQ(*cmyk_yellow, *dynamic_cast<cmyk*>(color_manipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::CMYK)));
+	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(color_manipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::GREY_TRUE)));
+	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::RGB_TRUE)));
 
-	auto hsv_converted = dynamic_cast<hsv*>(ColorManipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::HSV));
-	EXPECT_NEAR(hsv_yellow->m_hue, hsv_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_saturation, hsv_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_value, hsv_converted->m_value, avg_error);
+	auto hsv_converted = dynamic_cast<hsv*>(color_manipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::HSV));
+	EXPECT_NEAR(hsv_yellow->hue(), hsv_converted->hue(), avg_error);
+	EXPECT_NEAR(hsv_yellow->saturation(), hsv_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsv_yellow->value(), hsv_converted->value(), avg_error);
 
-	auto hsl_converted = dynamic_cast<hsl*>(ColorManipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::HSL));
-	EXPECT_NEAR(hsl_yellow->m_hue, hsl_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_saturation, hsl_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_lightness, hsl_converted->m_lightness, avg_error);
+	auto hsl_converted = dynamic_cast<hsl*>(color_manipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::HSL));
+	EXPECT_NEAR(hsl_yellow->hue(), hsl_converted->hue(), avg_error);
+	EXPECT_NEAR(hsl_yellow->saturation(), hsl_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsl_yellow->lightness(), hsl_converted->lightness(), avg_error);
 
-	auto xyz_converted = dynamic_cast<xyz*>(ColorManipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::XYZ));
-	EXPECT_NEAR(xyz_yellow->m_x, xyz_converted->m_x, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_y, xyz_converted->m_y, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_z, xyz_converted->m_z, avg_error);
+	auto xyz_converted = dynamic_cast<xyz*>(color_manipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::XYZ));
+	EXPECT_NEAR(xyz_yellow->x(), xyz_converted->x(), avg_error);
+	EXPECT_NEAR(xyz_yellow->y(), xyz_converted->y(), avg_error);
+	EXPECT_NEAR(xyz_yellow->z(), xyz_converted->z(), avg_error);
 
-	auto lab_converted = dynamic_cast<lab*>(ColorManipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::LAB));
-	EXPECT_NEAR(lab_yellow->m_luminance, lab_converted->m_luminance, avg_error);
-	EXPECT_NEAR(lab_yellow->m_a, lab_converted->m_a, avg_error);
-	EXPECT_NEAR(lab_yellow->m_b, lab_converted->m_b, avg_error);
+	auto lab_converted = dynamic_cast<lab*>(color_manipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::LAB));
+	EXPECT_NEAR(lab_yellow->luminance(), lab_converted->luminance(), avg_error);
+	EXPECT_NEAR(lab_yellow->a(), lab_converted->a(), avg_error);
+	EXPECT_NEAR(lab_yellow->b(), lab_converted->b(), avg_error);
 
-	auto grey_converted = dynamic_cast<grey_deepcolor*>(ColorManipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::GREY_DEEP));
-	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
-	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
+	auto grey_converted = dynamic_cast<grey_deepcolor*>(color_manipulation::color_converter::from_rgb_deep(rgb_d_yellow, color_type::GREY_DEEP));
+	EXPECT_NEAR(grey_d->grey(), grey_converted->grey(), avg_error);
+	EXPECT_NEAR(grey_d->alpha(), grey_converted->alpha(), avg_error);
 }
 
 TEST_F(ColorConverter_Test, From_Grey_True)
 {
-	EXPECT_EQ(*(new rgb_truecolor((unsigned char)170)), *dynamic_cast<rgb_truecolor*>(ColorManipulation::color_converter::from_grey_true(grey_t, color_type::RGB_TRUE)));
+	EXPECT_EQ(*(new rgb_truecolor((unsigned char)170)), *dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::RGB_TRUE)));
 
-	auto cmyk_converted = dynamic_cast<cmyk*>(ColorManipulation::color_converter::from_grey_true(grey_t, color_type::CMYK));
-	EXPECT_NEAR(0.f, cmyk_converted->m_cyan, avg_error);
-	EXPECT_NEAR(0.f, cmyk_converted->m_magenta, avg_error);
-	EXPECT_NEAR(0.f, cmyk_converted->m_yellow, avg_error);
-	EXPECT_NEAR(0.33f, cmyk_converted->m_black, avg_error);
+	auto cmyk_converted = dynamic_cast<cmyk*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::CMYK));
+	EXPECT_NEAR(0.f, cmyk_converted->cyan(), avg_error);
+	EXPECT_NEAR(0.f, cmyk_converted->magenta(), avg_error);
+	EXPECT_NEAR(0.f, cmyk_converted->yellow(), avg_error);
+	EXPECT_NEAR(0.33f, cmyk_converted->black(), avg_error);
 
-	auto rgb_d_converted = dynamic_cast<rgb_deepcolor*>(ColorManipulation::color_converter::from_grey_true(grey_t, color_type::RGB_DEEP));
-	EXPECT_NEAR(0.66f, rgb_d_converted->m_red, avg_error);
-	EXPECT_NEAR(0.66f, rgb_d_converted->m_green, avg_error);
-	EXPECT_NEAR(0.66f, rgb_d_converted->m_blue, avg_error);
-	EXPECT_NEAR(1.f, rgb_d_converted->m_alpha, avg_error);
+	auto rgb_d_converted = dynamic_cast<rgb_deepcolor*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::RGB_DEEP));
+	EXPECT_NEAR(0.66f, rgb_d_converted->red(), avg_error);
+	EXPECT_NEAR(0.66f, rgb_d_converted->green(), avg_error);
+	EXPECT_NEAR(0.66f, rgb_d_converted->blue(), avg_error);
+	EXPECT_NEAR(1.f, rgb_d_converted->alpha(), avg_error);
 
-	auto hsv_converted = dynamic_cast<hsv*>(ColorManipulation::color_converter::from_grey_true(grey_t, color_type::HSV));
-	EXPECT_NEAR(0.f, hsv_converted->m_hue, avg_error);
-	EXPECT_NEAR(0.f, hsv_converted->m_saturation, avg_error);
-	EXPECT_NEAR(0.66f, hsv_converted->m_value, avg_error);
+	auto hsv_converted = dynamic_cast<hsv*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::HSV));
+	EXPECT_NEAR(0.f, hsv_converted->hue(), avg_error);
+	EXPECT_NEAR(0.f, hsv_converted->saturation(), avg_error);
+	EXPECT_NEAR(0.66f, hsv_converted->value(), avg_error);
 
-	auto hsl_converted = dynamic_cast<hsl*>(ColorManipulation::color_converter::from_grey_true(grey_t, color_type::HSL));
-	EXPECT_NEAR(0.f, hsl_converted->m_hue, avg_error);
-	EXPECT_NEAR(0.f, hsl_converted->m_saturation, avg_error);
-	EXPECT_NEAR(0.66f, hsl_converted->m_lightness, avg_error);
+	auto hsl_converted = dynamic_cast<hsl*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::HSL));
+	EXPECT_NEAR(0.f, hsl_converted->hue(), avg_error);
+	EXPECT_NEAR(0.f, hsl_converted->saturation(), avg_error);
+	EXPECT_NEAR(0.66f, hsl_converted->lightness(), avg_error);
 
-	auto xyz_converted = dynamic_cast<xyz*>(ColorManipulation::color_converter::from_grey_true(grey_t, color_type::XYZ));
-	EXPECT_NEAR(38.21f, xyz_converted->m_x, avg_error);
-	EXPECT_NEAR(40.20f, xyz_converted->m_y, avg_error);
-	EXPECT_NEAR(43.78f, xyz_converted->m_z, avg_error);
+	auto xyz_converted = dynamic_cast<xyz*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::XYZ));
+	EXPECT_NEAR(38.21f, xyz_converted->x(), avg_error);
+	EXPECT_NEAR(40.20f, xyz_converted->y(), avg_error);
+	EXPECT_NEAR(43.78f, xyz_converted->z(), avg_error);
 
-	auto lab_converted = dynamic_cast<lab*>(ColorManipulation::color_converter::from_grey_true(grey_t, color_type::LAB));
-	EXPECT_NEAR(69.61f, lab_converted->m_luminance, avg_error);
-	EXPECT_NEAR(0.f, lab_converted->m_a, avg_error);
-	EXPECT_NEAR(0.f, lab_converted->m_b, avg_error);
+	auto lab_converted = dynamic_cast<lab*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::LAB));
+	EXPECT_NEAR(69.61f, lab_converted->luminance(), avg_error);
+	EXPECT_NEAR(0.f, lab_converted->a(), avg_error);
+	EXPECT_NEAR(0.f, lab_converted->b(), avg_error);
 
-	auto grey_converted = dynamic_cast<grey_deepcolor*>(ColorManipulation::color_converter::from_grey_true(grey_t, color_type::GREY_DEEP));
-	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
-	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
+	auto grey_converted = dynamic_cast<grey_deepcolor*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::GREY_DEEP));
+	EXPECT_NEAR(grey_d->grey(), grey_converted->grey(), avg_error);
+	EXPECT_NEAR(grey_d->alpha(), grey_converted->alpha(), avg_error);
 }
 
 TEST_F(ColorConverter_Test, From_Grey_Deep)
 {
-	auto rgb_t_converted = dynamic_cast<rgb_truecolor*>(ColorManipulation::color_converter::from_grey_deep(grey_d, color_type::RGB_TRUE));
-	EXPECT_NEAR(170, rgb_t_converted->m_red, avg_error);
-	EXPECT_NEAR(170, rgb_t_converted->m_green, avg_error);
-	EXPECT_NEAR(170, rgb_t_converted->m_blue, avg_error);
-	EXPECT_NEAR(255, rgb_t_converted->m_alpha, avg_error);
+	auto rgb_t_converted = dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_grey_deep(grey_d, color_type::RGB_TRUE));
+	EXPECT_NEAR(170, rgb_t_converted->red(), avg_error);
+	EXPECT_NEAR(170, rgb_t_converted->green(), avg_error);
+	EXPECT_NEAR(170, rgb_t_converted->blue(), avg_error);
+	EXPECT_NEAR(255, rgb_t_converted->alpha(), avg_error);
 
-	auto cmyk_converted = dynamic_cast<cmyk*>(ColorManipulation::color_converter::from_grey_deep(grey_d, color_type::CMYK));
-	EXPECT_NEAR(0.f, cmyk_converted->m_cyan, avg_error);
-	EXPECT_NEAR(0.f, cmyk_converted->m_magenta, avg_error);
-	EXPECT_NEAR(0.f, cmyk_converted->m_yellow, avg_error);
-	EXPECT_NEAR(0.33f, cmyk_converted->m_black, avg_error);
+	auto cmyk_converted = dynamic_cast<cmyk*>(color_manipulation::color_converter::from_grey_deep(grey_d, color_type::CMYK));
+	EXPECT_NEAR(0.f, cmyk_converted->cyan(), avg_error);
+	EXPECT_NEAR(0.f, cmyk_converted->magenta(), avg_error);
+	EXPECT_NEAR(0.f, cmyk_converted->yellow(), avg_error);
+	EXPECT_NEAR(0.33f, cmyk_converted->black(), avg_error);
 
-	auto rgb_d_converted = dynamic_cast<rgb_deepcolor*>(ColorManipulation::color_converter::from_grey_deep(grey_d, color_type::RGB_DEEP));
-	EXPECT_NEAR(0.66f, rgb_d_converted->m_red, avg_error);
-	EXPECT_NEAR(0.66f, rgb_d_converted->m_green, avg_error);
-	EXPECT_NEAR(0.66f, rgb_d_converted->m_blue, avg_error);
-	EXPECT_NEAR(1.f, rgb_d_converted->m_alpha, avg_error);
+	auto rgb_d_converted = dynamic_cast<rgb_deepcolor*>(color_manipulation::color_converter::from_grey_deep(grey_d, color_type::RGB_DEEP));
+	EXPECT_NEAR(0.66f, rgb_d_converted->red(), avg_error);
+	EXPECT_NEAR(0.66f, rgb_d_converted->green(), avg_error);
+	EXPECT_NEAR(0.66f, rgb_d_converted->blue(), avg_error);
+	EXPECT_NEAR(1.f, rgb_d_converted->alpha(), avg_error);
 
-	auto hsv_converted = dynamic_cast<hsv*>(ColorManipulation::color_converter::from_grey_deep(grey_d, color_type::HSV));
-	EXPECT_NEAR(0.f, hsv_converted->m_hue, avg_error);
-	EXPECT_NEAR(0.f, hsv_converted->m_saturation, avg_error);
-	EXPECT_NEAR(0.66f, hsv_converted->m_value, avg_error);
+	auto hsv_converted = dynamic_cast<hsv*>(color_manipulation::color_converter::from_grey_deep(grey_d, color_type::HSV));
+	EXPECT_NEAR(0.f, hsv_converted->hue(), avg_error);
+	EXPECT_NEAR(0.f, hsv_converted->saturation(), avg_error);
+	EXPECT_NEAR(0.66f, hsv_converted->value(), avg_error);
 
-	auto hsl_converted = dynamic_cast<hsl*>(ColorManipulation::color_converter::from_grey_deep(grey_d, color_type::HSL));
-	EXPECT_NEAR(0.f, hsl_converted->m_hue, avg_error);
-	EXPECT_NEAR(0.f, hsl_converted->m_saturation, avg_error);
-	EXPECT_NEAR(0.66f, hsl_converted->m_lightness, avg_error);
+	auto hsl_converted = dynamic_cast<hsl*>(color_manipulation::color_converter::from_grey_deep(grey_d, color_type::HSL));
+	EXPECT_NEAR(0.f, hsl_converted->hue(), avg_error);
+	EXPECT_NEAR(0.f, hsl_converted->saturation(), avg_error);
+	EXPECT_NEAR(0.66f, hsl_converted->lightness(), avg_error);
 
-	auto xyz_converted = dynamic_cast<xyz*>(ColorManipulation::color_converter::from_grey_deep(grey_d, color_type::XYZ));
-	EXPECT_NEAR(38.21f, xyz_converted->m_x, avg_error);
-	EXPECT_NEAR(40.20f, xyz_converted->m_y, avg_error);
-	EXPECT_NEAR(43.78f, xyz_converted->m_z, avg_error);
+	auto xyz_converted = dynamic_cast<xyz*>(color_manipulation::color_converter::from_grey_deep(grey_d, color_type::XYZ));
+	EXPECT_NEAR(38.21f, xyz_converted->x(), avg_error);
+	EXPECT_NEAR(40.20f, xyz_converted->y(), avg_error);
+	EXPECT_NEAR(43.78f, xyz_converted->z(), avg_error);
 
-	auto lab_converted = dynamic_cast<lab*>(ColorManipulation::color_converter::from_grey_deep(grey_d, color_type::LAB));
-	EXPECT_NEAR(69.61f, lab_converted->m_luminance, avg_error);
-	EXPECT_NEAR(0.f, lab_converted->m_a, avg_error);
-	EXPECT_NEAR(0.f, lab_converted->m_b, avg_error);
+	auto lab_converted = dynamic_cast<lab*>(color_manipulation::color_converter::from_grey_deep(grey_d, color_type::LAB));
+	EXPECT_NEAR(69.61f, lab_converted->luminance(), avg_error);
+	EXPECT_NEAR(0.f, lab_converted->a(), avg_error);
+	EXPECT_NEAR(0.f, lab_converted->b(), avg_error);
 
-	auto grey_converted = dynamic_cast<grey_truecolor*>(ColorManipulation::color_converter::from_grey_deep(grey_d, color_type::GREY_TRUE));
-	EXPECT_NEAR(grey_t->m_grey, grey_converted->m_grey, avg_error);
-	EXPECT_NEAR(grey_t->m_alpha, grey_converted->m_alpha, avg_error);
+	auto grey_converted = dynamic_cast<grey_truecolor*>(color_manipulation::color_converter::from_grey_deep(grey_d, color_type::GREY_TRUE));
+	EXPECT_NEAR(grey_t->grey(), grey_converted->grey(), avg_error);
+	EXPECT_NEAR(grey_t->alpha(), grey_converted->alpha(), avg_error);
 }
 
 TEST_F(ColorConverter_Test, From_CMYK)
 {
-	EXPECT_EQ(*rgb_d_yellow, *dynamic_cast<rgb_deepcolor*>(ColorManipulation::color_converter::from_cmyk(cmyk_yellow, color_type::RGB_DEEP)));
-	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(ColorManipulation::color_converter::from_cmyk(cmyk_yellow, color_type::GREY_TRUE)));
-	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(ColorManipulation::color_converter::from_cmyk(cmyk_yellow, color_type::RGB_TRUE)));
+	EXPECT_EQ(*rgb_d_yellow, *dynamic_cast<rgb_deepcolor*>(color_manipulation::color_converter::from_cmyk(cmyk_yellow, color_type::RGB_DEEP)));
+	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(color_manipulation::color_converter::from_cmyk(cmyk_yellow, color_type::GREY_TRUE)));
+	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_cmyk(cmyk_yellow, color_type::RGB_TRUE)));
 
-	auto hsv_converted = dynamic_cast<hsv*>(ColorManipulation::color_converter::from_cmyk(cmyk_yellow, color_type::HSV));
-	EXPECT_NEAR(hsv_yellow->m_hue, hsv_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_saturation, hsv_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_value, hsv_converted->m_value, avg_error);
+	auto hsv_converted = dynamic_cast<hsv*>(color_manipulation::color_converter::from_cmyk(cmyk_yellow, color_type::HSV));
+	EXPECT_NEAR(hsv_yellow->hue(), hsv_converted->hue(), avg_error);
+	EXPECT_NEAR(hsv_yellow->saturation(), hsv_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsv_yellow->value(), hsv_converted->value(), avg_error);
 
-	auto hsl_converted = dynamic_cast<hsl*>(ColorManipulation::color_converter::from_cmyk(cmyk_yellow, color_type::HSL));
-	EXPECT_NEAR(hsl_yellow->m_hue, hsl_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_saturation, hsl_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_lightness, hsl_converted->m_lightness, avg_error);
+	auto hsl_converted = dynamic_cast<hsl*>(color_manipulation::color_converter::from_cmyk(cmyk_yellow, color_type::HSL));
+	EXPECT_NEAR(hsl_yellow->hue(), hsl_converted->hue(), avg_error);
+	EXPECT_NEAR(hsl_yellow->saturation(), hsl_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsl_yellow->lightness(), hsl_converted->lightness(), avg_error);
 
-	auto xyz_converted = dynamic_cast<xyz*>(ColorManipulation::color_converter::from_cmyk(cmyk_yellow, color_type::XYZ));
-	EXPECT_NEAR(xyz_yellow->m_x, xyz_converted->m_x, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_y, xyz_converted->m_y, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_z, xyz_converted->m_z, avg_error);
+	auto xyz_converted = dynamic_cast<xyz*>(color_manipulation::color_converter::from_cmyk(cmyk_yellow, color_type::XYZ));
+	EXPECT_NEAR(xyz_yellow->x(), xyz_converted->x(), avg_error);
+	EXPECT_NEAR(xyz_yellow->y(), xyz_converted->y(), avg_error);
+	EXPECT_NEAR(xyz_yellow->z(), xyz_converted->z(), avg_error);
 
-	auto lab_converted = dynamic_cast<lab*>(ColorManipulation::color_converter::from_cmyk(cmyk_yellow, color_type::LAB));
-	EXPECT_NEAR(lab_yellow->m_luminance, lab_converted->m_luminance, avg_error);
-	EXPECT_NEAR(lab_yellow->m_a, lab_converted->m_a, avg_error);
-	EXPECT_NEAR(lab_yellow->m_b, lab_converted->m_b, avg_error);
+	auto lab_converted = dynamic_cast<lab*>(color_manipulation::color_converter::from_cmyk(cmyk_yellow, color_type::LAB));
+	EXPECT_NEAR(lab_yellow->luminance(), lab_converted->luminance(), avg_error);
+	EXPECT_NEAR(lab_yellow->a(), lab_converted->a(), avg_error);
+	EXPECT_NEAR(lab_yellow->b(), lab_converted->b(), avg_error);
 
-	auto grey_converted = dynamic_cast<grey_deepcolor*>(ColorManipulation::color_converter::from_cmyk(cmyk_yellow, color_type::GREY_DEEP));
-	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
-	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
+	auto grey_converted = dynamic_cast<grey_deepcolor*>(color_manipulation::color_converter::from_cmyk(cmyk_yellow, color_type::GREY_DEEP));
+	EXPECT_NEAR(grey_d->grey(), grey_converted->grey(), avg_error);
+	EXPECT_NEAR(grey_d->alpha(), grey_converted->alpha(), avg_error);
 }
 
 TEST_F(ColorConverter_Test, From_HSV)
 {
-	EXPECT_EQ(*rgb_d_yellow, *dynamic_cast<rgb_deepcolor*>(ColorManipulation::color_converter::from_hsv(hsv_yellow, color_type::RGB_DEEP)));
-	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(ColorManipulation::color_converter::from_hsv(hsv_yellow, color_type::GREY_TRUE)));
-	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(ColorManipulation::color_converter::from_hsv(hsv_yellow, color_type::RGB_TRUE)));
+	EXPECT_EQ(*rgb_d_yellow, *dynamic_cast<rgb_deepcolor*>(color_manipulation::color_converter::from_hsv(hsv_yellow, color_type::RGB_DEEP)));
+	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(color_manipulation::color_converter::from_hsv(hsv_yellow, color_type::GREY_TRUE)));
+	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_hsv(hsv_yellow, color_type::RGB_TRUE)));
 
-	auto cmyk_converted = dynamic_cast<cmyk*>(ColorManipulation::color_converter::from_hsv(hsv_yellow, color_type::CMYK));
-	EXPECT_NEAR(cmyk_yellow->m_cyan, cmyk_converted->m_cyan, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_magenta, cmyk_converted->m_magenta, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_yellow, cmyk_converted->m_yellow, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_black, cmyk_converted->m_black, avg_error);
+	auto cmyk_converted = dynamic_cast<cmyk*>(color_manipulation::color_converter::from_hsv(hsv_yellow, color_type::CMYK));
+	EXPECT_NEAR(cmyk_yellow->cyan(), cmyk_converted->cyan(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->magenta(), cmyk_converted->magenta(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->yellow(), cmyk_converted->yellow(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->black(), cmyk_converted->black(), avg_error);
 
-	auto hsl_converted = dynamic_cast<hsl*>(ColorManipulation::color_converter::from_hsv(hsv_yellow, color_type::HSL));
-	EXPECT_NEAR(hsl_yellow->m_hue, hsl_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_saturation, hsl_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_lightness, hsl_converted->m_lightness, avg_error);
+	auto hsl_converted = dynamic_cast<hsl*>(color_manipulation::color_converter::from_hsv(hsv_yellow, color_type::HSL));
+	EXPECT_NEAR(hsl_yellow->hue(), hsl_converted->hue(), avg_error);
+	EXPECT_NEAR(hsl_yellow->saturation(), hsl_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsl_yellow->lightness(), hsl_converted->lightness(), avg_error);
 
-	auto xyz_converted = dynamic_cast<xyz*>(ColorManipulation::color_converter::from_hsv(hsv_yellow, color_type::XYZ));
-	EXPECT_NEAR(xyz_yellow->m_x, xyz_converted->m_x, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_y, xyz_converted->m_y, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_z, xyz_converted->m_z, avg_error);
+	auto xyz_converted = dynamic_cast<xyz*>(color_manipulation::color_converter::from_hsv(hsv_yellow, color_type::XYZ));
+	EXPECT_NEAR(xyz_yellow->x(), xyz_converted->x(), avg_error);
+	EXPECT_NEAR(xyz_yellow->y(), xyz_converted->y(), avg_error);
+	EXPECT_NEAR(xyz_yellow->z(), xyz_converted->z(), avg_error);
 
-	auto lab_converted = dynamic_cast<lab*>(ColorManipulation::color_converter::from_hsv(hsv_yellow, color_type::LAB));
-	EXPECT_NEAR(lab_yellow->m_luminance, lab_converted->m_luminance, avg_error);
-	EXPECT_NEAR(lab_yellow->m_a, lab_converted->m_a, avg_error);
-	EXPECT_NEAR(lab_yellow->m_b, lab_converted->m_b, avg_error);
+	auto lab_converted = dynamic_cast<lab*>(color_manipulation::color_converter::from_hsv(hsv_yellow, color_type::LAB));
+	EXPECT_NEAR(lab_yellow->luminance(), lab_converted->luminance(), avg_error);
+	EXPECT_NEAR(lab_yellow->a(), lab_converted->a(), avg_error);
+	EXPECT_NEAR(lab_yellow->b(), lab_converted->b(), avg_error);
 
-	auto grey_converted = dynamic_cast<grey_deepcolor*>(ColorManipulation::color_converter::from_hsv(hsv_yellow, color_type::GREY_DEEP));
-	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
-	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
+	auto grey_converted = dynamic_cast<grey_deepcolor*>(color_manipulation::color_converter::from_hsv(hsv_yellow, color_type::GREY_DEEP));
+	EXPECT_NEAR(grey_d->grey(), grey_converted->grey(), avg_error);
+	EXPECT_NEAR(grey_d->alpha(), grey_converted->alpha(), avg_error);
 }
 
 TEST_F(ColorConverter_Test, From_HSL)
 {
-	EXPECT_EQ(*rgb_d_yellow, *dynamic_cast<rgb_deepcolor*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::RGB_DEEP)));
-	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::GREY_TRUE)));
-	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::RGB_TRUE)));
+	EXPECT_EQ(*rgb_d_yellow, *dynamic_cast<rgb_deepcolor*>(color_manipulation::color_converter::from_hsl(hsl_yellow, color_type::RGB_DEEP)));
+	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(color_manipulation::color_converter::from_hsl(hsl_yellow, color_type::GREY_TRUE)));
+	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_hsl(hsl_yellow, color_type::RGB_TRUE)));
 
-	auto cmyk_converted = dynamic_cast<cmyk*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::CMYK));
-	EXPECT_NEAR(cmyk_yellow->m_cyan, cmyk_converted->m_cyan, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_magenta, cmyk_converted->m_magenta, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_yellow, cmyk_converted->m_yellow, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_black, cmyk_converted->m_black, avg_error);
+	auto cmyk_converted = dynamic_cast<cmyk*>(color_manipulation::color_converter::from_hsl(hsl_yellow, color_type::CMYK));
+	EXPECT_NEAR(cmyk_yellow->cyan(), cmyk_converted->cyan(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->magenta(), cmyk_converted->magenta(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->yellow(), cmyk_converted->yellow(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->black(), cmyk_converted->black(), avg_error);
 
-	auto hsv_converted = dynamic_cast<hsv*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::HSV));
-	EXPECT_NEAR(hsv_yellow->m_hue, hsv_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_saturation, hsv_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_value, hsv_converted->m_value, avg_error);
+	auto hsv_converted = dynamic_cast<hsv*>(color_manipulation::color_converter::from_hsl(hsl_yellow, color_type::HSV));
+	EXPECT_NEAR(hsv_yellow->hue(), hsv_converted->hue(), avg_error);
+	EXPECT_NEAR(hsv_yellow->saturation(), hsv_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsv_yellow->value(), hsv_converted->value(), avg_error);
 
-	auto xyz_converted = dynamic_cast<xyz*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::XYZ));
-	EXPECT_NEAR(xyz_yellow->m_x, xyz_converted->m_x, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_y, xyz_converted->m_y, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_z, xyz_converted->m_z, avg_error);
+	auto xyz_converted = dynamic_cast<xyz*>(color_manipulation::color_converter::from_hsl(hsl_yellow, color_type::XYZ));
+	EXPECT_NEAR(xyz_yellow->x(), xyz_converted->x(), avg_error);
+	EXPECT_NEAR(xyz_yellow->y(), xyz_converted->y(), avg_error);
+	EXPECT_NEAR(xyz_yellow->z(), xyz_converted->z(), avg_error);
 
-	auto lab_converted = dynamic_cast<lab*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::LAB));
-	EXPECT_NEAR(lab_yellow->m_luminance, lab_converted->m_luminance, avg_error);
-	EXPECT_NEAR(lab_yellow->m_a, lab_converted->m_a, avg_error);
-	EXPECT_NEAR(lab_yellow->m_b, lab_converted->m_b, avg_error);
+	auto lab_converted = dynamic_cast<lab*>(color_manipulation::color_converter::from_hsl(hsl_yellow, color_type::LAB));
+	EXPECT_NEAR(lab_yellow->luminance(), lab_converted->luminance(), avg_error);
+	EXPECT_NEAR(lab_yellow->a(), lab_converted->a(), avg_error);
+	EXPECT_NEAR(lab_yellow->b(), lab_converted->b(), avg_error);
 
-	auto grey_converted = dynamic_cast<grey_deepcolor*>(ColorManipulation::color_converter::from_hsl(hsl_yellow, color_type::GREY_DEEP));
-	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
-	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
+	auto grey_converted = dynamic_cast<grey_deepcolor*>(color_manipulation::color_converter::from_hsl(hsl_yellow, color_type::GREY_DEEP));
+	EXPECT_NEAR(grey_d->grey(), grey_converted->grey(), avg_error);
+	EXPECT_NEAR(grey_d->alpha(), grey_converted->alpha(), avg_error);
 }
 
 TEST_F(ColorConverter_Test, From_XYZ)
 {
-	auto rgb_d_converted = dynamic_cast<rgb_deepcolor*>(ColorManipulation::color_converter::from_xyz(xyz_yellow, color_type::RGB_DEEP));
-	EXPECT_NEAR(rgb_d_yellow->m_red, rgb_d_converted->m_red, avg_error);
-	EXPECT_NEAR(rgb_d_yellow->m_green, rgb_d_converted->m_green, avg_error);
-	EXPECT_NEAR(rgb_d_yellow->m_blue, rgb_d_converted->m_blue, avg_error);
-	EXPECT_NEAR(rgb_d_yellow->m_alpha, rgb_d_converted->m_alpha, avg_error);
+	auto rgb_d_converted = dynamic_cast<rgb_deepcolor*>(color_manipulation::color_converter::from_xyz(xyz_yellow, color_type::RGB_DEEP));
+	EXPECT_NEAR(rgb_d_yellow->red(), rgb_d_converted->red(), avg_error);
+	EXPECT_NEAR(rgb_d_yellow->green(), rgb_d_converted->green(), avg_error);
+	EXPECT_NEAR(rgb_d_yellow->blue(), rgb_d_converted->blue(), avg_error);
+	EXPECT_NEAR(rgb_d_yellow->alpha(), rgb_d_converted->alpha(), avg_error);
 
-	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(ColorManipulation::color_converter::from_xyz(xyz_yellow, color_type::GREY_TRUE)));
-	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(ColorManipulation::color_converter::from_xyz(xyz_yellow, color_type::RGB_TRUE)));
+	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(color_manipulation::color_converter::from_xyz(xyz_yellow, color_type::GREY_TRUE)));
+	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_xyz(xyz_yellow, color_type::RGB_TRUE)));
 
-	auto cmyk_converted = dynamic_cast<cmyk*>(ColorManipulation::color_converter::from_xyz(xyz_yellow, color_type::CMYK));
-	EXPECT_NEAR(cmyk_yellow->m_cyan, cmyk_converted->m_cyan, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_magenta, cmyk_converted->m_magenta, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_yellow, cmyk_converted->m_yellow, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_black, cmyk_converted->m_black, avg_error);
+	auto cmyk_converted = dynamic_cast<cmyk*>(color_manipulation::color_converter::from_xyz(xyz_yellow, color_type::CMYK));
+	EXPECT_NEAR(cmyk_yellow->cyan(), cmyk_converted->cyan(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->magenta(), cmyk_converted->magenta(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->yellow(), cmyk_converted->yellow(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->black(), cmyk_converted->black(), avg_error);
 
-	auto hsv_converted = dynamic_cast<hsv*>(ColorManipulation::color_converter::from_xyz(xyz_yellow, color_type::HSV));
-	EXPECT_NEAR(hsv_yellow->m_hue, hsv_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_saturation, hsv_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_value, hsv_converted->m_value, avg_error);
+	auto hsv_converted = dynamic_cast<hsv*>(color_manipulation::color_converter::from_xyz(xyz_yellow, color_type::HSV));
+	EXPECT_NEAR(hsv_yellow->hue(), hsv_converted->hue(), avg_error);
+	EXPECT_NEAR(hsv_yellow->saturation(), hsv_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsv_yellow->value(), hsv_converted->value(), avg_error);
 
-	auto hsl_converted = dynamic_cast<hsl*>(ColorManipulation::color_converter::from_xyz(xyz_yellow, color_type::HSL));
-	EXPECT_NEAR(hsl_yellow->m_hue, hsl_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_saturation, hsl_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_lightness, hsl_converted->m_lightness, avg_error);
+	auto hsl_converted = dynamic_cast<hsl*>(color_manipulation::color_converter::from_xyz(xyz_yellow, color_type::HSL));
+	EXPECT_NEAR(hsl_yellow->hue(), hsl_converted->hue(), avg_error);
+	EXPECT_NEAR(hsl_yellow->saturation(), hsl_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsl_yellow->lightness(), hsl_converted->lightness(), avg_error);
 
-	auto lab_converted = dynamic_cast<lab*>(ColorManipulation::color_converter::from_xyz(xyz_yellow, color_type::LAB));
-	EXPECT_NEAR(lab_yellow->m_luminance, lab_converted->m_luminance, avg_error);
-	EXPECT_NEAR(lab_yellow->m_a, lab_converted->m_a, avg_error);
-	EXPECT_NEAR(lab_yellow->m_b, lab_converted->m_b, avg_error);
+	auto lab_converted = dynamic_cast<lab*>(color_manipulation::color_converter::from_xyz(xyz_yellow, color_type::LAB));
+	EXPECT_NEAR(lab_yellow->luminance(), lab_converted->luminance(), avg_error);
+	EXPECT_NEAR(lab_yellow->a(), lab_converted->a(), avg_error);
+	EXPECT_NEAR(lab_yellow->b(), lab_converted->b(), avg_error);
 
-	auto grey_converted = dynamic_cast<grey_deepcolor*>(ColorManipulation::color_converter::from_xyz(xyz_yellow, color_type::GREY_DEEP));
-	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
-	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
+	auto grey_converted = dynamic_cast<grey_deepcolor*>(color_manipulation::color_converter::from_xyz(xyz_yellow, color_type::GREY_DEEP));
+	EXPECT_NEAR(grey_d->grey(), grey_converted->grey(), avg_error);
+	EXPECT_NEAR(grey_d->alpha(), grey_converted->alpha(), avg_error);
 }
 
 TEST_F(ColorConverter_Test, From_LAB)
 {
-	auto rgb_d_converted = dynamic_cast<rgb_deepcolor*>(ColorManipulation::color_converter::from_lab(lab_yellow, color_type::RGB_DEEP));
-	EXPECT_NEAR(rgb_d_yellow->m_red, rgb_d_converted->m_red, avg_error);
-	EXPECT_NEAR(rgb_d_yellow->m_green, rgb_d_converted->m_green, avg_error);
-	EXPECT_NEAR(rgb_d_yellow->m_blue, rgb_d_converted->m_blue, avg_error);
-	EXPECT_NEAR(rgb_d_yellow->m_alpha, rgb_d_converted->m_alpha, avg_error);
+	auto rgb_d_converted = dynamic_cast<rgb_deepcolor*>(color_manipulation::color_converter::from_lab(lab_yellow, color_type::RGB_DEEP));
+	EXPECT_NEAR(rgb_d_yellow->red(), rgb_d_converted->red(), avg_error);
+	EXPECT_NEAR(rgb_d_yellow->green(), rgb_d_converted->green(), avg_error);
+	EXPECT_NEAR(rgb_d_yellow->blue(), rgb_d_converted->blue(), avg_error);
+	EXPECT_NEAR(rgb_d_yellow->alpha(), rgb_d_converted->alpha(), avg_error);
 
-	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(ColorManipulation::color_converter::from_lab(lab_yellow, color_type::GREY_TRUE)));
-	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(ColorManipulation::color_converter::from_lab(lab_yellow, color_type::RGB_TRUE)));
+	EXPECT_EQ(*grey_t, *dynamic_cast<grey_truecolor*>(color_manipulation::color_converter::from_lab(lab_yellow, color_type::GREY_TRUE)));
+	EXPECT_EQ(*rgb_t_yellow, *dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_lab(lab_yellow, color_type::RGB_TRUE)));
 
-	auto cmyk_converted = dynamic_cast<cmyk*>(ColorManipulation::color_converter::from_lab(lab_yellow, color_type::CMYK));
-	EXPECT_NEAR(cmyk_yellow->m_cyan, cmyk_converted->m_cyan, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_magenta, cmyk_converted->m_magenta, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_yellow, cmyk_converted->m_yellow, avg_error);
-	EXPECT_NEAR(cmyk_yellow->m_black, cmyk_converted->m_black, avg_error);
+	auto cmyk_converted = dynamic_cast<cmyk*>(color_manipulation::color_converter::from_lab(lab_yellow, color_type::CMYK));
+	EXPECT_NEAR(cmyk_yellow->cyan(), cmyk_converted->cyan(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->magenta(), cmyk_converted->magenta(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->yellow(), cmyk_converted->yellow(), avg_error);
+	EXPECT_NEAR(cmyk_yellow->black(), cmyk_converted->black(), avg_error);
 
-	auto hsv_converted = dynamic_cast<hsv*>(ColorManipulation::color_converter::from_lab(lab_yellow, color_type::HSV));
-	EXPECT_NEAR(hsv_yellow->m_hue, hsv_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_saturation, hsv_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsv_yellow->m_value, hsv_converted->m_value, avg_error);
+	auto hsv_converted = dynamic_cast<hsv*>(color_manipulation::color_converter::from_lab(lab_yellow, color_type::HSV));
+	EXPECT_NEAR(hsv_yellow->hue(), hsv_converted->hue(), avg_error);
+	EXPECT_NEAR(hsv_yellow->saturation(), hsv_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsv_yellow->value(), hsv_converted->value(), avg_error);
 
-	auto hsl_converted = dynamic_cast<hsl*>(ColorManipulation::color_converter::from_lab(lab_yellow, color_type::HSL));
-	EXPECT_NEAR(hsl_yellow->m_hue, hsl_converted->m_hue, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_saturation, hsl_converted->m_saturation, avg_error);
-	EXPECT_NEAR(hsl_yellow->m_lightness, hsl_converted->m_lightness, avg_error);
+	auto hsl_converted = dynamic_cast<hsl*>(color_manipulation::color_converter::from_lab(lab_yellow, color_type::HSL));
+	EXPECT_NEAR(hsl_yellow->hue(), hsl_converted->hue(), avg_error);
+	EXPECT_NEAR(hsl_yellow->saturation(), hsl_converted->saturation(), avg_error);
+	EXPECT_NEAR(hsl_yellow->lightness(), hsl_converted->lightness(), avg_error);
 
-	auto xyz_converted = dynamic_cast<xyz*>(ColorManipulation::color_converter::from_lab(lab_yellow, color_type::XYZ));
-	EXPECT_NEAR(xyz_yellow->m_x, xyz_converted->m_x, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_y, xyz_converted->m_y, avg_error);
-	EXPECT_NEAR(xyz_yellow->m_z, xyz_converted->m_z, avg_error);
+	auto xyz_converted = dynamic_cast<xyz*>(color_manipulation::color_converter::from_lab(lab_yellow, color_type::XYZ));
+	EXPECT_NEAR(xyz_yellow->x(), xyz_converted->x(), avg_error);
+	EXPECT_NEAR(xyz_yellow->y(), xyz_converted->y(), avg_error);
+	EXPECT_NEAR(xyz_yellow->z(), xyz_converted->z(), avg_error);
 
-	auto grey_converted = dynamic_cast<grey_deepcolor*>(ColorManipulation::color_converter::from_lab(lab_yellow, color_type::GREY_DEEP));
-	EXPECT_NEAR(grey_d->m_grey, grey_converted->m_grey, avg_error);
-	EXPECT_NEAR(grey_d->m_alpha, grey_converted->m_alpha, avg_error);
+	auto grey_converted = dynamic_cast<grey_deepcolor*>(color_manipulation::color_converter::from_lab(lab_yellow, color_type::GREY_DEEP));
+	EXPECT_NEAR(grey_d->grey(), grey_converted->grey(), avg_error);
+	EXPECT_NEAR(grey_d->alpha(), grey_converted->alpha(), avg_error);
 }

@@ -1,9 +1,9 @@
 #include "gtest\gtest.h"
 #include "pch.h"
-#include "..\ColorMagic\ColorSpaces\icolor.h"
-#include "..\ColorMagic\ColorSpaces\cmyk.h"
+#include "..\ColorMagic\spaces\icolor.h"
+#include "..\ColorMagic\spaces\cmyk.h"
 
-using namespace ColorSpaces;
+using namespace color_space;
 
 class CMYK_Test : public ::testing::Test {
 protected:

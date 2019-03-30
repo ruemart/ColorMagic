@@ -1,10 +1,10 @@
 #include "gtest\gtest.h"
 #include "pch.h"
-#include "..\ColorMagic\ColorSpaces\icolor.h"
-#include "..\ColorMagic\ColorSpaces\Colors.h"
-#include "..\ColorMagic\ColorSpaces\rgb_truecolor.h"
+#include "..\ColorMagic\spaces\icolor.h"
+#include "..\ColorMagic\utils\colors.h"
+#include "..\ColorMagic\spaces\rgb_truecolor.h"
 
-using namespace ColorSpaces;
+using namespace color_space;
 
 class RGB_True_Test : public ::testing::Test {
 protected:
@@ -38,12 +38,12 @@ protected:
 
 TEST_F(RGB_True_Test, From_HexCode_Tests)
 {
-	EXPECT_EQ(*red, *(Color(HexcodeColors::Red).get_rgb_true()));
-	EXPECT_EQ(*yellow, *(Color(HexcodeColors::Yellow).get_rgb_true()));
-	EXPECT_EQ(*black, *(Color(HexcodeColors::Black).get_rgb_true()));
-	EXPECT_EQ(*grey, *(Color(HexcodeColors::Gray).get_rgb_true()));
-	EXPECT_EQ(*white, *(Color(HexcodeColors::White).get_rgb_true()));
-	EXPECT_EQ(*transparent, *(Color(HexcodeColors::Transparent).get_rgb_true()));
+	EXPECT_EQ(*red, *(predefined_color(HexcodeColors::Red).get_rgb_true()));
+	EXPECT_EQ(*yellow, *(predefined_color(HexcodeColors::Yellow).get_rgb_true()));
+	EXPECT_EQ(*black, *(predefined_color(HexcodeColors::Black).get_rgb_true()));
+	EXPECT_EQ(*grey, *(predefined_color(HexcodeColors::Gray).get_rgb_true()));
+	EXPECT_EQ(*white, *(predefined_color(HexcodeColors::White).get_rgb_true()));
+	EXPECT_EQ(*transparent, *(predefined_color(HexcodeColors::Transparent).get_rgb_true()));
 }
 
 TEST_F(RGB_True_Test, From_HexString_Tests)

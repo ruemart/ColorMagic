@@ -11,7 +11,7 @@ namespace ColorSpaces
 		lab(float luminance = 0.f, float a = 0.f, float b = 0.f);
 		lab(const lab& other);
 
-		color_type get_color_type() override { return color_type::LAB; }
+		color_type get_color_type() const override { return color_type::LAB; }
 
 		lab& operator=(const lab& other);
 

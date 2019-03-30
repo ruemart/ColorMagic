@@ -11,7 +11,7 @@ namespace ColorSpaces
 		xyz(float x = 0.f, float y = 0.f, float z = 0.f);
 		xyz(const xyz& other);
 
-		color_type get_color_type() override { return color_type::XYZ; }
+		color_type get_color_type() const override { return color_type::XYZ; }
 
 		xyz& operator=(const xyz& other);
 

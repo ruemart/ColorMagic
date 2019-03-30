@@ -10,20 +10,20 @@ namespace ColorSpaces
 	public:
 		icolor(int component_count) { component_vector.reserve(component_count); }
 
-		virtual color_type get_color_type() {
+		virtual color_type get_color_type() const {
 			return color_type::UNDEFINED;
 		}
 
 		friend bool operator==(const icolor& lhs, const icolor& rhs)
 		{
-			auto precondition = lhs.get_color_type() == rhs.get_color_type() && lhs.component_vector.size() == rhs.component_vector.size();
+			bool precondition = (lhs.get_color_type() == rhs.get_color_type()) && (lhs.component_vector.size() == rhs.component_vector.size());
 
 			if (!precondition)
 			{
 				return false;
 			}
 
-			for (auto i = 0; i < lhs.component_vector.size(); ++i)
+			for (std::vector<float>::size_type i = 0; i < lhs.component_vector.size(); ++i)
 			{
 				if (lhs.component_vector[i] != rhs.component_vector[i])
 				{

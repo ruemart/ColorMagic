@@ -12,7 +12,7 @@ namespace ColorSpaces
 		rgb_deepcolor(float r, float g, float b, float a = 1.f);
 		rgb_deepcolor(const rgb_deepcolor& other);
 
-		color_type get_color_type() override { return color_type::RGB_DEEP; }
+		color_type get_color_type() const override { return color_type::RGB_DEEP; }
 
 		rgb_deepcolor& operator=(const rgb_deepcolor& other);
 		

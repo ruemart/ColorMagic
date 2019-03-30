@@ -15,7 +15,7 @@ namespace ColorSpaces
 		rgb_truecolor(int hex_code);
 		rgb_truecolor(const rgb_truecolor& other);
 
-		color_type get_color_type() override { return color_type::RGB_TRUE; }
+		color_type get_color_type() const override { return color_type::RGB_TRUE; }
 
 		rgb_truecolor& operator=(const rgb_truecolor& other);
 

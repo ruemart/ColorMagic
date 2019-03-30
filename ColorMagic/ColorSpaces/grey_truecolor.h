@@ -13,7 +13,7 @@ namespace ColorSpaces
 		grey_truecolor(unsigned char value = 0, unsigned char alpha = 1);
 		grey_truecolor(const grey_truecolor& other);
 
-		color_type get_color_type() override { return color_type::GREY_TRUE; }
+		color_type get_color_type() const override { return color_type::GREY_TRUE; }
 
 		grey_truecolor& operator=(const grey_truecolor& other);
 

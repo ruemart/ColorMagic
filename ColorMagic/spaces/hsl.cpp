@@ -31,7 +31,7 @@ float color_space::hsl::hue()
 
 void color_space::hsl::hue(float new_hue)
 {
-	set_component(new_hue, 0, m_degrees_max, m_degrees_min);
+	set_component((int)new_hue % 360, 0, m_degrees_max, m_degrees_min);
 }
 
 float color_space::hsl::saturation()

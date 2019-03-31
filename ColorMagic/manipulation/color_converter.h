@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\utils\color_type.h"
-#include "..\spaces\icolor.h"
+#include "..\spaces\color_base.h"
 #include "..\spaces\cmyk.h"
 #include "..\spaces\grey_deepcolor.h"
 #include "..\spaces\grey_truecolor.h"
@@ -40,16 +40,16 @@ namespace color_manipulation
 	class color_converter
 	{
 	public:
-		static color_space::icolor* convertTo(color_space::icolor* in_color, color_type out_color, reference_white reference = reference_white_presets::CIE_D65);
-		static color_space::icolor* from_rgb_true(color_space::rgb_truecolor* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
-		static color_space::icolor* from_rgb_deep(color_space::rgb_deepcolor* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
-		static color_space::icolor* from_grey_true(color_space::grey_truecolor* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
-		static color_space::icolor* from_grey_deep(color_space::grey_deepcolor* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
-		static color_space::icolor* from_cmyk(color_space::cmyk* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
-		static color_space::icolor* from_hsv(color_space::hsv* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
-		static color_space::icolor* from_hsl(color_space::hsl* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
-		static color_space::icolor* from_xyz(color_space::xyz* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
-		static color_space::icolor* from_lab(color_space::lab* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* convertTo(color_space::color_base* in_color, color_type out_color, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* from_rgb_true(color_space::rgb_truecolor* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* from_rgb_deep(color_space::rgb_deepcolor* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* from_grey_true(color_space::grey_truecolor* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* from_grey_deep(color_space::grey_deepcolor* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* from_cmyk(color_space::cmyk* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* from_hsv(color_space::hsv* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* from_hsl(color_space::hsl* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* from_xyz(color_space::xyz* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+		static color_space::color_base* from_lab(color_space::lab* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 
 	protected:
 		static color_space::rgb_deepcolor* rgb_true_to_rgb_deep(color_space::rgb_truecolor* color);

@@ -1,14 +1,16 @@
 #include "stdafx.h"
 #include "grey_deepcolor.h"
 
-color_space::grey_deepcolor::grey_deepcolor(float value, float alpha) : icolor(2)
+color_space::grey_deepcolor::grey_deepcolor(float value, float alpha) : color_base(2)
 {
+	this->m_type = color_type::GREY_DEEP;
 	this->grey(value);
 	this->alpha(alpha);
 }
 
-color_space::grey_deepcolor::grey_deepcolor(const color_space::grey_deepcolor & other) : icolor(2, other.get_component_max(), other.get_component_min())
+color_space::grey_deepcolor::grey_deepcolor(const color_space::grey_deepcolor & other) : color_base(2, other.get_component_max(), other.get_component_min())
 {
+	this->m_type = other.get_color_type();
 	this->m_component_vector = other.m_component_vector;
 }
 
@@ -16,6 +18,7 @@ color_space::grey_deepcolor & color_space::grey_deepcolor::operator=(const color
 {
 	if (this != &other)
 	{
+		this->m_type = other.get_color_type();
 		this->m_component_vector = other.m_component_vector;
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();

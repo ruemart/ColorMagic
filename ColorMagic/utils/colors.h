@@ -1,7 +1,7 @@
 #pragma once
 
 #include "color_type.h"
-#include "..\spaces\icolor.h"
+#include "..\spaces\color_base.h"
 #include "..\spaces\cmyk.h"
 #include "..\spaces\grey_deepcolor.h"
 #include "..\spaces\grey_truecolor.h"

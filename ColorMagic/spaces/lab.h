@@ -1,17 +1,15 @@
 #pragma once
 
-#include "icolor.h"
+#include "color_base.h"
 #include <string>
 
 namespace color_space
 {
-	class lab : public icolor
+	class lab : public color_base
 	{
 	public:
 		lab(float luminance = 0.f, float a = 0.f, float b = 0.f);
 		lab(const lab& other);
-
-		color_type get_color_type() const override { return color_type::LAB; }
 
 		lab& operator=(const lab& other);
 

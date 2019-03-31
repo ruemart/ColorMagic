@@ -1,15 +1,17 @@
 #include "stdafx.h"
 #include "xyz.h"
 
-color_space::xyz::xyz(float x, float y, float z) : icolor(3, 100.f, 0.f)
+color_space::xyz::xyz(float x, float y, float z) : color_base(3, 100.f, 0.f)
 {
+	this->m_type = color_type::XYZ;
 	this->x(x);
 	this->y(y);
 	this->z(z);
 }
 
-color_space::xyz::xyz(const xyz & other) : icolor(3, other.get_component_max(), other.get_component_min())
+color_space::xyz::xyz(const xyz & other) : color_base(3, other.get_component_max(), other.get_component_min())
 {
+	this->m_type = other.get_color_type();
 	this->m_component_vector = other.m_component_vector;
 }
 
@@ -17,6 +19,7 @@ color_space::xyz & color_space::xyz::operator=(const color_space::xyz & other)
 {
 	if (this != &other)
 	{
+		this->m_type = other.get_color_type();
 		this->m_component_vector = other.m_component_vector;
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();

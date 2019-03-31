@@ -1,18 +1,16 @@
 #pragma once
 
-#include "icolor.h"
+#include "color_base.h"
 #include <string>
 
 namespace color_space
 {
-	class rgb_deepcolor : public icolor
+	class rgb_deepcolor : public color_base
 	{
 	public:
 		rgb_deepcolor(float value = 0.f, float alpha = 1.f);
 		rgb_deepcolor(float r, float g, float b, float a = 1.f);
 		rgb_deepcolor(const rgb_deepcolor& other);
-
-		color_type get_color_type() const override { return color_type::RGB_DEEP; }
 
 		rgb_deepcolor& operator=(const rgb_deepcolor& other);
 		

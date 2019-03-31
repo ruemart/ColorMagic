@@ -1,17 +1,15 @@
 #pragma once
 
-#include "icolor.h"
+#include "color_base.h"
 #include <string>
 
 namespace color_space
 {
-	class cmyk : public icolor
+	class cmyk : public color_base
 	{
 	public:
 		cmyk(float cyan = 0.f, float magenta = 0.f, float yellow = 0.f, float black = 0.f);
 		cmyk(const cmyk& other);
-
-		color_type get_color_type() const override { return color_type::CMYK; }
 
 		cmyk& operator=(const cmyk& other);
 

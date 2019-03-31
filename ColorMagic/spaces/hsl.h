@@ -1,17 +1,15 @@
 #pragma once
 
-#include "icolor.h"
+#include "color_base.h"
 #include <string>
 
 namespace color_space
 {
-	class hsl : public icolor
+	class hsl : public color_base
 	{
 	public:
 		hsl(float hue = 0.f, float saturation = 0.f, float lightness = 0.f);
 		hsl(const hsl& other);
-
-		color_type get_color_type() const override { return color_type::HSL; }
 
 		hsl& operator=(const hsl& other);
 		

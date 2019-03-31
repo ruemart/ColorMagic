@@ -1,15 +1,17 @@
 #include "stdafx.h"
 #include "hsv.h"
 
-color_space::hsv::hsv(float hue, float saturation, float value) : icolor(3)
+color_space::hsv::hsv(float hue, float saturation, float value) : color_base(3)
 {
+	this->m_type = color_type::HSV;
 	this->hue(hue);
 	this->saturation(saturation);
 	this->value(value);
 }
 
-color_space::hsv::hsv(const color_space::hsv & other) : icolor(3, other.get_component_max(), other.get_component_min())
+color_space::hsv::hsv(const color_space::hsv & other) : color_base(3, other.get_component_max(), other.get_component_min())
 {
+	this->m_type = other.get_color_type();
 	this->m_component_vector = other.m_component_vector;
 }
 
@@ -17,6 +19,7 @@ color_space::hsv & color_space::hsv::operator=(const color_space::hsv & other)
 {
 	if (this != &other)
 	{
+		this->m_type = other.get_color_type();
 		this->m_component_vector = other.m_component_vector;
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();

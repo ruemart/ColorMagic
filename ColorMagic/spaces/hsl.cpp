@@ -1,15 +1,17 @@
 #include "stdafx.h"
 #include "hsl.h"
 
-color_space::hsl::hsl(float hue, float saturation, float lightness) : icolor(3)
+color_space::hsl::hsl(float hue, float saturation, float lightness) : color_base(3)
 {
+	this->m_type = color_type::HSL;
 	this->hue(hue);
 	this->saturation(saturation);
 	this->lightness(lightness);
 }
 
-color_space::hsl::hsl(const color_space::hsl & other) : icolor(3, other.get_component_max(), other.get_component_min())
+color_space::hsl::hsl(const color_space::hsl & other) : color_base(3, other.get_component_max(), other.get_component_min())
 {
+	this->m_type = other.get_color_type();
 	this->m_component_vector = other.m_component_vector;
 }
 
@@ -17,6 +19,7 @@ color_space::hsl & color_space::hsl::operator=(const color_space::hsl & other)
 {
 	if (this != &other)
 	{
+		this->m_type = other.get_color_type();
 		this->m_component_vector = other.m_component_vector;
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();

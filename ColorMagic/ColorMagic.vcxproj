@@ -153,7 +153,7 @@
     <ClInclude Include="spaces\grey_truecolor.h" />
     <ClInclude Include="spaces\hsl.h" />
     <ClInclude Include="spaces\hsv.h" />
-    <ClInclude Include="spaces\icolor.h" />
+    <ClInclude Include="spaces\color_base.h" />
     <ClInclude Include="spaces\lab.h" />
     <ClInclude Include="spaces\rgb_deepcolor.h" />
     <ClInclude Include="spaces\rgb_truecolor.h" />

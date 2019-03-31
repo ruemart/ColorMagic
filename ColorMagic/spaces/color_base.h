@@ -6,10 +6,10 @@
 
 namespace color_space
 {
-	class icolor
+	class color_base
 	{
 	public:
-		icolor(int component_count, float component_max = 1.f, float component_min = 0.f)
+		color_base(int component_count, float component_max = 1.f, float component_min = 0.f)
 		{
 			m_max = component_max;
 			m_min = component_min;
@@ -20,14 +20,11 @@ namespace color_space
 			}
 		}
 
-		virtual color_type get_color_type() const {
-			return color_type::UNDEFINED;
-		}
-
+		virtual color_type get_color_type() const { return m_type; }
 		virtual float get_component_max() const { return m_max; }
 		virtual float get_component_min() const { return m_min; }
 
-		friend bool operator==(const icolor& lhs, const icolor& rhs)
+		friend bool operator==(const color_base& lhs, const color_base& rhs)
 		{
 			bool precondition = (lhs.get_color_type() == rhs.get_color_type()) && (lhs.m_component_vector.size() == rhs.m_component_vector.size());
 
@@ -47,7 +44,7 @@ namespace color_space
 			return true;
 		}
 
-		friend bool operator!=(const icolor& lhs, const icolor& rhs)
+		friend bool operator!=(const color_base& lhs, const color_base& rhs)
 		{
 			return !(lhs == rhs);
 		}
@@ -61,5 +58,6 @@ namespace color_space
 
 		float m_max = 1.f;
 		float m_min = 0.f;
+		color_type m_type = color_type::UNDEFINED;
 	};
 }

@@ -11,7 +11,7 @@ color_manipulation::reference_white color_manipulation::reference_white_presets:
 color_manipulation::reference_white color_manipulation::reference_white_presets::Equal_Energy_Radiator = color_manipulation::reference_white::reference_white(100.f, 100.f, 100.f);
 color_manipulation::reference_white color_manipulation::reference_white_presets::ICC = color_manipulation::reference_white::reference_white(96.42f, 100.f, 82.49f);
 
-color_space::icolor* color_manipulation::color_converter::convertTo(color_space::icolor* in_color, color_type out_color, reference_white reference)
+color_space::color_base* color_manipulation::color_converter::convertTo(color_space::color_base* in_color, color_type out_color, reference_white reference)
 {
 	switch (in_color->get_color_type())
 	{
@@ -578,7 +578,7 @@ float color_manipulation::color_converter::clamp_float(float in_float, float bot
 	return fminf(fmaxf(in_float, bottom), top);
 }
 
-color_space::icolor* color_manipulation::color_converter::from_rgb_true(color_space::rgb_truecolor* in_color, color_type out_type, reference_white reference)
+color_space::color_base* color_manipulation::color_converter::from_rgb_true(color_space::rgb_truecolor* in_color, color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -605,7 +605,7 @@ color_space::icolor* color_manipulation::color_converter::from_rgb_true(color_sp
 	}
 }
 
-color_space::icolor * color_manipulation::color_converter::from_rgb_deep(color_space::rgb_deepcolor * in_color, color_type out_type, reference_white reference)
+color_space::color_base * color_manipulation::color_converter::from_rgb_deep(color_space::rgb_deepcolor * in_color, color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -632,7 +632,7 @@ color_space::icolor * color_manipulation::color_converter::from_rgb_deep(color_s
 	}
 }
 
-color_space::icolor * color_manipulation::color_converter::from_grey_true(color_space::grey_truecolor * in_color, color_type out_type, reference_white reference)
+color_space::color_base * color_manipulation::color_converter::from_grey_true(color_space::grey_truecolor * in_color, color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -659,7 +659,7 @@ color_space::icolor * color_manipulation::color_converter::from_grey_true(color_
 	}
 }
 
-color_space::icolor * color_manipulation::color_converter::from_grey_deep(color_space::grey_deepcolor * in_color, color_type out_type, reference_white reference)
+color_space::color_base * color_manipulation::color_converter::from_grey_deep(color_space::grey_deepcolor * in_color, color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -686,7 +686,7 @@ color_space::icolor * color_manipulation::color_converter::from_grey_deep(color_
 	}
 }
 
-color_space::icolor * color_manipulation::color_converter::from_cmyk(color_space::cmyk * in_color, color_type out_type, reference_white reference)
+color_space::color_base * color_manipulation::color_converter::from_cmyk(color_space::cmyk * in_color, color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -713,7 +713,7 @@ color_space::icolor * color_manipulation::color_converter::from_cmyk(color_space
 	}
 }
 
-color_space::icolor * color_manipulation::color_converter::from_hsv(color_space::hsv * in_color, color_type out_type, reference_white reference)
+color_space::color_base * color_manipulation::color_converter::from_hsv(color_space::hsv * in_color, color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -740,7 +740,7 @@ color_space::icolor * color_manipulation::color_converter::from_hsv(color_space:
 	}
 }
 
-color_space::icolor * color_manipulation::color_converter::from_hsl(color_space::hsl * in_color, color_type out_type, reference_white reference)
+color_space::color_base * color_manipulation::color_converter::from_hsl(color_space::hsl * in_color, color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -767,7 +767,7 @@ color_space::icolor * color_manipulation::color_converter::from_hsl(color_space:
 	}
 }
 
-color_space::icolor * color_manipulation::color_converter::from_xyz(color_space::xyz * in_color, color_type out_type, reference_white reference)
+color_space::color_base * color_manipulation::color_converter::from_xyz(color_space::xyz * in_color, color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{
@@ -794,7 +794,7 @@ color_space::icolor * color_manipulation::color_converter::from_xyz(color_space:
 	}
 }
 
-color_space::icolor * color_manipulation::color_converter::from_lab(color_space::lab * in_color, color_type out_type, reference_white reference)
+color_space::color_base * color_manipulation::color_converter::from_lab(color_space::lab * in_color, color_type out_type, reference_white reference)
 {
 	switch (out_type)
 	{

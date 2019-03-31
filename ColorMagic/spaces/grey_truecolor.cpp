@@ -1,14 +1,16 @@
 #include "stdafx.h"
 #include "grey_truecolor.h"
 
-color_space::grey_truecolor::grey_truecolor(unsigned char value, unsigned char alpha) : icolor(2, 255.f, 0.f)
+color_space::grey_truecolor::grey_truecolor(unsigned char value, unsigned char alpha) : color_base(2, 255.f, 0.f)
 {
+	this->m_type = color_type::GREY_TRUE;
 	this->grey(value);
 	this->alpha(alpha);
 }
 
-color_space::grey_truecolor::grey_truecolor(const color_space::grey_truecolor & other) : icolor(2, other.get_component_max(), other.get_component_min())
+color_space::grey_truecolor::grey_truecolor(const color_space::grey_truecolor & other) : color_base(2, other.get_component_max(), other.get_component_min())
 {
+	this->m_type = other.get_color_type();
 	this->m_component_vector = other.m_component_vector;
 }
 
@@ -16,6 +18,7 @@ color_space::grey_truecolor & color_space::grey_truecolor::operator=(const color
 {
 	if (this != &other)
 	{
+		this->m_type = other.get_color_type();
 		this->m_component_vector = other.m_component_vector;
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();

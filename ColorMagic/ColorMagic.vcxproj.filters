@@ -54,9 +54,6 @@
     <ClInclude Include="spaces\hsv.h">
       <Filter>spaces</Filter>
     </ClInclude>
-    <ClInclude Include="spaces\icolor.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
     <ClInclude Include="spaces\lab.h">
       <Filter>spaces</Filter>
     </ClInclude>
@@ -67,6 +64,9 @@
       <Filter>spaces</Filter>
     </ClInclude>
     <ClInclude Include="spaces\xyz.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\color_base.h">
       <Filter>spaces</Filter>
     </ClInclude>
   </ItemGroup>

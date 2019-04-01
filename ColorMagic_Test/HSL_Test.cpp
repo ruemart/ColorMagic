@@ -1,6 +1,6 @@
 #include "gtest\gtest.h"
 #include "pch.h"
-#include "..\ColorMagic\spaces\icolor.h"
+#include "..\ColorMagic\spaces\color_base.h"
 #include "..\ColorMagic\spaces\hsl.h"
 
 using namespace color_space;

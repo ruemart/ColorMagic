@@ -1,6 +1,6 @@
 #include "gtest\gtest.h"
 #include "pch.h"
-#include "..\ColorMagic\spaces\icolor.h"
+#include "..\ColorMagic\spaces\color_base.h"
 #include "..\ColorMagic\spaces\cmyk.h"
 #include "..\ColorMagic\spaces\grey_deepcolor.h"
 #include "..\ColorMagic\spaces\grey_truecolor.h"

@@ -24,6 +24,6 @@ namespace color_manipulation
 		static float euclidean_distance(color_space::color_base* color1, color_space::color_base* color2);
 
 	private:
-		
+		static color_space::rgb_deepcolor* convert_to_rgb_deep(color_space::color_base* color);
 	};
 }

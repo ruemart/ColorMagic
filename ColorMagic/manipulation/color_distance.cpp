@@ -4,25 +4,9 @@
 
 float color_manipulation::color_distance::euclidean_distance_squared(color_space::color_base * color1, color_space::color_base * color2)
 {
-	color_space::rgb_deepcolor *color1_rgb_d, *color2_rgb_d;
-	if (color1->get_color_type() != color_type::RGB_DEEP)
-	{
-		color1_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color1, color_type::RGB_DEEP));
-	}
-	else
-	{
-		color1_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color1);
-	}
-
-	if (color2->get_color_type() != color_type::RGB_DEEP)
-	{
-		color2_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color2, color_type::RGB_DEEP));
-	}
-	else
-	{
-		color2_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color2);
-	}
-
+	auto color1_rgb_d = convert_to_rgb_deep(color1);
+	auto color2_rgb_d = convert_to_rgb_deep(color2);
+	
 	if (color1_rgb_d == color2_rgb_d)
 	{
 		return 0.f;
@@ -42,4 +26,16 @@ float color_manipulation::color_distance::euclidean_distance_squared(color_space
 float color_manipulation::color_distance::euclidean_distance(color_space::color_base * color1, color_space::color_base * color2)
 {
 	return sqrtf(euclidean_distance_squared(color1, color2));
+}
+
+color_space::rgb_deepcolor * color_manipulation::color_distance::convert_to_rgb_deep(color_space::color_base * color)
+{
+	if (color->get_color_type() != color_type::RGB_DEEP)
+	{
+		return dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color, color_type::RGB_DEEP));
+	}
+	else
+	{
+		return dynamic_cast<color_space::rgb_deepcolor*>(color);
+	}
 }

@@ -16,6 +16,19 @@ color_space::cmyk::cmyk(const color_space::cmyk & other) : color_base(4, other.g
 	this->m_component_vector = other.m_component_vector;
 }
 
+color_space::cmyk::cmyk(const color_base & other) : color_base(4, other.get_component_max(), other.get_component_min())
+{
+	if (other.get_color_type() == color_type::CMYK && other.m_component_vector.size() == 4)
+	{
+		this->m_type = color_type::CMYK;
+		this->m_component_vector = other.m_component_vector;
+	}
+	else
+	{
+		throw new std::invalid_argument("CMYK: Error while creating cmyk class from base object. Base object and this derived class have different types.");
+	}
+}
+
 color_space::cmyk & color_space::cmyk::operator=(const cmyk & other)
 {
 	if (this != &other)
@@ -28,7 +41,22 @@ color_space::cmyk & color_space::cmyk::operator=(const cmyk & other)
 	return *this;
 }
 
-float color_space::cmyk::cyan()
+color_space::cmyk color_space::cmyk::operator+(const cmyk & other)
+{
+	auto c = fminf(100, this->cyan() + other.cyan());
+	auto m = fminf(100, this->magenta() + other.magenta());
+	auto y = fminf(100, this->yellow() + other.yellow());
+	auto k = fminf(100, this->black() + other.black());
+
+	auto min_color = fminf(fminf(c, m), y);
+	c -= min_color;
+	m -= min_color;
+	y -= min_color;
+	k -= fminf(100, k + min_color);
+	return cmyk(c, m, y, k);
+}
+
+float color_space::cmyk::cyan() const
 {
 	return m_component_vector[0];
 }
@@ -38,7 +66,7 @@ void color_space::cmyk::cyan(float new_cyan)
 	set_component(new_cyan, 0);
 }
 
-float color_space::cmyk::magenta()
+float color_space::cmyk::magenta() const
 {
 	return m_component_vector[1];
 }
@@ -48,7 +76,7 @@ void color_space::cmyk::magenta(float new_magenta)
 	set_component(new_magenta, 1);
 }
 
-float color_space::cmyk::yellow()
+float color_space::cmyk::yellow() const
 {
 	return m_component_vector[2];
 }
@@ -58,7 +86,7 @@ void color_space::cmyk::yellow(float new_yellow)
 	set_component(new_yellow, 2);
 }
 
-float color_space::cmyk::black()
+float color_space::cmyk::black() const
 {
 	return m_component_vector[3];
 }

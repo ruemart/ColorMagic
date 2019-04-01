@@ -3,6 +3,7 @@
 #include "..\utils\color_type.h"
 
 #include <vector>
+#include <exception>
 
 namespace color_space
 {
@@ -47,6 +48,24 @@ namespace color_space
 		friend bool operator!=(const color_base& lhs, const color_base& rhs)
 		{
 			return !(lhs == rhs);
+		}
+
+		color_base operator+(const color_base& rhs)
+		{
+			color_base result(this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
+			if (this->get_color_type() == rhs.get_color_type() && this->m_component_vector.size() == rhs.m_component_vector.size())
+			{
+				result.m_type = this->m_type;
+				for (auto i = 0; i < this->m_component_vector.size(); ++i)
+				{
+					result.m_component_vector[i] = clamp(this->m_component_vector[i] + rhs.m_component_vector[i], m_max, m_min);
+				}
+			}
+			else
+			{
+				throw new std::invalid_argument("Color Base: Error while adding two colors: The colors to add have different types.");
+			}
+			return result;
 		}
 
 		std::vector<float> m_component_vector;

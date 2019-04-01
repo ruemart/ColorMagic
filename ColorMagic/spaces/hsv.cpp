@@ -15,6 +15,19 @@ color_space::hsv::hsv(const color_space::hsv & other) : color_base(3, other.get_
 	this->m_component_vector = other.m_component_vector;
 }
 
+color_space::hsv::hsv(const color_base & other) : color_base(3, other.get_component_max(), other.get_component_min())
+{
+	if (other.get_color_type() == color_type::HSV && other.m_component_vector.size() == 3)
+	{
+		this->m_type = color_type::HSV;
+		this->m_component_vector = other.m_component_vector;
+	}
+	else
+	{
+		throw new std::invalid_argument("HSV: Error while creating hsv class from base object. Base object and this derived class have different types.");
+	}
+}
+
 color_space::hsv & color_space::hsv::operator=(const color_space::hsv & other)
 {
 	if (this != &other)

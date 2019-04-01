@@ -10,6 +10,7 @@ namespace color_space
 	public:
 		lab(float luminance = 0.f, float a = 0.f, float b = 0.f);
 		lab(const lab& other);
+		lab(const color_base& other);
 
 		lab& operator=(const lab& other);
 

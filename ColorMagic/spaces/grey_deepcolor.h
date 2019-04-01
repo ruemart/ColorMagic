@@ -11,6 +11,7 @@ namespace color_space
 	public:
 		grey_deepcolor(float value = 0.f, float alpha = 1.f);
 		grey_deepcolor(const grey_deepcolor& other);
+		grey_deepcolor(const color_base& other);
 
 		grey_deepcolor& operator=(const grey_deepcolor& other);
 		

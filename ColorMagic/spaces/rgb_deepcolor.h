@@ -11,6 +11,7 @@ namespace color_space
 		rgb_deepcolor(float value = 0.f, float alpha = 1.f);
 		rgb_deepcolor(float r, float g, float b, float a = 1.f);
 		rgb_deepcolor(const rgb_deepcolor& other);
+		rgb_deepcolor(const color_base& other);
 
 		rgb_deepcolor& operator=(const rgb_deepcolor& other);
 		

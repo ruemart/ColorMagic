@@ -10,6 +10,7 @@ namespace color_space
 	public:
 		xyz(float x = 0.f, float y = 0.f, float z = 0.f);
 		xyz(const xyz& other);
+		xyz(const color_base& other);
 
 		xyz& operator=(const xyz& other);
 

@@ -14,6 +14,19 @@ color_space::grey_truecolor::grey_truecolor(const color_space::grey_truecolor & 
 	this->m_component_vector = other.m_component_vector;
 }
 
+color_space::grey_truecolor::grey_truecolor(const color_base & other) : color_base(2, other.get_component_max(), other.get_component_min())
+{
+	if (other.get_color_type() == color_type::GREY_TRUE && other.m_component_vector.size() == 2)
+	{
+		this->m_type = color_type::GREY_TRUE;
+		this->m_component_vector = other.m_component_vector;
+	}
+	else
+	{
+		throw new std::invalid_argument("Grey True: Error while creating grey true class from base object. Base object and this derived class have different types.");
+	}
+}
+
 color_space::grey_truecolor & color_space::grey_truecolor::operator=(const color_space::grey_truecolor & other)
 {
 	if (this != &other)

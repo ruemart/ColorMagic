@@ -11,7 +11,8 @@ namespace color_space
 	public:
 		grey_truecolor(unsigned char value = ((unsigned char)0), unsigned char alpha = ((unsigned char)255));
 		grey_truecolor(const grey_truecolor& other);
-		
+		grey_truecolor(const color_base& other);
+
 		grey_truecolor& operator=(const grey_truecolor& other);
 
 		unsigned char grey();

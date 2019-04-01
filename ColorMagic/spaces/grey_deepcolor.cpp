@@ -14,6 +14,19 @@ color_space::grey_deepcolor::grey_deepcolor(const color_space::grey_deepcolor & 
 	this->m_component_vector = other.m_component_vector;
 }
 
+color_space::grey_deepcolor::grey_deepcolor(const color_base & other) : color_base(2, other.get_component_max(), other.get_component_min())
+{
+	if (other.get_color_type() == color_type::GREY_DEEP && other.m_component_vector.size() == 2)
+	{
+		this->m_type = color_type::GREY_DEEP;
+		this->m_component_vector = other.m_component_vector;
+	}
+	else
+	{
+		throw new std::invalid_argument("Grey Deep: Error while creating grey deep class from base object. Base object and this derived class have different types.");
+	}
+}
+
 color_space::grey_deepcolor & color_space::grey_deepcolor::operator=(const color_space::grey_deepcolor & other)
 {
 	if (this != &other)

@@ -15,6 +15,19 @@ color_space::xyz::xyz(const xyz & other) : color_base(3, other.get_component_max
 	this->m_component_vector = other.m_component_vector;
 }
 
+color_space::xyz::xyz(const color_base & other) : color_base(3, other.get_component_max(), other.get_component_min())
+{
+	if (other.get_color_type() == color_type::XYZ && other.m_component_vector.size() == 3)
+	{
+		this->m_type = color_type::XYZ;
+		this->m_component_vector = other.m_component_vector;
+	}
+	else
+	{
+		throw new std::invalid_argument("XYZ: Error while creating xyz class from base object. Base object and this derived class have different types.");
+	}
+}
+
 color_space::xyz & color_space::xyz::operator=(const color_space::xyz & other)
 {
 	if (this != &other)

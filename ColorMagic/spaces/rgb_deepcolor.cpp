@@ -25,6 +25,19 @@ color_space::rgb_deepcolor::rgb_deepcolor(const color_space::rgb_deepcolor & oth
 	this->m_component_vector = other.m_component_vector;
 }
 
+color_space::rgb_deepcolor::rgb_deepcolor(const color_base & other) : color_base(4, other.get_component_max(), other.get_component_min())
+{
+	if (other.get_color_type() == color_type::RGB_DEEP && other.m_component_vector.size() == 4)
+	{
+		this->m_type = color_type::RGB_DEEP;
+		this->m_component_vector = other.m_component_vector;
+	}
+	else
+	{
+		throw new std::invalid_argument("RGB Deep: Error while creating rgb deep class from base object. Base object and this derived class have different types.");
+	}
+}
+
 color_space::rgb_deepcolor & color_space::rgb_deepcolor::operator=(const color_space::rgb_deepcolor & other)
 {
 	if (this != &other)

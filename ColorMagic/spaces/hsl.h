@@ -1,7 +1,9 @@
 #pragma once
+#define _USE_MATH_DEFINES
 
 #include "color_base.h"
 #include <string>
+#include <math.h>
 
 namespace color_space
 {
@@ -10,15 +12,21 @@ namespace color_space
 	public:
 		hsl(float hue = 0.f, float saturation = 0.f, float lightness = 0.f);
 		hsl(const hsl& other);
+		hsl(const color_base& other);
 
 		hsl& operator=(const hsl& other);
+		hsl operator+(const hsl& rhs);
 		
-		float hue();
+		float hue() const;
 		void hue(float new_hue);
-		float saturation();
+		float saturation() const;
 		void saturation(float new_saturation);
-		float lightness();
+		float lightness() const;
 		void lightness(float new_lightness);
+
+	protected:
+		std::vector<float> convert_to_vector_format(const hsl& color);
+		hsl convert_from_vector_format(const std::vector<float> color);
 
 	private:
 		float m_degrees_max = 359.f;

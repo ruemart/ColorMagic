@@ -14,6 +14,7 @@ namespace color_space
 		rgb_truecolor(std::string hex_code);
 		rgb_truecolor(int hex_code);
 		rgb_truecolor(const rgb_truecolor& other);
+		rgb_truecolor(const color_base& other);
 
 		rgb_truecolor& operator=(const rgb_truecolor& other);
 

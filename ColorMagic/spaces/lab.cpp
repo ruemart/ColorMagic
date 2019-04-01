@@ -4,8 +4,6 @@
 color_space::lab::lab(float luminance, float a, float b) : color_base(3, 128.f, -128.f)
 {
 	this->m_type = color_type::LAB;
-	this->m_max = 128.f;
-	this->m_min = -128.f;
 	this->luminance(luminance);
 	this->a(a);
 	this->b(b);
@@ -16,6 +14,20 @@ color_space::lab::lab(const color_space::lab & other) : color_base(3, other.get_
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.m_component_vector;
 }
+
+color_space::lab::lab(const color_base & other) : color_base(3, other.get_component_max(), other.get_component_min())
+{
+	if (other.get_color_type() == color_type::LAB && other.m_component_vector.size() == 3)
+	{
+		this->m_type = color_type::LAB;
+		this->m_component_vector = other.m_component_vector;
+	}
+	else
+	{
+		throw new std::invalid_argument("HSV: Error while creating hsv class from base object. Base object and this derived class have different types.");
+	}
+}
+
 color_space::lab & color_space::lab::operator=(const color_space::lab & other)
 {
 	if (this != &other)

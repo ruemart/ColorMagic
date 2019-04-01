@@ -74,6 +74,19 @@ color_space::rgb_truecolor::rgb_truecolor(const color_space::rgb_truecolor & oth
 	this->m_component_vector = other.m_component_vector;
 }
 
+color_space::rgb_truecolor::rgb_truecolor(const color_base & other) : color_base(4, other.get_component_max(), other.get_component_min())
+{
+	if (other.get_color_type() == color_type::RGB_TRUE && other.m_component_vector.size() == 4)
+	{
+		this->m_type = color_type::RGB_TRUE;
+		this->m_component_vector = other.m_component_vector;
+	}
+	else
+	{
+		throw new std::invalid_argument("RGB True: Error while creating rgb true class from base object. Base object and this derived class have different types.");
+	}
+}
+
 color_space::rgb_truecolor & color_space::rgb_truecolor::operator=(const color_space::rgb_truecolor & other)
 {
 	if (this != &other)

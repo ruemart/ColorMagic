@@ -114,3 +114,20 @@ TEST_F(ColorDistance_Test, Euclidean)
 
 	EXPECT_NEAR(0.f, color_manipulation::color_distance::euclidean_distance(cmyk_yellow, cmyk_yellow), avg_error);
 }
+
+TEST_F(ColorDistance_Test, EuclideanWeighted)
+{
+	EXPECT_NEAR(2.f, color_manipulation::color_distance::euclidean_distance_weighted(cmyk_yellow, cmyk_red), avg_error);
+	EXPECT_NEAR(2.f, color_manipulation::color_distance::euclidean_distance_weighted(hsv_yellow, hsv_red), avg_error);
+	EXPECT_NEAR(2.f, color_manipulation::color_distance::euclidean_distance_weighted(hsl_yellow, hsl_red), avg_error);
+	EXPECT_NEAR(2.f, color_manipulation::color_distance::euclidean_distance_weighted(xyz_yellow, xyz_red), avg_error);
+	EXPECT_NEAR(2.f, color_manipulation::color_distance::euclidean_distance_weighted(lab_yellow, lab_red), avg_error);
+	EXPECT_NEAR(1.f, color_manipulation::color_distance::euclidean_distance_weighted(grey1_d, grey2_d), avg_error);
+	EXPECT_NEAR(1.f, color_manipulation::color_distance::euclidean_distance_weighted(grey1_t, grey2_t), avg_error);
+	EXPECT_NEAR(2.f, color_manipulation::color_distance::euclidean_distance_weighted(rgb_d_yellow, rgb_d_red), avg_error);
+	EXPECT_NEAR(2.f, color_manipulation::color_distance::euclidean_distance_weighted(rgb_t_yellow, rgb_t_red), avg_error);
+
+	EXPECT_NEAR(2.f, color_manipulation::color_distance::euclidean_distance_weighted(cmyk_yellow, rgb_t_red), avg_error);
+
+	EXPECT_NEAR(0.f, color_manipulation::color_distance::euclidean_distance_weighted(cmyk_yellow, cmyk_yellow), avg_error);
+}

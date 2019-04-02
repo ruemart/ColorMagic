@@ -25,7 +25,8 @@ namespace color_manipulation
 
 		static float euclidean_distance_weighted(color_space::color_base* color1, color_space::color_base* color2);
 
+		static float cielab_delta_e_cie76(color_space::color_base* color1, color_space::color_base* color2);
 	private:
-		static color_space::rgb_deepcolor* convert_to_rgb_deep(color_space::color_base* color);
+
 	};
 }

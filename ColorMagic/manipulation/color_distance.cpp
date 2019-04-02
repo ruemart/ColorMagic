@@ -66,7 +66,7 @@ float color_manipulation::color_distance::cielab_delta_e_cie76(color_space::colo
 	}
 }
 
-float color_manipulation::color_distance::cielab_delta_e_cie94(color_space::color_base * color1, color_space::color_base * color2, float kL, float kC, float kH, float k1, float k2)
+float color_manipulation::color_distance::cielab_delta_e_cie94(color_space::color_base * color1, color_space::color_base * color2, float kL, float k1, float k2, float kC, float kH)
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
 	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
@@ -85,7 +85,7 @@ float color_manipulation::color_distance::cielab_delta_e_cie94(color_space::colo
 	return sqrtf(powf(delta_l / (kL * 1), 2.f) + powf(delta_c / (kC * sc), 2.f) + powf(delta_h / (kH * sh), 2.f));
 }
 
-float color_manipulation::color_distance::cielab_delta_e_cie00(color_space::color_base * color1, color_space::color_base * color2, float kL, float kC, float kH, float k1, float k2)
+float color_manipulation::color_distance::cielab_delta_e_cie00(color_space::color_base * color1, color_space::color_base * color2, float kL, float k1, float k2, float kC, float kH)
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
 	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));

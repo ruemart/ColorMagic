@@ -4,36 +4,37 @@
 
 float color_manipulation::color_distance::euclidean_distance_squared(color_space::color_base * color1, color_space::color_base * color2)
 {
+	if (color1 == color2) return 0.f; // both colors have same type and are equal
+
 	auto color1_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color1, color_type::RGB_DEEP));
 	auto color2_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color2, color_type::RGB_DEEP));
 
-	if (color1_rgb_d == color2_rgb_d)
-	{
-		return 0.f;
-	}
-	else
-	{
-		float squared_distance = 0.f;
-		for (std::vector<float>::size_type i = 0; i < color1_rgb_d->m_component_vector.size() - 1; ++i) // -1 because alpha gets ignored
-		{
-			squared_distance += powf(color1_rgb_d->m_component_vector[i] - color2_rgb_d->m_component_vector[i], 2.f);
-		}
+	if (color1_rgb_d == color2_rgb_d) return 0.f; // after conversion to same color space both colors are equal
 
-		return squared_distance;
+	float squared_distance = 0.f;
+	for (std::vector<float>::size_type i = 0; i < color1_rgb_d->m_component_vector.size() - 1; ++i) // -1 because alpha gets ignored
+	{
+		squared_distance += powf(color1_rgb_d->m_component_vector[i] - color2_rgb_d->m_component_vector[i], 2.f);
 	}
+
+	return squared_distance;
 }
 
 float color_manipulation::color_distance::euclidean_distance(color_space::color_base * color1, color_space::color_base * color2)
 {
+	if (color1 == color2) return 0.f; // both colors have same type and are equal
+
 	return sqrtf(euclidean_distance_squared(color1, color2));
 }
 
 float color_manipulation::color_distance::euclidean_distance_weighted(color_space::color_base * color1, color_space::color_base * color2)
 {
+	if (color1 == color2) return 0.f; // both colors have same type and are equal
+
 	auto color1_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color1, color_type::RGB_DEEP));
 	auto color2_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color2, color_type::RGB_DEEP));
 
-	if (color1_rgb_d == color2_rgb_d) return 0.f;
+	if (color1_rgb_d == color2_rgb_d) return 0.f; // after conversion to same color space both colors are equal
 
 	// Equation source: https://www.compuphase.com/cmetric.htm
 	auto avg_r = ((color1_rgb_d->red() + color2_rgb_d->red()) / 2.f) * 255.f;
@@ -47,32 +48,31 @@ float color_manipulation::color_distance::euclidean_distance_weighted(color_spac
 float color_manipulation::color_distance::cielab_delta_e_cie76(color_space::color_base * color1, color_space::color_base * color2)
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
+	if (color1 == color2) return 0.f; // both colors have same type and are equal
+	
 	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
 	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
 
-	if (color1_lab == color2_lab)
-	{
-		return 0.f;
-	}
-	else
-	{
-		float squared_distance = 0.f;
-		for (std::vector<float>::size_type i = 0; i < color1_lab->m_component_vector.size(); ++i)
-		{
-			squared_distance += powf(color1_lab->m_component_vector[i] - color2_lab->m_component_vector[i], 2.f);
-		}
+	if (color1_lab == color2_lab) return 0.f; // after conversion to same color space both colors are equal
 
-		return sqrtf(squared_distance);
+	float squared_distance = 0.f;
+	for (std::vector<float>::size_type i = 0; i < color1_lab->m_component_vector.size(); ++i)
+	{
+		squared_distance += powf(color1_lab->m_component_vector[i] - color2_lab->m_component_vector[i], 2.f);
 	}
+
+	return sqrtf(squared_distance);
 }
 
 float color_manipulation::color_distance::cielab_delta_e_cie94(color_space::color_base * color1, color_space::color_base * color2, float kL, float k1, float k2, float kC, float kH)
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
+	if (color1 == color2) return 0.f; // both colors have same type and are equal
+	
 	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
 	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
 
-	if (color1_lab == color2_lab) return 0.f;
+	if (color1_lab == color2_lab) return 0.f; // after conversion to same color space both colors are equal
 
 	auto delta_l = color1_lab->luminance() - color2_lab->luminance();
 	auto c1 = sqrtf(powf(color1_lab->a(), 2.f) + powf(color1_lab->b(), 2.f));
@@ -88,10 +88,12 @@ float color_manipulation::color_distance::cielab_delta_e_cie94(color_space::colo
 float color_manipulation::color_distance::cielab_delta_e_cie00(color_space::color_base * color1, color_space::color_base * color2, float kL, float k1, float k2, float kC, float kH)
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
+	if (color1 == color2) return 0.f; // both colors have same type and are equal
+	
 	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
 	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
 
-	if (color1_lab == color2_lab) return 0.f;
+	if (color1_lab == color2_lab) return 0.f; // after conversion to same color space both colors are equal
 
 	auto avg_l = (color1_lab->luminance() + color2_lab->luminance()) / 2.f;
 	auto C1 = sqrtf(powf(color1_lab->a(), 2.f) + powf(color1_lab->b(), 2.f));
@@ -137,7 +139,7 @@ float color_manipulation::color_distance::cielab_delta_e_cie00(color_space::colo
 	auto delta_L = color2_lab->luminance() - color1_lab->luminance();
 	auto delta_C = C2 - C1;
 	auto delta_H = 2.f * sqrtf(C1 * C2) * sinf(to_rad(delta_h / 2.f));
-	
+
 	auto sC = 1.f + k1 * avg_c;
 	auto sH = 1.f + k2 * avg_c * (1.f - 0.17f * cosf(to_rad(H - 30.f)) + 0.24f * cosf(to_rad(2.f * H)) + 0.32f * cosf(to_rad(3.f * H + 6.f)) - 0.2f * cosf(to_rad(4.f * H - 63.f)));
 	auto sL = 1.f + ((k2 * powf(avg_l - 50.f, 2.f)) / sqrtf(20.f + powf(avg_l - 50.f, 2.f)));
@@ -149,10 +151,12 @@ float color_manipulation::color_distance::cielab_delta_e_cie00(color_space::colo
 float color_manipulation::color_distance::cmc_delta_e_lc84(color_space::color_base * color1, color_space::color_base * color2, float lightness, float chroma)
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
+	if (color1 == color2) return 0.f; // both colors have same type and are equal
+	
 	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
 	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
 
-	if (color1_lab == color2_lab) return 0.f;
+	if (color1_lab == color2_lab) return 0.f; // after conversion to same color space both colors are equal
 
 	auto C1 = sqrtf(powf(color1_lab->a(), 2.f) + powf(color1_lab->b(), 2.f));
 	auto C2 = sqrtf(powf(color2_lab->a(), 2.f) + powf(color2_lab->b(), 2.f));
@@ -189,7 +193,7 @@ float color_manipulation::color_distance::cmc_delta_e_lc84(color_space::color_ba
 	auto sC = (0.0638f * C1) / (1.f + 0.0131 * C1) + 0.638f;
 	auto sH = sC * (F * T + 1.f - F);
 
-	return sqrtf( powf(delta_L / (lightness * sL), 2.f) + powf(delta_C / (chroma * sC), 2.f) + powf(delta_H / sH, 2.f));
+	return sqrtf(powf(delta_L / (lightness * sL), 2.f) + powf(delta_C / (chroma * sC), 2.f) + powf(delta_H / sH, 2.f));
 }
 
 float color_manipulation::color_distance::to_rad(float degree)

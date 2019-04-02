@@ -185,6 +185,7 @@ TEST_F(ColorDistance_Test, CIELAB_DeltaE_CIE00)
 
 TEST_F(ColorDistance_Test, CMC_DeltaE_LC84)
 {
+	// Lightness = 2 (default)
 	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(cmyk_yellow, cmyk_red), avg_error);
 	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(hsv_yellow, hsv_red), avg_error);
 	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(hsl_yellow, hsl_red), avg_error);
@@ -198,4 +199,19 @@ TEST_F(ColorDistance_Test, CMC_DeltaE_LC84)
 	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(cmyk_yellow, rgb_t_red), avg_error);
 
 	EXPECT_NEAR(0.f, color_manipulation::color_distance::cmc_delta_e_lc84(cmyk_yellow, cmyk_yellow), avg_error);
+
+	// Lightness = 1
+	EXPECT_NEAR(56.25f, color_manipulation::color_distance::cmc_delta_e_lc84(cmyk_yellow, cmyk_red, 1.f), avg_error);
+	EXPECT_NEAR(56.25f, color_manipulation::color_distance::cmc_delta_e_lc84(hsv_yellow, hsv_red, 1.f), avg_error);
+	EXPECT_NEAR(56.25f, color_manipulation::color_distance::cmc_delta_e_lc84(hsl_yellow, hsl_red, 1.f), avg_error);
+	EXPECT_NEAR(56.25f, color_manipulation::color_distance::cmc_delta_e_lc84(xyz_yellow, xyz_red, 1.f), avg_error);
+	EXPECT_NEAR(56.25f, color_manipulation::color_distance::cmc_delta_e_lc84(lab_yellow, lab_red, 1.f), avg_error);
+	EXPECT_NEAR(26.15, color_manipulation::color_distance::cmc_delta_e_lc84(grey1_d, grey2_d, 1.f), avg_error);
+	EXPECT_NEAR(26.15f, color_manipulation::color_distance::cmc_delta_e_lc84(grey1_t, grey2_t, 1.f), avg_error);
+	EXPECT_NEAR(56.25f, color_manipulation::color_distance::cmc_delta_e_lc84(rgb_d_yellow, rgb_d_red, 1.f), avg_error);
+	EXPECT_NEAR(56.25f, color_manipulation::color_distance::cmc_delta_e_lc84(rgb_t_yellow, rgb_t_red, 1.f), avg_error);
+
+	EXPECT_NEAR(56.25f, color_manipulation::color_distance::cmc_delta_e_lc84(cmyk_yellow, rgb_t_red, 1.f), avg_error);
+
+	EXPECT_NEAR(0.f, color_manipulation::color_distance::cmc_delta_e_lc84(cmyk_yellow, cmyk_yellow, 1.f), avg_error);
 }

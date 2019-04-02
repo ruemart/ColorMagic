@@ -182,3 +182,20 @@ TEST_F(ColorDistance_Test, CIELAB_DeltaE_CIE00)
 
 	EXPECT_NEAR(0.f, color_manipulation::color_distance::cielab_delta_e_cie00(cmyk_yellow, cmyk_yellow), avg_error);
 }
+
+TEST_F(ColorDistance_Test, CMC_DeltaE_LC84)
+{
+	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(cmyk_yellow, cmyk_red), avg_error);
+	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(hsv_yellow, hsv_red), avg_error);
+	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(hsl_yellow, hsl_red), avg_error);
+	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(xyz_yellow, xyz_red), avg_error);
+	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(lab_yellow, lab_red), avg_error);
+	EXPECT_NEAR(13.1f, color_manipulation::color_distance::cmc_delta_e_lc84(grey1_d, grey2_d), avg_error);
+	EXPECT_NEAR(13.1f, color_manipulation::color_distance::cmc_delta_e_lc84(grey1_t, grey2_t), avg_error);
+	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(rgb_d_yellow, rgb_d_red), avg_error);
+	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(rgb_t_yellow, rgb_t_red), avg_error);
+
+	EXPECT_NEAR(49.9f, color_manipulation::color_distance::cmc_delta_e_lc84(cmyk_yellow, rgb_t_red), avg_error);
+
+	EXPECT_NEAR(0.f, color_manipulation::color_distance::cmc_delta_e_lc84(cmyk_yellow, cmyk_yellow), avg_error);
+}

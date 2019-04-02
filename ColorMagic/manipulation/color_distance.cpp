@@ -65,3 +65,20 @@ float color_manipulation::color_distance::cielab_delta_e_cie76(color_space::colo
 		return sqrtf(squared_distance);
 	}
 }
+
+float color_manipulation::color_distance::cielab_delta_e_cie94(color_space::color_base * color1, color_space::color_base * color2, float kL, float kC, float kH, float k1, float k2)
+{
+	// Equation source: https://en.wikipedia.org/wiki/Color_difference
+	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
+	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
+
+	auto delta_l = color1_lab->luminance() - color2_lab->luminance();
+	auto c1 = sqrtf(powf(color1_lab->a(), 2.f) + powf(color1_lab->b(), 2.f));
+	auto c2 = sqrtf(powf(color2_lab->a(), 2.f) + powf(color2_lab->b(), 2.f));
+	auto delta_c = c1 - c2;
+	auto delta_h = sqrtf(powf(color1_lab->a() - color2_lab->a(), 2.f) + powf(color1_lab->b() - color2_lab->b(), 2.f) - powf(delta_c, 2.f));
+	auto sc = 1.f + k1 * c1;
+	auto sh = 1.f + k2 * c1;
+
+	return sqrtf(powf(delta_l / (kL*1), 2.f) + powf(delta_c / (kC * sc), 2.f) + powf(delta_h / (kH * sh), 2.f));
+}

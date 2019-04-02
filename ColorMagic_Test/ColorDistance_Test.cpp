@@ -148,3 +148,20 @@ TEST_F(ColorDistance_Test, CIELAB_DeltaE_CIE76)
 
 	EXPECT_NEAR(0.f, color_manipulation::color_distance::cielab_delta_e_cie76(cmyk_yellow, cmyk_yellow), avg_error);
 }
+
+TEST_F(ColorDistance_Test, CIELAB_DeltaE_CIE94)
+{
+	EXPECT_NEAR(61.3f, color_manipulation::color_distance::cielab_delta_e_cie94(cmyk_yellow, cmyk_red), avg_error);
+	EXPECT_NEAR(61.3f, color_manipulation::color_distance::cielab_delta_e_cie94(hsv_yellow, hsv_red), avg_error);
+	EXPECT_NEAR(61.3f, color_manipulation::color_distance::cielab_delta_e_cie94(hsl_yellow, hsl_red), avg_error);
+	EXPECT_NEAR(61.3f, color_manipulation::color_distance::cielab_delta_e_cie94(xyz_yellow, xyz_red), avg_error);
+	EXPECT_NEAR(61.3f, color_manipulation::color_distance::cielab_delta_e_cie94(lab_yellow, lab_red), avg_error);
+	EXPECT_NEAR(33.45f, color_manipulation::color_distance::cielab_delta_e_cie94(grey1_d, grey2_d), avg_error);
+	EXPECT_NEAR(33.45f, color_manipulation::color_distance::cielab_delta_e_cie94(grey1_t, grey2_t), avg_error);
+	EXPECT_NEAR(61.3f, color_manipulation::color_distance::cielab_delta_e_cie94(rgb_d_yellow, rgb_d_red), avg_error);
+	EXPECT_NEAR(61.3f, color_manipulation::color_distance::cielab_delta_e_cie94(rgb_t_yellow, rgb_t_red), avg_error);
+
+	EXPECT_NEAR(61.3f, color_manipulation::color_distance::cielab_delta_e_cie94(cmyk_yellow, rgb_t_red), avg_error);
+
+	EXPECT_NEAR(0.f, color_manipulation::color_distance::cielab_delta_e_cie94(cmyk_yellow, cmyk_yellow), avg_error);
+}

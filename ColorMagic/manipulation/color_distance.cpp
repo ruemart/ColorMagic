@@ -146,6 +146,52 @@ float color_manipulation::color_distance::cielab_delta_e_cie00(color_space::colo
 	return sqrtf(powf(delta_L / (kL * sL), 2.f) + powf(delta_C / (kC * sC), 2.f) + powf(delta_H / (kH * sH), 2.f) + rt * (delta_C / (kC * sC)) * (delta_H / (kH * sH)));
 }
 
+float color_manipulation::color_distance::cmc_delta_e_lc84(color_space::color_base * color1, color_space::color_base * color2, float lightness, float chroma)
+{
+	// Equation source: https://en.wikipedia.org/wiki/Color_difference
+	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
+	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
+
+	if (color1_lab == color2_lab) return 0.f;
+
+	auto C1 = sqrtf(powf(color1_lab->a(), 2.f) + powf(color1_lab->b(), 2.f));
+	auto C2 = sqrtf(powf(color2_lab->a(), 2.f) + powf(color2_lab->b(), 2.f));
+	auto delta_C = C1 - C2;
+	auto delta_a = color1_lab->a() - color2_lab->a();
+	auto delta_b = color1_lab->b() - color2_lab->b();
+	auto delta_H = sqrtf(powf(delta_a, 2.f) + powf(delta_b, 2.f) - powf(delta_C, 2.f));
+	auto delta_L = color1_lab->luminance() - color2_lab->luminance();
+
+	auto H = to_deg(atan2(color1_lab->b(), color1_lab->a()));
+	if (H < 0) H += 360.f;
+
+	auto F = sqrtf(powf(C1, 4.f) / (powf(C1, 4.f) + 1900.f));
+	float T;
+	if (H > 164.f && H <= 345.f)
+	{
+		T = 0.56f + abs(0.2f * cosf(to_rad(H + 168.f)));
+	}
+	else
+	{
+		T = 0.36f + abs(0.4f * cosf(to_rad(H + 35.f)));
+	}
+
+	float sL;
+	if (color1_lab->luminance() < 16.f)
+	{
+		sL = 0.511f;
+	}
+	else
+	{
+		sL = (0.040975f * color1_lab->luminance()) / (1.f + 0.01765f * color1_lab->luminance());
+	}
+
+	auto sC = (0.0638f * C1) / (1.f + 0.0131 * C1) + 0.638f;
+	auto sH = sC * (F * T + 1.f - F);
+
+	return sqrtf( powf(delta_L / (lightness * sL), 2.f) + powf(delta_C / (chroma * sC), 2.f) + powf(delta_H / sH, 2.f));
+}
+
 float color_manipulation::color_distance::to_rad(float degree)
 {
 	return degree * (M_PI / 180.f);

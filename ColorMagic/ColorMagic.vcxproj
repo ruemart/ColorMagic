@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="manipulation\color_adjustments.h" />
     <ClInclude Include="manipulation\color_converter.h" />
     <ClInclude Include="manipulation\color_distance.h" />
     <ClInclude Include="spaces\cmyk.h" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="manipulation\color_adjustments.cpp" />
     <ClCompile Include="manipulation\color_converter.cpp" />
     <ClCompile Include="manipulation\color_distance.cpp" />
     <ClCompile Include="spaces\cmyk.cpp" />

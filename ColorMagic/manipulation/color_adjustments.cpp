@@ -9,7 +9,7 @@ void color_adjustments::saturate(color_space::color_base &color, float percentag
 	auto new_r = color_rgb_d->red() - percentage * (L - color_rgb_d->red());
 	auto new_g = color_rgb_d->green() - percentage * (L - color_rgb_d->green());
 	auto new_b = color_rgb_d->blue() - percentage * (L - color_rgb_d->blue());
-	
+
 	color = *color_manipulation::color_converter::convertTo(new color_space::rgb_deepcolor(new_r, new_g, new_b, color_rgb_d->alpha()), color.get_color_type());
 }
 
@@ -23,4 +23,25 @@ color_space::color_base * color_adjustments::saturate(color_space::color_base* c
 	auto new_b = color_rgb_d->blue() - percentage * (L - color_rgb_d->blue());
 
 	return color_manipulation::color_converter::convertTo(new color_space::rgb_deepcolor(new_r, new_g, new_b, color_rgb_d->alpha()), color->get_color_type());
+}
+
+void color_adjustments::saturate_in_hsl_space(color_space::color_base & color, float percentage)
+{
+	color = *saturate_in_hsl_space(&color, percentage);
+}
+
+color_space::color_base * color_adjustments::saturate_in_hsl_space(color_space::color_base * color, float percentage)
+{
+	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
+
+	if (percentage < 0)
+	{
+		color_hsl->saturation(color_hsl->saturation() - color_hsl->saturation() * abs(percentage));
+	}
+	else
+	{
+		color_hsl->saturation(color_hsl->saturation() + color_hsl->saturation() * abs(percentage));
+	}
+
+	return color_manipulation::color_converter::convertTo(color_hsl, color->get_color_type());
 }

@@ -75,6 +75,9 @@
     <ClInclude Include="manipulation\color_adjustments.h">
       <Filter>manipulation</Filter>
     </ClInclude>
+    <ClInclude Include="manipulation\color_combinations.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -120,6 +123,9 @@
       <Filter>manipulation</Filter>
     </ClCompile>
     <ClCompile Include="manipulation\color_adjustments.cpp">
+      <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="manipulation\color_combinations.cpp">
       <Filter>manipulation</Filter>
     </ClCompile>
   </ItemGroup>

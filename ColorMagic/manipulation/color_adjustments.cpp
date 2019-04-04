@@ -55,3 +55,18 @@ color_space::color_base * color_adjustments::luminate_in_rgb_space(color_space::
 
 	return color_manipulation::color_converter::convertTo(new color_space::rgb_deepcolor(new_r, new_g, new_b, color_rgb_d->alpha()), color->get_color_type());
 }
+
+void color_adjustments::luminate_in_hsl_space(color_space::color_base & color, float percentage)
+{
+	color = *luminate_in_hsl_space(&color, percentage);
+}
+
+color_space::color_base * color_adjustments::luminate_in_hsl_space(color_space::color_base * color, float percentage)
+{
+	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
+
+	auto factor = 1.f + percentage;
+	color_hsl->lightness(color_hsl->lightness() * factor);
+
+	return color_manipulation::color_converter::convertTo(color_hsl, color->get_color_type());
+}

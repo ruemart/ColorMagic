@@ -27,14 +27,8 @@ color_space::color_base * color_adjustments::saturate_in_hsl_space(color_space::
 {
 	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
 
-	if (percentage < 0)
-	{
-		color_hsl->saturation(color_hsl->saturation() - color_hsl->saturation() * abs(percentage));
-	}
-	else
-	{
-		color_hsl->saturation(color_hsl->saturation() + color_hsl->saturation() * abs(percentage));
-	}
+	auto factor = 1.f + percentage;
+	color_hsl->saturation(color_hsl->saturation() * factor);
 
 	return color_manipulation::color_converter::convertTo(color_hsl, color->get_color_type());
 }

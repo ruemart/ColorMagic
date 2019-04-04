@@ -123,3 +123,11 @@ TEST_F(ColorCombinations_Test, Quintet)
 	EXPECT_NEAR(rgb_t_pink->green(), dynamic_cast<color_space::rgb_truecolor*>(red_quintet[4])->green(), avg_error);
 	EXPECT_NEAR(rgb_t_pink->blue(), dynamic_cast<color_space::rgb_truecolor*>(red_quintet[4])->blue(), avg_error);
 }
+
+TEST_F(ColorCombinations_Test, N_Combination)
+{
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_combination(rgb_t_red, 0));
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_combination(rgb_t_red, 1));
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_combination(rgb_t_red, 720));
+	EXPECT_EQ(359, color_manipulation::color_combinations::create_combination(rgb_t_red, 359).size());
+}

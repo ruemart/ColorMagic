@@ -25,6 +25,8 @@ void color_manipulation::color_adjustments::saturate_in_hsl_space(color_space::c
 
 color_space::color_base * color_manipulation::color_adjustments::saturate_in_hsl_space(color_space::color_base * color, float percentage)
 {
+	if (percentage == 0.f) return color;
+
 	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
 
 	auto factor = 1.f + percentage;
@@ -57,6 +59,8 @@ void color_manipulation::color_adjustments::luminate_in_hsl_space(color_space::c
 
 color_space::color_base * color_manipulation::color_adjustments::luminate_in_hsl_space(color_space::color_base * color, float percentage)
 {
+	if (percentage == 0.f) return color;
+
 	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
 
 	auto factor = 1.f + percentage;

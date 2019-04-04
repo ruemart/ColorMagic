@@ -136,6 +136,7 @@ namespace color_manipulation
 		static color_space::xyz* lab_to_xyz(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
 
 	private:
+		static float hsl_to_rgb_helper(float temp_component, float temp1, float temp2);
 		static float xyz_to_lab_helper(float color_component);
 		static float lab_to_xyz_helper(float color_component, bool out_y_component = false);
 		static float round_float_to_n_decimals(float in_float, float n);

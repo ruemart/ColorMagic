@@ -64,5 +64,30 @@ public:
 	* \return The modified color in the same color space like the input color.
 	*/
 	static color_space::color_base* saturate_in_hsl_space(color_space::color_base* color, float percentage);
+
+	//! Static function that increases or decreases the luminosity of a given color.
+	/*!
+	* In contrast to luminate_in_hsl_space() this method converts input color to hsl space which
+	* may be faster for certain input color spaces (e.g. rgb true, grey). On the other hand this method
+	* produces less accurate results.
+	* \sa luminate_in_hsl_space()
+	* \param color The color to manipulate.
+	* \param percentage The amount by which to adjust the saturation. Values between 0 and 1
+	* increase the saturation and values between 0 and -1 decrease it.
+	*/
+	static void luminate_in_rgb_space(color_space::color_base& color, float percentage);
+
+	//! Static function that increases or decreases the luminosity of a given color.
+	/*!
+	* In contrast to luminate_in_hsl_space() this method converts input color to rgb deep space which
+	* may be faster for certain input color spaces (e.g. rgb true, grey). On the other hand this method
+	* produces less accurate results.
+	* \sa luminate_in_hsl_space()
+	* \param color The color to manipulate.
+	* \param percentage The amount by which to adjust the saturation. Values between 0 and 1
+	* increase the saturation and values between 0 and -1 decrease it.
+	* \return The modified color in the same color space like the input color.
+	*/
+	static color_space::color_base* luminate_in_rgb_space(color_space::color_base* color, float percentage);
 };
 

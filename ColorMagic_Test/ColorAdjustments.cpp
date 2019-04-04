@@ -1,15 +1,7 @@
 #include "gtest\gtest.h"
 #include "pch.h"
 #include "..\ColorMagic\spaces\color_base.h"
-#include "..\ColorMagic\spaces\cmyk.h"
-#include "..\ColorMagic\spaces\grey_deepcolor.h"
-#include "..\ColorMagic\spaces\grey_truecolor.h"
-#include "..\ColorMagic\spaces\hsl.h"
-#include "..\ColorMagic\spaces\hsv.h"
-#include "..\ColorMagic\spaces\lab.h"
-#include "..\ColorMagic\spaces\rgb_deepcolor.h"
 #include "..\ColorMagic\spaces\rgb_truecolor.h"
-#include "..\ColorMagic\spaces\xyz.h"
 #include "..\ColorMagic\manipulation\color_adjustments.h"
 
 using namespace color_space;

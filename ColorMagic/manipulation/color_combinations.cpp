@@ -16,6 +16,11 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 	return create_combination(color, 4);
 }
 
+std::vector<color_space::color_base*> color_manipulation::color_combinations::create_quintet(color_space::color_base * color)
+{
+	return create_combination(color, 5);
+}
+
 std::vector<color_space::color_base*> color_manipulation::color_combinations::create_combination(color_space::color_base * color, int number_of_elements)
 {
 	std::vector<color_space::color_base*> combination;

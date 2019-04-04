@@ -31,7 +31,7 @@ namespace color_manipulation
 		*/
 		static std::vector<color_space::color_base*> create_triplet(color_space::color_base* color);
 
-		//! Static function that returns a color triplet.
+		//! Static function that returns a color quartet.
 		/*!
 		* This function converts the given color to hsl space and adds three times 90 degrees to its hue.
 		* Afterwards it converts the new colors back to input color space.
@@ -39,6 +39,15 @@ namespace color_manipulation
 		* \return A vector containing all four colors. The input color is at index 0.
 		*/
 		static std::vector<color_space::color_base*> create_quartet(color_space::color_base* color);
+
+		//! Static function that returns a color quintet.
+		/*!
+		* This function converts the given color to hsl space and adds four times 72 degrees to its hue.
+		* Afterwards it converts the new colors back to input color space.
+		* \param color The base color for the triplet.
+		* \return A vector containing all five colors. The input color is at index 0.
+		*/
+		static std::vector<color_space::color_base*> create_quintet(color_space::color_base* color);
 
 		//! Static function that returns a arbitrary color combination.
 		/*!

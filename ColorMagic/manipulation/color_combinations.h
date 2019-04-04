@@ -30,5 +30,15 @@ namespace color_manipulation
 		* \return A vector containing all three colors. The input color is at index 0.
 		*/
 		static std::vector<color_space::color_base*> create_triplet(color_space::color_base* color);
+
+		//! Static function that returns a arbitrary color combination.
+		/*!
+		* This function converts the given color to hsl space and adds n times 360/n degrees to its hue.
+		* Afterwards it converts the new colors back to input color space.
+		* \param color The base color for the triplet.
+		* \param number_of_elements The number of colors in the combination to create.
+		* \return A vector containing all colors. The input color is at index 0.
+		*/
+		static std::vector<color_space::color_base*> create_combination(color_space::color_base* color, int number_of_elements);
 	};
 }

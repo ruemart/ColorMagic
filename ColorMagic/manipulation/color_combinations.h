@@ -64,9 +64,9 @@ namespace color_manipulation
 		/*!
 		* This function converts the given color to hsl space and calculates two analogous colors.
 		* Afterwards it converts the new colors back to input color space.
-		* \param color The base color for the triplet.
+		* \param color The base color for the triplet (will be the second color in the result vector).
 		* \param distance_between The hue distance in degrees between the three analogous colors.
-		* \return A vector containing all three colors. The input color is at index 0.
+		* \return A vector containing all three colors. The input color is at index 1.
 		*/
 		static std::vector<color_space::color_base*> create_analogous(color_space::color_base* base_color, float distance_between);
 
@@ -74,12 +74,22 @@ namespace color_manipulation
 		/*!
 		* This function converts the given color to hsl space and calculates the desired amount of monochromatic colors.
 		* Afterwards it converts the new colors back to input color space.
-		* \param color The base color for the triplet.
+		* \param base_color The base color for the monochromatic set (will be the first color in the result vector).
 		* \param mode The mode to use. 0 for saturation only, 1 for lightness only and 2 for both.
 		* \param amount The distance in percent between two colors (use positive numbers between 0 and 1).
 		* \param color_count The number of colors to create (including the input color).
 		* \return A vector containing all colors. The input color is at index 0.
 		*/
 		static std::vector<color_space::color_base*> create_monochromatic(color_space::color_base* base_color, int mode, float amount, int color_count);
+
+		//! Static function that returns an set by creating a combination of complimentary and analogous colors.
+		/*!
+		* This function converts the given color to hsl space and first calculates the complimentary color. Then the 
+		* two analogous colors are created. Afterwards the analogous colors are converted back to input color space.
+		* \param base_color The base color for the complimentary split (will be the second color in the result vector).
+		* \param amount The hue distance in degrees between the analogous colors
+		* \return A vector containing the three colors. The input color is at index 1.
+		*/
+		static std::vector<color_space::color_base*> create_complimentary_split(color_space::color_base* base_color, float amount);
 	};
 }

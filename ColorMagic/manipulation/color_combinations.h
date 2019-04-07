@@ -2,6 +2,7 @@
 
 #include "..\spaces\color_base.h"
 #include "color_converter.h"
+#include "color_adjustments.h"
 #include <vector>
 
 namespace color_manipulation
@@ -65,8 +66,20 @@ namespace color_manipulation
 		* Afterwards it converts the new colors back to input color space.
 		* \param color The base color for the triplet.
 		* \param distance_between The hue distance in degrees between the three analogous colors.
-		* \return A vector containing all five colors. The input color is at index 0.
+		* \return A vector containing all three colors. The input color is at index 0.
 		*/
 		static std::vector<color_space::color_base*> create_analogous(color_space::color_base* base_color, float distance_between);
+
+		//! Static function that returns an set of monochromatic colors.
+		/*!
+		* This function converts the given color to hsl space and calculates the desired amount of monochromatic colors.
+		* Afterwards it converts the new colors back to input color space.
+		* \param color The base color for the triplet.
+		* \param mode The mode to use. 0 for saturation only, 1 for lightness only and 2 for both.
+		* \param amount The distance in percent between two colors (use positive numbers between 0 and 1).
+		* \param color_count The number of colors to create (including the input color).
+		* \return A vector containing all colors. The input color is at index 0.
+		*/
+		static std::vector<color_space::color_base*> create_monochromatic(color_space::color_base* base_color, int mode, float amount, int color_count);
 	};
 }

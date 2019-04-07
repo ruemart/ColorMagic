@@ -42,3 +42,18 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 
 	return combination;
 }
+
+std::vector<color_space::color_base*> color_manipulation::color_combinations::create_analogous(color_space::color_base * base_color, float distance_between)
+{
+	if (distance_between == 0.f) throw new std::invalid_argument("The distance between the analogous color can not be 0.");
+	if (distance_between > 360.f / 3.f) throw new std::invalid_argument("The distance can not be greater than 120 degrees.");
+
+	std::vector<color_space::color_base*> triplet;
+	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(base_color, color_type::HSL));
+
+	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() - distance_between, color_hsl->saturation(), color_hsl->lightness()), base_color->get_color_type()));
+	triplet.push_back(base_color);
+	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() + distance_between, color_hsl->saturation(), color_hsl->lightness()), base_color->get_color_type()));
+
+	return triplet;
+}

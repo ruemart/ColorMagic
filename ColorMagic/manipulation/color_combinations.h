@@ -58,5 +58,15 @@ namespace color_manipulation
 		* \return A vector containing all colors. The input color is at index 0.
 		*/
 		static std::vector<color_space::color_base*> create_combination(color_space::color_base* color, int number_of_elements);
+
+		//! Static function that returns an analogous color triplet.
+		/*!
+		* This function converts the given color to hsl space and calculates two analogous colors.
+		* Afterwards it converts the new colors back to input color space.
+		* \param color The base color for the triplet.
+		* \param distance_between The hue distance in degrees between the three analogous colors.
+		* \return A vector containing all five colors. The input color is at index 0.
+		*/
+		static std::vector<color_space::color_base*> create_analogous(color_space::color_base* base_color, float distance_between);
 	};
 }

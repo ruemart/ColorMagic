@@ -47,7 +47,13 @@ float color_space::hsv::hue()
 
 void color_space::hsv::hue(float new_hue)
 {
-	set_component((int)new_hue % 360, 0, m_degrees_max, m_degrees_min);
+	new_hue = fmod(new_hue, 360.f);
+	while (new_hue < 0.f)
+	{
+		new_hue += 360.0f;
+	}
+
+	set_component((int)new_hue, 0, m_degrees_max, m_degrees_min);
 }
 
 float color_space::hsv::saturation()

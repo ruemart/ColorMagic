@@ -157,3 +157,63 @@ TEST_F(ColorCombinations_Test, Analogous)
 	EXPECT_NEAR(rgb_t_orange->green(), dynamic_cast<color_space::rgb_truecolor*>(triplet[2])->green(), avg_error);
 	EXPECT_NEAR(rgb_t_orange->blue(), dynamic_cast<color_space::rgb_truecolor*>(triplet[2])->blue(), avg_error);
 }
+
+TEST_F(ColorCombinations_Test, Monochromatic)
+{
+	auto desaturated_red_1 = new rgb_truecolor((unsigned char)191, (unsigned char)64, (unsigned char)64);
+	auto desaturated_red_2 = new rgb_truecolor((unsigned char)159, (unsigned char)96, (unsigned char)96);
+
+	auto deluminated_red_1 = new rgb_truecolor((unsigned char)128, (unsigned char)0, (unsigned char)0);
+	auto deluminated_red_2 = new rgb_truecolor((unsigned char)64, (unsigned char)0, (unsigned char)0);
+
+	auto mono_red_1 = new rgb_truecolor((unsigned char)96, (unsigned char)32, (unsigned char)32);
+	auto mono_red_2 = new rgb_truecolor((unsigned char)40, (unsigned char)24, (unsigned char)24);
+
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 0, -0.5, 3));
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 0, 1.5, 3));
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 0, 0.5, -2));
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 0, 0.5, 0));
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 5, 0.5, 3));
+
+	auto desaturated = color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 0, 0.5, 3);
+	EXPECT_EQ(3, desaturated.size());
+	EXPECT_NEAR(rgb_t_red->red(), dynamic_cast<color_space::rgb_truecolor*>(desaturated[0])->red(), avg_error);
+	EXPECT_NEAR(rgb_t_red->green(), dynamic_cast<color_space::rgb_truecolor*>(desaturated[0])->green(), avg_error);
+	EXPECT_NEAR(rgb_t_red->blue(), dynamic_cast<color_space::rgb_truecolor*>(desaturated[0])->blue(), avg_error);
+
+	EXPECT_NEAR(desaturated_red_1->red(), dynamic_cast<color_space::rgb_truecolor*>(desaturated[1])->red(), avg_error);
+	EXPECT_NEAR(desaturated_red_1->green(), dynamic_cast<color_space::rgb_truecolor*>(desaturated[1])->green(), avg_error);
+	EXPECT_NEAR(desaturated_red_1->blue(), dynamic_cast<color_space::rgb_truecolor*>(desaturated[1])->blue(), avg_error);
+
+	EXPECT_NEAR(desaturated_red_2->red(), dynamic_cast<color_space::rgb_truecolor*>(desaturated[2])->red(), avg_error);
+	EXPECT_NEAR(desaturated_red_2->green(), dynamic_cast<color_space::rgb_truecolor*>(desaturated[2])->green(), avg_error);
+	EXPECT_NEAR(desaturated_red_2->blue(), dynamic_cast<color_space::rgb_truecolor*>(desaturated[2])->blue(), avg_error);
+
+	auto deluminated = color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 1, 0.5, 3);
+	EXPECT_EQ(3, deluminated.size());
+	EXPECT_NEAR(rgb_t_red->red(), dynamic_cast<color_space::rgb_truecolor*>(deluminated[0])->red(), avg_error);
+	EXPECT_NEAR(rgb_t_red->green(), dynamic_cast<color_space::rgb_truecolor*>(deluminated[0])->green(), avg_error);
+	EXPECT_NEAR(rgb_t_red->blue(), dynamic_cast<color_space::rgb_truecolor*>(deluminated[0])->blue(), avg_error);
+
+	EXPECT_NEAR(deluminated_red_1->red(), dynamic_cast<color_space::rgb_truecolor*>(deluminated[1])->red(), avg_error);
+	EXPECT_NEAR(deluminated_red_1->green(), dynamic_cast<color_space::rgb_truecolor*>(deluminated[1])->green(), avg_error);
+	EXPECT_NEAR(deluminated_red_1->blue(), dynamic_cast<color_space::rgb_truecolor*>(deluminated[1])->blue(), avg_error);
+
+	EXPECT_NEAR(deluminated_red_2->red(), dynamic_cast<color_space::rgb_truecolor*>(deluminated[2])->red(), avg_error);
+	EXPECT_NEAR(deluminated_red_2->green(), dynamic_cast<color_space::rgb_truecolor*>(deluminated[2])->green(), avg_error);
+	EXPECT_NEAR(deluminated_red_2->blue(), dynamic_cast<color_space::rgb_truecolor*>(deluminated[2])->blue(), avg_error);
+
+	auto mono = color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 2, 0.5, 3);
+	EXPECT_EQ(3, mono.size());
+	EXPECT_NEAR(rgb_t_red->red(), dynamic_cast<color_space::rgb_truecolor*>(mono[0])->red(), avg_error);
+	EXPECT_NEAR(rgb_t_red->green(), dynamic_cast<color_space::rgb_truecolor*>(mono[0])->green(), avg_error);
+	EXPECT_NEAR(rgb_t_red->blue(), dynamic_cast<color_space::rgb_truecolor*>(mono[0])->blue(), avg_error);
+
+	EXPECT_NEAR(mono_red_1->red(), dynamic_cast<color_space::rgb_truecolor*>(mono[1])->red(), avg_error);
+	EXPECT_NEAR(mono_red_1->green(), dynamic_cast<color_space::rgb_truecolor*>(mono[1])->green(), avg_error);
+	EXPECT_NEAR(mono_red_1->blue(), dynamic_cast<color_space::rgb_truecolor*>(mono[1])->blue(), avg_error);
+
+	EXPECT_NEAR(mono_red_2->red(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->red(), avg_error);
+	EXPECT_NEAR(mono_red_2->green(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->green(), avg_error);
+	EXPECT_NEAR(mono_red_2->blue(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->blue(), avg_error);
+}

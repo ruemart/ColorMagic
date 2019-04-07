@@ -11,6 +11,7 @@ protected:
 	float avg_error = 0.05f;
 
 	rgb_truecolor *rgb_t_red;
+	rgb_truecolor *rgb_t_orange;
 	rgb_truecolor *rgb_t_yellow;
 	rgb_truecolor *rgb_t_green;
 	rgb_truecolor *rgb_t_mint;
@@ -20,10 +21,12 @@ protected:
 	rgb_truecolor *rgb_t_cyan;
 	rgb_truecolor *rgb_t_violet;
 	rgb_truecolor *rgb_t_pink;
+	rgb_truecolor *rgb_t_pink2;
 
 	virtual void SetUp()
 	{
 		rgb_t_red = new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)0);
+		rgb_t_orange = new rgb_truecolor((unsigned char)255, (unsigned char)128, (unsigned char)0);
 		rgb_t_yellow = new rgb_truecolor((unsigned char)204, (unsigned char)255, (unsigned char)0);
 		rgb_t_green = new rgb_truecolor((unsigned char)0, (unsigned char)255, (unsigned char)0);
 		rgb_t_mint = new rgb_truecolor((unsigned char)0, (unsigned char)255, (unsigned char)102);
@@ -33,11 +36,13 @@ protected:
 		rgb_t_cyan = new rgb_truecolor((unsigned char)0, (unsigned char)255, (unsigned char)255);
 		rgb_t_violet = new rgb_truecolor((unsigned char)128, (unsigned char)0, (unsigned char)255);
 		rgb_t_pink = new rgb_truecolor((unsigned char)204, (unsigned char)0, (unsigned char)255);
+		rgb_t_pink2 = new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)127);
 	}
 
 	virtual void TearDown()
 	{
 		delete rgb_t_red;
+		delete rgb_t_orange;
 		delete rgb_t_yellow;
 		delete rgb_t_green;
 		delete rgb_t_mint;
@@ -47,6 +52,7 @@ protected:
 		delete rgb_t_cyan;
 		delete rgb_t_violet;
 		delete rgb_t_pink;
+		delete rgb_t_pink2;
 	}
 };
 
@@ -130,4 +136,24 @@ TEST_F(ColorCombinations_Test, N_Combination)
 	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_combination(rgb_t_red, 1));
 	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_combination(rgb_t_red, 720));
 	EXPECT_EQ(359, color_manipulation::color_combinations::create_combination(rgb_t_red, 359).size());
+}
+
+TEST_F(ColorCombinations_Test, Analogous)
+{
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_analogous(rgb_t_red, 0));
+	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_analogous(rgb_t_red, 720));
+
+	auto triplet = color_manipulation::color_combinations::create_analogous(rgb_t_red, 30);
+	EXPECT_EQ(3, triplet.size());
+	EXPECT_NEAR(rgb_t_pink2->red(), dynamic_cast<color_space::rgb_truecolor*>(triplet[0])->red(), avg_error);
+	EXPECT_NEAR(rgb_t_pink2->green(), dynamic_cast<color_space::rgb_truecolor*>(triplet[0])->green(), avg_error);
+	EXPECT_NEAR(rgb_t_pink2->blue(), dynamic_cast<color_space::rgb_truecolor*>(triplet[0])->blue(), avg_error);
+
+	EXPECT_NEAR(rgb_t_red->red(), dynamic_cast<color_space::rgb_truecolor*>(triplet[1])->red(), avg_error);
+	EXPECT_NEAR(rgb_t_red->green(), dynamic_cast<color_space::rgb_truecolor*>(triplet[1])->green(), avg_error);
+	EXPECT_NEAR(rgb_t_red->blue(), dynamic_cast<color_space::rgb_truecolor*>(triplet[1])->blue(), avg_error);
+
+	EXPECT_NEAR(rgb_t_orange->red(), dynamic_cast<color_space::rgb_truecolor*>(triplet[2])->red(), avg_error);
+	EXPECT_NEAR(rgb_t_orange->green(), dynamic_cast<color_space::rgb_truecolor*>(triplet[2])->green(), avg_error);
+	EXPECT_NEAR(rgb_t_orange->blue(), dynamic_cast<color_space::rgb_truecolor*>(triplet[2])->blue(), avg_error);
 }

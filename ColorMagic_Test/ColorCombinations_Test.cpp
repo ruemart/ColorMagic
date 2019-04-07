@@ -64,7 +64,7 @@ protected:
 
 TEST_F(ColorCombinations_Test, Complimentary)
 {
-	auto red_complimentary = dynamic_cast<color_space::rgb_truecolor*>(color_manipulation::color_combinations::get_complimentary_color(rgb_t_red));
+	auto red_complimentary = dynamic_cast<color_space::rgb_truecolor*>(color_manipulation::color_combinations::create_complimentary(rgb_t_red));
 	EXPECT_NEAR(rgb_t_cyan->red(), red_complimentary->red(), avg_error);
 	EXPECT_NEAR(rgb_t_cyan->green(), red_complimentary->green(), avg_error);
 	EXPECT_NEAR(rgb_t_cyan->blue(), red_complimentary->blue(), avg_error);

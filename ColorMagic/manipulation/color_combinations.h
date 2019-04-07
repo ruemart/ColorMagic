@@ -21,7 +21,7 @@ namespace color_manipulation
 		* \param color The color to create the opposite of.
 		* \return The complimentary color.
 		*/
-		static color_space::color_base* get_complimentary_color(color_space::color_base* color);
+		static color_space::color_base* create_complimentary(color_space::color_base* color);
 
 		//! Static function that returns a color triplet.
 		/*!

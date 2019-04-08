@@ -1,3 +1,8 @@
+/// Copyright Martin Ruehlicke, 2019
+/// Use, modification and distribution are subject to the
+/// MIT Software License, Version 1.0.
+/// See accompanying file LICENSE.txt
+
 #pragma once
 
 #include "..\utils\color_type.h"
@@ -50,6 +55,96 @@ namespace color_manipulation
 		static color_space::color_base* from_hsl(color_space::hsl* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 		static color_space::color_base* from_xyz(color_space::xyz* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
 		static color_space::color_base* from_lab(color_space::lab* in_color, color_type out_type, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts an arbitrary color to rgb true color space.
+		/*!
+		* Container function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
+		* parameter will be ignored.
+		* \return The input color converted to rgb true color space.
+		*/
+		static color_space::rgb_truecolor* to_rgb_true(color_space::color_base* in_color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts an arbitrary color to rgb deep color space.
+		/*!
+		* Container function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
+		* parameter will be ignored.
+		* \return The input color converted to rgb deep color space.
+		*/
+		static color_space::rgb_deepcolor* to_rgb_deep(color_space::color_base* in_color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts an arbitrary color to grey true color space.
+		/*!
+		* Container function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
+		* parameter will be ignored.
+		* \return The input color converted to grey true color space.
+		*/
+		static color_space::grey_truecolor* to_grey_true(color_space::color_base* in_color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts an arbitrary color to grey deep color space.
+		/*!
+		* Container function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
+		* parameter will be ignored.
+		* \return The input color converted to grey deep color space.
+		*/
+		static color_space::grey_deepcolor* to_grey_deep(color_space::color_base* in_color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts an arbitrary color to cmyk color space.
+		/*!
+		* Container function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
+		* parameter will be ignored.
+		* \return The input color converted to cmyk color space.
+		*/
+		static color_space::cmyk* to_cmyk(color_space::color_base* in_color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts an arbitrary color to hsv color space.
+		/*!
+		* Container function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
+		* parameter will be ignored.
+		* \return The input color converted to hsv color space.
+		*/
+		static color_space::hsv* to_hsv(color_space::color_base* in_color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts an arbitrary color to hsl color space.
+		/*!
+		* Container function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
+		* parameter will be ignored.
+		* \return The input color converted to hsl color space.
+		*/
+		static color_space::hsl* to_hsl(color_space::color_base* in_color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts an arbitrary color to xyz color space.
+		/*!
+		* Container function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
+		* parameter will be ignored.
+		* \return The input color converted to xyz color space.
+		*/
+		static color_space::xyz* to_xyz(color_space::color_base* in_color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts an arbitrary color to lab color space.
+		/*!
+		* Container function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
+		* parameter will be ignored.
+		* \return The input color converted to lab color space.
+		*/
+		static color_space::lab* to_lab(color_space::color_base* in_color, reference_white reference = reference_white_presets::CIE_D65);
 
 	protected:
 		static color_space::rgb_deepcolor* rgb_true_to_rgb_deep(color_space::rgb_truecolor* color);

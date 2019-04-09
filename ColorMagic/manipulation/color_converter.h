@@ -966,10 +966,53 @@ namespace color_manipulation
 		static color_space::xyz* lab_to_xyz(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
 
 	private:
-		static float hsl_to_rgb_helper(float temp_component, float temp1, float temp2);
+		//! Static function that helps to convert from hsl to rgb
+		/*!
+		* Inspects value of var3 and returns a value dependent of the result.
+		* \sa hsl_to_rgb_deep()
+		* \param var1 The first temporary variable that is calculated in hsl_to_rgb_deep().
+		* \param var2 The second temporary variable that is calculated in hsl_to_rgb_deep().
+		* \param var3 The input colors hue divided by 360 (+- 1/3).
+		* \return The value of one of the resulting colors components.
+		*/
+		static float hsl_to_rgb_helper(float var1, float var2, float var3);
+
+		//! Static function that helps to convert from xyz to lab
+		/*!
+		* Inspects input parameter and returns a value dependent of the result.
+		* \sa xyz_to_lab()
+		* \param color_component One component of the resulting color that should be calculated.
+		* \return The value of one of the resulting colors components.
+		*/
 		static float xyz_to_lab_helper(float color_component);
+
+		//! Static function that helps to convert from lab to xyz
+		/*!
+		* Inspects input parameter and returns a value dependent of the result.
+		* \sa lab_to_xyz()
+		* \param color_component One component of the resulting color that should be calculated.
+		* \param out_y_component Whether the current component is the y component or not.
+		* \return The value of one of the resulting colors components.
+		*/
 		static float lab_to_xyz_helper(float color_component, bool out_y_component = false);
+
+		//! Static function that rounds a given float value to n decimals.
+		/*!
+		* Rounds a given float value to n decimals.
+		* \param in_float The value to round.
+		* \param n The number of decimals.
+		* \return The rounded value.
+		*/
 		static float round_float_to_n_decimals(float in_float, float n);
-		static float clamp_float(float in_float, float bottom, float top);
+
+		//! Static function that clamps a given float between max and min values.
+		/*!
+		* Clamps a given float value between max and min values.
+		* \param in_float The value to round.
+		* \param min The minimum number to return.
+		* \param max The maximum number to return.
+		* \return The clamped value.
+		*/
+		static float clamp_float(float in_float, float min, float max);
 	};
 }

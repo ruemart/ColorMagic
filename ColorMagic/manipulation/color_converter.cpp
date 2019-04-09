@@ -603,9 +603,9 @@ float color_manipulation::color_converter::round_float_to_n_decimals(float in_fl
 	return ((int)(in_float * factor + 0.5f) / factor);
 }
 
-float color_manipulation::color_converter::clamp_float(float in_float, float bottom, float top)
+float color_manipulation::color_converter::clamp_float(float in_float, float min, float max)
 {
-	return fminf(fmaxf(in_float, bottom), top);
+	return fminf(fmaxf(in_float, min), max);
 }
 
 color_space::color_base* color_manipulation::color_converter::from_rgb_true(color_space::rgb_truecolor* in_color, color_type out_type, reference_white reference)

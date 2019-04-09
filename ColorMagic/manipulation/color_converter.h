@@ -881,13 +881,88 @@ namespace color_manipulation
 		*/
 		static color_space::lab* xyz_to_lab(color_space::xyz* color, reference_white reference = reference_white_presets::CIE_D65);
 
+		//! Static function that converts a lab color to rgb true color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to rgb true.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert from lab.
+		* \return The input color converted to rgb true color space.
+		*/
 		static color_space::rgb_truecolor* lab_to_rgb_true(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts a lab color to rgb deep color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to rgb deep.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert from lab.
+		* \return The input color converted to rgb deep color space.
+		*/
 		static color_space::rgb_deepcolor* lab_to_rgb_deep(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts a lab color to grey true color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to grey true.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert from lab.
+		* \return The input color converted to grey true color space.
+		*/
 		static color_space::grey_truecolor* lab_to_grey_true(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts a lab color to grey deep color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to grey deep.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert from lab.
+		* \return The input color converted to grey deep color space.
+		*/
 		static color_space::grey_deepcolor* lab_to_grey_deep(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts a lab color to cmyk color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to cmyk.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert from lab.
+		* \return The input color converted to cmyk color space.
+		*/
 		static color_space::cmyk* lab_to_cmyk(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts a lab color to hsv color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hsv.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert from lab.
+		* \return The input color converted to hsv color space.
+		*/
 		static color_space::hsv* lab_to_hsv(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts a lab color to hsl color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hsl.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert from lab.
+		* \return The input color converted to hsl color space.
+		*/
 		static color_space::hsl* lab_to_hsl(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts a lab color to xyz color space.
+		/*!
+		* temp_y = (luminance + 16) / 116
+		* y = lab_to_xyz_helper(luminance, true);
+		* x = lab_to_xyz_helper((a / 500) + temp_y
+		* z = lab_to_xyz_helper(temp_y - (b / 200)
+		* Finally all components are multiplied by their corresponding reference white components
+		* \sa lab_to_xyz_helper()
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert from lab.
+		* \return The input color converted to xyz color space.
+		*/
 		static color_space::xyz* lab_to_xyz(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);
 
 	private:

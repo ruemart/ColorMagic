@@ -47,7 +47,7 @@ namespace color_manipulation
 	public:
 		//! Static function that converts an arbitrary color to another arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -58,7 +58,7 @@ namespace color_manipulation
 
 		//! Static function that converts an rgb true color to an arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the output color type.
+		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -69,7 +69,7 @@ namespace color_manipulation
 
 		//! Static function that converts an rgb deep color to an arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the output color type.
+		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -80,7 +80,7 @@ namespace color_manipulation
 
 		//! Static function that converts an grey true color to an arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the output color type.
+		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -91,7 +91,7 @@ namespace color_manipulation
 
 		//! Static function that converts an grey deep color to an arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the output color type.
+		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -102,7 +102,7 @@ namespace color_manipulation
 
 		//! Static function that converts an cmyk color to an arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the output color type.
+		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -113,7 +113,7 @@ namespace color_manipulation
 
 		//! Static function that converts an hsv color to an arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the output color type.
+		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -124,7 +124,7 @@ namespace color_manipulation
 
 		//! Static function that converts an hsl color to an arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the output color type.
+		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -135,7 +135,7 @@ namespace color_manipulation
 
 		//! Static function that converts an xyz color to an arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the output color type.
+		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -146,7 +146,7 @@ namespace color_manipulation
 
 		//! Static function that converts an lab color to an arbitrary color space.
 		/*!
-		* Container function that calls the correct converter function depending on the output color type.
+		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
@@ -157,7 +157,7 @@ namespace color_manipulation
 
 		//! Static function that converts an arbitrary color to rgb true color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
 		* parameter will be ignored.
@@ -167,7 +167,7 @@ namespace color_manipulation
 
 		//! Static function that converts an arbitrary color to rgb deep color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
 		* parameter will be ignored.
@@ -177,7 +177,7 @@ namespace color_manipulation
 
 		//! Static function that converts an arbitrary color to grey true color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
 		* parameter will be ignored.
@@ -187,7 +187,7 @@ namespace color_manipulation
 
 		//! Static function that converts an arbitrary color to grey deep color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
 		* parameter will be ignored.
@@ -197,7 +197,7 @@ namespace color_manipulation
 
 		//! Static function that converts an arbitrary color to cmyk color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
 		* parameter will be ignored.
@@ -207,7 +207,7 @@ namespace color_manipulation
 
 		//! Static function that converts an arbitrary color to hsv color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
 		* parameter will be ignored.
@@ -217,7 +217,7 @@ namespace color_manipulation
 
 		//! Static function that converts an arbitrary color to hsl color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
 		* parameter will be ignored.
@@ -227,7 +227,7 @@ namespace color_manipulation
 
 		//! Static function that converts an arbitrary color to xyz color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
 		* parameter will be ignored.
@@ -237,7 +237,7 @@ namespace color_manipulation
 
 		//! Static function that converts an arbitrary color to lab color space.
 		/*!
-		* Container function that calls the correct converter function depending on the input colors type.
+		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
 		* parameter will be ignored.
@@ -273,7 +273,7 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb true color to cmyk color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to cmyk.
 		* \param in_color The color to convert.
 		* \return The input color converted to cmyk color space.
@@ -282,7 +282,7 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb true color to hsv color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to hsv.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsv color space.
@@ -291,7 +291,7 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb true color to hsl color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to hsl.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsl color space.
@@ -300,7 +300,7 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb true color to xyz color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to xyz.
 		* \param in_color The color to convert.
 		* \return The input color converted to xyz color space.
@@ -309,7 +309,7 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb true color to lab color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
 		* \return The input color converted to lab color space.
@@ -327,7 +327,7 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb deep color to grey true color space.
 		/*!
-		* Container function that first converts the input color to rgb true and afterwards
+		* Wrapper function that first converts the input color to rgb true and afterwards
 		* the rgb true color to grey true.
 		* \param in_color The color to convert.
 		* \return The input color converted to rgb true color space.
@@ -367,7 +367,7 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb deep color to hsl color space.
 		/*!
-		* Container function that first converts the input color to hsv and afterwards
+		* Wrapper function that first converts the input color to hsv and afterwards
 		* the hsv color to hsl.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsl color space.
@@ -388,7 +388,7 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb deep color to lab color space.
 		/*!
-		* Container function that first converts the input color to xyz and afterwards
+		* Wrapper function that first converts the input color to xyz and afterwards
 		* the xyz color to lab.
 		* \param in_color The color to convert.
 		* \param reference The reference white needed to convert to lab.
@@ -444,7 +444,7 @@ namespace color_manipulation
 		
 		//! Static function that converts a grey true color to cmyk color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to cmyk.
 		* \param in_color The color to convert.
 		* \return The input color converted to cmyk color space.
@@ -453,7 +453,7 @@ namespace color_manipulation
 
 		//! Static function that converts a grey true color to hsv color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to hsv.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsv color space.
@@ -462,7 +462,7 @@ namespace color_manipulation
 
 		//! Static function that converts a grey true color to hsl color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to hsl.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsv color space.
@@ -471,7 +471,7 @@ namespace color_manipulation
 
 		//! Static function that converts a grey true color to xyz color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to xyz.
 		* \param in_color The color to convert.
 		* \return The input color converted to xyz color space.
@@ -480,7 +480,7 @@ namespace color_manipulation
 
 		//! Static function that converts a grey true color to lab color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
 		* \param reference The reference white needed to convert to lab.
@@ -515,7 +515,7 @@ namespace color_manipulation
 		
 		//! Static function that converts a grey deep color to cmyk color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to cmyk.
 		* \param in_color The color to convert.
 		* \return The input color converted to cmyk color space.
@@ -524,7 +524,7 @@ namespace color_manipulation
 
 		//! Static function that converts a grey deep color to hsv color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to hsv.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsv color space.
@@ -533,7 +533,7 @@ namespace color_manipulation
 
 		//! Static function that converts a grey deep color to hsl color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to hsl.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsl color space.
@@ -542,7 +542,7 @@ namespace color_manipulation
 
 		//! Static function that converts a grey deep color to xyz color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to xyz.
 		* \param in_color The color to convert.
 		* \return The input color converted to xyz color space.
@@ -551,7 +551,7 @@ namespace color_manipulation
 
 		//! Static function that converts a grey deep color to lab color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
 		* \param reference The reference white needed to convert to lab.
@@ -561,7 +561,7 @@ namespace color_manipulation
 
 		//! Static function that converts a cmyk color to rgb true color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to rgb true.
 		* \param in_color The color to convert.
 		* \return The input color converted to rgb true color space.
@@ -581,7 +581,7 @@ namespace color_manipulation
 
 		//! Static function that converts a cmyk color to rgb true color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to rgb true.
 		* \param in_color The color to convert.
 		* \return The input color converted to rgb true color space.
@@ -590,7 +590,7 @@ namespace color_manipulation
 
 		//! Static function that converts a cmyk color to grey deep color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to grey deep.
 		* \param in_color The color to convert.
 		* \return The input color converted to grey true color space.
@@ -599,7 +599,7 @@ namespace color_manipulation
 
 		//! Static function that converts a cmyk color to hsv color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to hsv.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsv color space.
@@ -608,7 +608,7 @@ namespace color_manipulation
 
 		//! Static function that converts a cmyk color to hsl color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to hsl.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsl color space.
@@ -617,7 +617,7 @@ namespace color_manipulation
 
 		//! Static function that converts a cmyk color to xyz color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to xyz.
 		* \param in_color The color to convert.
 		* \return The input color converted to xyz color space.
@@ -626,7 +626,7 @@ namespace color_manipulation
 
 		//! Static function that converts a cmyk color to lab color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
 		* \param reference The reference white needed to convert to lab.
@@ -637,7 +637,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsv color to rgb true color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to rgb true.
 		* \param in_color The color to convert.
 		* \return The input color converted to rgb true color space.
@@ -655,7 +655,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsv color to grey true color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to grey true.
 		* \param in_color The color to convert.
 		* \return The input color converted to grey true color space.
@@ -664,7 +664,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsv color to grey deep color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to grey deep.
 		* \param in_color The color to convert.
 		* \return The input color converted to grey deep color space.
@@ -673,7 +673,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsv color to cmyk color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to cmyk.
 		* \param in_color The color to convert.
 		* \return The input color converted to cmyk color space.
@@ -695,7 +695,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsv color to xyz color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to xyz.
 		* \param in_color The color to convert.
 		* \return The input color converted to xyz color space.
@@ -704,7 +704,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsv color to lab color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
 		* \param reference The reference white needed to convert to lab.
@@ -714,7 +714,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsl color to rgb true color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to rgb true.
 		* \param in_color The color to convert.
 		* \return The input color converted to rgb true color space.
@@ -739,7 +739,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsl color to grey true color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to grey true.
 		* \param in_color The color to convert.
 		* \return The input color converted to grey true color space.
@@ -748,7 +748,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsl color to grey deep color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to grey deep.
 		* \param in_color The color to convert.
 		* \return The input color converted to grey deep color space.
@@ -757,7 +757,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsl color to cmyk color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to cmyk.
 		* \param in_color The color to convert.
 		* \return The input color converted to cmyk color space.
@@ -780,7 +780,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsl color to xyz color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to xyz.
 		* \param in_color The color to convert.
 		* \return The input color converted to xyz color space.
@@ -789,7 +789,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsl color to lab color space.
 		/*!
-		* Container function that first converts the input color to rgb deep and afterwards
+		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
 		* \param reference The reference white needed to convert to lab.
@@ -797,13 +797,88 @@ namespace color_manipulation
 		*/
 		static color_space::lab* hsl_to_lab(color_space::hsl* color, reference_white reference = reference_white_presets::CIE_D65);
 
+		//! Static function that converts a xyz color to rgb true color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to rgb true.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
 		static color_space::rgb_truecolor* xyz_to_rgb_true(color_space::xyz* color);
+
+		//! Static function that converts a xyz color to rgb deep color space.
+		/*!
+		* First all components are divided by 100 to convert them to the range [0,1].
+		* Afterwars red, green and blue are calculated by:
+		* r = x * 3.2404542 + y * -1.5371385 + z * 0.4985314
+		* g = x * -0.9692660 + y * 1.8760108 + z * 0.0415560
+		* b = x * 0.0556434 + y * -0.2040259 + z * 1.0572252
+		* Then the resulting rgb color is converted from srgb to normal rgb by using the
+		* helper function linear_srgb_deep_to_rgb_deep().
+		* Finally all values are clamped to the range [0,1] (clamp_float()) and rounded 
+		* to 1 decimals (by using the helper function round_float_to_n_decimals())
+		* \sa linear_srgb_deep_to_rgb_deep(), clamp_float(), round_float_to_n_decimals()
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb deep color space.
+		*/
 		static color_space::rgb_deepcolor* xyz_to_rgb_deep(color_space::xyz* color);
+
+		//! Static function that converts a xyz color to grey true color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey true.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey true color space.
+		*/
 		static color_space::grey_truecolor* xyz_to_grey_true(color_space::xyz* color);
+
+		//! Static function that converts a xyz color to grey deep color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey deep color space.
+		*/
 		static color_space::grey_deepcolor* xyz_to_grey_deep(color_space::xyz* color);
+
+		//! Static function that converts a xyz color to cmyk color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to cmyk.
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
 		static color_space::cmyk* xyz_to_cmyk(color_space::xyz* color);
+
+		//! Static function that converts a xyz color to hsv color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsv.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsv color space.
+		*/
 		static color_space::hsv* xyz_to_hsv(color_space::xyz* color);
+
+		//! Static function that converts a xyz color to hsl color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsl.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
 		static color_space::hsl* xyz_to_hsl(color_space::xyz* color);
+
+		//! Static function that converts a xyz color to hsl color space.
+		/*!
+		* The calculation is done by using the following formula (where rw is reference white)
+		* L = 116 *  xyz_to_lab_helper(y / rw_y) - 16;
+		* a = 500 * (xyz_to_lab_helper(x / rw_x) - xyz_to_lab_helper(y / rw_y))
+		* b = 200 * (xyz_to_lab_helper(y / rw_y) - xyz_to_lab_helper(z / rw_z))
+		* \sa xyz_to_lab_helper()
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert to lab.
+		* \return The input color converted to hsl color space.
+		*/
 		static color_space::lab* xyz_to_lab(color_space::xyz* color, reference_white reference = reference_white_presets::CIE_D65);
 
 		static color_space::rgb_truecolor* lab_to_rgb_true(color_space::lab* color, reference_white reference = reference_white_presets::CIE_D65);

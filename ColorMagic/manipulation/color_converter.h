@@ -488,13 +488,75 @@ namespace color_manipulation
 		*/
 		static color_space::lab* grey_true_to_lab(color_space::grey_truecolor* color, reference_white reference = reference_white_presets::CIE_D65);
 
+
+		//! Static function that converts a grey deep color to rgb true color space.
+		/*!
+		* Multiplies value and alpha by 255 and sets value as red, green and blue components.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
 		static color_space::rgb_truecolor* grey_deep_to_rgb_true(color_space::grey_deepcolor* color);
+
+		//! Static function that converts a grey deep color to rgb deep color space.
+		/*!
+		* Sets greys value as red, green and blue components.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb deep color space.
+		*/
 		static color_space::rgb_deepcolor* grey_deep_to_rgb_deep(color_space::grey_deepcolor* color);
+
+		//! Static function that converts a grey deep color to grey true color space.
+		/*!
+		* Multiplies value and alpha by 255.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey true color space.
+		*/
 		static color_space::grey_truecolor* grey_deep_to_grey_true(color_space::grey_deepcolor* color);
+		
+		//! Static function that converts a grey deep color to cmyk color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to cmyk.
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
 		static color_space::cmyk* grey_deep_to_cmyk(color_space::grey_deepcolor* color);
+
+		//! Static function that converts a grey deep color to hsv color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsv.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsv color space.
+		*/
 		static color_space::hsv* grey_deep_to_hsv(color_space::grey_deepcolor* color);
+
+		//! Static function that converts a grey deep color to hsl color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsl.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
 		static color_space::hsl* grey_deep_to_hsl(color_space::grey_deepcolor* color);
+
+		//! Static function that converts a grey deep color to xyz color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to xyz.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyz color space.
+		*/
 		static color_space::xyz* grey_deep_to_xyz(color_space::grey_deepcolor* color);
+
+		//! Static function that converts a grey deep color to lab color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to lab.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert to lab.
+		* \return The input color converted to lab color space.
+		*/
 		static color_space::lab* grey_deep_to_lab(color_space::grey_deepcolor* color, reference_white reference = reference_white_presets::CIE_D65);
 
 		static color_space::rgb_truecolor* cmyk_to_rgb_true(color_space::cmyk* color);

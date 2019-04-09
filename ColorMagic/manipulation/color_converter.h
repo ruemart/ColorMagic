@@ -634,13 +634,81 @@ namespace color_manipulation
 		*/
 		static color_space::lab* cmyk_to_lab(color_space::cmyk* color, reference_white reference = reference_white_presets::CIE_D65);
 
+
+		//! Static function that converts a hsv color to rgb true color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to rgb true.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
 		static color_space::rgb_truecolor* hsv_to_rgb_true(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to rgb deep color space.
+		/*!
+		* Converts the hsv input color to rgb deep by using the formula provided 
+		* here: https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb deep color space.
+		*/
 		static color_space::rgb_deepcolor* hsv_to_rgb_deep(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to grey true color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey true.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey true color space.
+		*/
 		static color_space::grey_truecolor* hsv_to_grey_true(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to grey deep color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey deep color space.
+		*/
 		static color_space::grey_deepcolor* hsv_to_grey_deep(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to cmyk color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to cmyk.
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
 		static color_space::cmyk* hsv_to_cmyk(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to hsl color space.
+		/*!
+		* Lightness is calculated as follows: ((2 - saturation) * value)
+		* Saturation is calculated as follows: saturation * value. If the resulting value is
+		* less or equal than 1 it will be divided by Lightness. Otherwise it will be divided 
+		* by (2 - Lightness)
+		* Finally Lightness will be divided by 2
+		* Hue does not change during the conversion.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
 		static color_space::hsl* hsv_to_hsl(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to xyz color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to xyz.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyz color space.
+		*/
 		static color_space::xyz* hsv_to_xyz(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to lab color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to lab.
+		* \param in_color The color to convert.
+		* \return The input color converted to lab color space.
+		*/
 		static color_space::lab* hsv_to_lab(color_space::hsv* color, reference_white reference = reference_white_presets::CIE_D65);
 
 		static color_space::rgb_truecolor* hsl_to_rgb_true(color_space::hsl* color);

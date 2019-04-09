@@ -248,7 +248,7 @@ namespace color_manipulation
 	protected:
 		//! Static function that converts a rgb true color to rgb deep color space.
 		/*!
-		* Divides each component except alpha by 255.
+		* Divides each component by 255.
 		* \param in_color The color to convert.
 		* \return The input color converted to rgb deep color space.
 		*/
@@ -256,7 +256,7 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb true color to grey true color space.
 		/*!
-		* Creates the average of red, green and blue and sets it as grey value.
+		* Calculates the average of red, green and blue and sets it as grey value.
 		* \param in_color The color to convert.
 		* \return The input color converted to grey true color space.
 		*/
@@ -316,15 +316,104 @@ namespace color_manipulation
 		*/
 		static color_space::lab* rgb_true_to_lab(color_space::rgb_truecolor* color, reference_white reference = reference_white_presets::CIE_D65);
 
+
+		//! Static function that converts a rgb deep color to rgb true color space.
+		/*!
+		* Multiplies each component by 255.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
 		static color_space::rgb_truecolor* rgb_deep_to_rgb_true(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to grey true color space.
+		/*!
+		* Container function that first converts the input color to rgb true and afterwards
+		* the rgb true color to grey true.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
 		static color_space::grey_truecolor* rgb_deep_to_grey_true(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to rgb true color space.
+		/*!
+		* Calculates the average of red, green and blue and sets it as grey value.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey deep color space.
+		*/
 		static color_space::grey_deepcolor* rgb_deep_to_grey_deep(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to cmyk color space.
+		/*!
+		* First this function calculates black by finding the maximum value of red, green
+		* and blue. Afterwards cyan, magenta and yellow are calculated with the formula
+		* (1 - rgb_comp - black) / (1 - black)
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
 		static color_space::cmyk* rgb_deep_to_cmyk(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to hsv color space.
+		/*!
+		* First this function finds the minimum and maximum components of the input color.
+		* If max and min are equal the input color is grey and the resulting hsv color will 
+		* be hsv(0, 0, min).
+		* Otherwise hue is calculated depending on the max value and the difference of max 
+		* and min.
+		* Finally saturation is defined by delta / max and value is equal to max.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsv color space.
+		*/
 		static color_space::hsv* rgb_deep_to_hsv(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to hsl color space.
+		/*!
+		* Container function that first converts the input color to hsv and afterwards
+		* the hsv color to hsl.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
 		static color_space::hsl* rgb_deep_to_hsl(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to xyz color space.
+		/*!
+		* The resulting components are calculated by the following formulas:
+		* x = red * 0.4124564 + green * 0.3575761 + blue * 0.1804375
+		* y = red * 0.2126729 + green * 0.7151522 + blue * 0.0721750
+		* z = red * 0.0193339 + green * 0.1191920 + blue * 0.9503041
+		* Finally all components are multiplied by 100.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyz color space.
+		*/
 		static color_space::xyz* rgb_deep_to_xyz(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to lab color space.
+		/*!
+		* Container function that first converts the input color to xyz and afterwards
+		* the xyz color to lab.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert to lab.
+		* \return The input color converted to lab color space.
+		*/
 		static color_space::lab* rgb_deep_to_lab(color_space::rgb_deepcolor* color, reference_white reference = reference_white_presets::CIE_D65);
+
+		//! Static function that converts a rgb deep color to srgb.
+		/*!
+		* Depending on the value of each component it is divided by 12.92 (if smaller than 0.04045)
+		* or it will be converted by the formula:
+		* ((comp + 0.055) / 1.055)^2.4
+		* \param in_color The color to convert.
+		* \return The input color converted to srgb.
+		*/
 		static color_space::rgb_deepcolor* rgb_deep_to_linear_srgb_deep(color_space::rgb_deepcolor* color);
+		
+		//! Static function that converts a srgb color to rgb deep.
+		/*!
+		* Depending on the value of each component it is multiplied by 12.92 (if smaller than 0.003108)
+		* or it will be converted by the formula:
+		* sqrt((comp * 1.055)^2.4) - 0.055
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb deep.
+		*/
 		static color_space::rgb_deepcolor* linear_srgb_deep_to_rgb_deep(color_space::rgb_deepcolor* color);
 
 		static color_space::rgb_truecolor* grey_true_to_rgb_true(color_space::grey_truecolor* color);

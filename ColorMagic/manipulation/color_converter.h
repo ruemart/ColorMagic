@@ -707,17 +707,94 @@ namespace color_manipulation
 		* Container function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert to lab.
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* hsv_to_lab(color_space::hsv* color, reference_white reference = reference_white_presets::CIE_D65);
 
+		//! Static function that converts a hsl color to rgb true color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to rgb true.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
 		static color_space::rgb_truecolor* hsl_to_rgb_true(color_space::hsl* color);
+
+		//! Static function that converts a hsl color to rgb deep color space.
+		/*!
+		* Converts the hsl input color to rgb deep by using the following formula:
+		* temp_hue = hue / 360
+		* temp1 = (lightness < 0.5) ? lightness * (1 + saturation) : lightness + saturation - (lightness * saturation)
+		* temp2 = 2 * lightness - var1
+		* These three temporary variables are used as input parameters for \sa hsl_to_rgb_helper() function
+		* in order to calculate red, green and blue:
+		* r = hsl_to_rgb_helper(temp1, temp2, temp_hue + 0.33)
+		* g = hsl_to_rgb_helper(temp1, temp2, temp_hue)
+		* b = hsl_to_rgb_helper(temp1, temp2, temp_hue - 0.33)
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
 		static color_space::rgb_deepcolor* hsl_to_rgb_deep(color_space::hsl* color);
+
+		//! Static function that converts a hsl color to grey true color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey true.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey true color space.
+		*/
 		static color_space::grey_truecolor* hsl_to_grey_true(color_space::hsl* color);
+
+		//! Static function that converts a hsl color to grey deep color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey deep color space.
+		*/
 		static color_space::grey_deepcolor* hsl_to_grey_deep(color_space::hsl* color);
+
+		//! Static function that converts a hsl color to cmyk color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to cmyk.
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
 		static color_space::cmyk* hsl_to_cmyk(color_space::hsl* color);
+
+		//! Static function that converts a hsl color to hsv color space.
+		/*!
+		* Converts the hsl input color to hsv by using the following formula:
+		* temp_lightness = lightness * 2
+		* If saturation is less or equal than 1, saturation = temp_lightness. Otherwise
+		* saturation is 2 - temp_lightness
+		* value = (temp_lightness + saturation) / 2
+		* saturation = (2 * saturation) / (temp_lightness + saturation)
+		* Hue does not change during the calculation.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsv color space.
+		*/
 		static color_space::hsv* hsl_to_hsv(color_space::hsl* color);
+
+		//! Static function that converts a hsl color to xyz color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to xyz.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyz color space.
+		*/
 		static color_space::xyz* hsl_to_xyz(color_space::hsl* color);
+
+		//! Static function that converts a hsl color to lab color space.
+		/*!
+		* Container function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to lab.
+		* \param in_color The color to convert.
+		* \param reference The reference white needed to convert to lab.
+		* \return The input color converted to lab color space.
+		*/
 		static color_space::lab* hsl_to_lab(color_space::hsl* color, reference_white reference = reference_white_presets::CIE_D65);
 
 		static color_space::rgb_truecolor* xyz_to_rgb_true(color_space::xyz* color);

@@ -17,103 +17,205 @@ namespace color_manipulation
 	class color_calculation
 	{
 	public:
+		//! Static function that adds two colors.
+		/*!
+		* Depending on the type of the first input color the calculation is done differently
+		* (additive or subtractive). The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::color_base* add(color_space::color_base* color1, color_space::color_base* color2, float weight1 = 1.f, float weight2 = 1.f);
+
+		//! Static function that adds two rgb true colors.
+		/*!
+		* Adds both rgb true colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::rgb_truecolor* add(color_space::rgb_truecolor* color1, color_space::rgb_truecolor* color2, float weight1 = 1.f, float weight2 = 1.f);
+
+		//! Static function that adds two rgb deep colors.
+		/*!
+		* Adds both rgb deep colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::rgb_deepcolor* add(color_space::rgb_deepcolor* color1, color_space::rgb_deepcolor* color2, float weight1 = 1.f, float weight2 = 1.f);
+
+		//! Static function that adds two grey true colors.
+		/*!
+		* Adds both grey true colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::grey_truecolor* add(color_space::grey_truecolor* color1, color_space::grey_truecolor* color2, float weight1 = 1.f, float weight2 = 1.f);
+
+		//! Static function that adds two grey deep colors.
+		/*!
+		* Adds both grey deep colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::grey_deepcolor* add(color_space::grey_deepcolor* color1, color_space::grey_deepcolor* color2, float weight1 = 1.f, float weight2 = 1.f);
+
+		//! Static function that adds two cmyk colors.
+		/*!
+		* Adds both cmyk colors in a subtractive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::cmyk* add(color_space::cmyk* color1, color_space::cmyk* color2, float weight1 = 1.f, float weight2 = 1.f);
+
+		//! Static function that adds two hsv colors.
+		/*!
+		* Adds both hsv colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::hsv* add(color_space::hsv* color1, color_space::hsv* color2, float weight1 = 1.f, float weight2 = 1.f);
+
+		//! Static function that adds two hsl colors.
+		/*!
+		* Adds both hsl colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::hsl* add(color_space::hsl* color1, color_space::hsl* color2, float weight1 = 1.f, float weight2 = 1.f);
+
+		//! Static function that adds two xyz colors.
+		/*!
+		* Adds both xyz colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::xyz* add(color_space::xyz* color1, color_space::xyz* color2, float weight1 = 1.f, float weight2 = 1.f);
+
+		//! Static function that adds two lab colors.
+		/*!
+		* Converts both colors to xyz space (which is linear) and adds them. Afterwards the resulting color is converted back to lab.
+		* The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		*/
+		static color_space::lab* add(color_space::lab* color1, color_space::lab* color2, float weight1 = 1.f, float weight2 = 1.f);
+
 		//! Static function that mixes two colors.
 		/*!
 		* Depending on the type of the first input color the calculation is done differently
-		* (additive or subtractive). The amount of the two colors can be varied in the range ]0,1].
+		* (additive or subtractive). The mix ratio of the two colors can be varied in the range [0,1] by using their corresponding weights.
 		* \param color1 The first of the two colors to add.
 		* \param color2 The second of the two colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::color_base* mix(color_space::color_base* color1, color_space::color_base* color2, float weight = 0.5f);
 
 		//! Static function that mixes two colors in rgb true color space.
 		/*!
-		* Performs an additive color mix of both rgb true colors. The amount of the two
-		* colors can be varied in the range ]0,1].
+		* Performs an additive color mix of both rgb true colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
 		* \param color1 The first of the two rgb true colors to add.
 		* \param color2 The second of the two rgb true colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::rgb_truecolor* mix(color_space::rgb_truecolor* color1, color_space::rgb_truecolor* color2, float weight = 0.5f);
 
 		//! Static function that mixes two colors in rgb deep color space.
 		/*!
-		* Performs an additive color mix of both rgb deep colors. The amount of the two
-		* colors can be varied in the range ]0,1].
+		* Performs an additive color mix of both rgb deep colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
 		* \param color1 The first of the two rgb deep colors to add.
 		* \param color2 The second of the two rgb deep colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::rgb_deepcolor* mix(color_space::rgb_deepcolor* color1, color_space::rgb_deepcolor* color2, float weight = 0.5f);
 
 		//! Static function that mixes two colors in grey true color space.
 		/*!
-		* Performs an additive color mix of both grey true colors. The amount of the two
-		* colors can be varied in the range ]0,1].
+		* Performs an additive color mix of both grey true colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
 		* \param color1 The first of the two grey true colors to add.
 		* \param color2 The second of the two grey true colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::grey_truecolor* mix(color_space::grey_truecolor* color1, color_space::grey_truecolor* color2, float weight = 0.5f);
 
 		//! Static function that mixes two colors in grey deep color space.
 		/*!
-		* Performs an additive color mix of both grey deep colors. The amount of the two
-		* colors can be varied in the range ]0,1].
+		* Performs an additive color mix of both grey deep colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
 		* \param color1 The first of the two grey deep colors to add.
 		* \param color2 The second of the two grey deep colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::grey_deepcolor* mix(color_space::grey_deepcolor* color1, color_space::grey_deepcolor* color2, float weight = 0.5f);
 
 		//! Static function that mixes two colors in cmyk color space.
 		/*!
-		* Performs an subtractive color mix of both cmyk colors. The amount of the two
-		* colors can be varied in the range ]0,1].
+		* Performs an subtractive color mix of both cmyk colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
 		* \param color1 The first of the two cmyk colors to add.
 		* \param color2 The second of the two cmyk colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::cmyk* mix(color_space::cmyk* color1, color_space::cmyk* color2, float weight = 0.5f);
 
 		//! Static function that mixes two colors in hsv color space.
 		/*!
-		* Performs an additive color mix of both hsv colors. The amount of the two
-		* colors can be varied in the range ]0,1].
+		* Performs an additive color mix of both hsv colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
 		* \param color1 The first of the two hsv colors to add.
 		* \param color2 The second of the two hsv colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::hsv* mix(color_space::hsv* color1, color_space::hsv* color2, float weight = 0.5f);
 
 		//! Static function that mixes two colors in hsl color space.
 		/*!
-		* Performs an additive color mix of both hsl colors. The amount of the two
-		* colors can be varied in the range ]0,1].
+		* Performs an additive color mix of both hsl colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
 		* \param color1 The first of the two hsl colors to add.
 		* \param color2 The second of the two hsl colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::hsl* mix(color_space::hsl* color1, color_space::hsl* color2, float weight = 0.5f);
 
 		//! Static function that mixes two colors in xyz color space.
 		/*!
-		* Performs an additive color mix of both xyz colors. The amount of the two
-		* colors can be varied in the range ]0,1].
+		* Performs an additive color mix of both xyz colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
 		* \param color1 The first of the two xyz colors to add.
 		* \param color2 The second of the two xyz colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::xyz* mix(color_space::xyz* color1, color_space::xyz* color2, float weight = 0.5f);
 
 		//! Static function that mixes two colors in lab color space.
 		/*!
-		* Performs an additive color mix of both lab colors. The amount of the two
-		* colors can be varied in the range ]0,1].
+		* Performs an additive color mix of both lab colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
 		* \param color1 The first of the two lab colors to add.
 		* \param color2 The second of the two lab colors to add.
-		* \param weight The first colors weight in the range ]0,1]. The second colors weight will be 1 - weight.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		*/
 		static color_space::lab* mix(color_space::lab* color1, color_space::lab* color2, float weight = 0.5f);
 

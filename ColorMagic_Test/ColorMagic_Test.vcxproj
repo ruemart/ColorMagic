@@ -38,6 +38,7 @@
   <ItemGroup>
     <ClCompile Include="CMYK_Test.cpp" />
     <ClCompile Include="ColorAdjustments.cpp" />
+    <ClCompile Include="ColorCalculator_Test.cpp" />
     <ClCompile Include="ColorCombinations_Test.cpp" />
     <ClCompile Include="ColorConverter_Test.cpp" />
     <ClCompile Include="ColorDistance_Test.cpp" />

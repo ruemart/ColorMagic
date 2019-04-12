@@ -100,10 +100,10 @@ color_space::hsv * color_manipulation::color_calculation::add(color_space::hsv *
 	auto vector1 = convert_to_vector(color1->hue(), color1->saturation(), color1->value());
 	auto vector2 = convert_to_vector(color2->hue(), color2->saturation(), color2->value());
 
-	vector1[0] = weight1 * vector1[0] + weight2 * vector2[0];
-	vector1[1] = weight1 * vector1[1] + weight2 * vector2[1];
-	vector1[2] = weight1 * vector1[2] + weight2 * vector2[2];
-	vector2 = convert_from_vector(vector1);
+	auto x = weight1 * vector1[0] + weight2 * vector2[0];
+	auto y = weight1 * vector1[1] + weight2 * vector2[1];
+	auto z = weight1 * vector1[2] + weight2 * vector2[2];
+	vector2 = convert_from_vector(new float[3] {x, y, z});
 
 	return new color_space::hsv(vector2[0], vector2[1], vector2[2]);
 }
@@ -310,10 +310,10 @@ color_space::hsv * color_manipulation::color_calculation::subtract(color_space::
 	auto vector1 = convert_to_vector(color1->hue(), color1->saturation(), color1->value());
 	auto vector2 = convert_to_vector(color2->hue(), color2->saturation(), color2->value());
 
-	vector1[0] = vector1[0] - weight * vector2[0];
-	vector1[1] = vector1[1] - weight * vector2[1];
-	vector1[2] = vector1[2] - weight * vector2[2];
-	vector2 = convert_from_vector(vector1);
+	auto x = vector1[0] - weight * vector2[0];
+	auto y = vector1[1] - weight * vector2[1];
+	auto z = vector1[2] - weight * vector2[2];
+	vector2 = convert_from_vector(new float[3] {x, y, z});
 
 	return new color_space::hsv(vector2[0], vector2[1], vector2[2]);
 }
@@ -327,7 +327,7 @@ color_space::hsl * color_manipulation::color_calculation::subtract(color_space::
 
 color_space::xyz * color_manipulation::color_calculation::subtract(color_space::xyz * color1, color_space::xyz * color2, float weight)
 {
-	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight2 has to be in the range [0,1].");
+	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
 
 	auto x = color1->x() - weight * color2->x();
 	auto y = color1->y() - weight * color2->y();

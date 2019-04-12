@@ -25,8 +25,9 @@ namespace color_manipulation
 		* \param color2 The second of the two colors to add.
 		* \param weight1 The first colors weight in the range [0,1].
 		* \param weight2 The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::color_base* add(color_space::color_base* color1, color_space::color_base* color2, float weight1 = 1.f, float weight2 = 1.f);
+		static color_space::color_base* add(color_space::color_base* color1, color_space::color_base* color2, float weight1 = 1.f, float weight2 = 1.f, bool includeAlpha = false);
 
 		//! Static function that adds two rgb true colors.
 		/*!
@@ -35,8 +36,9 @@ namespace color_manipulation
 		* \param color2 The second of the two colors to add.
 		* \param weight1 The first colors weight in the range [0,1].
 		* \param weight2 The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::rgb_truecolor* add(color_space::rgb_truecolor* color1, color_space::rgb_truecolor* color2, float weight1 = 1.f, float weight2 = 1.f);
+		static color_space::rgb_truecolor* add(color_space::rgb_truecolor* color1, color_space::rgb_truecolor* color2, float weight1 = 1.f, float weight2 = 1.f, bool includeAlpha = false);
 
 		//! Static function that adds two rgb deep colors.
 		/*!
@@ -45,8 +47,9 @@ namespace color_manipulation
 		* \param color2 The second of the two colors to add.
 		* \param weight1 The first colors weight in the range [0,1].
 		* \param weight2 The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::rgb_deepcolor* add(color_space::rgb_deepcolor* color1, color_space::rgb_deepcolor* color2, float weight1 = 1.f, float weight2 = 1.f);
+		static color_space::rgb_deepcolor* add(color_space::rgb_deepcolor* color1, color_space::rgb_deepcolor* color2, float weight1 = 1.f, float weight2 = 1.f, bool includeAlpha = false);
 
 		//! Static function that adds two grey true colors.
 		/*!
@@ -55,8 +58,9 @@ namespace color_manipulation
 		* \param color2 The second of the two colors to add.
 		* \param weight1 The first colors weight in the range [0,1].
 		* \param weight2 The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::grey_truecolor* add(color_space::grey_truecolor* color1, color_space::grey_truecolor* color2, float weight1 = 1.f, float weight2 = 1.f);
+		static color_space::grey_truecolor* add(color_space::grey_truecolor* color1, color_space::grey_truecolor* color2, float weight1 = 1.f, float weight2 = 1.f, bool includeAlpha = false);
 
 		//! Static function that adds two grey deep colors.
 		/*!
@@ -65,8 +69,9 @@ namespace color_manipulation
 		* \param color2 The second of the two colors to add.
 		* \param weight1 The first colors weight in the range [0,1].
 		* \param weight2 The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::grey_deepcolor* add(color_space::grey_deepcolor* color1, color_space::grey_deepcolor* color2, float weight1 = 1.f, float weight2 = 1.f);
+		static color_space::grey_deepcolor* add(color_space::grey_deepcolor* color1, color_space::grey_deepcolor* color2, float weight1 = 1.f, float weight2 = 1.f, bool includeAlpha = false);
 
 		//! Static function that adds two cmyk colors.
 		/*!
@@ -127,8 +132,9 @@ namespace color_manipulation
 		* \param color1 The first of the two colors to add.
 		* \param color2 The second of the two colors to add.
 		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::color_base* mix(color_space::color_base* color1, color_space::color_base* color2, float weight = 0.5f);
+		static color_space::color_base* mix(color_space::color_base* color1, color_space::color_base* color2, float weight = 0.5f, bool includeAlpha = false);
 
 		//! Static function that mixes two colors in rgb true color space.
 		/*!
@@ -137,8 +143,9 @@ namespace color_manipulation
 		* \param color1 The first of the two rgb true colors to add.
 		* \param color2 The second of the two rgb true colors to add.
 		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::rgb_truecolor* mix(color_space::rgb_truecolor* color1, color_space::rgb_truecolor* color2, float weight = 0.5f);
+		static color_space::rgb_truecolor* mix(color_space::rgb_truecolor* color1, color_space::rgb_truecolor* color2, float weight = 0.5f, bool includeAlpha = false);
 
 		//! Static function that mixes two colors in rgb deep color space.
 		/*!
@@ -147,8 +154,9 @@ namespace color_manipulation
 		* \param color1 The first of the two rgb deep colors to add.
 		* \param color2 The second of the two rgb deep colors to add.
 		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::rgb_deepcolor* mix(color_space::rgb_deepcolor* color1, color_space::rgb_deepcolor* color2, float weight = 0.5f);
+		static color_space::rgb_deepcolor* mix(color_space::rgb_deepcolor* color1, color_space::rgb_deepcolor* color2, float weight = 0.5f, bool includeAlpha = false);
 
 		//! Static function that mixes two colors in grey true color space.
 		/*!
@@ -157,8 +165,9 @@ namespace color_manipulation
 		* \param color1 The first of the two grey true colors to add.
 		* \param color2 The second of the two grey true colors to add.
 		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::grey_truecolor* mix(color_space::grey_truecolor* color1, color_space::grey_truecolor* color2, float weight = 0.5f);
+		static color_space::grey_truecolor* mix(color_space::grey_truecolor* color1, color_space::grey_truecolor* color2, float weight = 0.5f, bool includeAlpha = false);
 
 		//! Static function that mixes two colors in grey deep color space.
 		/*!
@@ -167,8 +176,9 @@ namespace color_manipulation
 		* \param color1 The first of the two grey deep colors to add.
 		* \param color2 The second of the two grey deep colors to add.
 		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
 		*/
-		static color_space::grey_deepcolor* mix(color_space::grey_deepcolor* color1, color_space::grey_deepcolor* color2, float weight = 0.5f);
+		static color_space::grey_deepcolor* mix(color_space::grey_deepcolor* color1, color_space::grey_deepcolor* color2, float weight = 0.5f, bool includeAlpha = false);
 
 		//! Static function that mixes two colors in cmyk color space.
 		/*!
@@ -220,6 +230,100 @@ namespace color_manipulation
 		*/
 		static color_space::lab* mix(color_space::lab* color1, color_space::lab* color2, float weight = 0.5f);
 
+		//! Static function that mixes two colors.
+		/*!
+		* Subtracts both rgb true colors. Depending on the type of the first input color the calculation is done differently.
+		* \param color1 The first of the two colors to subtract.
+		* \param color2 The second of the two colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
+		*/
+		static color_space::color_base* subtract(color_space::color_base* color1, color_space::color_base* color2, float weight = 1.f, bool includeAlpha = false);
+
+		//! Static function that subtracts two colors in rgb true color space.
+		/*!
+		* Subtracts both rgb true colors.
+		* \param color1 The first of the two rgb true colors to subtract.
+		* \param color2 The second of the two rgb true colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
+		*/
+		static color_space::rgb_truecolor* subtract(color_space::rgb_truecolor* color1, color_space::rgb_truecolor* color2, float weight = 1.f, bool includeAlpha = false);
+
+		//! Static function that subtracts two colors in rgb deep color space.
+		/*!
+		* Subtracts both rgb deep colors.
+		* \param color1 The first of the two rgb deep colors to subtract.
+		* \param color2 The second of the two rgb deep colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
+		*/
+		static color_space::rgb_deepcolor* subtract(color_space::rgb_deepcolor* color1, color_space::rgb_deepcolor* color2, float weight = 1.f, bool includeAlpha = false);
+
+		//! Static function that subtracts two colors in grey true color space.
+		/*!
+		* Subtracts both grey true colors.
+		* \param color1 The first of the two grey true colors to subtract.
+		* \param color2 The second of the two grey true colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
+		*/
+		static color_space::grey_truecolor* subtract(color_space::grey_truecolor* color1, color_space::grey_truecolor* color2, float weight = 1.f, bool includeAlpha = false);
+
+		//! Static function that subtracts two colors in grey deep color space.
+		/*!
+		* Subtracts both grey deep colors.
+		* \param color1 The first of the two grey deep colors to subtract.
+		* \param color2 The second of the two grey deep colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param includeAlpha Whether alpha should be included in the calculation or not.
+		*/
+		static color_space::grey_deepcolor* subtract(color_space::grey_deepcolor* color1, color_space::grey_deepcolor* color2, float weight = 1.f, bool includeAlpha = false);
+
+		//! Static function that subtracts two colors in cmyk color space.
+		/*!
+		* Subtracts both cmyk colors.
+		* \param color1 The first of the two cmyk colors to subtract.
+		* \param color2 The second of the two cmyk colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		*/
+		static color_space::cmyk* subtract(color_space::cmyk* color1, color_space::cmyk* color2, float weight = 1.f);
+
+		//! Static function that subtracts two colors in hsv color space.
+		/*!
+		* Subtracts both hsv colors.
+		* \param color1 The first of the two hsv colors to subtract.
+		* \param color2 The second of the two hsv colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		*/
+		static color_space::hsv* subtract(color_space::hsv* color1, color_space::hsv* color2, float weight = 1.f);
+
+		//! Static function that subtracts two colors in hsl color space.
+		/*!
+		* Subtracts both hsl colors.
+		* \param color1 The first of the two hsl colors to subtract.
+		* \param color2 The second of the two hsl colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		*/
+		static color_space::hsl* subtract(color_space::hsl* color1, color_space::hsl* color2, float weight = 1.f);
+
+		//! Static function that subtracts two colors in xyz color space.
+		/*!
+		* Subtracts both xyz colors.
+		* \param color1 The first of the two xyz colors to subtract.
+		* \param color2 The second of the two xyz colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		*/
+		static color_space::xyz* subtract(color_space::xyz* color1, color_space::xyz* color2, float weight = 1.f);
+
+		//! Static function that subtracts two colors in lab color space.
+		/*!
+		* Subtracts both lab colors.
+		* \param color1 The first of the two lab colors to subtract.
+		* \param color2 The second of the two lab colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		*/
+		static color_space::lab* subtract(color_space::lab* color1, color_space::lab* color2, float weight = 1.f);
 	private:
 		//! Converts a hsl or hsv color to a vector.
 		/*!

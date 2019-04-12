@@ -62,8 +62,8 @@ color_space::grey_truecolor * color_manipulation::color_calculation::add(color_s
 	if (weight1 < 0.f || weight1 > 1.f) throw new std::invalid_argument("Parameter weight1 has to be in the range [0,1].");
 	if (weight2 < 0.f || weight2 > 1.f) throw new std::invalid_argument("Parameter weight2 has to be in the range [0,1].");
 
-	auto v = std::sqrtf(weight1 * std::powf(color1->grey(), 2.f) + weight2 * std::powf(color2->grey(), 2.f));
-	auto a = std::sqrtf(weight1 * std::powf(color1->alpha(), 2.f) + weight2 * std::powf(color2->alpha(), 2.f));
+	auto v = weight1 * color1->grey() + weight2 * color2->grey();
+	auto a = weight1 * color1->alpha() + weight2 * color2->alpha();
 
 	return new color_space::grey_truecolor(fminf(fmaxf(v, 0), 255), fminf(fmaxf(a, 0), 255));
 }
@@ -73,8 +73,8 @@ color_space::grey_deepcolor * color_manipulation::color_calculation::add(color_s
 	if (weight1 < 0.f || weight1 > 1.f) throw new std::invalid_argument("Parameter weight1 has to be in the range [0,1].");
 	if (weight2 < 0.f || weight2 > 1.f) throw new std::invalid_argument("Parameter weight2 has to be in the range [0,1].");
 
-	auto v = std::sqrtf(weight1 * std::powf(color1->grey(), 2.f) + weight2 * std::powf(color2->grey(), 2.f));
-	auto a = std::sqrtf(weight1 * std::powf(color1->alpha(), 2.f) + weight2 * std::powf(color2->alpha(), 2.f));
+	auto v = weight1 * color1->grey() + weight2 * color2->grey();
+	auto a = weight1 * color1->alpha() + weight2 * color2->alpha();
 
 	return new color_space::grey_deepcolor(v, a);
 }

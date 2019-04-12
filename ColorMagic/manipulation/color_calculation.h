@@ -90,7 +90,8 @@ namespace color_manipulation
 
 		//! Static function that adds two hsl colors.
 		/*!
-		* Adds both hsl colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* Converts both colors to hsv space and adds them. Afterwards the resulting color is converted back to hsl.
+		* The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
 		* \param color1 The first of the two colors to add.
 		* \param color2 The second of the two colors to add.
 		* \param weight1 The first colors weight in the range [0,1].

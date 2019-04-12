@@ -41,7 +41,7 @@ color_space::rgb_truecolor * color_manipulation::color_calculation::add(color_sp
 	auto b = std::sqrtf(weight1 * std::powf(color1->blue(), 2.f) + weight2 * std::powf(color2->blue(), 2.f));
 	auto a = std::sqrtf(weight1 * std::powf(color1->alpha(), 2.f) + weight2 * std::powf(color2->alpha(), 2.f));
 
-	return new color_space::rgb_truecolor(r, g, b, a);
+	return new color_space::rgb_truecolor(fminf(fmaxf(r, 0), 255), fminf(fmaxf(g, 0), 255), fminf(fmaxf(b, 0), 255), fminf(fmaxf(a, 0), 255));
 }
 
 color_space::rgb_deepcolor * color_manipulation::color_calculation::add(color_space::rgb_deepcolor * color1, color_space::rgb_deepcolor * color2, float weight1, float weight2)
@@ -65,7 +65,7 @@ color_space::grey_truecolor * color_manipulation::color_calculation::add(color_s
 	auto v = std::sqrtf(weight1 * std::powf(color1->grey(), 2.f) + weight2 * std::powf(color2->grey(), 2.f));
 	auto a = std::sqrtf(weight1 * std::powf(color1->alpha(), 2.f) + weight2 * std::powf(color2->alpha(), 2.f));
 
-	return new color_space::grey_truecolor(v, a);
+	return new color_space::grey_truecolor(fminf(fmaxf(v, 0), 255), fminf(fmaxf(a, 0), 255));
 }
 
 color_space::grey_deepcolor * color_manipulation::color_calculation::add(color_space::grey_deepcolor * color1, color_space::grey_deepcolor * color2, float weight1, float weight2)
@@ -113,15 +113,7 @@ color_space::hsl * color_manipulation::color_calculation::add(color_space::hsl *
 	if (weight1 < 0.f || weight1 > 1.f) throw new std::invalid_argument("Parameter weight1 has to be in the range [0,1].");
 	if (weight2 < 0.f || weight2 > 1.f) throw new std::invalid_argument("Parameter weight2 has to be in the range [0,1].");
 
-	auto vector1 = convert_to_vector(color1->hue(), color1->saturation(), color1->lightness());
-	auto vector2 = convert_to_vector(color2->hue(), color2->saturation(), color2->lightness());
-
-	vector1[0] = weight1 * vector1[0] + weight2 * vector2[0];
-	vector1[1] = weight1 * vector1[1] + weight2 * vector2[1];
-	vector1[2] = weight1 * vector1[2] + weight2 * vector2[2];
-	vector2 = convert_from_vector(vector1);
-
-	return new color_space::hsl(vector2[0], vector2[1], vector2[2]);
+	return color_manipulation::color_converter::to_hsl(color_manipulation::color_calculation::add(color_manipulation::color_converter::to_hsv(color1), color_manipulation::color_converter::to_hsv(color2), weight1, weight2));
 }
 
 color_space::xyz * color_manipulation::color_calculation::add(color_space::xyz * color1, color_space::xyz * color2, float weight1, float weight2)
@@ -223,7 +215,7 @@ color_space::hsl * color_manipulation::color_calculation::mix(color_space::hsl *
 color_space::xyz * color_manipulation::color_calculation::mix(color_space::xyz * color1, color_space::xyz * color2, float weight)
 {
 	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
-	
+
 	return add(color1, color2, weight, 1.f - weight);
 }
 
@@ -248,5 +240,5 @@ float * color_manipulation::color_calculation::convert_from_vector(float * color
 	auto x = std::atan2(color[1], color[0]) * 180.f / M_PI;
 	auto y = std::sqrtf(std::powf(color[0], 2.f) + std::powf(color[1], 2.f));
 	auto z = color[2];
-	return new float[3]{ x, y, z };
+	return new float[3]{ (float)x, (float)y, (float)z };
 }

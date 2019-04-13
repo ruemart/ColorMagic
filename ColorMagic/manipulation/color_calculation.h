@@ -324,6 +324,70 @@ namespace color_manipulation
 		* \param weight The second colors weight in the range [0,1].
 		*/
 		static color_space::lab* subtract(color_space::lab* color1, color_space::lab* color2, float weight = 1.f);
+
+		//! Static function that averages a vector of rgb true colors.
+		/*!
+		* Averages each rgb component of the colors seperately.
+		* \param colors The vector of colors to average.
+		*/
+		static color_space::rgb_truecolor* average_rgb_true(std::vector<color_space::rgb_truecolor*> colors);
+
+		//! Static function that averages a vector of rgb deep colors.
+		/*!
+		* Averages each rgb component of the colors seperately.
+		* \param colors The vector of colors to average.
+		*/
+		static color_space::rgb_deepcolor* average_rgb_deep(std::vector<color_space::rgb_deepcolor*> colors);
+
+		//! Static function that averages a vector of grey true colors.
+		/*!
+		* Averages the grey component of the colors.
+		* \param colors The vector of colors to average.
+		*/
+		static color_space::grey_truecolor* average_grey_true(std::vector<color_space::grey_truecolor*> colors);
+
+		//! Static function that averages a vector of grey deep colors.
+		/*!
+		* Averages the grey component of the colors.
+		* \param colors The vector of colors to average.
+		*/
+		static color_space::grey_deepcolor* average_grey_deep(std::vector<color_space::grey_deepcolor*> colors);
+
+		//! Static function that averages a vector of cmyk colors.
+		/*!
+		* Averages each cmyk component of the colors seperately.
+		* \param colors The vector of colors to average.
+		*/
+		static color_space::cmyk* average_cmyk(std::vector<color_space::cmyk*> colors);
+
+		//! Static function that averages a vector of hsv colors.
+		/*!
+		* Averages each hsv component of the colors seperately.
+		* \param colors The vector of colors to average.
+		*/
+		static color_space::hsv* average_hsv(std::vector<color_space::hsv*> colors);
+
+		//! Static function that averages a vector of hsl colors.
+		/*!
+		* Averages each hsl component of the colors seperately.
+		* \param colors The vector of colors to average.
+		*/
+		static color_space::hsl* average_hsl(std::vector<color_space::hsl*> colors);
+
+		//! Static function that averages a vector of xyz colors.
+		/*!
+		* Averages each xyz component of the colors seperately.
+		* \param colors The vector of colors to average.
+		*/
+		static color_space::xyz* average_xyz(std::vector<color_space::xyz*> colors);
+
+		//! Static function that averages a vector of lab colors.
+		/*!
+		* Averages each lab component of the colors seperately.
+		* \param colors The vector of colors to average.
+		*/
+		static color_space::lab* average_lab(std::vector<color_space::lab*> colors);
+
 	private:
 		//! Converts a hsl or hsv color to a vector.
 		/*!

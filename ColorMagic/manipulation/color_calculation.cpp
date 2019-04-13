@@ -103,7 +103,7 @@ color_space::hsv * color_manipulation::color_calculation::add(color_space::hsv *
 	auto x = weight1 * vector1[0] + weight2 * vector2[0];
 	auto y = weight1 * vector1[1] + weight2 * vector2[1];
 	auto z = weight1 * vector1[2] + weight2 * vector2[2];
-	vector2 = convert_from_vector(new float[3] {x, y, z});
+	vector2 = convert_from_vector(new float[3]{ x, y, z });
 
 	return new color_space::hsv(vector2[0], vector2[1], vector2[2]);
 }
@@ -313,7 +313,7 @@ color_space::hsv * color_manipulation::color_calculation::subtract(color_space::
 	auto x = vector1[0] - weight * vector2[0];
 	auto y = vector1[1] - weight * vector2[1];
 	auto z = vector1[2] - weight * vector2[2];
-	vector2 = convert_from_vector(new float[3] {x, y, z});
+	vector2 = convert_from_vector(new float[3]{ x, y, z });
 
 	return new color_space::hsv(vector2[0], vector2[1], vector2[2]);
 }
@@ -341,6 +341,133 @@ color_space::lab * color_manipulation::color_calculation::subtract(color_space::
 	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
 
 	return color_manipulation::color_converter::to_lab(color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_xyz(color1), color_manipulation::color_converter::to_xyz(color2), weight));
+}
+
+color_space::rgb_truecolor * color_manipulation::color_calculation::average_rgb_true(std::vector<color_space::rgb_truecolor*> colors)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[4]{ (unsigned int)0, (unsigned int)0, (unsigned int)0, (unsigned int)0 };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->red();
+		sum[1] += colors[i]->green();
+		sum[2] += colors[i]->blue();
+		sum[3] += colors[i]->alpha();
+	}
+	return new color_space::rgb_truecolor(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), sum[3] / colors.size());
+}
+
+color_space::rgb_deepcolor * color_manipulation::color_calculation::average_rgb_deep(std::vector<color_space::rgb_deepcolor*> colors)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[4]{ 0.f, 0.f, 0.f, 0.f };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->red();
+		sum[1] += colors[i]->green();
+		sum[2] += colors[i]->blue();
+		sum[3] += colors[i]->alpha();
+	}
+	return new color_space::rgb_deepcolor(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), sum[3] / colors.size());
+}
+
+color_space::grey_truecolor * color_manipulation::color_calculation::average_grey_true(std::vector<color_space::grey_truecolor*> colors)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[2]{ (unsigned int)0, (unsigned int)0 };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->grey();
+		sum[1] += colors[i]->alpha();
+	}
+	return new color_space::grey_truecolor(sum[0] / colors.size(), sum[1] / colors.size());
+}
+
+color_space::grey_deepcolor * color_manipulation::color_calculation::average_grey_deep(std::vector<color_space::grey_deepcolor*> colors)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[2]{ 0.f, 0.f };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->grey();
+		sum[1] += colors[i]->alpha();
+	}
+	return new color_space::grey_deepcolor(sum[0] / colors.size(), sum[1] / colors.size());
+}
+
+color_space::cmyk * color_manipulation::color_calculation::average_cmyk(std::vector<color_space::cmyk*> colors)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[4]{ 0.f, 0.f, 0.f, 0.f };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->cyan();
+		sum[1] += colors[i]->magenta();
+		sum[2] += colors[i]->yellow();
+		sum[3] += colors[i]->black();
+	}
+	return new color_space::cmyk(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), sum[3] / colors.size());
+}
+
+color_space::hsv * color_manipulation::color_calculation::average_hsv(std::vector<color_space::hsv*> colors)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[3]{ 0.f, 0.f, 0.f };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->hue();
+		sum[1] += colors[i]->saturation();
+		sum[2] += colors[i]->value();
+	}
+	return new color_space::hsv(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size());
+}
+
+color_space::hsl * color_manipulation::color_calculation::average_hsl(std::vector<color_space::hsl*> colors)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[3]{ 0.f, 0.f, 0.f };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->hue();
+		sum[1] += colors[i]->saturation();
+		sum[2] += colors[i]->lightness();
+	}
+	return new color_space::hsl(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size());
+}
+
+color_space::xyz * color_manipulation::color_calculation::average_xyz(std::vector<color_space::xyz*> colors)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[3]{ 0.f, 0.f, 0.f };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->x();
+		sum[1] += colors[i]->y();
+		sum[2] += colors[i]->z();
+	}
+	return new color_space::xyz(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size());
+}
+
+color_space::lab * color_manipulation::color_calculation::average_lab(std::vector<color_space::lab*> colors)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[3]{ 0.f, 0.f, 0.f };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->luminance();
+		sum[1] += colors[i]->a();
+		sum[2] += colors[i]->b();
+	}
+	return new color_space::lab(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size());
 }
 
 float * color_manipulation::color_calculation::convert_to_vector(float hue, float saturation, float third_component)

@@ -1,9 +1,16 @@
+/// Copyright Martin Ruehlicke, 2019
+/// Use, modification and distribution are subject to the
+/// MIT Software License, Version 1.0.
+/// See accompanying file LICENSE.txt
+
 #pragma once
+#define _USE_MATH_DEFINES
 
 #include "..\utils\color_type.h"
 
 #include <vector>
 #include <exception>
+#include <math.h>
 
 namespace color_space
 {

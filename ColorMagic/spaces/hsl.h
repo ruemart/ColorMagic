@@ -1,9 +1,13 @@
+/// Copyright Martin Ruehlicke, 2019
+/// Use, modification and distribution are subject to the
+/// MIT Software License, Version 1.0.
+/// See accompanying file LICENSE.txt
+
 #pragma once
-#define _USE_MATH_DEFINES
+
 
 #include "color_base.h"
 #include <string>
-#include <math.h>
 
 namespace color_space
 {

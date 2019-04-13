@@ -41,21 +41,6 @@ color_space::cmyk & color_space::cmyk::operator=(const cmyk & other)
 	return *this;
 }
 
-color_space::cmyk color_space::cmyk::operator+(const cmyk & other)
-{
-	auto c = fminf(100, this->cyan() + other.cyan());
-	auto m = fminf(100, this->magenta() + other.magenta());
-	auto y = fminf(100, this->yellow() + other.yellow());
-	auto k = fminf(100, this->black() + other.black());
-
-	auto min_color = fminf(fminf(c, m), y);
-	c -= min_color;
-	m -= min_color;
-	y -= min_color;
-	k -= fminf(100, k + min_color);
-	return cmyk(c, m, y, k);
-}
-
 float color_space::cmyk::cyan() const
 {
 	return m_component_vector[0];

@@ -476,3 +476,124 @@ TEST_F(ColorCalculator_Test, XYZ_Subtract)
 	EXPECT_NEAR(26.7f, pink_blue_sub3->y(), avg_error);
 	EXPECT_NEAR(75.f, pink_blue_sub3->z(), avg_error);
 }
+
+TEST_F(ColorCalculator_Test, RGB_True_Average)
+{
+	auto colors = std::vector<rgb_truecolor*>();
+	colors.push_back(new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)0));
+	colors.push_back(new rgb_truecolor((unsigned char)0, (unsigned char)0, (unsigned char)255));
+	colors.push_back(new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)255));
+	colors.push_back(new rgb_truecolor((unsigned char)180, (unsigned char)0, (unsigned char)180));
+	colors.push_back(new rgb_truecolor((unsigned char)127, (unsigned char)0, (unsigned char)255));
+
+	auto avg = color_manipulation::color_calculation::average_rgb_true(colors);
+	ASSERT_NEAR((unsigned char)163, avg->red(), avg_error);
+	ASSERT_NEAR((unsigned char)0, avg->green(), avg_error);
+	ASSERT_NEAR((unsigned char)189, avg->blue(), avg_error);
+	ASSERT_NEAR((unsigned char)255, avg->alpha(), avg_error);
+}
+
+TEST_F(ColorCalculator_Test, RGB_Deep_Average)
+{
+	auto colors = std::vector<rgb_deepcolor*>();
+	colors.push_back(new rgb_deepcolor(1.f, 0.f, 0.f));
+	colors.push_back(new rgb_deepcolor(0.f, 0.f, 1.f));
+	colors.push_back(new rgb_deepcolor(1.f, 0.f, 1.f));
+	colors.push_back(new rgb_deepcolor(0.7f, 0.f, 0.7f));
+	colors.push_back(new rgb_deepcolor(0.5f, 0.f, 1.f));
+
+	auto avg = color_manipulation::color_calculation::average_rgb_deep(colors);
+	ASSERT_NEAR(0.64f, avg->red(), avg_error);
+	ASSERT_NEAR(0.f, avg->green(), avg_error);
+	ASSERT_NEAR(0.74f, avg->blue(), avg_error);
+	ASSERT_NEAR(1.f, avg->alpha(), avg_error);
+}
+
+TEST_F(ColorCalculator_Test, Grey_True_Average)
+{
+	auto colors = std::vector<grey_truecolor*>();
+	colors.push_back(new grey_truecolor((unsigned char)64));
+	colors.push_back(new grey_truecolor((unsigned char)128));
+	colors.push_back(new grey_truecolor((unsigned char)192));
+	colors.push_back(new grey_truecolor((unsigned char)96));
+	colors.push_back(new grey_truecolor((unsigned char)144));
+
+	auto avg = color_manipulation::color_calculation::average_grey_true(colors);
+	ASSERT_NEAR((unsigned char)124, avg->grey(), avg_error);
+	ASSERT_NEAR((unsigned char)255, avg->alpha(), avg_error);
+}
+
+TEST_F(ColorCalculator_Test, Grey_Deep_Average)
+{
+	auto colors = std::vector<grey_deepcolor*>();
+	colors.push_back(new grey_deepcolor(0.25f));
+	colors.push_back(new grey_deepcolor(0.5f));
+	colors.push_back(new grey_deepcolor(0.75f));
+	colors.push_back(new grey_deepcolor(0.375f));
+	colors.push_back(new grey_deepcolor(0.56f));
+
+	auto avg = color_manipulation::color_calculation::average_grey_deep(colors);
+	ASSERT_NEAR(0.48f, avg->grey(), avg_error);
+	ASSERT_NEAR(1.f, avg->alpha(), avg_error);
+}
+
+TEST_F(ColorCalculator_Test, CMYK_Average)
+{
+	auto colors = std::vector<cmyk*>();
+	colors.push_back(new cmyk(1.f, 0.f, 0.f, 0.f));
+	colors.push_back(new cmyk(0.f, 0.f, 1.f, 0.f));
+	colors.push_back(new cmyk(1.f, 0.f, 1.f, 0.f));
+	colors.push_back(new cmyk(0.5f, 0.f, 0.5f, 0.f));
+	colors.push_back(new cmyk(0.25f, 0.f, 1.f, 0.f));
+
+	auto avg = color_manipulation::color_calculation::average_cmyk(colors);
+	ASSERT_NEAR(0.55f, avg->cyan(), avg_error);
+	ASSERT_NEAR(0.f, avg->magenta(), avg_error);
+	ASSERT_NEAR(0.7f, avg->yellow(), avg_error);
+	ASSERT_NEAR(0.f, avg->black(), avg_error);
+}
+
+TEST_F(ColorCalculator_Test, HSV_Average)
+{
+	auto colors = std::vector<hsv*>();
+	colors.push_back(new hsv(0.f, 1.f, 1.f));
+	colors.push_back(new hsv(240.f, 1.f, 1.f));
+	colors.push_back(new hsv(300.f, 1.f, 1.f));
+	colors.push_back(new hsv(300.f, 0.5f, 1.f));
+	colors.push_back(new hsv(253.f, 0.9f, 1.f));
+
+	auto avg = color_manipulation::color_calculation::average_hsv(colors);
+	ASSERT_NEAR(218.f, avg->hue(), avg_error);
+	ASSERT_NEAR(0.88f, avg->saturation(), avg_error);
+	ASSERT_NEAR(1.f, avg->value(), avg_error);
+}
+
+TEST_F(ColorCalculator_Test, HSL_Average)
+{
+	auto colors = std::vector<hsl*>();
+	colors.push_back(new hsl(0.f, 1.f, 0.5f));
+	colors.push_back(new hsl(240.f, 1.f, 0.5f));
+	colors.push_back(new hsl(300.f, 1.f, 0.5f));
+	colors.push_back(new hsl(300.f, 0.5f, 0.5f));
+	colors.push_back(new hsl(253.f, 0.9f, 0.5f));
+
+	auto avg = color_manipulation::color_calculation::average_hsl(colors);
+	ASSERT_NEAR(218.f, avg->hue(), avg_error);
+	ASSERT_NEAR(0.88f, avg->saturation(), avg_error);
+	ASSERT_NEAR(0.5f, avg->lightness(), avg_error);
+}
+
+TEST_F(ColorCalculator_Test, XYZ_Average)
+{
+	auto colors = std::vector<xyz*>();
+	colors.push_back(new xyz(41.2f, 21.3f, 2.f));
+	colors.push_back(new xyz(18.f, 7.2f, 100.f));
+	colors.push_back(new xyz(59.2f, 28.5f, 100.f));
+	colors.push_back(new xyz(29.6f, 14.25f, 51.f));
+	colors.push_back(new xyz(28.3f, 12.5f, 100.f));
+
+	auto avg = color_manipulation::color_calculation::average_xyz(colors);
+	ASSERT_NEAR(35.26f, avg->x(), avg_error);
+	ASSERT_NEAR(16.75f, avg->y(), avg_error);
+	ASSERT_NEAR(70.6f, avg->z(), avg_error);
+}

@@ -14,9 +14,20 @@
 
 namespace color_space
 {
+	//! Base class for all color spaces.
+		/*!
+		* This class holds the component vector, max and min vales and overrides operators (==, !=, +).
+		*/
 	class color_base
 	{
 	public:
+		//! Default constructor.
+		/*!
+		* Sets number of color components as well as the components max and min values.
+		* \param component_count The number of components the color will have.
+		* \param component_max The maximum number each component can have (inclusive).
+		* \param component_min The minimum number each component can have (inclusive).
+		*/
 		color_base(int component_count, float component_max = 1.f, float component_min = 0.f)
 		{
 			m_max = component_max;
@@ -28,10 +39,28 @@ namespace color_space
 			}
 		}
 
+		//! Returns the color space the color is located in.
+		/*!
+		* Returns the color space the color is located in.
+		*/
 		virtual color_type get_color_type() const { return m_type; }
+
+		//! Returns the maximum value each component can have.
+		/*!
+		* Returns the maximum value each component can have.
+		*/
 		virtual float get_component_max() const { return m_max; }
+
+		//! Returns the minimum value each component can have.
+		/*!
+		* Returns the minimum value each component can have.
+		*/
 		virtual float get_component_min() const { return m_min; }
 
+		//! Equality operator overload.
+		/*!
+		* First both colors types and component vectors sizes are compared. Afterwards the components get compared.
+		*/
 		friend bool operator==(const color_base& lhs, const color_base& rhs)
 		{
 			bool precondition = (lhs.get_color_type() == rhs.get_color_type()) && (lhs.m_component_vector.size() == rhs.m_component_vector.size());
@@ -52,11 +81,19 @@ namespace color_space
 			return true;
 		}
 
+		//! Not equal operator overload.
+		/*!
+		* First both colors types and component vectors sizes are compared. Afterwards the components get compared.
+		*/
 		friend bool operator!=(const color_base& lhs, const color_base& rhs)
 		{
 			return !(lhs == rhs);
 		}
 
+		//! Plus operator overload.
+		/*!
+		* Simply performs an add operation for each component and clamps them to max/min values.
+		*/
 		color_base operator+(const color_base& rhs)
 		{
 			color_base result(this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
@@ -75,15 +112,57 @@ namespace color_space
 			return result;
 		}
 
+		//! Vector that stores the components of the color.
+		/*!
+		* Vector that stores the components of the color.
+		*/
 		std::vector<float> m_component_vector;
 
 	protected:
+		//! Clamps a given value between a given max and min value (inclusive).
+		/*!
+		* Clamps a given value between a given max and min value (inclusive).
+		* \param in_value The value to clamp.
+		* \param max The maximum value.
+		* \param min The minimum value.
+		* \return The clamped value.
+		*/
 		float clamp(float in_value, float max, float min) { return fmaxf(fminf(in_value, max), min); }
+
+		//! Setter for a component. 
+		/*!
+		* Clamps the given value with the local values of this class and adds it to the component vector.
+		* \param new_value The value to add to the component vector.
+		* \param index The index in the component vector to where the value should be added.
+		*/
 		void set_component(float new_value, int index) { m_component_vector[index] = clamp(new_value, m_max, m_min); }
+
+		//! Setter for a component. 
+		/*!
+		* Clamps the given value with the given max and min values and adds it to the component vector.
+		* \param new_value The value to add to the component vector.
+		* \param index The index in the component vector to where the value should be added.
+		* \param max The maximum number for the clamping operation.
+		* \param min The minimum number for the clamping operation.
+		*/
 		void set_component(float new_value, int index, float max, float min) { m_component_vector[index] = clamp(new_value, max, min); }
 
+		//! Maximum value (inclusive) each component can have.
+		/*!
+		* Maximum value (inclusive) each component can have.
+		*/
 		float m_max = 1.f;
+
+		//! Minimum value (inclusive) each component can have.
+		/*!
+		* Minimum value (inclusive) each component can have.
+		*/
 		float m_min = 0.f;
+
+		//! The colors color space.
+		/*!
+		* The colors color space.
+		*/
 		color_type m_type = color_type::UNDEFINED;
 	};
 }

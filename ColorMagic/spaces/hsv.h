@@ -52,7 +52,7 @@ namespace color_space
 		float hue();
 
 		//! Setter for hue component.
-		//! \param The hue value to set.
+		//! \param hue The hue value to set.
 		void hue(float hue);
 
 		//! Getter for saturation component.
@@ -60,7 +60,7 @@ namespace color_space
 		float saturation();
 
 		//! Setter for saturation component.
-		//! \param The saturation value to set.
+		//! \param saturation The saturation value to set.
 		void saturation(float saturation);
 
 		//! Getter for value component.
@@ -68,7 +68,7 @@ namespace color_space
 		float value();
 
 		//! Setter for value component.
-		//! \param The value value to set.
+		//! \param value The value value to set.
 		void value(float value);
 
 	private:

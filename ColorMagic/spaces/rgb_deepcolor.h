@@ -61,7 +61,7 @@ namespace color_space
 		float red();
 
 		//! Setter for red component.
-		//! \param The red value to set.
+		//! \param new_red The red value to set.
 		void red(float new_red);
 
 		//! Getter for green component.
@@ -69,7 +69,7 @@ namespace color_space
 		float green();
 
 		//! Setter for green component.
-		//! \param The green value to set.
+		//! \param new_green The green value to set.
 		void green(float new_green);
 
 		//! Getter for blue component.
@@ -77,7 +77,7 @@ namespace color_space
 		float blue();
 
 		//! Setter for blue component.
-		//! \param The blue value to set.
+		//! \param new_blue The blue value to set.
 		void blue(float new_blue);
 
 		//! Getter for alpha component.
@@ -85,7 +85,7 @@ namespace color_space
 		float alpha();
 
 		//! Setter for alpha component.
-		//! \param The alpha value to set.
+		//! \param new_alpha The alpha value to set.
 		void alpha(float new_alpha);
 
 	private:

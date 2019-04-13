@@ -53,7 +53,7 @@ namespace color_space
 		float cyan() const;
 
 		//! Setter for cyan component.
-		//! \param The cyan value to set.
+		//! \param new_cyan The cyan value to set.
 		void cyan(float new_cyan);
 
 		//! Getter for magenta component.
@@ -61,7 +61,7 @@ namespace color_space
 		float magenta() const;
 
 		//! Setter for magenta component.
-		//! \param The magenta value to set.
+		//! \param new_magenta The magenta value to set.
 		void magenta(float new_magenta);
 
 		//! Getter for yellow component.
@@ -69,7 +69,7 @@ namespace color_space
 		float yellow() const;
 
 		//! Setter for yellow component.
-		//! \param The yellow value to set.
+		//! \param new_yellow The yellow value to set.
 		void yellow(float new_yellow);
 
 		//! Getter for black component.
@@ -77,7 +77,7 @@ namespace color_space
 		float black() const;
 
 		//! Setter for black component.
-		//! \param The black value to set.
+		//! \param new_black The black value to set.
 		void black(float new_black);
 
 	private:

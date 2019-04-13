@@ -76,7 +76,7 @@ namespace color_space
 		unsigned char red();
 
 		//! Setter for red component.
-		//! \param The red value to set.
+		//! \param new_red The red value to set.
 		void red(unsigned char new_red);
 
 		//! Getter for green component.
@@ -84,7 +84,7 @@ namespace color_space
 		unsigned char green();
 
 		//! Setter for green component.
-		//! \param The green value to set.
+		//! \param new_green The green value to set.
 		void green(unsigned char new_green);
 
 		//! Getter for blue component.
@@ -92,7 +92,7 @@ namespace color_space
 		unsigned char blue();
 
 		//! Setter for blue component.
-		//! \param The blue value to set.
+		//! \param new_blue The blue value to set.
 		void blue(unsigned char new_blue);
 
 		//! Getter for alpha component.
@@ -100,7 +100,7 @@ namespace color_space
 		unsigned char alpha();
 
 		//! Setter for alpha component.
-		//! \param The alpha value to set.
+		//! \param new_alpha The alpha value to set.
 		void alpha(unsigned char new_alpha);
 
 	private:

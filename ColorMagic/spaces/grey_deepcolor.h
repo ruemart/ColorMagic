@@ -52,7 +52,7 @@ namespace color_space
 		float grey();
 
 		//! Setter for grey component.
-		//! \param The grey value to set.
+		//! \param new_grey The grey value to set.
 		void grey(float new_grey);
 
 		//! Getter for alpha component.
@@ -60,7 +60,7 @@ namespace color_space
 		float alpha();
 
 		//! Setter for alpha component.
-		//! \param The alpha value to set.
+		//! \param new_alpha The alpha value to set.
 		void alpha(float new_alpha);
 
 	private:

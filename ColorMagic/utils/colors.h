@@ -1,3 +1,8 @@
+/// Copyright Martin Ruehlicke, 2019
+/// Use, modification and distribution are subject to the
+/// MIT Software License, Version 1.0.
+/// (See accompanying file LICENSE.txt
+
 #pragma once
 
 #include "color_type.h"
@@ -15,6 +20,11 @@
 
 #include <string>
 
+//! Enum that contains some predefined colors as integer hex codes.
+/*!
+* The values are taken from Microsofts .NET Framework class 'KnownColorTable'.
+* Source: https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/KnownColorTable.cs
+*/
 enum HexcodeColors
 {
 	AliceBlue = 0xFFF0F8FF,
@@ -160,21 +170,75 @@ enum HexcodeColors
 	YellowGreen = 0xFF9ACD32,
 };
 
+//! Factory class that creates predefined colors in any desired color space.
+/*!
+* The class takes a HexcodeColors enum value as input and offers methods to return the
+* corresponding color object in any available color_space.
+*/
 class predefined_color
 {
 public:
+	//! Default constructor
+	/*!
+	* Initializes the class with a hex code.
+	* \param hex_code The desired colors hex code.
+	*/
 	predefined_color(HexcodeColors hex_code) { base = new color_space::rgb_truecolor(hex_code); }
 	predefined_color() = delete;
 	predefined_color(predefined_color& other) = delete;
 
+	//! Returns the desired color as rgb true color.
+	/*!
+	* \return The desired color as rgb true color.
+	*/
 	inline color_space::rgb_truecolor* get_rgb_true() { return base; }
+
+	//! Returns the desired color as rgb deep color.
+	/*!
+	* \return The desired color as rgb deep color.
+	*/
 	inline color_space::rgb_deepcolor* get_rgb_deep() { return dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::from_rgb_true(base, color_type::RGB_DEEP)); }
+
+	//! Returns the desired color as grey true color.
+	/*!
+	* \return The desired color as grey true color.
+	*/
 	inline color_space::grey_truecolor* get_grey_true() { return dynamic_cast<color_space::grey_truecolor*>(color_manipulation::color_converter::from_rgb_true(base, color_type::GREY_TRUE)); }
+
+	//! Returns the desired color as grey deep color.
+	/*!
+	* \return The desired color as grey deep color.
+	*/
 	inline color_space::grey_deepcolor* get_grey_deep() { return dynamic_cast<color_space::grey_deepcolor*>(color_manipulation::color_converter::from_rgb_true(base, color_type::GREY_DEEP)); }
+
+	//! Returns the desired color as cmyk color.
+	/*!
+	* \return The desired color as cmyk color.
+	*/
 	inline color_space::cmyk* get_cmyk() { return dynamic_cast<color_space::cmyk*>(color_manipulation::color_converter::from_rgb_true(base, color_type::CMYK)); }
+
+	//! Returns the desired color as hsv color.
+	/*!
+	* \return The desired color as hsv color.
+	*/
 	inline color_space::hsv* get_hsv() { return dynamic_cast<color_space::hsv*>(color_manipulation::color_converter::from_rgb_true(base, color_type::HSV)); }
+
+	//! Returns the desired color as hsl color.
+	/*!
+	* \return The desired color as hsl color.
+	*/
 	inline color_space::hsl* get_hsl() { return dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::from_rgb_true(base, color_type::HSL)); }
+
+	//! Returns the desired color as xyz color.
+	/*!
+	* \return The desired color as xyz color.
+	*/
 	inline color_space::xyz* get_xyz() { return dynamic_cast<color_space::xyz*>(color_manipulation::color_converter::from_rgb_true(base, color_type::XYZ)); }
+
+	//! Returns the desired color as lab color.
+	/*!
+	* \return The desired color as lab color.
+	*/
 	inline color_space::lab* get_lab() { return dynamic_cast<color_space::lab*>(color_manipulation::color_converter::from_rgb_true(base, color_type::LAB)); }
 private:
 	color_space::rgb_truecolor* base;

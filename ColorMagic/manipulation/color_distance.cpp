@@ -108,9 +108,9 @@ float color_manipulation::color_distance::cielab_delta_e_cie00(color_space::colo
 	auto temp_avg_c = (temp_c1 + temp_c2) / 2.f;
 
 	auto h1 = (int)(to_deg(atan2f(color1_lab->b(), temp_a1))) % 360;
-	if (h1 < 0.f) h1 += 360.f;
+	if (h1 < 0.f) h1 += 360;
 	auto h2 = (int)(to_deg(atan2f(color2_lab->b(), temp_a2))) % 360;
-	if (h2 < 0.f) h2 += 360.f;
+	if (h2 < 0.f) h2 += 360;
 
 	float H;
 	if (abs(h1 - h2) > 180.f)
@@ -122,18 +122,18 @@ float color_manipulation::color_distance::cielab_delta_e_cie00(color_space::colo
 		H = (h1 + h2) / 2.f;
 	}
 
-	float delta_h;
+	int delta_h;
 	if (abs(h2 - h1) <= 180.f)
 	{
 		delta_h = h2 - h1;
 	}
 	else if (abs(h2 - h1) > 180.f && h2 <= h1)
 	{
-		delta_h = h2 - h1 + 360.f;
+		delta_h = h2 - h1 + 360;
 	}
 	else
 	{
-		delta_h = h2 - h1 - 360.f;
+		delta_h = h2 - h1 - 360;
 	}
 
 	auto delta_L = color2_lab->luminance() - color1_lab->luminance();
@@ -190,7 +190,7 @@ float color_manipulation::color_distance::cmc_delta_e_lc84(color_space::color_ba
 		sL = (0.040975f * color1_lab->luminance()) / (1.f + 0.01765f * color1_lab->luminance());
 	}
 
-	auto sC = (0.0638f * C1) / (1.f + 0.0131 * C1) + 0.638f;
+	auto sC = (float)((0.0638f * C1) / (1.f + 0.0131 * C1) + 0.638f);
 	auto sH = sC * (F * T + 1.f - F);
 
 	return sqrtf(powf(delta_L / (lightness * sL), 2.f) + powf(delta_C / (chroma * sC), 2.f) + powf(delta_H / sH, 2.f));
@@ -198,10 +198,10 @@ float color_manipulation::color_distance::cmc_delta_e_lc84(color_space::color_ba
 
 float color_manipulation::color_distance::to_rad(float degree)
 {
-	return degree * (M_PI / 180.f);
+	return degree * ((float)M_PI / 180.f);
 }
 
 float color_manipulation::color_distance::to_deg(float radians)
 {
-	return radians * (180.f / M_PI);
+	return radians * (180.f / (float)M_PI);
 }

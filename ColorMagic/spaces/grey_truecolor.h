@@ -24,7 +24,7 @@ namespace color_space
 		* \param value The value that will be set for grey value (default 0).
 		* \param alpha The value that will be set for alpha (default 255).
 		*/
-		grey_truecolor(unsigned char value = ((unsigned char)0), unsigned char alpha = ((unsigned char)255));
+		grey_truecolor(float value = 0.f, float alpha = 255.f);
 
 		//! Default copy constructor.
 		/*!
@@ -49,19 +49,19 @@ namespace color_space
 
 		//! Getter for grey component.
 		//! \return The grey component of this color.
-		unsigned char grey();
+		float grey();
 
 		//! Setter for grey component.
 		//! \param new_grey The grey value to set.
-		void grey(unsigned char new_grey);
+		void grey(float new_grey);
 
 		//! Getter for alpha component.
 		//! \return The alpha component of this color.
-		unsigned char alpha();
+		float alpha();
 
 		//! Setter for alpha component.
 		//! \param new_alpha The alpha value to set.
-		void alpha(unsigned char new_alpha);
+		void alpha(float new_alpha);
 
 	private:
 

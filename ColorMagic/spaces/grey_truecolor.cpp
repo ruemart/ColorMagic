@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "grey_truecolor.h"
 
-color_space::grey_truecolor::grey_truecolor(unsigned char value, unsigned char alpha) : color_base(2, 255.f, 0.f)
+color_space::grey_truecolor::grey_truecolor(float value, float alpha) : color_base(2, 255.f, 0.f)
 {
 	this->m_type = color_type::GREY_TRUE;
 	this->grey(value);
@@ -39,22 +39,22 @@ color_space::grey_truecolor & color_space::grey_truecolor::operator=(const color
 	return *this;
 }
 
-unsigned char color_space::grey_truecolor::grey()
+float color_space::grey_truecolor::grey()
 {
-	return (unsigned char)m_component_vector[0];
+	return (float)m_component_vector[0];
 }
 
-void color_space::grey_truecolor::grey(unsigned char new_grey)
+void color_space::grey_truecolor::grey(float new_grey)
 {
 	set_component(new_grey, 0);
 }
 
-unsigned char color_space::grey_truecolor::alpha()
+float color_space::grey_truecolor::alpha()
 {
-	return (unsigned char)m_component_vector[1];
+	return (float)m_component_vector[1];
 }
 
-void color_space::grey_truecolor::alpha(unsigned char new_alpha)
+void color_space::grey_truecolor::alpha(float new_alpha)
 {
 	set_component(new_alpha, 1);
 }

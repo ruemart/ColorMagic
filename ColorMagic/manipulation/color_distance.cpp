@@ -190,7 +190,7 @@ float color_manipulation::color_distance::cmc_delta_e_lc84(color_space::color_ba
 		sL = (0.040975f * color1_lab->luminance()) / (1.f + 0.01765f * color1_lab->luminance());
 	}
 
-	auto sC = (0.0638f * C1) / (1.f + 0.0131 * C1) + 0.638f;
+	auto sC = (float)((0.0638f * C1) / (1.f + 0.0131 * C1) + 0.638f);
 	auto sH = sC * (F * T + 1.f - F);
 
 	return sqrtf(powf(delta_L / (lightness * sL), 2.f) + powf(delta_C / (chroma * sC), 2.f) + powf(delta_H / sH, 2.f));
@@ -198,10 +198,10 @@ float color_manipulation::color_distance::cmc_delta_e_lc84(color_space::color_ba
 
 float color_manipulation::color_distance::to_rad(float degree)
 {
-	return degree * (M_PI / 180.f);
+	return degree * ((float)M_PI / 180.f);
 }
 
 float color_manipulation::color_distance::to_deg(float radians)
 {
-	return radians * (180.f / M_PI);
+	return radians * (180.f / (float)M_PI);
 }

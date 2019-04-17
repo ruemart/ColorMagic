@@ -472,8 +472,8 @@ color_space::lab * color_manipulation::color_calculation::average_lab(std::vecto
 
 float * color_manipulation::color_calculation::convert_to_vector(float hue, float saturation, float third_component)
 {
-	auto x = cosf(hue / 180.f * M_PI) * saturation;
-	auto y = sinf(hue / 180.f * M_PI) * saturation;
+	auto x = cosf(hue / 180.f * (float)M_PI) * saturation;
+	auto y = sinf(hue / 180.f * (float)M_PI) * saturation;
 	auto z = third_component;
 
 	return new float[3]{ x, y, z };
@@ -481,7 +481,7 @@ float * color_manipulation::color_calculation::convert_to_vector(float hue, floa
 
 float * color_manipulation::color_calculation::convert_from_vector(float * color)
 {
-	auto x = std::atan2(color[1], color[0]) * 180.f / M_PI;
+	auto x = std::atan2(color[1], color[0]) * 180.f / (float)M_PI;
 	auto y = std::sqrtf(std::powf(color[0], 2.f) + std::powf(color[1], 2.f));
 	auto z = color[2];
 	return new float[3]{ (float)x, (float)y, (float)z };

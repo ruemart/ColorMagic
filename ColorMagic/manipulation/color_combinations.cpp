@@ -68,7 +68,7 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 	combination.push_back(base_color);
 
 	amount *= -1.f; // negative amounts decrease saturation/lightness of colors by using saturate/luminate functions.
-	for (unsigned int i = 0; i < color_count - 1; ++i) // -1 because the first color is the input color
+	for (int i = 0; i < color_count - 1; ++i) // -1 because the first color is the input color
 	{
 		switch (mode)
 		{

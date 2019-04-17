@@ -33,7 +33,7 @@ namespace color_space
 			m_max = component_max;
 			m_min = component_min;
 
-			for (auto i = 0; i < component_count; ++i)
+			for (size_t i = 0; i < component_count; ++i)
 			{
 				m_component_vector.push_back(-1);
 			}
@@ -100,7 +100,7 @@ namespace color_space
 			if (this->get_color_type() == rhs.get_color_type() && this->m_component_vector.size() == rhs.m_component_vector.size())
 			{
 				result.m_type = this->m_type;
-				for (auto i = 0; i < this->m_component_vector.size(); ++i)
+				for (size_t i = 0; i < this->m_component_vector.size(); ++i)
 				{
 					result.m_component_vector[i] = clamp(this->m_component_vector[i] + rhs.m_component_vector[i], m_max, m_min);
 				}

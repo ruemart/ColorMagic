@@ -53,7 +53,7 @@ void color_space::hsv::hue(float new_hue)
 		new_hue += 360.0f;
 	}
 
-	set_component((int)new_hue, 0, m_degrees_max, m_degrees_min);
+	set_component(new_hue, 0, m_degrees_max, m_degrees_min);
 }
 
 float color_space::hsv::saturation()

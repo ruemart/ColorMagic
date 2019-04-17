@@ -17,12 +17,12 @@ protected:
 
 	virtual void SetUp() 
 	{
-		red = new rgb_truecolor(255, 0, 0, 255);
-		yellow = new rgb_truecolor(255, 255, 0, 255);
-		black = new rgb_truecolor(0, 0, 0, 255);
-		grey = new rgb_truecolor(128, 128, 128, 255);
-		white = new rgb_truecolor(255, 255, 255, 255);
-		transparent = new rgb_truecolor(255, 255, 255, 0);
+		red = new rgb_truecolor(255.f, 0.f, 0.f, 255.f);
+		yellow = new rgb_truecolor(255.f, 255.f, 0.f, 255.f);
+		black = new rgb_truecolor(0.f, 0.f, 0.f, 255.f);
+		grey = new rgb_truecolor(128.f, 128.f, 128.f, 255.f);
+		white = new rgb_truecolor(255.f, 255.f, 255.f, 255.f);
+		transparent = new rgb_truecolor(255.f, 255.f, 255.f, 0.f);
 	}
 
 	virtual void TearDown()
@@ -65,16 +65,16 @@ TEST_F(RGB_True_Test, From_HexString_Tests)
 TEST_F(RGB_True_Test, Constructor_Tests)
 {
 	EXPECT_EQ(*black, *(new rgb_truecolor()));
-	EXPECT_EQ(*white, *(new rgb_truecolor((unsigned char)255)));
-	EXPECT_EQ(*transparent, *(new rgb_truecolor((unsigned char)255, (unsigned char)0)));
-	EXPECT_EQ(*yellow, *(new rgb_truecolor((unsigned char)255, (unsigned char)255, (unsigned char)0)));
-	EXPECT_EQ(*yellow, *(new rgb_truecolor((unsigned char)255, (unsigned char)255, (unsigned char)0, (unsigned char)255)));
+	EXPECT_EQ(*white, *(new rgb_truecolor(255.f)));
+	EXPECT_EQ(*transparent, *(new rgb_truecolor(255.f, 0.f)));
+	EXPECT_EQ(*yellow, *(new rgb_truecolor(255.f, 255.f, 0.f)));
+	EXPECT_EQ(*yellow, *(new rgb_truecolor(255.f, 255.f, 0.f, 255.f)));
 	EXPECT_EQ(*yellow, *(new rgb_truecolor(*yellow)));
 }
 
 TEST_F(RGB_True_Test, Operator_Tests)
 {
-	auto blue = new rgb_truecolor((unsigned char)0, (unsigned char)0, (unsigned char)255, (unsigned char)255);
+	auto blue = new rgb_truecolor(0.f, 0.f, 255.f, 255.f);
 	EXPECT_TRUE(*blue != *red);
 	blue = red;
 	EXPECT_TRUE(*blue == *red);

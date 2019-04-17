@@ -21,11 +21,11 @@ protected:
 
 TEST_F(ColorCalculator_Test, RGB_True_Add)
 {
-	auto rgb_t_red = new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)0);
-	auto rgb_t_blue = new rgb_truecolor((unsigned char)0, (unsigned char)0, (unsigned char)255);
-	auto rgb_t_pink = new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)255);
-	auto rgb_t_purple = new rgb_truecolor((unsigned char)180, (unsigned char)0, (unsigned char)180);
-	auto rgb_t_dark_purple = new rgb_truecolor((unsigned char)127, (unsigned char)0, (unsigned char)255);
+	auto rgb_t_red = new rgb_truecolor(255.f, 0.f, 0.f);
+	auto rgb_t_blue = new rgb_truecolor(0.f, 0.f, 255.f);
+	auto rgb_t_pink = new rgb_truecolor(255.f, 0.f, 255.f);
+	auto rgb_t_purple = new rgb_truecolor(180.3f, 0.f, 180.3f);
+	auto rgb_t_dark_purple = new rgb_truecolor(127.5f, 0.f, 255.f);
 
 	auto red_red_sum1 = color_manipulation::color_calculation::add(rgb_t_red, rgb_t_red);
 	EXPECT_NEAR(rgb_t_red->red(), red_red_sum1->red(), avg_error);
@@ -87,11 +87,11 @@ TEST_F(ColorCalculator_Test, RGB_Deep_Add)
 
 TEST_F(ColorCalculator_Test, Grey_True_Add)
 {
-	auto grey1 = new grey_truecolor((unsigned char)64);
-	auto grey2 = new grey_truecolor((unsigned char)128);
-	auto grey_mix_1 = new grey_truecolor((unsigned char)192);
-	auto grey_mix_2 = new grey_truecolor((unsigned char)96);
-	auto grey_mix_3 = new grey_truecolor((unsigned char)144);
+	auto grey1 = new grey_truecolor(64);
+	auto grey2 = new grey_truecolor(128);
+	auto grey_mix_1 = new grey_truecolor(192);
+	auto grey_mix_2 = new grey_truecolor(96);
+	auto grey_mix_3 = new grey_truecolor(144);
 
 	auto sum1 = color_manipulation::color_calculation::add(grey1, grey2);
 	EXPECT_NEAR(grey_mix_1->grey(), sum1->grey(), avg_error);
@@ -257,17 +257,17 @@ TEST_F(ColorCalculator_Test, XYZ_Add)
 
 TEST_F(ColorCalculator_Test, RGB_True_Subtract)
 {
-	auto rgb_t_red = new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)0);
-	auto rgb_t_blue = new rgb_truecolor((unsigned char)0, (unsigned char)0, (unsigned char)255);
-	auto rgb_t_pink = new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)255);
-	auto rgb_t_purple = new rgb_truecolor((unsigned char)180, (unsigned char)0, (unsigned char)180);
-	auto rgb_t_dark_purple = new rgb_truecolor((unsigned char)127, (unsigned char)0, (unsigned char)255);
+	auto rgb_t_red = new rgb_truecolor(255.f, 0.f, 0.f);
+	auto rgb_t_blue = new rgb_truecolor(0.f, 0.f, 255.f);
+	auto rgb_t_pink = new rgb_truecolor(255.f, 0.f, 255.f);
+	auto rgb_t_purple = new rgb_truecolor(180.f, 0.f, 180.f);
+	auto rgb_t_dark_purple = new rgb_truecolor(127.f, 0.f, 255.f);
 
 	auto red_red_sub = color_manipulation::color_calculation::subtract(rgb_t_red, rgb_t_red);
-	EXPECT_NEAR((unsigned char)0, red_red_sub->red(), avg_error);
-	EXPECT_NEAR((unsigned char)0, red_red_sub->green(), avg_error);
-	EXPECT_NEAR((unsigned char)0, red_red_sub->blue(), avg_error);
-	EXPECT_NEAR((unsigned char)255, red_red_sub->alpha(), avg_error);
+	EXPECT_NEAR(0.f, red_red_sub->red(), avg_error);
+	EXPECT_NEAR(0.f, red_red_sub->green(), avg_error);
+	EXPECT_NEAR(0.f, red_red_sub->blue(), avg_error);
+	EXPECT_NEAR(255.f, red_red_sub->alpha(), avg_error);
 
 	auto pink_blue_sub = color_manipulation::color_calculation::subtract(rgb_t_pink, rgb_t_blue);
 	EXPECT_NEAR(rgb_t_red->red(), pink_blue_sub->red(), avg_error);
@@ -276,16 +276,16 @@ TEST_F(ColorCalculator_Test, RGB_True_Subtract)
 	EXPECT_NEAR(rgb_t_red->alpha(), pink_blue_sub->alpha(), avg_error);
 
 	auto purple_blue_sub = color_manipulation::color_calculation::subtract(rgb_t_purple, rgb_t_blue, 0.5f, true);
-	EXPECT_NEAR((unsigned char)180.f, purple_blue_sub->red(), avg_error);
-	EXPECT_NEAR((unsigned char)0.f, purple_blue_sub->green(), avg_error);
-	EXPECT_NEAR((unsigned char)52.f, purple_blue_sub->blue(), avg_error);
-	EXPECT_NEAR((unsigned char)127.f, purple_blue_sub->alpha(), avg_error);
+	EXPECT_NEAR(180.f, purple_blue_sub->red(), avg_error);
+	EXPECT_NEAR(0.f, purple_blue_sub->green(), avg_error);
+	EXPECT_NEAR(52.5f, purple_blue_sub->blue(), avg_error);
+	EXPECT_NEAR(127.5f, purple_blue_sub->alpha(), avg_error);
 
 	auto dark_purple_blue_sub = color_manipulation::color_calculation::subtract(rgb_t_dark_purple, rgb_t_blue, 0.25f);
-	EXPECT_NEAR((unsigned char)127.f, dark_purple_blue_sub->red(), avg_error);
-	EXPECT_NEAR((unsigned char)0.f, dark_purple_blue_sub->green(), avg_error);
-	EXPECT_NEAR((unsigned char)191, dark_purple_blue_sub->blue(), avg_error);
-	EXPECT_NEAR((unsigned char)255, dark_purple_blue_sub->alpha(), avg_error);
+	EXPECT_NEAR(127.f, dark_purple_blue_sub->red(), avg_error);
+	EXPECT_NEAR(0.f, dark_purple_blue_sub->green(), avg_error);
+	EXPECT_NEAR(191.25f, dark_purple_blue_sub->blue(), avg_error);
+	EXPECT_NEAR(255.f, dark_purple_blue_sub->alpha(), avg_error);
 }
 
 TEST_F(ColorCalculator_Test, RGB_Deep_Subtract)
@@ -323,24 +323,24 @@ TEST_F(ColorCalculator_Test, RGB_Deep_Subtract)
 
 TEST_F(ColorCalculator_Test, Grey_True_Subtract)
 {
-	auto grey1 = new grey_truecolor((unsigned char)64);
-	auto grey2 = new grey_truecolor((unsigned char)128);
+	auto grey1 = new grey_truecolor(64.f);
+	auto grey2 = new grey_truecolor(128.f);
 
 	auto sub1 = color_manipulation::color_calculation::subtract(grey2, grey1);
-	EXPECT_NEAR((unsigned char)64, sub1->grey(), avg_error);
-	EXPECT_NEAR((unsigned char)255, sub1->alpha(), avg_error);
+	EXPECT_NEAR(64.f, sub1->grey(), avg_error);
+	EXPECT_NEAR(255.f, sub1->alpha(), avg_error);
 
 	auto sub2 = color_manipulation::color_calculation::subtract(grey2, grey1, 0.5f, true);
-	EXPECT_NEAR((unsigned char)96, sub2->grey(), avg_error);
-	EXPECT_NEAR((unsigned char)127, sub2->alpha(), avg_error);
+	EXPECT_NEAR(96.f, sub2->grey(), avg_error);
+	EXPECT_NEAR(127.5f, sub2->alpha(), avg_error);
 
 	auto sub3 = color_manipulation::color_calculation::subtract(grey2, grey1, 0.25f);
-	EXPECT_NEAR((unsigned char)112, sub3->grey(), avg_error);
-	EXPECT_NEAR((unsigned char)255, sub3->alpha(), avg_error);
+	EXPECT_NEAR(112.f, sub3->grey(), avg_error);
+	EXPECT_NEAR(255.f, sub3->alpha(), avg_error);
 
 	auto sub4 = color_manipulation::color_calculation::subtract(grey2, grey2);
-	EXPECT_NEAR((unsigned char)0, sub4->grey(), avg_error);
-	EXPECT_NEAR((unsigned char)255, sub4->alpha(), avg_error);
+	EXPECT_NEAR(0.f, sub4->grey(), avg_error);
+	EXPECT_NEAR(255.f, sub4->alpha(), avg_error);
 }
 
 TEST_F(ColorCalculator_Test, Grey_Deep_Subtract)
@@ -480,17 +480,17 @@ TEST_F(ColorCalculator_Test, XYZ_Subtract)
 TEST_F(ColorCalculator_Test, RGB_True_Average)
 {
 	auto colors = std::vector<rgb_truecolor*>();
-	colors.push_back(new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)0));
-	colors.push_back(new rgb_truecolor((unsigned char)0, (unsigned char)0, (unsigned char)255));
-	colors.push_back(new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)255));
-	colors.push_back(new rgb_truecolor((unsigned char)180, (unsigned char)0, (unsigned char)180));
-	colors.push_back(new rgb_truecolor((unsigned char)127, (unsigned char)0, (unsigned char)255));
+	colors.push_back(new rgb_truecolor(255.f, 0.f, 0.f));
+	colors.push_back(new rgb_truecolor(0.f, 0.f, 255.f));
+	colors.push_back(new rgb_truecolor(255.f, 0.f, 255.f));
+	colors.push_back(new rgb_truecolor(180.f, 0.f, 180.f));
+	colors.push_back(new rgb_truecolor(127.f, 0.f, 255.f));
 
 	auto avg = color_manipulation::color_calculation::average_rgb_true(colors);
-	ASSERT_NEAR((unsigned char)163, avg->red(), avg_error);
-	ASSERT_NEAR((unsigned char)0, avg->green(), avg_error);
-	ASSERT_NEAR((unsigned char)189, avg->blue(), avg_error);
-	ASSERT_NEAR((unsigned char)255, avg->alpha(), avg_error);
+	ASSERT_NEAR(163.4f, avg->red(), avg_error);
+	ASSERT_NEAR(0.f, avg->green(), avg_error);
+	ASSERT_NEAR(189.f, avg->blue(), avg_error);
+	ASSERT_NEAR(255.f, avg->alpha(), avg_error);
 }
 
 TEST_F(ColorCalculator_Test, RGB_Deep_Average)
@@ -512,15 +512,15 @@ TEST_F(ColorCalculator_Test, RGB_Deep_Average)
 TEST_F(ColorCalculator_Test, Grey_True_Average)
 {
 	auto colors = std::vector<grey_truecolor*>();
-	colors.push_back(new grey_truecolor((unsigned char)64));
-	colors.push_back(new grey_truecolor((unsigned char)128));
-	colors.push_back(new grey_truecolor((unsigned char)192));
-	colors.push_back(new grey_truecolor((unsigned char)96));
-	colors.push_back(new grey_truecolor((unsigned char)144));
+	colors.push_back(new grey_truecolor(64.f));
+	colors.push_back(new grey_truecolor(128.f));
+	colors.push_back(new grey_truecolor(192.f));
+	colors.push_back(new grey_truecolor(96.f));
+	colors.push_back(new grey_truecolor(144.f));
 
 	auto avg = color_manipulation::color_calculation::average_grey_true(colors);
-	ASSERT_NEAR((unsigned char)124, avg->grey(), avg_error);
-	ASSERT_NEAR((unsigned char)255, avg->alpha(), avg_error);
+	ASSERT_NEAR(124.8f, avg->grey(), avg_error);
+	ASSERT_NEAR(255.f, avg->alpha(), avg_error);
 }
 
 TEST_F(ColorCalculator_Test, Grey_Deep_Average)

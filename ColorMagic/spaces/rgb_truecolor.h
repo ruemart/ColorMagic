@@ -24,7 +24,7 @@ namespace color_space
 		* \param value The value that will be set for red, green and blue (default 0).
 		* \param alpha The value that will be set for alpha (default 255).
 		*/
-		rgb_truecolor(unsigned char value = (unsigned char)0, unsigned char alpha = (unsigned char)255);
+		rgb_truecolor(float value = 0.f, float alpha = 255.f);
 
 		//! Default constructor.
 		/*!
@@ -34,7 +34,7 @@ namespace color_space
 		* \param b The value that will be set for blue.
 		* \param a The value that will be set for alpha (default 255).
 		*/
-		rgb_truecolor(unsigned char r, unsigned char g, unsigned char b, unsigned char a = (unsigned char)255);
+		rgb_truecolor(float r, float g, float b, float a = 255.f);
 
 		//! Default constructor.
 		/*!
@@ -73,35 +73,35 @@ namespace color_space
 
 		//! Getter for red component.
 		//! \return The red component of this color.
-		unsigned char red();
+		float red();
 
 		//! Setter for red component.
 		//! \param new_red The red value to set.
-		void red(unsigned char new_red);
+		void red(float new_red);
 
 		//! Getter for green component.
 		//! \return The green component of this color.
-		unsigned char green();
+		float green();
 
 		//! Setter for green component.
 		//! \param new_green The green value to set.
-		void green(unsigned char new_green);
+		void green(float new_green);
 
 		//! Getter for blue component.
 		//! \return The blue component of this color.
-		unsigned char blue();
+		float blue();
 
 		//! Setter for blue component.
 		//! \param new_blue The blue value to set.
-		void blue(unsigned char new_blue);
+		void blue(float new_blue);
 
 		//! Getter for alpha component.
 		//! \return The alpha component of this color.
-		unsigned char alpha();
+		float alpha();
 
 		//! Setter for alpha component.
 		//! \param new_alpha The alpha value to set.
-		void alpha(unsigned char new_alpha);
+		void alpha(float new_alpha);
 
 	private:
 

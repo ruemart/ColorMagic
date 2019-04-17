@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "rgb_truecolor.h"
 
-color_space::rgb_truecolor::rgb_truecolor(unsigned char value, unsigned char alpha) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(float value, float alpha) : color_base(4, 255.f, 0.f)
 {
 	this->m_type = color_type::RGB_TRUE;
 	this->red(value);
@@ -10,7 +10,7 @@ color_space::rgb_truecolor::rgb_truecolor(unsigned char value, unsigned char alp
 	this->alpha(alpha);
 }
 
-color_space::rgb_truecolor::rgb_truecolor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(float r, float g, float b, float a) : color_base(4, 255.f, 0.f)
 {
 	this->m_type = color_type::RGB_TRUE;
 	this->red(r);
@@ -38,20 +38,20 @@ color_space::rgb_truecolor::rgb_truecolor(std::string hex_code) : color_base(4, 
 		int r, g, b;
 		sscanf_s(hex_code.c_str(), "%02x%02x%02x", &r, &g, &b);
 		this->m_type = color_type::RGB_TRUE;
-		this->alpha(255);
-		this->red((unsigned char)r);
-		this->green((unsigned char)g);
-		this->blue((unsigned char)b);
+		this->alpha(255.f);
+		this->red((float)r);
+		this->green((float)g);
+		this->blue((float)b);
 	}
 	else if (hex_code.length() == 8)
 	{
 		int a, r, g, b;
 		sscanf_s(hex_code.c_str(), "%02x%02x%02x%02x", &a, &r, &g, &b);
 		this->m_type = color_type::RGB_TRUE;
-		this->alpha((unsigned char)a);
-		this->red((unsigned char)r);
-		this->green((unsigned char)g);
-		this->blue((unsigned char)b);
+		this->alpha((float)a);
+		this->red((float)r);
+		this->green((float)g);
+		this->blue((float)b);
 	}
 	else
 	{
@@ -62,10 +62,10 @@ color_space::rgb_truecolor::rgb_truecolor(std::string hex_code) : color_base(4, 
 color_space::rgb_truecolor::rgb_truecolor(int hex_code) : color_base(4, 255.f, 0.f)
 {
 	this->m_type = color_type::RGB_TRUE;
-	this->alpha((hex_code >> 24) & 0xff);
-	this->red((hex_code >> 16) & 0xff);
-	this->green((hex_code >> 8) & 0xff);
-	this->blue((hex_code) & 0xff);
+	this->alpha((float)((hex_code >> 24) & 0xff));
+	this->red((float)((hex_code >> 16) & 0xff));
+	this->green((float)((hex_code >> 8) & 0xff));
+	this->blue((float)((hex_code) & 0xff));
 }
 
 color_space::rgb_truecolor::rgb_truecolor(const color_space::rgb_truecolor & other) : color_base(4, other.get_component_max(), other.get_component_min())
@@ -99,42 +99,42 @@ color_space::rgb_truecolor & color_space::rgb_truecolor::operator=(const color_s
 	return *this;
 }
 
-unsigned char color_space::rgb_truecolor::red()
+float color_space::rgb_truecolor::red()
 {
-	return (unsigned char)m_component_vector[0];
+	return m_component_vector[0];
 }
 
-void color_space::rgb_truecolor::red(unsigned char new_red)
+void color_space::rgb_truecolor::red(float new_red)
 {
 	set_component(new_red, 0);
 }
 
-unsigned char color_space::rgb_truecolor::green()
+float color_space::rgb_truecolor::green()
 {
-	return (unsigned char)m_component_vector[1];
+	return m_component_vector[1];
 }
 
-void color_space::rgb_truecolor::green(unsigned char new_green)
+void color_space::rgb_truecolor::green(float new_green)
 {
 	set_component(new_green, 1);
 }
 
-unsigned char color_space::rgb_truecolor::blue()
+float color_space::rgb_truecolor::blue()
 {
-	return (unsigned char)m_component_vector[2];
+	return m_component_vector[2];
 }
 
-void color_space::rgb_truecolor::blue(unsigned char new_blue)
+void color_space::rgb_truecolor::blue(float new_blue)
 {
 	set_component(new_blue, 2);
 }
 
-unsigned char color_space::rgb_truecolor::alpha()
+float color_space::rgb_truecolor::alpha()
 {
-	return (unsigned char)m_component_vector[3];
+	return m_component_vector[3];
 }
 
-void color_space::rgb_truecolor::alpha(unsigned char new_alpha)
+void color_space::rgb_truecolor::alpha(float new_alpha)
 {
 	set_component(new_alpha, 3);
 }

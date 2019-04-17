@@ -28,7 +28,7 @@ namespace color_space
 		* \param component_max The maximum number each component can have (inclusive).
 		* \param component_min The minimum number each component can have (inclusive).
 		*/
-		color_base(int component_count, float component_max = 1.f, float component_min = 0.f)
+		color_base(size_t component_count, float component_max = 1.f, float component_min = 0.f)
 		{
 			m_max = component_max;
 			m_min = component_min;

@@ -10,12 +10,17 @@ protected:
 	hsl* yellow;
 	hsl* black;
 	hsl* white;
+	hsl* test1;
+	hsl* test2;
 
 	virtual void SetUp()
 	{
 		yellow = new hsl(60.f, 1.f, 0.5f);
 		black = new hsl(0.f, 0.f, 0.f);
 		white = new hsl(0.f, 0.f, 1.f);
+
+		test1 = new hsl(-30.f, 1.f, 0.5f);
+		test2 = new hsl(460.f, 1.f, 0.5f);
 	}
 
 	virtual void TearDown()

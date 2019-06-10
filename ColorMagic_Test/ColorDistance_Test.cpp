@@ -27,35 +27,38 @@ protected:
 	grey_truecolor *grey1_t, *grey2_t;
 	rgb_deepcolor *rgb_d_yellow, *rgb_d_red;
 	rgb_truecolor *rgb_t_yellow, *rgb_t_red;
+	reference_white* d65_2deg;
 
 	virtual void SetUp()
 	{
-		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f);
-		cmyk_red = new cmyk(0.f, 1.f, 1.f, 0.f);
+		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
 
-		hsv_yellow = new hsv(60.f, 1.f, 1.f);
-		hsv_red = new hsv(0.f, 1.f, 1.f);
+		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, d65_2deg);
+		cmyk_red = new cmyk(0.f, 1.f, 1.f, 0.f, d65_2deg);
 
-		hsl_yellow = new hsl(60.f, 1.f, 0.5f);
-		hsl_red = new hsl(0.f, 1.f, 0.5f);
+		hsv_yellow = new hsv(60.f, 1.f, 1.f, d65_2deg);
+		hsv_red = new hsv(0.f, 1.f, 1.f, d65_2deg);
 
-		xyz_yellow = new xyz(77.f, 92.78f, 13.85f);
-		xyz_red = new xyz(41.24f, 21.26f, 1.93f);
+		hsl_yellow = new hsl(60.f, 1.f, 0.5f, d65_2deg);
+		hsl_red = new hsl(0.f, 1.f, 0.5f, d65_2deg);
 
-		lab_yellow = new lab(97.14f, -21.56f, 94.48f);
-		lab_red = new lab(53.23f, 80.11f, 67.22f);
+		xyz_yellow = new xyz(77.f, 92.78f, 13.85f, d65_2deg);
+		xyz_red = new xyz(41.24f, 21.26f, 1.93f, d65_2deg);
 
-		grey1_d = new grey_deepcolor(0.6666f);
-		grey2_d = new grey_deepcolor(0.3333f);
+		lab_yellow = new lab(97.14f, -21.56f, 94.48f, d65_2deg);
+		lab_red = new lab(53.23f, 80.11f, 67.22f, d65_2deg);
 
-		grey1_t = new grey_truecolor((unsigned char)170);
-		grey2_t = new grey_truecolor((unsigned char)85);
+		grey1_d = new grey_deepcolor(0.6666f, 1.f, d65_2deg);
+		grey2_d = new grey_deepcolor(0.3333f, 1.f, d65_2deg);
 
-		rgb_d_yellow = new rgb_deepcolor(1.f, 1.f, 0.f);
-		rgb_d_red = new rgb_deepcolor(1.f, 0.f, 0.f);
+		grey1_t = new grey_truecolor(170, 255.f, d65_2deg);
+		grey2_t = new grey_truecolor(85, 255.f, d65_2deg);
 
-		rgb_t_yellow = new rgb_truecolor((unsigned char)255, (unsigned char)255, (unsigned char)0);
-		rgb_t_red = new rgb_truecolor((unsigned char)255, (unsigned char)0, (unsigned char)0);
+		rgb_d_yellow = new rgb_deepcolor(1.f, 1.f, 0.f, 1.f, d65_2deg);
+		rgb_d_red = new rgb_deepcolor(1.f, 0.f, 0.f, 1.f, d65_2deg);
+
+		rgb_t_yellow = new rgb_truecolor(255, 255, 0, 255.f, d65_2deg);
+		rgb_t_red = new rgb_truecolor(255, 0, 0, 255.f, d65_2deg);
 	}
 
 	virtual void TearDown()

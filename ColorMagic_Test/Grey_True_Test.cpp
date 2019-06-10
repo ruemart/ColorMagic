@@ -11,13 +11,15 @@ protected:
 	grey_truecolor* black;
 	grey_truecolor* white;
 	grey_truecolor* transparent;
-
+	reference_white* d65_2deg;
+	
 	virtual void SetUp()
 	{
-		grey = new grey_truecolor((unsigned char)128, (unsigned char)255);
-		black = new grey_truecolor((unsigned char)0, (unsigned char)255);
-		white = new grey_truecolor((unsigned char)255, (unsigned char)255);
-		transparent = new grey_truecolor((unsigned char)255, (unsigned char)0);
+		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
+		grey = new grey_truecolor(128, 255, d65_2deg);
+		black = new grey_truecolor(0, 255, d65_2deg);
+		white = new grey_truecolor(255, 255, d65_2deg);
+		transparent = new grey_truecolor(255, 0, d65_2deg);
 	}
 
 	virtual void TearDown()
@@ -31,15 +33,13 @@ protected:
 
 TEST_F(Grey_True_Test, Constructor_Tests)
 {
-	EXPECT_EQ(*black, *(new grey_truecolor()));
-	EXPECT_EQ(*grey, *(new grey_truecolor((unsigned char)128)));
-	EXPECT_EQ(*transparent, *(new grey_truecolor((unsigned char)255, (unsigned char)0)));
+	EXPECT_EQ(*transparent, *(new grey_truecolor(255, 0, d65_2deg)));
 	EXPECT_EQ(*white, *(new grey_truecolor(*white)));
 }
 
 TEST_F(Grey_True_Test, Operator_Tests)
 {
-	auto dark_grey = new grey_truecolor((unsigned char)25);
+	auto dark_grey = new grey_truecolor(25, 255, d65_2deg);
 	EXPECT_TRUE(*dark_grey != *white);
 	dark_grey = white;
 	EXPECT_TRUE(*dark_grey == *white);

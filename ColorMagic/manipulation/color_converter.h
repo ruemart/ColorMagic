@@ -35,200 +35,162 @@ namespace color_manipulation
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* convertTo(color_space::color_base* in_color, color_type out_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* convertTo(color_space::color_base* in_color, color_type out_color);
 
 		//! Static function that converts an rgb true color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* from_rgb_true(color_space::rgb_truecolor* in_color, color_type out_type, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* from_rgb_true(color_space::rgb_truecolor* in_color, color_type out_type);
 
 		//! Static function that converts an rgb deep color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* from_rgb_deep(color_space::rgb_deepcolor* in_color, color_type out_type, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* from_rgb_deep(color_space::rgb_deepcolor* in_color, color_type out_type);
 
 		//! Static function that converts an grey true color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* from_grey_true(color_space::grey_truecolor* in_color, color_type out_type, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* from_grey_true(color_space::grey_truecolor* in_color, color_type out_type);
 
 		//! Static function that converts an grey deep color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* from_grey_deep(color_space::grey_deepcolor* in_color, color_type out_type, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* from_grey_deep(color_space::grey_deepcolor* in_color, color_type out_type);
 
 		//! Static function that converts an cmyk color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* from_cmyk(color_space::cmyk* in_color, color_type out_type, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* from_cmyk(color_space::cmyk* in_color, color_type out_type);
 
 		//! Static function that converts an hsv color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* from_hsv(color_space::hsv* in_color, color_type out_type, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* from_hsv(color_space::hsv* in_color, color_type out_type);
 
 		//! Static function that converts an hsl color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* from_hsl(color_space::hsl* in_color, color_type out_type, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* from_hsl(color_space::hsl* in_color, color_type out_type);
 
 		//! Static function that converts an xyz color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* from_xyz(color_space::xyz* in_color, color_type out_type, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* from_xyz(color_space::xyz* in_color, color_type out_type);
 
 		//! Static function that converts an lab color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
 		* \param in_color The color to convert.
 		* \param out_color The desired color space of the output color.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The converted input color.
 		*/
-		static color_space::color_base* from_lab(color_space::lab* in_color, color_type out_type, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::color_base* from_lab(color_space::lab* in_color, color_type out_type);
 
 		//! Static function that converts an arbitrary color to rgb true color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The input color converted to rgb true color space.
 		*/
-		static color_space::rgb_truecolor* to_rgb_true(color_space::color_base* in_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::rgb_truecolor* to_rgb_true(color_space::color_base* in_color);
 
 		//! Static function that converts an arbitrary color to rgb deep color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The input color converted to rgb deep color space.
 		*/
-		static color_space::rgb_deepcolor* to_rgb_deep(color_space::color_base* in_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::rgb_deepcolor* to_rgb_deep(color_space::color_base* in_color);
 
 		//! Static function that converts an arbitrary color to grey true color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The input color converted to grey true color space.
 		*/
-		static color_space::grey_truecolor* to_grey_true(color_space::color_base* in_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::grey_truecolor* to_grey_true(color_space::color_base* in_color);
 
 		//! Static function that converts an arbitrary color to grey deep color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The input color converted to grey deep color space.
 		*/
-		static color_space::grey_deepcolor* to_grey_deep(color_space::color_base* in_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::grey_deepcolor* to_grey_deep(color_space::color_base* in_color);
 
 		//! Static function that converts an arbitrary color to cmyk color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The input color converted to cmyk color space.
 		*/
-		static color_space::cmyk* to_cmyk(color_space::color_base* in_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::cmyk* to_cmyk(color_space::color_base* in_color);
 
 		//! Static function that converts an arbitrary color to hsv color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The input color converted to hsv color space.
 		*/
-		static color_space::hsv* to_hsv(color_space::color_base* in_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::hsv* to_hsv(color_space::color_base* in_color);
 
 		//! Static function that converts an arbitrary color to hsl color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The input color converted to hsl color space.
 		*/
-		static color_space::hsl* to_hsl(color_space::color_base* in_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::hsl* to_hsl(color_space::color_base* in_color);
 
 		//! Static function that converts an arbitrary color to xyz color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The input color converted to xyz color space.
 		*/
-		static color_space::xyz* to_xyz(color_space::color_base* in_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::xyz* to_xyz(color_space::color_base* in_color);
 
 		//! Static function that converts an arbitrary color to lab color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
 		* \param in_color The color to convert.
-		* \param reference The reference white that will be needed if in_color is of type lab. Otherwise this
-		* parameter will be ignored.
 		* \return The input color converted to lab color space.
 		*/
-		static color_space::lab* to_lab(color_space::color_base* in_color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::lab* to_lab(color_space::color_base* in_color);
 
 	protected:
 		//! Static function that converts a rgb true color to rgb deep color space.
@@ -299,7 +261,7 @@ namespace color_manipulation
 		* \param in_color The color to convert.
 		* \return The input color converted to lab color space.
 		*/
-		static color_space::lab* rgb_true_to_lab(color_space::rgb_truecolor* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::lab* rgb_true_to_lab(color_space::rgb_truecolor* color);
 
 
 		//! Static function that converts a rgb deep color to rgb true color space.
@@ -376,10 +338,9 @@ namespace color_manipulation
 		* Wrapper function that first converts the input color to xyz and afterwards
 		* the xyz color to lab.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert to lab.
 		* \return The input color converted to lab color space.
 		*/
-		static color_space::lab* rgb_deep_to_lab(color_space::rgb_deepcolor* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::lab* rgb_deep_to_lab(color_space::rgb_deepcolor* color);
 
 		//! Static function that converts a rgb deep color to srgb.
 		/*!
@@ -468,10 +429,9 @@ namespace color_manipulation
 		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert to lab.
 		* \return The input color converted to lab color space.
 		*/
-		static color_space::lab* grey_true_to_lab(color_space::grey_truecolor* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::lab* grey_true_to_lab(color_space::grey_truecolor* color);
 
 
 		//! Static function that converts a grey deep color to rgb true color space.
@@ -539,10 +499,9 @@ namespace color_manipulation
 		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert to lab.
 		* \return The input color converted to lab color space.
 		*/
-		static color_space::lab* grey_deep_to_lab(color_space::grey_deepcolor* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::lab* grey_deep_to_lab(color_space::grey_deepcolor* color);
 
 		//! Static function that converts a cmyk color to rgb true color space.
 		/*!
@@ -614,10 +573,9 @@ namespace color_manipulation
 		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert to lab.
 		* \return The input color converted to lab color space.
 		*/
-		static color_space::lab* cmyk_to_lab(color_space::cmyk* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::lab* cmyk_to_lab(color_space::cmyk* color);
 
 
 		//! Static function that converts a hsv color to rgb true color space.
@@ -692,10 +650,9 @@ namespace color_manipulation
 		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert to lab.
 		* \return The input color converted to lab color space.
 		*/
-		static color_space::lab* hsv_to_lab(color_space::hsv* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::lab* hsv_to_lab(color_space::hsv* color);
 
 		//! Static function that converts a hsl color to rgb true color space.
 		/*!
@@ -777,10 +734,9 @@ namespace color_manipulation
 		* Wrapper function that first converts the input color to rgb deep and afterwards
 		* the rgb deep color to lab.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert to lab.
 		* \return The input color converted to lab color space.
 		*/
-		static color_space::lab* hsl_to_lab(color_space::hsl* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::lab* hsl_to_lab(color_space::hsl* color);
 
 		//! Static function that converts a xyz color to rgb true color space.
 		/*!
@@ -861,80 +817,72 @@ namespace color_manipulation
 		* b = 200 * (xyz_to_lab_helper(y / rw_y) - xyz_to_lab_helper(z / rw_z))
 		* \sa xyz_to_lab_helper()
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert to lab.
 		* \return The input color converted to hsl color space.
 		*/
-		static color_space::lab* xyz_to_lab(color_space::xyz* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::lab* xyz_to_lab(color_space::xyz* color);
 
 		//! Static function that converts a lab color to rgb true color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
 		* the xyz color to rgb true.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert from lab.
 		* \return The input color converted to rgb true color space.
 		*/
-		static color_space::rgb_truecolor* lab_to_rgb_true(color_space::lab* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::rgb_truecolor* lab_to_rgb_true(color_space::lab* color);
 
 		//! Static function that converts a lab color to rgb deep color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
 		* the xyz color to rgb deep.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert from lab.
 		* \return The input color converted to rgb deep color space.
 		*/
-		static color_space::rgb_deepcolor* lab_to_rgb_deep(color_space::lab* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::rgb_deepcolor* lab_to_rgb_deep(color_space::lab* color);
 
 		//! Static function that converts a lab color to grey true color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
 		* the xyz color to grey true.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert from lab.
 		* \return The input color converted to grey true color space.
 		*/
-		static color_space::grey_truecolor* lab_to_grey_true(color_space::lab* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::grey_truecolor* lab_to_grey_true(color_space::lab* color);
 
 		//! Static function that converts a lab color to grey deep color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
 		* the xyz color to grey deep.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert from lab.
 		* \return The input color converted to grey deep color space.
 		*/
-		static color_space::grey_deepcolor* lab_to_grey_deep(color_space::lab* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::grey_deepcolor* lab_to_grey_deep(color_space::lab* color);
 
 		//! Static function that converts a lab color to cmyk color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
 		* the xyz color to cmyk.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert from lab.
 		* \return The input color converted to cmyk color space.
 		*/
-		static color_space::cmyk* lab_to_cmyk(color_space::lab* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::cmyk* lab_to_cmyk(color_space::lab* color);
 
 		//! Static function that converts a lab color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
 		* the xyz color to hsv.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert from lab.
 		* \return The input color converted to hsv color space.
 		*/
-		static color_space::hsv* lab_to_hsv(color_space::lab* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::hsv* lab_to_hsv(color_space::lab* color);
 
 		//! Static function that converts a lab color to hsl color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
 		* the xyz color to hsl.
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert from lab.
 		* \return The input color converted to hsl color space.
 		*/
-		static color_space::hsl* lab_to_hsl(color_space::lab* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::hsl* lab_to_hsl(color_space::lab* color);
 
 		//! Static function that converts a lab color to xyz color space.
 		/*!
@@ -945,10 +893,9 @@ namespace color_manipulation
 		* Finally all components are multiplied by their corresponding reference white components
 		* \sa lab_to_xyz_helper()
 		* \param in_color The color to convert.
-		* \param reference The reference white needed to convert from lab.
 		* \return The input color converted to xyz color space.
 		*/
-		static color_space::xyz* lab_to_xyz(color_space::lab* color, reference_white reference = reference_white_presets::D65_2Degree);
+		static color_space::xyz* lab_to_xyz(color_space::lab* color);
 
 	private:
 		//! Static function that helps to convert from hsl to rgb

@@ -81,6 +81,9 @@
     <ClInclude Include="manipulation\color_calculation.h">
       <Filter>manipulation</Filter>
     </ClInclude>
+    <ClInclude Include="spaces\reference_white.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="manipulation\color_calculation.cpp">
       <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\reference_white.cpp">
+      <Filter>spaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

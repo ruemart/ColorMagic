@@ -222,6 +222,23 @@ TEST_F(ColorCombinations_Test, Monochromatic)
 	EXPECT_NEAR(mono_red_2->red(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->red(), avg_error);
 	EXPECT_NEAR(mono_red_2->green(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->green(), avg_error);
 	EXPECT_NEAR(mono_red_2->blue(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->blue(), avg_error);
+
+	auto desaturated_blue_1 = new hsl(240, 1.f, 0.5f);
+	auto desaturated_blue_2 = new hsl(240, 0.8f, 0.5f);
+	auto desaturated_blue_3 = new hsl(240, 0.6f, 0.5f);
+	auto desaturated_blues = color_manipulation::color_combinations::create_monochromatic(desaturated_blue_1, 0, 0.2, 3);
+	EXPECT_EQ(3, desaturated_blues.size());
+	EXPECT_NEAR(desaturated_blue_1->hue(), dynamic_cast<color_space::hsl*>(desaturated_blues[0])->hue(), avg_error);
+	EXPECT_NEAR(desaturated_blue_1->saturation(), dynamic_cast<color_space::hsl*>(desaturated_blues[0])->saturation(), avg_error);
+	EXPECT_NEAR(desaturated_blue_1->lightness(), dynamic_cast<color_space::hsl*>(desaturated_blues[0])->lightness(), avg_error);
+
+	EXPECT_NEAR(desaturated_blue_2->hue(), dynamic_cast<color_space::hsl*>(desaturated_blues[1])->hue(), avg_error);
+	EXPECT_NEAR(desaturated_blue_2->saturation(), dynamic_cast<color_space::hsl*>(desaturated_blues[1])->saturation(), avg_error);
+	EXPECT_NEAR(desaturated_blue_2->lightness(), dynamic_cast<color_space::hsl*>(desaturated_blues[1])->lightness(), avg_error);
+
+	EXPECT_NEAR(desaturated_blue_3->hue(), dynamic_cast<color_space::hsl*>(desaturated_blues[2])->hue(), avg_error);
+	EXPECT_NEAR(desaturated_blue_3->saturation(), dynamic_cast<color_space::hsl*>(desaturated_blues[2])->saturation(), avg_error);
+	EXPECT_NEAR(desaturated_blue_3->lightness(), dynamic_cast<color_space::hsl*>(desaturated_blues[2])->lightness(), avg_error);
 }
 
 TEST_F(ColorCombinations_Test, ComplimentarySplit)

@@ -66,20 +66,22 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 
 	std::vector<color_space::color_base*> combination;
 	combination.push_back(base_color);
+	auto in_color_type = base_color->get_color_type();
 
 	amount *= -1.f; // negative amounts decrease saturation/lightness of colors by using saturate/luminate functions.
 	for (int i = 0; i < color_count - 1; ++i) // -1 because the first color is the input color
 	{
+		auto last_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(combination[combination.size() - 1], color_type::HSL));
 		switch (mode)
 		{
 		case 0:
-			combination.push_back(color_adjustments::saturate_in_hsl_space(combination[combination.size() - 1], amount));
+			combination.push_back(color_converter::convertTo(color_adjustments::saturate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness()), amount), in_color_type));
 			break;
 		case 1:
-			combination.push_back(color_adjustments::luminate_in_hsl_space(combination[combination.size() - 1], amount));
+			combination.push_back(color_converter::convertTo(color_adjustments::luminate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness()), amount), in_color_type));
 			break;
 		case 2:
-			combination.push_back(color_adjustments::luminate_in_hsl_space(color_adjustments::saturate_in_hsl_space(combination[combination.size() - 1], amount), amount));
+			combination.push_back(color_converter::convertTo(color_adjustments::luminate_in_hsl_space(color_adjustments::saturate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness()), amount), amount), in_color_type));
 			break;
 		default:
 			throw new std::invalid_argument("Invalid mode.");;

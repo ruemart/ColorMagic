@@ -20,12 +20,13 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets the value of each component.
-		* \param cyan The value that will be set for cyan component (default 0).
-		* \param magenta The value that will be set for magenta component (default 0).
-		* \param yellow The value that will be set for yellow component (default 0).
-		* \param black The value that will be set for black component (default 0).
+		* \param cyan The value that will be set for cyan component.
+		* \param magenta The value that will be set for magenta component.
+		* \param yellow The value that will be set for yellow component.
+		* \param black The value that will be set for black component.
+		* \param ref_white The reference_white used for conversions from or to lab color space.
 		*/
-		cmyk(float cyan = 0.f, float magenta = 0.f, float yellow = 0.f, float black = 0.f);
+		cmyk(float cyan, float magenta, float yellow, float black, reference_white* ref_white);
 
 		//! Default copy constructor.
 		/*!

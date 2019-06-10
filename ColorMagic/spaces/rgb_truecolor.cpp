@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "rgb_truecolor.h"
 
-color_space::rgb_truecolor::rgb_truecolor(float value, float alpha) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(float value, float alpha, reference_white* ref_white) : color_base(ref_white, 4, 255.f, 0.f)
 {
 	this->m_type = color_type::RGB_TRUE;
 	this->red(value);
@@ -10,7 +10,7 @@ color_space::rgb_truecolor::rgb_truecolor(float value, float alpha) : color_base
 	this->alpha(alpha);
 }
 
-color_space::rgb_truecolor::rgb_truecolor(float r, float g, float b, float a) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(float r, float g, float b, float a, reference_white* ref_white) : color_base(ref_white, 4, 255.f, 0.f)
 {
 	this->m_type = color_type::RGB_TRUE;
 	this->red(r);
@@ -19,7 +19,7 @@ color_space::rgb_truecolor::rgb_truecolor(float r, float g, float b, float a) : 
 	this->alpha(a);
 }
 
-color_space::rgb_truecolor::rgb_truecolor(std::string hex_code) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(std::string hex_code, reference_white* ref_white) : color_base(ref_white, 4, 255.f, 0.f)
 {
 	std::regex regex("^[#0-9A-Fa-f]+$");
 
@@ -59,7 +59,7 @@ color_space::rgb_truecolor::rgb_truecolor(std::string hex_code) : color_base(4, 
 	}
 }
 
-color_space::rgb_truecolor::rgb_truecolor(int hex_code) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(int hex_code, reference_white* ref_white) : color_base(ref_white, 4, 255.f, 0.f)
 {
 	this->m_type = color_type::RGB_TRUE;
 	this->alpha((float)((hex_code >> 24) & 0xff));
@@ -68,13 +68,13 @@ color_space::rgb_truecolor::rgb_truecolor(int hex_code) : color_base(4, 255.f, 0
 	this->blue((float)((hex_code) & 0xff));
 }
 
-color_space::rgb_truecolor::rgb_truecolor(const color_space::rgb_truecolor & other) : color_base(4, other.get_component_max(), other.get_component_min())
+color_space::rgb_truecolor::rgb_truecolor(const color_space::rgb_truecolor & other) : color_base(other.m_reference_white, 4, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.m_component_vector;
 }
 
-color_space::rgb_truecolor::rgb_truecolor(const color_base & other) : color_base(4, other.get_component_max(), other.get_component_min())
+color_space::rgb_truecolor::rgb_truecolor(const color_base & other) : color_base(other.m_reference_white, 4, other.get_component_max(), other.get_component_min())
 {
 	if (other.get_color_type() == color_type::RGB_TRUE && other.m_component_vector.size() == 4)
 	{

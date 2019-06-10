@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "xyz.h"
 
-color_space::xyz::xyz(float x, float y, float z) : color_base(3, 100.f, 0.f)
+color_space::xyz::xyz(float x, float y, float z, reference_white* ref_white) : color_base(ref_white, 3, 100.f, 0.f)
 {
 	this->m_type = color_type::XYZ;
 	this->x(x);
@@ -9,13 +9,13 @@ color_space::xyz::xyz(float x, float y, float z) : color_base(3, 100.f, 0.f)
 	this->z(z);
 }
 
-color_space::xyz::xyz(const xyz & other) : color_base(3, other.get_component_max(), other.get_component_min())
+color_space::xyz::xyz(const xyz & other) : color_base(other.m_reference_white, 3, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.m_component_vector;
 }
 
-color_space::xyz::xyz(const color_base & other) : color_base(3, other.get_component_max(), other.get_component_min())
+color_space::xyz::xyz(const color_base & other) : color_base(other.m_reference_white, 3, other.get_component_max(), other.get_component_min())
 {
 	if (other.get_color_type() == color_type::XYZ && other.m_component_vector.size() == 3)
 	{

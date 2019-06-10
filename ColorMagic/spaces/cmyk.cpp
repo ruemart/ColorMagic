@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "cmyk.h"
 
-color_space::cmyk::cmyk(float cyan, float magenta, float yellow, float black) : color_base(4)
+color_space::cmyk::cmyk(float cyan, float magenta, float yellow, float black, reference_white* ref_white) : color_base(ref_white, 4)
 {
 	this->m_type = color_type::CMYK;
 	this->cyan(cyan);
@@ -10,13 +10,13 @@ color_space::cmyk::cmyk(float cyan, float magenta, float yellow, float black) : 
 	this->black(black);
 }
 
-color_space::cmyk::cmyk(const color_space::cmyk & other) : color_base(4, other.get_component_max(), other.get_component_min())
+color_space::cmyk::cmyk(const color_space::cmyk & other) : color_base(other.m_reference_white, 4, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.m_component_vector;
 }
 
-color_space::cmyk::cmyk(const color_base & other) : color_base(4, other.get_component_max(), other.get_component_min())
+color_space::cmyk::cmyk(const color_base & other) : color_base(other.m_reference_white, 4, other.get_component_max(), other.get_component_min())
 {
 	if (other.get_color_type() == color_type::CMYK && other.m_component_vector.size() == 4)
 	{

@@ -20,11 +20,12 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets the value of each component.
-		* \param x The value that will be set for x component (default 0).
-		* \param y The value that will be set for y component (default 0).
-		* \param z The value that will be set for z component (default 0).
+		* \param x The value that will be set for x component.
+		* \param y The value that will be set for y component.
+		* \param z The value that will be set for z component.
+		* \param ref_white The reference_white used for conversions from or to lab color space.
 		*/
-		xyz(float x = 0.f, float y = 0.f, float z = 0.f);
+		xyz(float x, float y, float z, reference_white* ref_white);
 
 		//! Default copy constructor.
 		/*!

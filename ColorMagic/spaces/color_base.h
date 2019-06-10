@@ -109,7 +109,7 @@ namespace color_space
 		*/
 		color_base operator+(const color_base& rhs)
 		{
-			color_base result(this->get_reference_white, this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
+			color_base result(this->m_reference_white, this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
 			if (this->get_color_type() == rhs.get_color_type() && this->m_component_vector.size() == rhs.m_component_vector.size())
 			{
 				result.m_type = this->m_type;

@@ -21,10 +21,11 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets grey and alpha value.
-		* \param value The value that will be set for grey value (default 0).
-		* \param alpha The value that will be set for alpha (default 255).
+		* \param value The value that will be set for grey value.
+		* \param alpha The value that will be set for alpha.
+		* \param ref_white The reference_white used for conversions from or to lab color space.
 		*/
-		grey_truecolor(float value = 0.f, float alpha = 255.f);
+		grey_truecolor(float value, float alpha, reference_white* ref_white);
 
 		//! Default copy constructor.
 		/*!

@@ -273,7 +273,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::cmyk_to_rgb_dee
 	auto r = (1 - color->cyan()) * (1 - color->black());
 	auto g = (1 - color->magenta()) * (1 - color->black());
 	auto b = (1 - color->yellow()) * (1 - color->black());
-	return new color_space::rgb_deepcolor(r, g, b, 1.f, color->get_reference_white());
+	return new color_space::rgb_deepcolor(r, g, b, color->alpha(), color->get_reference_white());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::cmyk_to_grey_true(color_space::cmyk* color)
@@ -325,7 +325,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::hsv_to_rgb_deep
 	else if (h_temp > 4 && h_temp <= 5) { r_temp = x;		g_temp = 0.f;		b_temp = chroma; }
 	else if (h_temp > 5 && h_temp <= 6) { r_temp = chroma;	g_temp = 0.f;		b_temp = x; }
 	else { r_temp = 0.f;		g_temp = 0.f;		b_temp = 0.f; }
-	return new color_space::rgb_deepcolor(r_temp + m, g_temp + m, b_temp + m, 1.f, color->get_reference_white());
+	return new color_space::rgb_deepcolor(r_temp + m, g_temp + m, b_temp + m, color->alpha(), color->get_reference_white());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::hsv_to_grey_true(color_space::hsv* color)
@@ -388,7 +388,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::hsl_to_rgb_deep
 	auto g = hsl_to_rgb_helper(var1, var2, temp_h);
 	auto b = hsl_to_rgb_helper(var1, var2, temp_h - 1.f / 3.f);
 
-	return new color_space::rgb_deepcolor(r, g, b, 1.f, color->get_reference_white());
+	return new color_space::rgb_deepcolor(r, g, b, color->alpha(), color->get_reference_white());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::hsl_to_grey_true(color_space::hsl* color)
@@ -439,7 +439,9 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::xyz_to_rgb_deep
 	auto r = x_temp * 3.2404542f + y_temp * -1.5371385f + z_temp * 0.4985314f;
 	auto g = x_temp * -0.9692660f + y_temp * 1.8760108f + z_temp * 0.0415560f;
 	auto b = x_temp * 0.0556434f + y_temp * -0.2040259f + z_temp * 1.0572252f;
-	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new color_space::rgb_deepcolor(r, g, b, 1.f, color->get_reference_white()));
+
+	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new color_space::rgb_deepcolor(r, g, b, 0, color->get_reference_white()));
+	rgb_deep->alpha(transform_range(color->alpha(), color->get_component_min(), color->get_component_max(), rgb_deep->get_component_min(), rgb_deep->get_component_max()));
 	rgb_deep->red(round_float_to_n_decimals(clamp_float(rgb_deep->red(), 0.f, 1.f), 1));
 	rgb_deep->green(round_float_to_n_decimals(clamp_float(rgb_deep->green(), 0.f, 1.f), 1));
 	rgb_deep->blue(round_float_to_n_decimals(clamp_float(rgb_deep->blue(), 0.f, 1.f), 1));
@@ -476,7 +478,10 @@ color_space::lab* color_manipulation::color_converter::xyz_to_lab(color_space::x
 	auto l = 116.f * xyz_to_lab_helper(color->y() / color->get_reference_white()->y) - 16.f;
 	auto a = 500.f * (xyz_to_lab_helper(color->x() / color->get_reference_white()->x) - xyz_to_lab_helper(color->y() / color->get_reference_white()->y));
 	auto b = 200.f * (xyz_to_lab_helper(color->y() / color->get_reference_white()->y) - xyz_to_lab_helper(color->z() / color->get_reference_white()->z));
-	return new color_space::lab(l, a, b, color->alpha(), color->get_reference_white());
+	
+	auto lab = new color_space::lab(l, a, b, 0, color->get_reference_white());
+	lab->alpha(transform_range(color->alpha(), color->get_component_min(), color->get_component_max(), lab->get_component_min(), lab->get_component_max()));
+	return lab;
 }
 
 color_space::rgb_truecolor* color_manipulation::color_converter::lab_to_rgb_true(color_space::lab* color)
@@ -520,8 +525,10 @@ color_space::xyz* color_manipulation::color_converter::lab_to_xyz(color_space::l
 	auto y_temp = lab_to_xyz_helper(color->luminance(), true);
 	auto x_temp = lab_to_xyz_helper((color->a() / 500.f) + f_y);
 	auto z_temp = lab_to_xyz_helper(f_y - (color->b() / 200.f));
-
-	return new color_space::xyz(x_temp * color->get_reference_white()->x, y_temp * color->get_reference_white()->y, z_temp * color->get_reference_white()->z, color->alpha(), color->get_reference_white());
+	
+	auto xyz = new color_space::xyz(x_temp * color->get_reference_white()->x, y_temp * color->get_reference_white()->y, z_temp * color->get_reference_white()->z, 0.f, color->get_reference_white());
+	xyz->alpha(transform_range(color->alpha(), color->get_component_min(), color->get_component_max(), xyz->get_component_min(), xyz->get_component_max()));
+	return xyz;
 }
 
 float color_manipulation::color_converter::hsl_to_rgb_helper(float var1, float var2, float var3)
@@ -598,6 +605,13 @@ float color_manipulation::color_converter::round_float_to_n_decimals(float in_fl
 float color_manipulation::color_converter::clamp_float(float in_float, float min, float max)
 {
 	return fminf(fmaxf(in_float, min), max);
+}
+
+float color_manipulation::color_converter::transform_range(float value, float old_min, float old_max, float new_min, float new_max)
+{
+	auto old_range = old_max - old_min;
+	auto new_range = new_max - new_min;
+	return (((value - old_min) * new_range) / old_range) + new_min;
 }
 
 color_space::color_base* color_manipulation::color_converter::from_rgb_true(color_space::rgb_truecolor* in_color, color_type out_type)

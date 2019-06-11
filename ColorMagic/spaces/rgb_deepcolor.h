@@ -82,14 +82,6 @@ namespace color_space
 		//! \param new_blue The blue value to set.
 		void blue(float new_blue);
 
-		//! Getter for alpha component.
-		//! \return The alpha component of this color.
-		float alpha();
-
-		//! Setter for alpha component.
-		//! \param new_alpha The alpha value to set.
-		void alpha(float new_alpha);
-
 	private:
 
 	};

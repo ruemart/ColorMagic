@@ -32,19 +32,19 @@ color_space::color_base* color_manipulation::color_converter::convertTo(color_sp
 
 color_space::rgb_deepcolor* color_manipulation::color_converter::rgb_true_to_rgb_deep(color_space::rgb_truecolor* color)
 {
-	return new color_space::rgb_deepcolor(color->red() / 255.f, color->green() / 255.f, color->blue() / 255.f, color->alpha() / 255.f, color->m_reference_white);
+	return new color_space::rgb_deepcolor(color->red() / 255.f, color->green() / 255.f, color->blue() / 255.f, color->alpha() / 255.f, color->get_reference_white());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::rgb_true_to_grey_true(color_space::rgb_truecolor* color)
 {
 	auto avg = (color->red() + color->green() + color->blue()) / 3;
-	return new color_space::grey_truecolor(avg, color->alpha(), color->m_reference_white);
+	return new color_space::grey_truecolor(avg, color->alpha(), color->get_reference_white());
 }
 
 color_space::grey_deepcolor* color_manipulation::color_converter::rgb_true_to_grey_deep(color_space::rgb_truecolor* color)
 {
 	auto grey_true = *color_manipulation::color_converter::rgb_true_to_grey_true(color);
-	return new color_space::grey_deepcolor(grey_true.grey() / 255.f, grey_true.alpha() / 255.f, color->m_reference_white);
+	return new color_space::grey_deepcolor(grey_true.grey() / 255.f, grey_true.alpha() / 255.f, color->get_reference_white());
 }
 
 color_space::cmyk* color_manipulation::color_converter::rgb_true_to_cmyk(color_space::rgb_truecolor* color)
@@ -74,7 +74,7 @@ color_space::lab* color_manipulation::color_converter::rgb_true_to_lab(color_spa
 
 color_space::rgb_truecolor* color_manipulation::color_converter::rgb_deep_to_rgb_true(color_space::rgb_deepcolor* color)
 {
-	return new color_space::rgb_truecolor(roundf(color->red() * 255.f), roundf(color->green() * 255.f), roundf(color->blue() * 255.f), roundf(color->alpha() * 255.f), color->m_reference_white);
+	return new color_space::rgb_truecolor(roundf(color->red() * 255.f), roundf(color->green() * 255.f), roundf(color->blue() * 255.f), roundf(color->alpha() * 255.f), color->get_reference_white());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::rgb_deep_to_grey_true(color_space::rgb_deepcolor* color)
@@ -85,7 +85,7 @@ color_space::grey_truecolor* color_manipulation::color_converter::rgb_deep_to_gr
 color_space::grey_deepcolor* color_manipulation::color_converter::rgb_deep_to_grey_deep(color_space::rgb_deepcolor* color)
 {
 	auto avg = ((color->red() + color->green() + color->blue()) / 3.f);
-	return new color_space::grey_deepcolor(avg, color->alpha(), color->m_reference_white);
+	return new color_space::grey_deepcolor(avg, color->alpha(), color->get_reference_white());
 }
 
 color_space::cmyk* color_manipulation::color_converter::rgb_deep_to_cmyk(color_space::rgb_deepcolor* color)
@@ -94,7 +94,7 @@ color_space::cmyk* color_manipulation::color_converter::rgb_deep_to_cmyk(color_s
 	auto c = (1 - color->red() - k) / (1.f - k);
 	auto m = (1 - color->green() - k) / (1.f - k);
 	auto y = (1 - color->blue() - k) / (1.f - k);
-	return new color_space::cmyk(c, m, y, k, color->m_reference_white);
+	return new color_space::cmyk(c, m, y, k, color->alpha(), color->get_reference_white());
 }
 
 color_space::hsv* color_manipulation::color_converter::rgb_deep_to_hsv(color_space::rgb_deepcolor* color)
@@ -103,7 +103,7 @@ color_space::hsv* color_manipulation::color_converter::rgb_deep_to_hsv(color_spa
 	auto max = std::fmax(std::fmax(color->red(), color->green()), color->blue());
 	if (max == min) // red = green = blue
 	{
-		return new color_space::hsv(0.f, 0.f, min, color->m_reference_white);
+		return new color_space::hsv(0.f, 0.f, min, color->alpha(), color->get_reference_white());
 	}
 	else
 	{
@@ -124,7 +124,7 @@ color_space::hsv* color_manipulation::color_converter::rgb_deep_to_hsv(color_spa
 
 		auto saturation = delta / max;
 		auto value = max;
-		return new color_space::hsv((float)hue, saturation, value, color->m_reference_white);
+		return new color_space::hsv((float)hue, saturation, value, color->alpha(), color->get_reference_white());
 	}
 }
 
@@ -139,7 +139,7 @@ color_space::xyz* color_manipulation::color_converter::rgb_deep_to_xyz(color_spa
 	auto x = color->red() * 0.4124564f + color->green() * 0.3575761f + color->blue() * 0.1804375f;
 	auto y = color->red() * 0.2126729f + color->green() * 0.7151522f + color->blue() * 0.0721750f;
 	auto z = color->red() * 0.0193339f + color->green() * 0.1191920f + color->blue() * 0.9503041f;
-	return new color_space::xyz(x * 100.f, y * 100.f, z * 100.f, color->m_reference_white);
+	return new color_space::xyz(x * 100.f, y * 100.f, z * 100.f, color->alpha(), color->get_reference_white());
 }
 
 color_space::lab* color_manipulation::color_converter::rgb_deep_to_lab(color_space::rgb_deepcolor* color)
@@ -162,7 +162,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::rgb_deep_to_lin
 		}
 	}
 
-	return new color_space::rgb_deepcolor(components[0], components[1], components[2], color->alpha(), color->m_reference_white);
+	return new color_space::rgb_deepcolor(components[0], components[1], components[2], color->alpha(), color->get_reference_white());
 }
 
 color_space::rgb_deepcolor* color_manipulation::color_converter::linear_srgb_deep_to_rgb_deep(color_space::rgb_deepcolor* color)
@@ -180,22 +180,22 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::linear_srgb_dee
 		}
 	}
 
-	return new color_space::rgb_deepcolor(components[0], components[1], components[2], color->alpha(), color->m_reference_white);
+	return new color_space::rgb_deepcolor(components[0], components[1], components[2], color->alpha(), color->get_reference_white());
 }
 
 color_space::rgb_truecolor* color_manipulation::color_converter::grey_true_to_rgb_true(color_space::grey_truecolor* color)
 {
-	return new color_space::rgb_truecolor(color->grey(), color->alpha(), color->m_reference_white);
+	return new color_space::rgb_truecolor(color->grey(), color->alpha(), color->get_reference_white());
 }
 
 color_space::rgb_deepcolor* color_manipulation::color_converter::grey_true_to_rgb_deep(color_space::grey_truecolor* color)
 {
-	return new color_space::rgb_deepcolor(color->grey() / 255.f, color->alpha() / 255.f, color->m_reference_white);
+	return new color_space::rgb_deepcolor(color->grey() / 255.f, color->alpha() / 255.f, color->get_reference_white());
 }
 
 color_space::grey_deepcolor* color_manipulation::color_converter::grey_true_to_grey_deep(color_space::grey_truecolor* color)
 {
-	return new color_space::grey_deepcolor(color->grey() / 255.f, color->alpha() / 255.f, color->m_reference_white);
+	return new color_space::grey_deepcolor(color->grey() / 255.f, color->alpha() / 255.f, color->get_reference_white());
 }
 
 color_space::cmyk* color_manipulation::color_converter::grey_true_to_cmyk(color_space::grey_truecolor* color)
@@ -225,17 +225,17 @@ color_space::lab* color_manipulation::color_converter::grey_true_to_lab(color_sp
 
 color_space::rgb_truecolor* color_manipulation::color_converter::grey_deep_to_rgb_true(color_space::grey_deepcolor* color)
 {
-	return new color_space::rgb_truecolor(roundf(color->grey() * 255.f), roundf(color->alpha() * 255.f), color->m_reference_white);
+	return new color_space::rgb_truecolor(roundf(color->grey() * 255.f), roundf(color->alpha() * 255.f), color->get_reference_white());
 }
 
 color_space::rgb_deepcolor* color_manipulation::color_converter::grey_deep_to_rgb_deep(color_space::grey_deepcolor* color)
 {
-	return new color_space::rgb_deepcolor(color->grey(), color->alpha(), color->m_reference_white);
+	return new color_space::rgb_deepcolor(color->grey(), color->alpha(), color->get_reference_white());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::grey_deep_to_grey_true(color_space::grey_deepcolor* color)
 {
-	return new color_space::grey_truecolor(roundf(color->grey() * 255.f), roundf(color->alpha() * 255.f), color->m_reference_white);
+	return new color_space::grey_truecolor(roundf(color->grey() * 255.f), roundf(color->alpha() * 255.f), color->get_reference_white());
 }
 
 color_space::cmyk* color_manipulation::color_converter::grey_deep_to_cmyk(color_space::grey_deepcolor* color)
@@ -273,7 +273,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::cmyk_to_rgb_dee
 	auto r = (1 - color->cyan()) * (1 - color->black());
 	auto g = (1 - color->magenta()) * (1 - color->black());
 	auto b = (1 - color->yellow()) * (1 - color->black());
-	return new color_space::rgb_deepcolor(r, g, b, 1.f, color->m_reference_white);
+	return new color_space::rgb_deepcolor(r, g, b, 1.f, color->get_reference_white());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::cmyk_to_grey_true(color_space::cmyk* color)
@@ -325,7 +325,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::hsv_to_rgb_deep
 	else if (h_temp > 4 && h_temp <= 5) { r_temp = x;		g_temp = 0.f;		b_temp = chroma; }
 	else if (h_temp > 5 && h_temp <= 6) { r_temp = chroma;	g_temp = 0.f;		b_temp = x; }
 	else { r_temp = 0.f;		g_temp = 0.f;		b_temp = 0.f; }
-	return new color_space::rgb_deepcolor(r_temp + m, g_temp + m, b_temp + m, 1.f, color->m_reference_white);
+	return new color_space::rgb_deepcolor(r_temp + m, g_temp + m, b_temp + m, 1.f, color->get_reference_white());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::hsv_to_grey_true(color_space::hsv* color)
@@ -349,7 +349,7 @@ color_space::hsl* color_manipulation::color_converter::hsv_to_hsl(color_space::h
 	auto s = color->saturation() * color->value();
 	s /= (l <= 1.f) ? l : 2.f - l;
 	l /= 2.f;
-	return new color_space::hsl(color->hue(), s, l, color->m_reference_white);
+	return new color_space::hsl(color->hue(), s, l, color->alpha(), color->get_reference_white());
 }
 
 color_space::xyz* color_manipulation::color_converter::hsv_to_xyz(color_space::hsv* color)
@@ -369,7 +369,7 @@ color_space::rgb_truecolor* color_manipulation::color_converter::hsl_to_rgb_true
 
 color_space::rgb_deepcolor* color_manipulation::color_converter::hsl_to_rgb_deep(color_space::hsl* color)
 {
-	if (color->lightness() == 0.f) return new color_space::rgb_deepcolor(0.f, 0.f, color->m_reference_white);
+	if (color->lightness() == 0.f) return new color_space::rgb_deepcolor(0.f, 0.f, color->get_reference_white());
 
 	float temp_h = color->hue() / 360.f;
 
@@ -388,7 +388,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::hsl_to_rgb_deep
 	auto g = hsl_to_rgb_helper(var1, var2, temp_h);
 	auto b = hsl_to_rgb_helper(var1, var2, temp_h - 1.f / 3.f);
 
-	return new color_space::rgb_deepcolor(r, g, b, 1.f, color->m_reference_white);
+	return new color_space::rgb_deepcolor(r, g, b, 1.f, color->get_reference_white());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::hsl_to_grey_true(color_space::hsl* color)
@@ -412,7 +412,7 @@ color_space::hsv* color_manipulation::color_converter::hsl_to_hsv(color_space::h
 	auto m_sat = color->saturation() * (l_temp <= 1.f) ? l_temp : (2.f - l_temp);
 	auto v = (l_temp + m_sat) / 2.f;
 	auto s = (2.f * m_sat) / (l_temp + m_sat);
-	return new color_space::hsv(color->hue(), s, v, color->m_reference_white);
+	return new color_space::hsv(color->hue(), s, v, color->alpha(), color->get_reference_white());
 }
 
 color_space::xyz* color_manipulation::color_converter::hsl_to_xyz(color_space::hsl* color)
@@ -439,7 +439,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::xyz_to_rgb_deep
 	auto r = x_temp * 3.2404542f + y_temp * -1.5371385f + z_temp * 0.4985314f;
 	auto g = x_temp * -0.9692660f + y_temp * 1.8760108f + z_temp * 0.0415560f;
 	auto b = x_temp * 0.0556434f + y_temp * -0.2040259f + z_temp * 1.0572252f;
-	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new color_space::rgb_deepcolor(r, g, b, 1.f, color->m_reference_white));
+	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new color_space::rgb_deepcolor(r, g, b, 1.f, color->get_reference_white()));
 	rgb_deep->red(round_float_to_n_decimals(clamp_float(rgb_deep->red(), 0.f, 1.f), 1));
 	rgb_deep->green(round_float_to_n_decimals(clamp_float(rgb_deep->green(), 0.f, 1.f), 1));
 	rgb_deep->blue(round_float_to_n_decimals(clamp_float(rgb_deep->blue(), 0.f, 1.f), 1));
@@ -473,10 +473,10 @@ color_space::hsl* color_manipulation::color_converter::xyz_to_hsl(color_space::x
 
 color_space::lab* color_manipulation::color_converter::xyz_to_lab(color_space::xyz* color)
 {
-	auto l = 116.f * xyz_to_lab_helper(color->y() / color->m_reference_white->y) - 16.f;
-	auto a = 500.f * (xyz_to_lab_helper(color->x() / color->m_reference_white->x) - xyz_to_lab_helper(color->y() / color->m_reference_white->y));
-	auto b = 200.f * (xyz_to_lab_helper(color->y() / color->m_reference_white->y) - xyz_to_lab_helper(color->z() / color->m_reference_white->z));
-	return new color_space::lab(l, a, b, color->m_reference_white);
+	auto l = 116.f * xyz_to_lab_helper(color->y() / color->get_reference_white()->y) - 16.f;
+	auto a = 500.f * (xyz_to_lab_helper(color->x() / color->get_reference_white()->x) - xyz_to_lab_helper(color->y() / color->get_reference_white()->y));
+	auto b = 200.f * (xyz_to_lab_helper(color->y() / color->get_reference_white()->y) - xyz_to_lab_helper(color->z() / color->get_reference_white()->z));
+	return new color_space::lab(l, a, b, color->alpha(), color->get_reference_white());
 }
 
 color_space::rgb_truecolor* color_manipulation::color_converter::lab_to_rgb_true(color_space::lab* color)
@@ -521,7 +521,7 @@ color_space::xyz* color_manipulation::color_converter::lab_to_xyz(color_space::l
 	auto x_temp = lab_to_xyz_helper((color->a() / 500.f) + f_y);
 	auto z_temp = lab_to_xyz_helper(f_y - (color->b() / 200.f));
 
-	return new color_space::xyz(x_temp * color->m_reference_white->x, y_temp * color->m_reference_white->y, z_temp * color->m_reference_white->z, color->m_reference_white);
+	return new color_space::xyz(x_temp * color->get_reference_white()->x, y_temp * color->get_reference_white()->y, z_temp * color->get_reference_white()->z, color->alpha(), color->get_reference_white());
 }
 
 float color_manipulation::color_converter::hsl_to_rgb_helper(float var1, float var2, float var3)

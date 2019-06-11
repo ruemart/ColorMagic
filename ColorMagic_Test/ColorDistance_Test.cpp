@@ -33,20 +33,20 @@ protected:
 	{
 		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
 
-		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, d65_2deg);
-		cmyk_red = new cmyk(0.f, 1.f, 1.f, 0.f, d65_2deg);
+		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, 1.f, d65_2deg);
+		cmyk_red = new cmyk(0.f, 1.f, 1.f, 0.f, 1.f, d65_2deg);
 
-		hsv_yellow = new hsv(60.f, 1.f, 1.f, d65_2deg);
-		hsv_red = new hsv(0.f, 1.f, 1.f, d65_2deg);
+		hsv_yellow = new hsv(60.f, 1.f, 1.f, 1.f, d65_2deg);
+		hsv_red = new hsv(0.f, 1.f, 1.f, 1.f, d65_2deg);
 
-		hsl_yellow = new hsl(60.f, 1.f, 0.5f, d65_2deg);
-		hsl_red = new hsl(0.f, 1.f, 0.5f, d65_2deg);
+		hsl_yellow = new hsl(60.f, 1.f, 0.5f, 1.f, d65_2deg);
+		hsl_red = new hsl(0.f, 1.f, 0.5f, 1.f, d65_2deg);
 
-		xyz_yellow = new xyz(77.f, 92.78f, 13.85f, d65_2deg);
-		xyz_red = new xyz(41.24f, 21.26f, 1.93f, d65_2deg);
+		xyz_yellow = new xyz(77.f, 92.78f, 13.85f, 100.f, d65_2deg);
+		xyz_red = new xyz(41.24f, 21.26f, 1.93f, 100.f, d65_2deg);
 
-		lab_yellow = new lab(97.14f, -21.56f, 94.48f, d65_2deg);
-		lab_red = new lab(53.23f, 80.11f, 67.22f, d65_2deg);
+		lab_yellow = new lab(97.14f, -21.56f, 94.48f, 128.f, d65_2deg);
+		lab_red = new lab(53.23f, 80.11f, 67.22f, 128.f, d65_2deg);
 
 		grey1_d = new grey_deepcolor(0.6666f, 1.f, d65_2deg);
 		grey2_d = new grey_deepcolor(0.3333f, 1.f, d65_2deg);

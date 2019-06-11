@@ -32,11 +32,11 @@ protected:
 	virtual void SetUp()
 	{
 		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
-		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, d65_2deg);
-		hsv_yellow = new hsv(60.f, 1.f, 1.f, d65_2deg);
-		hsl_yellow = new hsl(60.f, 1.f, 0.5f, d65_2deg);
-		xyz_yellow = new xyz(77.f, 92.78f, 13.85f, d65_2deg);
-		lab_yellow = new lab(97.14f, -21.56f, 94.48f, d65_2deg);
+		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, 1.f, d65_2deg);
+		hsv_yellow = new hsv(60.f, 1.f, 1.f, 1.f, d65_2deg);
+		hsl_yellow = new hsl(60.f, 1.f, 0.5f, 1.f, d65_2deg);
+		xyz_yellow = new xyz(77.f, 92.78f, 13.85f, 100.f, d65_2deg);
+		lab_yellow = new lab(97.14f, -21.56f, 94.48f, 128.f, d65_2deg);
 		grey_d = new grey_deepcolor(0.6666f, 1.f, d65_2deg);
 		grey_t = new grey_truecolor(170.f, 255.f, d65_2deg);
 		rgb_d_yellow = new rgb_deepcolor(1.f, 1.f, 0.f, 1.f, d65_2deg);

@@ -225,9 +225,9 @@ TEST_F(ColorCombinations_Test, Monochromatic)
 	EXPECT_NEAR(mono_red_2->green(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->green(), avg_error);
 	EXPECT_NEAR(mono_red_2->blue(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->blue(), avg_error);
 
-	auto desaturated_blue_1 = new hsl(240, 1.f, 0.5f, d65_2deg);
-	auto desaturated_blue_2 = new hsl(240, 0.8f, 0.5f, d65_2deg);
-	auto desaturated_blue_3 = new hsl(240, 0.6f, 0.5f, d65_2deg);
+	auto desaturated_blue_1 = new hsl(240, 1.f, 0.5f, 1.f, d65_2deg);
+	auto desaturated_blue_2 = new hsl(240, 0.8f, 0.5f, 1.f, d65_2deg);
+	auto desaturated_blue_3 = new hsl(240, 0.6f, 0.5f, 1.f, d65_2deg);
 	auto desaturated_blues = color_manipulation::color_combinations::create_monochromatic(desaturated_blue_1, 0, 0.2, 3);
 	EXPECT_EQ(3, desaturated_blues.size());
 	EXPECT_NEAR(desaturated_blue_1->hue(), dynamic_cast<color_space::hsl*>(desaturated_blues[0])->hue(), avg_error);

@@ -43,6 +43,20 @@ namespace color_space
 			}
 		}
 
+		//! Default destructor.
+		/*!
+		* Default destructor.
+		*/
+		virtual ~color_base() 
+		{
+			m_component_vector.clear();
+			if (m_reference_white) 
+			{
+				delete m_reference_white;
+				m_reference_white = nullptr;
+			}
+		}
+
 		//! Returns the color space the color is located in.
 		/*!
 		* Returns the color space the color is located in.

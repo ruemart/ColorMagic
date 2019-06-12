@@ -30,8 +30,9 @@ namespace color_space
 		* \param component_max The maximum number each component can have (inclusive).
 		* \param component_min The minimum number each component can have (inclusive).
 		*/
-		color_base(reference_white* reference_white, size_t component_count, float component_max = 1.f, float component_min = 0.f)
+		color_base(float alpha, reference_white* reference_white, size_t component_count, float component_max = 1.f, float component_min = 0.f)
 		{
+			m_alpha = alpha;
 			m_reference_white = reference_white;
 			m_max = component_max;
 			m_min = component_min;
@@ -42,11 +43,31 @@ namespace color_space
 			}
 		}
 
+		//! Default destructor.
+		/*!
+		* Default destructor.
+		*/
+		virtual ~color_base() 
+		{
+			m_component_vector.clear();
+			if (m_reference_white) 
+			{
+				delete m_reference_white;
+				m_reference_white = nullptr;
+			}
+		}
+
 		//! Returns the color space the color is located in.
 		/*!
 		* Returns the color space the color is located in.
 		*/
 		virtual color_type get_color_type() const { return m_type; }
+
+		//! Returns the colors component values.
+		/*!
+		* Returns the colors component values as float vector.
+		*/
+		virtual std::vector<float> get_component_vector() const { return m_component_vector; }
 
 		//! Returns the maximum value each component can have.
 		/*!
@@ -69,6 +90,16 @@ namespace color_space
 		/*! Returns the currently used reference white object that will be used for conversions from or to LAB color space.
 		*/
 		virtual reference_white* get_reference_white() const { return m_reference_white; }
+
+		//! Returns the currently set alpha.
+		/*! Returns the currently set alpha.
+		*/
+		virtual float alpha() const { return m_alpha; }
+
+		//! Sets a new alpha value.
+		/*! Sets a new alpha value.
+		*/
+		virtual void alpha(float new_alpha) { m_alpha = new_alpha; }
 
 		//! Equality operator overload.
 		/*!
@@ -109,7 +140,7 @@ namespace color_space
 		*/
 		color_base operator+(const color_base& rhs)
 		{
-			color_base result(this->m_reference_white, this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
+			color_base result(this->alpha(), this->get_reference_white(), this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
 			if (this->get_color_type() == rhs.get_color_type() && this->m_component_vector.size() == rhs.m_component_vector.size())
 			{
 				result.m_type = this->m_type;
@@ -124,14 +155,6 @@ namespace color_space
 			}
 			return result;
 		}
-
-		//! Vector that stores the components of the color.
-		/*!
-		* Vector that stores the components of the color.
-		*/
-		std::vector<float> m_component_vector;
-
-		reference_white* m_reference_white;
 
 	protected:
 		//! Clamps a given value between a given max and min value (inclusive).
@@ -161,6 +184,24 @@ namespace color_space
 		* \param min The minimum number for the clamping operation.
 		*/
 		void set_component(float new_value, int index, float max, float min) { m_component_vector[index] = clamp(new_value, max, min); }
+
+		//! Vector that stores the components of the color.
+		/*!
+		* Vector that stores the components of the color.
+		*/
+		std::vector<float> m_component_vector;
+
+		//! Reference white that will be used for lab conversions.
+		/*!
+		* Reference white that will be used for lab conversions.
+		*/
+		reference_white* m_reference_white;
+
+		//! Alpha value of the color.
+		/*!
+		* Alpha value of the color.
+		*/
+		float m_alpha;
 
 		//! Maximum value (inclusive) each component can have.
 		/*!

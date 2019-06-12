@@ -1,36 +1,34 @@
 #include "stdafx.h"
 #include "rgb_deepcolor.h"
 
-color_space::rgb_deepcolor::rgb_deepcolor(float value, float alpha, reference_white* ref_white) : color_base(ref_white, 4)
+color_space::rgb_deepcolor::rgb_deepcolor(float value, float alpha, reference_white* ref_white) : color_base(alpha, ref_white, 3)
 {
 	this->m_type = color_type::RGB_DEEP;
 	this->red(value);
 	this->green(value);
 	this->blue(value);
-	this->alpha(alpha);
 }
 
-color_space::rgb_deepcolor::rgb_deepcolor(float r, float g, float b, float a, reference_white* ref_white) : color_base(ref_white ,4)
+color_space::rgb_deepcolor::rgb_deepcolor(float r, float g, float b, float alpha, reference_white* ref_white) : color_base(alpha, ref_white, 3)
 {
 	this->m_type = color_type::RGB_DEEP;
 	this->red(r);
 	this->green(g);
 	this->blue(b);
-	this->alpha(a);
 }
 
-color_space::rgb_deepcolor::rgb_deepcolor(const color_space::rgb_deepcolor & other) : color_base(other.m_reference_white, 4, other.get_component_max(), other.get_component_min())
+color_space::rgb_deepcolor::rgb_deepcolor(const color_space::rgb_deepcolor & other) : color_base(other.alpha(), other.get_reference_white(), 3, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
-	this->m_component_vector = other.m_component_vector;
+	this->m_component_vector = other.get_component_vector();
 }
 
-color_space::rgb_deepcolor::rgb_deepcolor(const color_base & other) : color_base(other.m_reference_white, 4, other.get_component_max(), other.get_component_min())
+color_space::rgb_deepcolor::rgb_deepcolor(const color_base & other) : color_base(other.alpha(), other.get_reference_white(), 3, other.get_component_max(), other.get_component_min())
 {
-	if (other.get_color_type() == color_type::RGB_DEEP && other.m_component_vector.size() == 4)
+	if (other.get_color_type() == color_type::RGB_DEEP && other.get_component_vector().size() == 4)
 	{
 		this->m_type = color_type::RGB_DEEP;
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 	}
 	else
 	{
@@ -43,7 +41,7 @@ color_space::rgb_deepcolor & color_space::rgb_deepcolor::operator=(const color_s
 	if (this != &other)
 	{
 		this->m_type = other.get_color_type();
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();
 	}
@@ -78,14 +76,4 @@ float color_space::rgb_deepcolor::blue()
 void color_space::rgb_deepcolor::blue(float new_blue)
 {
 	set_component(new_blue, 2);
-}
-
-float color_space::rgb_deepcolor::alpha()
-{
-	return m_component_vector[3];
-}
-
-void color_space::rgb_deepcolor::alpha(float new_alpha)
-{
-	set_component(new_alpha, 3);
 }

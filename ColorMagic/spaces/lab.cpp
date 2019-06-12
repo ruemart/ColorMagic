@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "lab.h"
 
-color_space::lab::lab(float luminance, float a, float b, reference_white* ref_white) : color_base(ref_white, 3, 128.f, -128.f)
+color_space::lab::lab(float luminance, float a, float b, float alpha, reference_white* ref_white) : color_base(alpha, ref_white, 3, 128.f, -128.f)
 {
 	this->m_type = color_type::LAB;
 	this->luminance(luminance);
@@ -9,18 +9,18 @@ color_space::lab::lab(float luminance, float a, float b, reference_white* ref_wh
 	this->b(b);
 }
 
-color_space::lab::lab(const color_space::lab & other) : color_base(other.m_reference_white, 3, other.get_component_max(), other.get_component_min())
+color_space::lab::lab(const color_space::lab & other) : color_base(other.alpha(), other.get_reference_white(), 3, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
-	this->m_component_vector = other.m_component_vector;
+	this->m_component_vector = other.get_component_vector();
 }
 
-color_space::lab::lab(const color_base & other) : color_base(other.m_reference_white, 3, other.get_component_max(), other.get_component_min())
+color_space::lab::lab(const color_base & other) : color_base(other.alpha(), other.get_reference_white(), 3, other.get_component_max(), other.get_component_min())
 {
-	if (other.get_color_type() == color_type::LAB && other.m_component_vector.size() == 3)
+	if (other.get_color_type() == color_type::LAB && other.get_component_vector().size() == 3)
 	{
 		this->m_type = color_type::LAB;
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 	}
 	else
 	{
@@ -33,7 +33,7 @@ color_space::lab & color_space::lab::operator=(const color_space::lab & other)
 	if (this != &other)
 	{
 		this->m_type = other.get_color_type();
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();
 	}

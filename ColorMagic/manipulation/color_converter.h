@@ -946,5 +946,17 @@ namespace color_manipulation
 		* \return The clamped value.
 		*/
 		static float clamp_float(float in_float, float min, float max);
+
+		//! Static function that clamps a given float between max and min values.
+		/*!
+		* Clamps a given float value between max and min values.
+		* \param value The value to transform.
+		* \param old_min The old range minimum.
+		* \param old_max The old range maximum.
+		* \param new_min The old range minimum.
+		* \param new_max The new range maximum.
+		* \return The transformed value.
+		*/
+		static float transform_range(float value, float old_min, float old_max, float new_min, float new_max);
 	};
 }

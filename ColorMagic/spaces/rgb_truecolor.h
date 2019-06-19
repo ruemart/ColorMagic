@@ -23,9 +23,9 @@ namespace color_space
 		* Sets a uniform value for each component and an alpha value.
 		* \param value The value that will be set for red, green and blue (default 0).
 		* \param alpha The value that will be set for alpha (default 255).
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		rgb_truecolor(float value, float alpha, reference_white* ref_white);
+		rgb_truecolor(float value, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default constructor.
 		/*!
@@ -34,25 +34,25 @@ namespace color_space
 		* \param g The value that will be set for green.
 		* \param b The value that will be set for blue.
 		* \param a The value that will be set for alpha.
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		rgb_truecolor(float r, float g, float b, float a, reference_white* ref_white);
+		rgb_truecolor(float r, float g, float b, float a, rgb_color_space_definition* color_space);
 
 		//! Default constructor.
 		/*!
 		* Creates a rgb color from a string hex code.
 		* \param hex_code The hexcode to parse. Supported formats are #RRGGBB RRGGBB #AARRGGBB AARRGGBB.
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		rgb_truecolor(std::string hex_code, reference_white* ref_white);
+		rgb_truecolor(std::string hex_code, rgb_color_space_definition* color_space);
 
 		//! Default constructor.
 		/*!
 		* Creates a rgb color from a integer hex value.
 		* \param hex_code The hexcode to parse in the format 0xaarrggbb.
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		rgb_truecolor(int hex_code, reference_white* ref_white);
+		rgb_truecolor(int hex_code, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!

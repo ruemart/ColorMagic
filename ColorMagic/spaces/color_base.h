@@ -7,7 +7,7 @@
 #define _USE_MATH_DEFINES
 
 #include "..\utils\color_type.h"
-#include "reference_white.h"
+#include "rgb_color_space_definition.h"
 
 #include <vector>
 #include <exception>
@@ -25,15 +25,15 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets number of color components as well as the components max and min values.
-		* \param reference_white The reference white that will be used for LAB conversions.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		* \param component_count The number of components the color will have.
 		* \param component_max The maximum number each component can have (inclusive).
 		* \param component_min The minimum number each component can have (inclusive).
 		*/
-		color_base(float alpha, reference_white* reference_white, size_t component_count, float component_max = 1.f, float component_min = 0.f)
+		color_base(float alpha, rgb_color_space_definition* color_space, size_t component_count, float component_max = 1.f, float component_min = 0.f)
 		{
 			m_alpha = alpha;
-			m_reference_white = reference_white;
+			m_rgb_color_space = color_space;
 			m_max = component_max;
 			m_min = component_min;
 
@@ -76,15 +76,15 @@ namespace color_space
 		*/
 		virtual float get_component_min() const { return m_min; }
 
-		//! Sets a new reference white object.
-		/*! Sets a new reference white object that will be used for conversions from or to LAB color space.
+		//! Sets a new color space definition.
+		/*! Sets a new color space definition used for conversion to or from xyz and lab.
 		*/
-		virtual void set_reference_white(reference_white* new_reference_white) { m_reference_white = new_reference_white; }
+		virtual void set_rgb_color_space(rgb_color_space_definition* new_color_space) { m_rgb_color_space = new_color_space; }
 
-		//! Returns the currently used reference white object.
-		/*! Returns the currently used reference white object that will be used for conversions from or to LAB color space.
+		//! Returns the currently used color space definition.
+		/*! Returns the currently used color space definition that will be used for conversions from or to xyz and lab color space.
 		*/
-		virtual reference_white* get_reference_white() const { return m_reference_white; }
+		virtual rgb_color_space_definition* get_rgb_color_space() const { return m_rgb_color_space; }
 
 		//! Returns the currently set alpha.
 		/*! Returns the currently set alpha.
@@ -135,7 +135,7 @@ namespace color_space
 		*/
 		color_base operator+(const color_base& rhs)
 		{
-			color_base result(this->alpha(), this->get_reference_white(), this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
+			color_base result(this->alpha(), this->get_rgb_color_space(), this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
 			if (this->get_color_type() == rhs.get_color_type() && this->m_component_vector.size() == rhs.m_component_vector.size())
 			{
 				result.m_type = this->m_type;
@@ -186,11 +186,11 @@ namespace color_space
 		*/
 		std::vector<float> m_component_vector;
 
-		//! Reference white that will be used for lab conversions.
+		//! The rgb color space definition used for conversion to or from xyz and lab.
 		/*!
-		* Reference white that will be used for lab conversions.
+		* The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		reference_white* m_reference_white;
+		rgb_color_space_definition* m_rgb_color_space;
 
 		//! Alpha value of the color.
 		/*!

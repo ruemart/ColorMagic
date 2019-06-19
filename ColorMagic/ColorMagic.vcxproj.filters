@@ -87,6 +87,9 @@
     <ClInclude Include="spaces\white_point.h">
       <Filter>spaces</Filter>
     </ClInclude>
+    <ClInclude Include="utils\matrix.h">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="spaces\white_point.cpp">
       <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\matrix.cpp">
+      <Filter>utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #pragma once
 
 #include "white_point.h"
+#include "../utils/matrix.h"
 #include <array>
 
 namespace color_space
@@ -20,14 +21,9 @@ namespace color_space
 		* \param blue_xy The chromaticity coordinates for blue. Helps define the gammut of this rgb color space.
 		* \param ref_white Reference white containing tristimulus values that will be converted to chromaticity coordinates.
 		*/
-		rgb_color_space_definition(std::array<float, 2> red_xy, std::array<float, 2> green_xy, std::array<float, 2> blue_xy, white_point* ref_white)
-		{
-			red = red_xy;
-			green = green_xy;
-			blue = blue_xy;
-			white = ref_white;
-		}
-
+		rgb_color_space_definition(std::array<float, 2> red_xy, std::array<float, 2> green_xy, std::array<float, 2> blue_xy, white_point* ref_white) :
+			rgb_color_space_definition(red_xy[0], red_xy[1], green_xy[0], green_xy[1], blue_xy[0], blue_xy[1], ref_white) {}
+		
 		//! Default constructor.
 		/*!
 		* \param red_x The x-part of the chromaticity coordinates for red. Helps define the gammut of this rgb color space.
@@ -40,16 +36,22 @@ namespace color_space
 		*/
 		rgb_color_space_definition(float red_x, float red_y, float green_x, float green_y, float blue_x, float blue_y, white_point* ref_white)
 		{
-			red[0] = red_x;
-			red[1] = red_y;
+			m_red[0] = red_x;
+			m_red[1] = red_y;
+			m_red[2] = 1.f - red_x - red_y;
 
-			green[0] = green_x;
-			green[1] = green_y;
+			m_green[0] = green_x;
+			m_green[1] = green_y;
+			m_green[2] = 1.f - green_x - green_y;
 
-			blue[0] = blue_x;
-			blue[1] = blue_y;
+			m_blue[0] = blue_x;
+			m_blue[1] = blue_y;
+			m_blue[2] = 1.f - blue_x - blue_y;
 
-			white = ref_white;
+			m_white = ref_white;
+
+			m_transform_matrix = calculate_transformation_matrix(m_red, m_green, m_blue, m_white->chromaticity_coordinate());
+			m_transform_matrix = calculate_inverse_transformation_matrix(m_transform_matrix);
 		}
 
 		//! Default deconstructor.
@@ -63,69 +65,126 @@ namespace color_space
 		//! Access the red coordinates x value.
 		float get_red_x()
 		{
-			return red[0];
+			return m_red[0];
 		}
 
 		//! Access the red coordinates y value.
 		float get_red_y()
 		{
-			return red[1];
+			return m_red[1];
+		}
+
+		//! Access the red coordinates z value.
+		/*!
+		* Access the red coordinates z value.
+		* The value will be automatically calculated during construction (1 - x - y).
+		*/
+		float get_red_z()
+		{
+			return m_red[2];
 		}
 
 		//! Access the green coordinates x value.
 		float get_green_x()
 		{
-			return green[0];
+			return m_green[0];
 		}
 
 		//! Access the green coordinates y value.
 		float get_green_y()
 		{
-			return green[1];
+			return m_green[1];
+		}
+
+		//! Access the green coordinates z value.
+		/*!
+		* Access the green coordinates z value.
+		* The value will be automatically calculated during construction (1 - x - y).
+		*/
+		float get_green_z()
+		{
+			return m_green[2];
 		}
 
 		//! Access the blue coordinates x value.
 		float get_blue_x()
 		{
-			return blue[0];
+			return m_blue[0];
 		}
 
 		//! Access the blue coordinates y value.
 		float get_blue_y()
 		{
-			return blue[1];
+			return m_blue[1];
+		}
+
+		//! Access the blue coordinates z value.
+		/*!
+		* Access the blue coordinates z value.
+		* The value will be automatically calculated during construction (1 - x - y).
+		*/
+		float get_blue_z()
+		{
+			return m_blue[2];
 		}
 
 		//! Access the white point.
 		white_point* get_white_point_x()
 		{
-			return white;
+			return m_white;
 		}
 
 	private:
+		static matrix<float> calculate_transformation_matrix(std::array<float, 3> red, std::array<float, 3> green, std::array<float, 3> blue, std::array<float, 3> white)
+		{
+
+		}
+
+		static matrix<float> calculate_inverse_transformation_matrix(matrix<float> transform_matrix)
+		{
+
+		}
+
 		//! The chromaticity coordinates for red.
 		/*!
 		* The chromaticity coordinates for red.
 		*/
-		std::array<float, 2> red;
+		std::array<float, 3> m_red;
 
 		//! The chromaticity coordinates for green.
 		/*!
 		* The chromaticity coordinates for green.
 		*/
-		std::array<float, 2> green;
+		std::array<float, 3> m_green;
 
 		//! The chromaticity coordinates for blue.
 		/*!
 		* The chromaticity coordinates for blue.
 		*/
-		std::array<float, 2> blue;
+		std::array<float, 3> m_blue;
 
 		//! The chromaticity coordinates for the white point.
 		/*!
 		* The chromaticity coordinates for the white point.
 		*/
-		white_point* white;
+		white_point* m_white;
+
+		//! Transformation matrix to convert from rgb to xyz.
+		/*!
+		* Transformation matrix to convert from rgb to xyz. 
+		* The matrix will be calculated inside the constructor 
+		* by using the chromaticity coordinates of red, green, 
+		* blue and white. 
+		*/
+		matrix<float> m_transform_matrix;
+
+		//! Transformation matrix to convert from xyz to rgb.
+		/*!
+		* Transformation matrix to convert from xyz to rgb.
+		* The matrix will be calculated inside the constructor
+		* by inverting m_transform_matrix. 
+		*/
+		matrix<float> m_inverse_transform_matrix;
 	};
 
 	//! Class that stores some default reference white values.

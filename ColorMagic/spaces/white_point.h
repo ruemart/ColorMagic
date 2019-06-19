@@ -27,6 +27,7 @@ namespace color_space
 		{
 			m_chromaticity_coordinate[0] = cx;
 			m_chromaticity_coordinate[1] = cy;
+			m_chromaticity_coordinate[2] = 1.f - cx - cy;
 
 			m_tristimulus[0] = tx;
 			m_tristimulus[1] = ty;
@@ -38,11 +39,8 @@ namespace color_space
 		* \param tristimulus The tristimulus.
 		* \param chromaticity_coordinate The chromaticity coordinate.
 		*/
-		white_point(std::array<float, 3> tristimulus, std::array<float, 2> chromaticity_coordinate)
-		{
-			m_tristimulus = tristimulus;
-			m_chromaticity_coordinate = chromaticity_coordinate;
-		}
+		white_point(std::array<float, 3> tristimulus, std::array<float, 2> chromaticity_coordinate) :
+			white_point(tristimulus[0], tristimulus[1], tristimulus[2], chromaticity_coordinate[0], chromaticity_coordinate[1]) {}
 
 		//! Default deconstructor.
 		/*!
@@ -83,11 +81,18 @@ namespace color_space
 		*/
 		float get_chromaticity_y() { return m_chromaticity_coordinate[1]; }
 
+		//! Return the z component of the chromaticity_coordinate.
+		/*!
+		* Return the z component of the chromaticity_coordinate. 
+		* The value will be automatically calculated during construction (1 - x - y).
+		*/
+		float get_chromaticity_z() { return m_chromaticity_coordinate[2]; }
+
 		//! Returns the chromaticity coordinate.
 		/*!
 		* Returns the chromaticity coordinate.
 		*/
-		std::array<float, 2> chromaticity_coordinate() { return m_chromaticity_coordinate; }
+		std::array<float, 3> chromaticity_coordinate() { return m_chromaticity_coordinate; }
 
 		//! Returns the tristimulus.
 		/*!
@@ -100,7 +105,7 @@ namespace color_space
 		/*!
 		* The chromaticity coordinate.
 		*/
-		std::array<float, 2> m_chromaticity_coordinate;
+		std::array<float, 3> m_chromaticity_coordinate;
 
 		//! The tristimulus.
 		/*!

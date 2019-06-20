@@ -4,6 +4,8 @@
 
 class Matrix_Test : public ::testing::Test {
 protected:
+	float avg_error = 0.05f;
+
 	virtual void SetUp()
 	{
 
@@ -113,4 +115,24 @@ TEST_F(Matrix_Test, AdjointTests)
 	matrix<int> adj(3);
 	adj.insert(std::vector<int>{-9, 13, -12, 7, -11, 12, 1, 3, -4});
 	EXPECT_EQ(adj, mat.adjoint());
+}
+
+TEST_F(Matrix_Test, InverseTests)
+{
+	matrix<float> mat(2);
+	mat.insert(std::vector<float>{4, 7, 2, 6});
+
+	matrix<float> inverse(2);
+	inverse.insert(std::vector<float>{0.6f, -0.7f, -0.2f, 0.4f});
+
+	matrix<float> id = matrix<float>::create_idendity(2);
+
+	auto inv = mat.invert();
+	EXPECT_EQ(inverse, inv);
+
+	auto mul = mat * mat.invert();
+	EXPECT_NEAR(id(0, 0), mul(0, 0), avg_error);
+	EXPECT_NEAR(id(0, 1), mul(0, 1), avg_error);
+	EXPECT_NEAR(id(1, 0), mul(1, 0), avg_error);
+	EXPECT_NEAR(id(1, 1), mul(1, 1), avg_error);
 }

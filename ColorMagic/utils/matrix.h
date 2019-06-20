@@ -450,7 +450,17 @@ public:
 
 		if (det == 0) return *this;
 
-		return matrix<T>();
+		matrix adj = adjoint();
+		matrix inverse(m_rows, m_rows);
+		for (size_t i = 0; i < m_rows; ++i)
+		{
+			for (size_t j = 0; j < m_rows; ++j)
+			{
+				inverse(i, j) = adj(i, j) / ((float)det);
+			}
+		}
+
+		return inverse;
 	}
 
 	//! Change all entries of this matrix to the given value.

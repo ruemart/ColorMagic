@@ -5,6 +5,7 @@
 
 #pragma once
 #include <vector>
+#include <stdexcept>
 
 template <typename T> class matrix
 {
@@ -86,14 +87,25 @@ public:
 	}
 
 	//! Default destructor.
-	~matrix() 
+	~matrix()
 	{
 	}
 
 	//! Accessment operator
-	T& operator() (size_t row, size_t column) { return m_values[row][column]; }
+	T& operator() (size_t row, size_t column)
+	{
+		if (row >= m_rows) throw std::out_of_range(std::string("Matrix: %d is >= row count of matrix.", row));
+		if (column >= m_columns) throw std::out_of_range(std::string("Matrix: %d is >= column count of matrix.", column));
+		return m_values[row][column];
+	}
+
 	//! Accessment operator
-	const T& operator() (size_t row, size_t column) const { return m_values[row][column]; }
+	const T& operator() (size_t row, size_t column) const
+	{
+		if (row >= m_rows) throw std::out_of_range(std::string("Matrix: %d is >= row count of matrix.", row));
+		if (column >= m_columns) throw std::out_of_range(std::string("Matrix: %d is >= column count of matrix.", column));
+		return m_values[row][column];
+	}
 
 	//! Assignment operator
 	matrix<T>& operator= (const matrix<T>& other)
@@ -120,6 +132,18 @@ public:
 		m_columns = new_cols;
 
 		return *this;
+	}
+
+	//! Equality operator
+	bool operator==(const matrix<T>& other)
+	{
+		return m_rows == other.rows() && m_columns == other.columns() && m_values == other.values();
+	}
+
+	//! Equality operator
+	bool operator==(const matrix<T>& other) const
+	{
+		return m_rows == other.rows() && m_columns == other.columns() && m_values == other.values();
 	}
 
 	//! Add two matrices
@@ -262,7 +286,7 @@ public:
 
 		return result;
 	}
-	
+
 	//! Multiply this matrix with a vector.
 	/*!
 	* Multiply this matrix with a vector.
@@ -309,9 +333,9 @@ public:
 	T determinante()
 	{
 		// First check special cases to shorten calculation for this cases:
-	// -------------------------------------------------------------------------
+		// -------------------------------------------------------------------------
 
-	// 1. Is the matrix quadratic (NxN)? If not calculating the determinante is impossible -> return 0.
+		// 1. Is the matrix quadratic (NxN)? If not calculating the determinante is impossible -> return 0.
 		if (m_rows != m_columns) return 0;
 
 		// 2. Do we have a 1x1 matrix (just one value)? -> Determinante = value
@@ -376,12 +400,16 @@ public:
 	*/
 	matrix<T> invert()
 	{
+		auto det = determinante();
+
+		if (det == 0) return *this;
+
 		return matrix<T>();
 	}
 
 	//! Insert a vector of values into this matrix.
 	/*!
-	* Insert a vector of values into this matrix. The 
+	* Insert a vector of values into this matrix. The
 	* vector needs to have the same size as this matrix.
 	* Otherwise no change to this matrix is done.
 	* /param values A vector containing the values to insert.
@@ -394,7 +422,7 @@ public:
 			{
 				for (size_t j = 0; j < m_columns; j++)
 				{
-					this->m_values[i][j] = values[i * j];
+					this->m_values[i][j] = values[i * m_rows + j];
 				}
 			}
 		}
@@ -457,7 +485,7 @@ public:
 	size_t size() const { return m_rows * m_columns; }
 	//! Return the values of this matrix as a two dimensional vector.
 	std::vector<std::vector<T>> values() const { return m_values; }
-	
+
 private:
 	//! Calculate the determinante of this matrix.
 	/*!
@@ -490,6 +518,11 @@ private:
 		auto j = 0;
 
 		std::vector<std::vector<T>> result;
+		result.resize(mat.size());
+		for (size_t i = 0; i < result.size(); ++i)
+		{
+			result[i].resize(mat[i].size());
+		}
 
 		for (size_t row = 0; row < n; ++row)
 		{

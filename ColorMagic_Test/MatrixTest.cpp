@@ -39,13 +39,36 @@ TEST_F(Matrix_Test, OperatorTests)
 	EXPECT_THROW(mat_minus(10, 10), std::out_of_range);
 }
 
-TEST_F(Matrix_Test, AccessorTests)
+TEST_F(Matrix_Test, AccessorAndFillTests)
 {
 	matrix<int> matrix_3x3(3, 1);
 
 	EXPECT_EQ(3, matrix_3x3.columns());
 	EXPECT_EQ(3, matrix_3x3.rows());
 	EXPECT_EQ(9, matrix_3x3.size());
+
+	matrix_3x3.fill(-5);
+	EXPECT_EQ(-5, matrix_3x3(1, 1));
+	EXPECT_EQ(-5, matrix_3x3(2, 1));
+	EXPECT_EQ(-5, matrix_3x3(0, 2));
+
+	matrix_3x3.insert(std::vector<int>{0, 1, 2, 3, 4, 5, 6, 7, 8});
+	EXPECT_EQ(4, matrix_3x3(1, 1));
+	EXPECT_EQ(5, matrix_3x3(1, 2));
+	EXPECT_EQ(6, matrix_3x3(2, 0));
+
+	matrix_3x3.resize(2, 2);
+	EXPECT_EQ(4, matrix_3x3(1, 1));
+	EXPECT_EQ(2, matrix_3x3.rows());
+	EXPECT_EQ(2, matrix_3x3.columns());
+	EXPECT_EQ(4, matrix_3x3.size());
+
+	matrix_3x3.resize(2, 4, -1);
+	EXPECT_EQ(4, matrix_3x3(1, 1));
+	EXPECT_EQ(-1, matrix_3x3(1, 3));
+	EXPECT_EQ(2, matrix_3x3.rows());
+	EXPECT_EQ(4, matrix_3x3.columns());
+	EXPECT_EQ(8, matrix_3x3.size());
 }
 
 TEST_F(Matrix_Test, DeterminanteTests)
@@ -81,4 +104,13 @@ TEST_F(Matrix_Test, IdentityTests)
 	id2(1, 1) = 1;
 	id2(2, 2) = 1;
 	EXPECT_EQ(id, id2);
+}
+
+TEST_F(Matrix_Test, AdjointTests)
+{
+	matrix<int> mat(3);
+	mat.insert(std::vector<int>{1, 2, 3, 5, 6, 3, 4, 5, 1});
+	matrix<int> adj(3);
+	adj.insert(std::vector<int>{-9, 13, -12, 7, -11, 12, 1, 3, -4});
+	EXPECT_EQ(adj, mat.adjoint());
 }

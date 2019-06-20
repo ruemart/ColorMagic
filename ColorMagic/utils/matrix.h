@@ -121,9 +121,9 @@ public:
 			m_values[i].resize(new_cols);
 		}
 
-		for (unsigned i = 0; i < new_rows; i++)
+		for (size_t i = 0; i < new_rows; i++)
 		{
-			for (unsigned j = 0; j < new_cols; j++)
+			for (size_t j = 0; j < new_cols; j++)
 			{
 				m_values[i][j] = other(i, j);
 			}
@@ -151,9 +151,9 @@ public:
 	{
 		matrix result(m_rows, m_columns);
 
-		for (unsigned i = 0; i < m_rows; i++)
+		for (size_t i = 0; i < m_rows; i++)
 		{
-			for (unsigned j = 0; j < m_columns; j++)
+			for (size_t j = 0; j < m_columns; j++)
 			{
 				result(i, j) = this->m_values[i][j] + other(i, j);
 			}
@@ -175,9 +175,9 @@ public:
 	{
 		matrix result(m_rows, m_columns);
 
-		for (unsigned i = 0; i < m_rows; i++)
+		for (size_t i = 0; i < m_rows; i++)
 		{
-			for (unsigned j = 0; j < m_columns; j++)
+			for (size_t j = 0; j < m_columns; j++)
 			{
 				result(i, j) = this->m_values[i][j] - other(i, j);
 			}
@@ -408,6 +408,38 @@ public:
 		return calculate_determinante(m_values, m_rows);
 	}
 
+	//! Create adjoint of this matrix.
+	/*!
+	* Create adjoint of this matrix.
+	*/
+	matrix<T> adjoint()
+	{
+		if (m_rows != m_columns) return *this; // Cannot create adjoint of non quadratic matrices.
+
+		matrix adj(m_rows, m_rows, 0);
+		if (m_rows == 1)
+		{
+			// Return 1 if the matrix is one dimensional.
+			adj(0, 0) = 1;
+			return adj;
+		}
+
+		int sign = 1;
+		std::vector<std::vector<T>> cofactor_storage;
+
+		for (size_t i = 0; i < m_rows; ++i)
+		{
+			for (size_t j = 0; j < m_rows; ++j)
+			{
+				cofactor_storage = get_cofactor(m_values, i, j, m_rows);
+				sign = ((i + j) % 2 == 0) ? 1 : -1;
+				adj(j, i) = sign * calculate_determinante(cofactor_storage, m_rows - 1);
+			}
+		}
+
+		return adj;
+	}
+
 	//! Invert this matrix.
 	/*!
 	* Invert this matrix.
@@ -421,12 +453,31 @@ public:
 		return matrix<T>();
 	}
 
+	//! Change all entries of this matrix to the given value.
+	/*!
+	* Change all entries of this matrix to the given value.
+	* /param value The value to fill this matrix with.
+	* /return This modified matrix.
+	*/
+	matrix<T>& fill(T value)
+	{
+		for (size_t i = 0; i < m_rows; i++)
+		{
+			for (size_t j = 0; j < m_columns; j++)
+			{
+				m_values[i][j] = value;
+			}
+		}
+		return *this;
+	}
+
 	//! Insert a vector of values into this matrix.
 	/*!
 	* Insert a vector of values into this matrix. The
 	* vector needs to have the same size as this matrix.
 	* Otherwise no change to this matrix is done.
 	* /param values A vector containing the values to insert.
+	* /return This modified matrix.
 	*/
 	matrix<T>& insert(std::vector<T>& values)
 	{
@@ -440,6 +491,42 @@ public:
 				}
 			}
 		}
+		return *this;
+	}
+
+	//! Resize this matrix.
+	/*!
+	* Resize this matrix.
+	* /param new_row_count The new number of rows.
+	* /param new_col_count The new number of columns.
+	* /param fill_value If the matrix size increases this value will be set for the new entries.
+	* /return This modified matrix.
+	*/
+	matrix<T>& resize(int new_row_count, int new_col_count, T fill_value = 0)
+	{
+		// resize the matrix.
+		m_values.resize(new_row_count);
+		for (size_t i = 0; i < new_row_count; ++i)
+		{
+			m_values[i].resize(new_col_count);
+		}
+
+		// fill new entries with fill_value
+		for (size_t row = 0; row < new_row_count; ++row)
+		{
+			for (size_t col = 0; col < new_col_count; ++col)
+			{
+				if (row >= m_rows || col >= m_columns)
+				{
+					m_values[row][col] = fill_value;
+				}
+			}
+		}
+
+		// update m_rows and m_columns
+		m_rows = new_row_count;
+		m_columns = new_col_count;
+
 		return *this;
 	}
 

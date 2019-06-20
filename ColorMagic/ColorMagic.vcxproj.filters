@@ -149,8 +149,5 @@
     <ClCompile Include="spaces\white_point.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
-    <ClCompile Include="utils\matrix.cpp">
-      <Filter>utils</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

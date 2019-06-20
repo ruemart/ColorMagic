@@ -72,3 +72,13 @@ TEST_F(Matrix_Test, DeterminanteTests)
 	EXPECT_EQ(16, matrix5.determinante());
 	EXPECT_EQ(0, matrix6.determinante());
 }
+
+TEST_F(Matrix_Test, IdentityTests)
+{
+	matrix<int> id = matrix<int>::create_idendity(3);
+	matrix<int> id2(3, 3, 0);
+	id2(0, 0) = 1;
+	id2(1, 1) = 1;
+	id2(2, 2) = 1;
+	EXPECT_EQ(id, id2);
+}

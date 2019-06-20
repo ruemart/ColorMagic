@@ -307,6 +307,20 @@ public:
 		return result;
 	}
 
+	//! Create a identity matrix of the given size.
+	/*!
+	* Create a identity matrix of the given size.
+	*/
+	static matrix<T> create_idendity(int rows)
+	{
+		matrix id(rows, rows, 0);
+		for (size_t i = 0; i < id.rows(); ++i)
+		{
+			id(i, i) = 1;
+		}
+		return id;
+	}
+
 	//! Transpose this matrix.
 	/*!
 	* Transpose this matrix. Swaps rows and columns.

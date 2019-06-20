@@ -130,6 +130,18 @@ public:
 	*/
 	matrix<T> transpose();
 
+	//! Calculate the determinante of this matrix.
+	/*!
+	* Calculate the determinante of this matrix.
+	*/
+	T determinante();
+
+	//! Invert this matrix.
+	/*!
+	* Invert this matrix.
+	*/
+	matrix<T> invert();
+
 	//! Insert a vector of values into this matrix.
 	/*!
 	* Insert a vector of values into this matrix. The 
@@ -138,6 +150,18 @@ public:
 	* /param values A vector containing the values to insert.
 	*/
 	matrix<T>& insert(std::vector<T>& values);
+
+	//! Check if all values in the given row are 0.
+	bool is_row_null(int row_index);
+
+	//! Check if all values in the given column are 0.
+	bool is_column_null(int col_index);
+
+	//! Check if all values of both rows are equal.
+	bool are_rows_equal(int row1, int row2);
+
+	//! Check if all values of both columns are equal.
+	bool are_columns_equal(int col1, int col2);
 
 	//! Return the number of rows this matrix has.
 	size_t rows() const { return m_rows; }
@@ -149,6 +173,18 @@ public:
 	std::vector<std::vector<T>> values() const { return m_values; }
 	
 private:
+	//! Calculate the determinante of this matrix.
+	/*!
+	* Calculate the determinante of this matrix.
+	*/
+	T calculate_determinante(std::vector<std::vector<T>> mat, int n);
+
+	//! Calculate a cofactor matrix.
+	/*!
+	* Calculate a cofactor matrix.
+	*/
+	std::vector<std::vector<T>> get_cofactor(std::vector<std::vector<T>> mat, int cf_row, int cf_col, int n);
+
 	size_t m_rows;
 	size_t m_columns;
 	std::vector<std::vector<T>> m_values;

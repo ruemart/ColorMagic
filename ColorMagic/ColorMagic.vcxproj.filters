@@ -143,11 +143,5 @@
     <ClCompile Include="manipulation\color_calculation.cpp">
       <Filter>manipulation</Filter>
     </ClCompile>
-    <ClCompile Include="spaces\rgb_color_space_definition.cpp">
-      <Filter>spaces</Filter>
-    </ClCompile>
-    <ClCompile Include="spaces\white_point.cpp">
-      <Filter>spaces</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

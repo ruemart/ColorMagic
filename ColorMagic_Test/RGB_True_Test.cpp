@@ -16,7 +16,7 @@ protected:
 
 	virtual void SetUp() 
 	{
-		srgb = &color_space::rgb_color_space_definition_presets::sRGB;
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
 		red = new rgb_truecolor(255.f, 0.f, 0.f, 255.f, srgb);
 		yellow = new rgb_truecolor(255.f, 255.f, 0.f, 255.f, srgb);
 		grey = new rgb_truecolor(128.f, 128.f, 128.f, 255.f, srgb);

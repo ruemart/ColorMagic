@@ -14,7 +14,7 @@ protected:
 
 	virtual void SetUp()
 	{
-		srgb = &color_space::rgb_color_space_definition_presets::sRGB;
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
 		yellow = new hsv(60.f, 1.f, 1.f, 1.f, srgb);
 		black = new hsv(0.f, 0.f, 0.f, 1.f, srgb);
 		white = new hsv(0.f, 0.f, 1.f, 1.f, srgb);

@@ -14,7 +14,7 @@ protected:
 
 	virtual void SetUp()
 	{
-		srgb = &color_space::rgb_color_space_definition_presets::sRGB;
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
 		yellow = new lab(0.77f, 0.9278f, 0.1385f, 1.f, srgb);
 		black = new lab(0.f, 0.f, 0.f, 1.f, srgb);
 		white = new lab(1.f, 0.f, 0.f, 1.f, srgb);

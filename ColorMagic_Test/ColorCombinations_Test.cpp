@@ -28,7 +28,7 @@ protected:
 
 	virtual void SetUp()
 	{
-		srgb = &color_space::rgb_color_space_definition_presets::sRGB;
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
 		rgb_t_red = new rgb_truecolor(255, 0, 0, 255, srgb);
 		rgb_t_orange = new rgb_truecolor(255, 128, 0, 255, srgb);
 		rgb_t_yellow = new rgb_truecolor(204, 255, 0, 255, srgb);

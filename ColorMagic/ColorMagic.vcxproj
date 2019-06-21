@@ -190,8 +190,6 @@
     <ClCompile Include="spaces\hsl.cpp" />
     <ClCompile Include="spaces\hsv.cpp" />
     <ClCompile Include="spaces\lab.cpp" />
-    <ClCompile Include="spaces\white_point.cpp" />
-    <ClCompile Include="spaces\rgb_color_space_definition.cpp" />
     <ClCompile Include="spaces\rgb_deepcolor.cpp" />
     <ClCompile Include="spaces\rgb_truecolor.cpp" />
     <ClCompile Include="spaces\xyz.cpp" />

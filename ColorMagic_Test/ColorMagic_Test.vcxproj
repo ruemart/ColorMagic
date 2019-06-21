@@ -48,6 +48,7 @@
     <ClCompile Include="HSV_Test.cpp" />
     <ClCompile Include="Lab_Test.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="RGBColorSpaceDefinitionTest.cpp" />
     <ClCompile Include="RGB_Deep_Test.cpp" />
     <ClCompile Include="RGB_True_Test.cpp" />
     <ClCompile Include="Main_TestAll.cpp" />

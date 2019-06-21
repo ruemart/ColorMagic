@@ -31,7 +31,7 @@ protected:
 
 	virtual void SetUp()
 	{
-		srgb = &color_space::rgb_color_space_definition_presets::sRGB;
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
 		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, 1.f, srgb);
 		hsv_yellow = new hsv(60.f, 1.f, 1.f, 1.f, srgb);
 		hsl_yellow = new hsl(60.f, 1.f, 0.5f, 1.f, srgb);

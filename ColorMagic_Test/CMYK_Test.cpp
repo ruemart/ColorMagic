@@ -14,7 +14,7 @@ protected:
 
 	virtual void SetUp()
 	{
-		srgb = &color_space::rgb_color_space_definition_presets::sRGB;
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
 		red = new cmyk(0.15f, 1.f, 0.9f, 0.1f, 1.f, srgb);
 		yellow = new cmyk(0.05f, 0.f, 0.9f, 0.f, 1.f, srgb);
 		white = new cmyk(0.f, 0.f, 0.f, 0.f, 1.f, srgb);

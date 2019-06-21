@@ -42,6 +42,35 @@ namespace color_space
 		white_point(std::array<float, 3> tristimulus, std::array<float, 2> chromaticity_coordinate) :
 			white_point(tristimulus[0], tristimulus[1], tristimulus[2], chromaticity_coordinate[0], chromaticity_coordinate[1]) {}
 
+		//! Default constructor to create a white point with just the chromaticity coordinate.
+		/*!
+		* \param cx The x component of the chromaticity coordinate.
+		* \param cy The y component of the chromaticity coordinate.
+		*/
+		white_point(float cx, float cy)
+		{
+			m_chromaticity_coordinate[0] = cx;
+			m_chromaticity_coordinate[1] = cy;
+			m_chromaticity_coordinate[2] = 1.f - cx - cy;
+
+			m_tristimulus = chromaticity_coordinate_to_tristimulus(m_chromaticity_coordinate);
+		}
+
+		//! Default constructor to create a white point with just the tristimulus.
+		/*!
+		* \param tx The x component of the tristimulus.
+		* \param ty The y component of the tristimulus.
+		* \param tz The z component of the tristimulus.
+		*/
+		white_point(float tx, float ty, float tz)
+		{
+			m_tristimulus[0] = tx;
+			m_tristimulus[1] = ty;
+			m_tristimulus[2] = tz;
+
+			m_chromaticity_coordinate = tristimulus_to_chromaticity_coordinate(m_tristimulus);
+		}
+
 		//! Default deconstructor.
 		/*!
 		* Default deconstructor.
@@ -49,6 +78,39 @@ namespace color_space
 		~white_point()
 		{
 			
+		}
+
+		//! Convert an array of tristimulus values XYZ to an array of chromaticity coordinates xyz.
+		/*!
+		* Convert an array of tristimulus values XYZ to an array of chromaticity coordinates xyz.
+		* /param tristimulus The XYZ array of tristimulus values that have to be converted.
+		* /return The tristimulus values XYZ converted to an array of chromaticity coordinates xyz.
+		*/
+		static std::array<float, 3> tristimulus_to_chromaticity_coordinate(std::array<float, 3> tristimulus)
+		{
+			std::array<float, 3> result;
+			result[0] = tristimulus[0] / (tristimulus[0] + tristimulus[1] + tristimulus[2]);
+			result[1] = tristimulus[1] / (tristimulus[0] + tristimulus[1] + tristimulus[2]);
+			result[2] = tristimulus[2] / (tristimulus[0] + tristimulus[1] + tristimulus[2]);
+			return result;
+		}
+
+		//! Convert an array of chromaticity coordinates values xyz to an array of tristimulus values XYZ.
+		/*!
+		* Convert an array of chromaticity coordinates xyz to an array of tristimulus values XYZ.
+		* /param chromaticity_coordinates The xyz array of chromaticity coordinates values that have to be converted.
+		* /param Y The fixed Y value of the resulting tristimulus (common values are 1 or 100).
+		* /return The chromaticity coordinates xyz converted to an array of tristimulus XYZ.
+		*/
+		static std::array<float, 3> chromaticity_coordinate_to_tristimulus(std::array<float, 3> chromaticity_coordinates, float Y = 100)
+		{
+			float factor = Y / chromaticity_coordinates[1];
+
+			std::array<float, 3> result;
+			result[0] = factor * chromaticity_coordinates[0];
+			result[1] = factor * chromaticity_coordinates[1];
+			result[2] = factor * chromaticity_coordinates[2];
+			return result;
 		}
 
 		//! Return the x component of the tristimulus.
@@ -92,7 +154,7 @@ namespace color_space
 		/*!
 		* Returns the chromaticity coordinate.
 		*/
-		std::array<float, 3> chromaticity_coordinate() { return m_chromaticity_coordinate; }
+		std::array<float, 3> get_chromaticity_coordinate() { return m_chromaticity_coordinate; }
 
 		//! Returns the tristimulus.
 		/*!

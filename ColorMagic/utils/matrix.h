@@ -331,7 +331,7 @@ public:
 		{
 			for (size_t j = 0; j < m_columns; j++)
 			{
-				result[i] = this->m_values[i][j] * other[j];
+				result[i] += this->m_values[i][j] * other[j];
 			}
 		}
 

@@ -37,6 +37,22 @@ public:
 	/*!
 	* \param rows The number of rows.
 	* \param columns The number of columns.
+	* \param data The data to fill this matrix with.
+	*/
+	matrix(size_t rows, size_t columns, std::vector<T> data) : m_rows(rows), m_columns(columns)
+	{
+		m_values.resize(m_rows);
+		for (size_t i = 0; i < m_values.size(); i++)
+		{
+			m_values[i].resize(m_columns);
+		}
+		insert(data);
+	}
+
+	//! Default constructor for rectangular matrices.
+	/*!
+	* \param rows The number of rows.
+	* \param columns The number of columns.
 	* \param initial_value The default value to fill the matrix with.
 	*/
 	matrix(size_t rows, size_t columns, T initial_value) : m_rows(rows), m_columns(columns)
@@ -59,6 +75,21 @@ public:
 		{
 			m_values[i].resize(size);
 		}
+	}
+
+	//! Default constructor for quadatic matrices.
+	/*!
+	* \param size The number of rows and columns.
+	* \param data The data to fill this matrix with.
+	*/
+	matrix(size_t size, std::vector<T> data) : m_rows(size), m_columns(size)
+	{
+		m_values.resize(size);
+		for (size_t i = 0; i < m_values.size(); i++)
+		{
+			m_values[i].resize(size);
+		}
+		insert(data);
 	}
 
 	//! Default constructor for quadatic matrices.

@@ -171,8 +171,8 @@ TEST_F(ColorCombinations_Test, Monochromatic)
 	auto desaturated_red_1 = new rgb_truecolor(191, 64, 64, 255, srgb);
 	auto desaturated_red_2 = new rgb_truecolor(159, 96, 96, 255, srgb);
 
-	auto deluminated_red_1 = new rgb_truecolor(128, 0, 0);
-	auto deluminated_red_2 = new rgb_truecolor(64, 0, 0);
+	auto deluminated_red_1 = new rgb_truecolor(128, 0, 0, 255, srgb);
+	auto deluminated_red_2 = new rgb_truecolor(64, 0, 0, 255, srgb);
 
 	auto mono_red_1 = new rgb_truecolor(96, 32, 32, 255, srgb);
 	auto mono_red_2 = new rgb_truecolor(40, 24, 24, 255, srgb);

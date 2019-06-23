@@ -16,7 +16,7 @@
 #include "..\spaces\rgb_deepcolor.h"
 #include "..\spaces\rgb_truecolor.h"
 #include "..\spaces\xyz.h"
-#include "..\spaces\reference_white.h"
+#include "..\spaces\rgb_color_space_definition.h"
 
 #include <string>
 #include <algorithm>
@@ -811,7 +811,7 @@ namespace color_manipulation
 
 		//! Static function that converts a xyz color to hsl color space.
 		/*!
-		* The calculation is done by using the following formula (where rw is reference white)
+		* The calculation is done by using the following formula (where rw is tristimulus white)
 		* L = 116 *  xyz_to_lab_helper(y / rw_y) - 16;
 		* a = 500 * (xyz_to_lab_helper(x / rw_x) - xyz_to_lab_helper(y / rw_y))
 		* b = 200 * (xyz_to_lab_helper(y / rw_y) - xyz_to_lab_helper(z / rw_z))
@@ -890,7 +890,7 @@ namespace color_manipulation
 		* y = lab_to_xyz_helper(luminance, true);
 		* x = lab_to_xyz_helper((a / 500) + temp_y
 		* z = lab_to_xyz_helper(temp_y - (b / 200)
-		* Finally all components are multiplied by their corresponding reference white components
+		* Finally all components are multiplied by their corresponding tristimulus white components
 		* \sa lab_to_xyz_helper()
 		* \param in_color The color to convert.
 		* \return The input color converted to xyz color space.

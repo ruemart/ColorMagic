@@ -12,17 +12,17 @@ protected:
 	hsl* white;
 	hsl* test1;
 	hsl* test2;
-	reference_white* d65_2deg;
+	rgb_color_space_definition* srgb;
 
 	virtual void SetUp()
 	{
-		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
-		yellow = new hsl(60.f, 1.f, 0.5f, 1.f, d65_2deg);
-		black = new hsl(0.f, 0.f, 0.f, 1.f, d65_2deg);
-		white = new hsl(0.f, 0.f, 1.f, 1.f, d65_2deg);
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
+		yellow = new hsl(60.f, 1.f, 0.5f, 1.f, srgb);
+		black = new hsl(0.f, 0.f, 0.f, 1.f, srgb);
+		white = new hsl(0.f, 0.f, 1.f, 1.f, srgb);
 
-		test1 = new hsl(-30.f, 1.f, 0.5f, 1.f, d65_2deg);
-		test2 = new hsl(460.f, 1.f, 0.5f, 1.f, d65_2deg);
+		test1 = new hsl(-30.f, 1.f, 0.5f, 1.f, srgb);
+		test2 = new hsl(460.f, 1.f, 0.5f, 1.f, srgb);
 	}
 
 	virtual void TearDown()
@@ -36,13 +36,13 @@ protected:
 TEST_F(HSL_Test, Constructor_Tests)
 {
 	EXPECT_EQ(*yellow, *(new hsl(*yellow)));
-	EXPECT_EQ(*yellow, *(new hsl(60.f, 1.f, 0.5f, 1.f, d65_2deg)));
-	EXPECT_EQ(*white, *(new hsl(0.f, 0.f, 1.f, 1.f, d65_2deg)));
+	EXPECT_EQ(*yellow, *(new hsl(60.f, 1.f, 0.5f, 1.f, srgb)));
+	EXPECT_EQ(*white, *(new hsl(0.f, 0.f, 1.f, 1.f, srgb)));
 }
 
 TEST_F(HSL_Test, Operator_Tests)
 {
-	auto blue = new hsl(240.f, 1.f, 0.5f, 1.f, d65_2deg);
+	auto blue = new hsl(240.f, 1.f, 0.5f, 1.f, srgb);
 	EXPECT_TRUE(*blue != *yellow);
 	blue = yellow;
 	EXPECT_TRUE(*blue == *yellow);

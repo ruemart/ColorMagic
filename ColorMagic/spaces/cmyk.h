@@ -25,9 +25,9 @@ namespace color_space
 		* \param yellow The value that will be set for yellow component.
 		* \param black The value that will be set for black component.
 		* \param black The alpha value for this color.
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		cmyk(float cyan, float magenta, float yellow, float black, float alpha, reference_white* ref_white);
+		cmyk(float cyan, float magenta, float yellow, float black, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!

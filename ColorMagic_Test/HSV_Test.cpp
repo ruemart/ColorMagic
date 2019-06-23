@@ -10,14 +10,14 @@ protected:
 	hsv* yellow;
 	hsv* black;
 	hsv* white;
-	reference_white* d65_2deg;
+	rgb_color_space_definition* srgb;
 
 	virtual void SetUp()
 	{
-		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
-		yellow = new hsv(60.f, 1.f, 1.f, 1.f, d65_2deg);
-		black = new hsv(0.f, 0.f, 0.f, 1.f, d65_2deg);
-		white = new hsv(0.f, 0.f, 1.f, 1.f, d65_2deg);
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
+		yellow = new hsv(60.f, 1.f, 1.f, 1.f, srgb);
+		black = new hsv(0.f, 0.f, 0.f, 1.f, srgb);
+		white = new hsv(0.f, 0.f, 1.f, 1.f, srgb);
 	}
 
 	virtual void TearDown()
@@ -31,13 +31,13 @@ protected:
 TEST_F(HSV_Test, Constructor_Tests)
 {
 	EXPECT_EQ(*yellow, *(new hsv(*yellow)));
-	EXPECT_EQ(*yellow, *(new hsv(60.f, 1.f, 1.f, 1.f, d65_2deg)));
-	EXPECT_EQ(*white, *(new hsv(0.f, 0.f, 1.f, 1.f, d65_2deg)));
+	EXPECT_EQ(*yellow, *(new hsv(60.f, 1.f, 1.f, 1.f, srgb)));
+	EXPECT_EQ(*white, *(new hsv(0.f, 0.f, 1.f, 1.f, srgb)));
 }
 
 TEST_F(HSV_Test, Operator_Tests)
 {
-	auto blue = new hsv(240.f, 1.f, 1.f, 1.f, d65_2deg);
+	auto blue = new hsv(240.f, 1.f, 1.f, 1.f, srgb);
 	EXPECT_TRUE(*blue != *yellow);
 	blue = yellow;
 	EXPECT_TRUE(*blue == *yellow);

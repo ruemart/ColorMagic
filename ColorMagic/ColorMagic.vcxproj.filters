@@ -81,8 +81,14 @@
     <ClInclude Include="manipulation\color_calculation.h">
       <Filter>manipulation</Filter>
     </ClInclude>
-    <ClInclude Include="spaces\reference_white.h">
+    <ClInclude Include="spaces\rgb_color_space_definition.h">
       <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\white_point.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\matrix.h">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -136,9 +142,6 @@
     </ClCompile>
     <ClCompile Include="manipulation\color_calculation.cpp">
       <Filter>manipulation</Filter>
-    </ClCompile>
-    <ClCompile Include="spaces\reference_white.cpp">
-      <Filter>spaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

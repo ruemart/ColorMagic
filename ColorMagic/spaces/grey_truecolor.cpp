@@ -1,19 +1,19 @@
 #include "stdafx.h"
 #include "grey_truecolor.h"
 
-color_space::grey_truecolor::grey_truecolor(float value, float alpha, reference_white* ref_white) : color_base(alpha, ref_white, 1, 255.f, 0.f)
+color_space::grey_truecolor::grey_truecolor(float value, float alpha, rgb_color_space_definition* color_space) : color_base(alpha, color_space, 1, 255.f, 0.f)
 {
 	this->m_type = color_type::GREY_TRUE;
 	this->grey(value);
 }
 
-color_space::grey_truecolor::grey_truecolor(const color_space::grey_truecolor & other) : color_base(other.alpha(), other.get_reference_white(), 1, other.get_component_max(), other.get_component_min())
+color_space::grey_truecolor::grey_truecolor(const color_space::grey_truecolor & other) : color_base(other.alpha(), other.get_rgb_color_space(), 1, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.get_component_vector();
 }
 
-color_space::grey_truecolor::grey_truecolor(const color_base & other) : color_base(other.alpha(), other.get_reference_white(), 1, other.get_component_max(), other.get_component_min())
+color_space::grey_truecolor::grey_truecolor(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 1, other.get_component_max(), other.get_component_min())
 {
 	if (other.get_color_type() == color_type::GREY_TRUE && other.get_component_vector().size() == 2)
 	{

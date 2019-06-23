@@ -11,15 +11,15 @@ protected:
 	grey_deepcolor* black;
 	grey_deepcolor* white;
 	grey_deepcolor* transparent;
-	reference_white* d65_2deg;
+	rgb_color_space_definition* srgb;
 
 	virtual void SetUp()
 	{
-		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
-		grey = new grey_deepcolor(0.5f, 1.f, d65_2deg);
-		black = new grey_deepcolor(0.f, 1.f, d65_2deg);
-		white = new grey_deepcolor(1.f, 1.f, d65_2deg);
-		transparent = new grey_deepcolor(1.f, 0.f, d65_2deg);
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
+		grey = new grey_deepcolor(0.5f, 1.f, srgb);
+		black = new grey_deepcolor(0.f, 1.f, srgb);
+		white = new grey_deepcolor(1.f, 1.f, srgb);
+		transparent = new grey_deepcolor(1.f, 0.f, srgb);
 	}
 
 	virtual void TearDown()
@@ -33,13 +33,13 @@ protected:
 
 TEST_F(Grey_Deep_Test, Constructor_Tests)
 {
-	EXPECT_EQ(*transparent, *(new grey_deepcolor(1.f, 0.f, d65_2deg)));
+	EXPECT_EQ(*transparent, *(new grey_deepcolor(1.f, 0.f, srgb)));
 	EXPECT_EQ(*white, *(new grey_deepcolor(*white)));
 }
 
 TEST_F(Grey_Deep_Test, Operator_Tests)
 {
-	auto dark_grey = new grey_deepcolor(0.2f, 1.f, d65_2deg);
+	auto dark_grey = new grey_deepcolor(0.2f, 1.f, srgb);
 	EXPECT_TRUE(*dark_grey != *white);
 	dark_grey = white;
 	EXPECT_TRUE(*dark_grey == *white);

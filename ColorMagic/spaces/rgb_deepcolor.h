@@ -22,9 +22,9 @@ namespace color_space
 		* Sets a uniform value for each component and an alpha value.
 		* \param value The value that will be set for red, green and blue.
 		* \param alpha The value that will be set for alpha.
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		rgb_deepcolor(float value, float alpha, reference_white* ref_white);
+		rgb_deepcolor(float value, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default constructor.
 		/*!
@@ -33,9 +33,9 @@ namespace color_space
 		* \param g The value that will be set for green.
 		* \param b The value that will be set for blue.
 		* \param a The value that will be set for alpha.
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		rgb_deepcolor(float r, float g, float b, float a, reference_white* ref_white);
+		rgb_deepcolor(float r, float g, float b, float a, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!

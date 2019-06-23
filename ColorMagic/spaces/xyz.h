@@ -24,9 +24,9 @@ namespace color_space
 		* \param y The value that will be set for y component.
 		* \param z The value that will be set for z component.
 		* \param alpha The value that will be set for alpha (default 255).
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		xyz(float x, float y, float z, float alpha, reference_white* ref_white);
+		xyz(float x, float y, float z, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!

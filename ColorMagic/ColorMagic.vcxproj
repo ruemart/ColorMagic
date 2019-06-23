@@ -165,7 +165,8 @@
     <ClInclude Include="spaces\hsv.h" />
     <ClInclude Include="spaces\color_base.h" />
     <ClInclude Include="spaces\lab.h" />
-    <ClInclude Include="spaces\reference_white.h" />
+    <ClInclude Include="spaces\white_point.h" />
+    <ClInclude Include="spaces\rgb_color_space_definition.h" />
     <ClInclude Include="spaces\rgb_deepcolor.h" />
     <ClInclude Include="spaces\rgb_truecolor.h" />
     <ClInclude Include="spaces\xyz.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utils\colors.h" />
     <ClInclude Include="utils\color_type.h" />
+    <ClInclude Include="utils\matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp" />
@@ -188,7 +190,6 @@
     <ClCompile Include="spaces\hsl.cpp" />
     <ClCompile Include="spaces\hsv.cpp" />
     <ClCompile Include="spaces\lab.cpp" />
-    <ClCompile Include="spaces\reference_white.cpp" />
     <ClCompile Include="spaces\rgb_deepcolor.cpp" />
     <ClCompile Include="spaces\rgb_truecolor.cpp" />
     <ClCompile Include="spaces\xyz.cpp" />

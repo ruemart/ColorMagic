@@ -14,9 +14,8 @@ public:
 	/*!
 	* Sets the matrix size (row and column count) to 0.
 	*/
-	matrix()
+	matrix() : m_values(std::vector<std::vector<T>>()), m_rows(0), m_columns(0)
 	{
-		m_values.resize(0);
 	}
 
 	//! Default constructor for rectangular matrices.
@@ -24,10 +23,10 @@ public:
 	* \param rows The number of rows.
 	* \param columns The number of columns.
 	*/
-	matrix(size_t rows, size_t columns) : m_rows(rows), m_columns(columns)
+	matrix(int rows, int columns) : m_rows(rows), m_columns(columns)
 	{
 		m_values.resize(m_rows);
-		for (size_t i = 0; i < m_values.size(); i++)
+		for (int i = 0; i < m_values.size(); i++)
 		{
 			m_values[i].resize(m_columns);
 		}
@@ -39,10 +38,10 @@ public:
 	* \param columns The number of columns.
 	* \param data The data to fill this matrix with.
 	*/
-	matrix(size_t rows, size_t columns, std::vector<T> data) : m_rows(rows), m_columns(columns)
+	matrix(int rows, int columns, std::vector<T> data) : m_rows(rows), m_columns(columns)
 	{
 		m_values.resize(m_rows);
-		for (size_t i = 0; i < m_values.size(); i++)
+		for (int i = 0; i < m_values.size(); i++)
 		{
 			m_values[i].resize(m_columns);
 		}
@@ -55,55 +54,41 @@ public:
 	* \param columns The number of columns.
 	* \param initial_value The default value to fill the matrix with.
 	*/
-	matrix(size_t rows, size_t columns, T initial_value) : m_rows(rows), m_columns(columns)
+	matrix(int rows, int columns, T initial_value) : m_rows(rows), m_columns(columns)
 	{
 		m_values.resize(m_rows);
-		for (size_t i = 0; i < m_values.size(); i++)
+		for (int i = 0; i < m_values.size(); i++)
 		{
 			m_values[i].resize(m_columns, initial_value);
 		}
 	}
 
-	//! Default constructor for quadatic matrices.
+	//! Default constructor for square matrices.
 	/*!
 	* \param size The number of rows and columns.
 	*/
-	matrix(size_t size) : m_rows(size), m_columns(size)
+	matrix(int size) : m_rows(size), m_columns(size)
 	{
 		m_values.resize(size);
-		for (size_t i = 0; i < m_values.size(); i++)
+		for (int i = 0; i < m_values.size(); i++)
 		{
 			m_values[i].resize(size);
 		}
 	}
 
-	//! Default constructor for quadatic matrices.
+	//! Default constructor for square matrices.
 	/*!
 	* \param size The number of rows and columns.
 	* \param data The data to fill this matrix with.
 	*/
-	matrix(size_t size, std::vector<T> data) : m_rows(size), m_columns(size)
+	matrix(int size, std::vector<T> data) : m_rows(size), m_columns(size)
 	{
 		m_values.resize(size);
-		for (size_t i = 0; i < m_values.size(); i++)
+		for (int i = 0; i < m_values.size(); i++)
 		{
 			m_values[i].resize(size);
 		}
 		insert(data);
-	}
-
-	//! Default constructor for quadatic matrices.
-	/*!
-	* \param size The number of rows and columns.
-	* \param initial_value The default value to fill the matrix with.
-	*/
-	matrix(size_t size, T initial_value) : m_rows(size), m_columns(size)
-	{
-		m_values.resize(size);
-		for (size_t i = 0; i < m_values.size(); i++)
-		{
-			m_values[i].resize(size, initial_value);
-		}
 	}
 
 	//! Default copy constructor.
@@ -123,7 +108,7 @@ public:
 	}
 
 	//! Accessment operator
-	T& operator() (size_t row, size_t column)
+	T& operator() (int row, int column)
 	{
 		if (row >= m_rows) throw std::out_of_range(std::string("Matrix: %d is >= row count of matrix.", row));
 		if (column >= m_columns) throw std::out_of_range(std::string("Matrix: %d is >= column count of matrix.", column));
@@ -131,7 +116,7 @@ public:
 	}
 
 	//! Accessment operator
-	const T& operator() (size_t row, size_t column) const
+	const T& operator() (int row, int column) const
 	{
 		if (row >= m_rows) throw std::out_of_range(std::string("Matrix: %d is >= row count of matrix.", row));
 		if (column >= m_columns) throw std::out_of_range(std::string("Matrix: %d is >= column count of matrix.", column));
@@ -143,18 +128,18 @@ public:
 	{
 		if (this == &other) return *this;
 
-		size_t new_rows = other.rows();
-		size_t new_cols = other.columns();
+		int new_rows = other.rows();
+		int new_cols = other.columns();
 
 		m_values.resize(new_rows);
-		for (size_t i = 0; i < m_values.size(); i++)
+		for (int i = 0; i < m_values.size(); i++)
 		{
 			m_values[i].resize(new_cols);
 		}
 
-		for (size_t i = 0; i < new_rows; i++)
+		for (int i = 0; i < new_rows; i++)
 		{
-			for (size_t j = 0; j < new_cols; j++)
+			for (int j = 0; j < new_cols; j++)
 			{
 				m_values[i][j] = other(i, j);
 			}
@@ -182,9 +167,9 @@ public:
 	{
 		matrix result(m_rows, m_columns);
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_columns; j++)
+			for (int j = 0; j < m_columns; j++)
 			{
 				result(i, j) = this->m_values[i][j] + other(i, j);
 			}
@@ -206,9 +191,9 @@ public:
 	{
 		matrix result(m_rows, m_columns);
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_columns; j++)
+			for (int j = 0; j < m_columns; j++)
 			{
 				result(i, j) = this->m_values[i][j] - other(i, j);
 			}
@@ -228,15 +213,15 @@ public:
 	//! Multiply two matrices
 	matrix<T> operator*(const matrix<T>& other)
 	{
-		size_t rows = other.rows();
-		size_t cols = other.columns();
+		int rows = other.rows();
+		int cols = other.columns();
 		matrix result(rows, cols);
 
-		for (size_t i = 0; i < rows; i++)
+		for (int i = 0; i < rows; i++)
 		{
-			for (size_t j = 0; j < cols; j++)
+			for (int j = 0; j < cols; j++)
 			{
-				for (size_t k = 0; k < rows; k++)
+				for (int k = 0; k < rows; k++)
 				{
 					result(i, j) += this->m_values[i][k] * other(k, j);
 				}
@@ -259,9 +244,9 @@ public:
 	{
 		matrix result(m_rows, m_columns);
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_columns; j++)
+			for (int j = 0; j < m_columns; j++)
 			{
 				result(i, j) = this->m_values[i][j] + other;
 			}
@@ -275,9 +260,9 @@ public:
 	{
 		matrix result(m_rows, m_columns);
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_columns; j++)
+			for (int j = 0; j < m_columns; j++)
 			{
 				result(i, j) = this->m_values[i][j] - other;
 			}
@@ -291,9 +276,9 @@ public:
 	{
 		matrix result(m_rows, m_columns);
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_columns; j++)
+			for (int j = 0; j < m_columns; j++)
 			{
 				result(i, j) = this->m_values[i][j] * other;
 			}
@@ -307,9 +292,9 @@ public:
 	{
 		matrix result(m_rows, m_columns);
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_columns; j++)
+			for (int j = 0; j < m_columns; j++)
 			{
 				result(i, j) = this->m_values[i][j] / other;
 			}
@@ -327,9 +312,9 @@ public:
 	{
 		std::vector<T> result(other.size());
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_columns; j++)
+			for (int j = 0; j < m_columns; j++)
 			{
 				result[i] += this->m_values[i][j] * other[j];
 			}
@@ -345,7 +330,7 @@ public:
 	static matrix<T> create_idendity(int rows)
 	{
 		matrix id(rows, rows, 0);
-		for (size_t i = 0; i < id.rows(); ++i)
+		for (int i = 0; i < id.rows(); ++i)
 		{
 			id(i, i) = 1;
 		}
@@ -360,9 +345,9 @@ public:
 	{
 		matrix result(m_rows, m_columns);
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_columns; j++)
+			for (int j = 0; j < m_columns; j++)
 			{
 				result(i, j) = this->m_values[j][i];
 			}
@@ -388,7 +373,7 @@ public:
 
 		// 3. Is one of the rows filled with 0? -> Determinante = 0
 		bool row_is_null = false;
-		for (size_t row = 0; row < m_rows; ++row)
+		for (int row = 0; row < m_rows; ++row)
 		{
 			row_is_null = is_row_null(row);
 			if (row_is_null) break;
@@ -397,7 +382,7 @@ public:
 
 		// 4. Is one of the columns filled with 0? -> Determinante = 0
 		bool col_is_null = false;
-		for (size_t col = 0; col < m_rows; ++col)
+		for (int col = 0; col < m_rows; ++col)
 		{
 			col_is_null = is_column_null(col);
 			if (col_is_null) break;
@@ -406,10 +391,10 @@ public:
 
 		// 5. Are two rows equal? -> Determinante = 0
 		bool rows_equal = false;
-		for (size_t i = 0; i < m_rows; ++i)
+		for (int i = 0; i < m_rows; ++i)
 		{
 			if (rows_equal) break;
-			for (size_t j = i + 1; j < m_rows; ++j)
+			for (int j = i + 1; j < m_rows; ++j)
 			{
 				rows_equal = are_rows_equal(i, j);
 				if (rows_equal) break;
@@ -419,10 +404,10 @@ public:
 
 		// 6. Are two columns equal? -> Determinante = 0
 		bool cols_equal = false;
-		for (size_t i = 0; i < m_rows; ++i)
+		for (int i = 0; i < m_rows; ++i)
 		{
 			if (cols_equal) break;
-			for (size_t j = i + 1; j < m_rows; ++j)
+			for (int j = i + 1; j < m_rows; ++j)
 			{
 				cols_equal = are_columns_equal(i, j);
 				if (cols_equal) break;
@@ -458,9 +443,9 @@ public:
 		int sign = 1;
 		std::vector<std::vector<T>> cofactor_storage;
 
-		for (size_t i = 0; i < m_rows; ++i)
+		for (int i = 0; i < m_rows; ++i)
 		{
-			for (size_t j = 0; j < m_rows; ++j)
+			for (int j = 0; j < m_rows; ++j)
 			{
 				cofactor_storage = get_cofactor(m_values, i, j, m_rows);
 				sign = ((i + j) % 2 == 0) ? 1 : -1;
@@ -483,9 +468,9 @@ public:
 
 		matrix adj = adjoint();
 		matrix inverse(m_rows, m_rows);
-		for (size_t i = 0; i < m_rows; ++i)
+		for (int i = 0; i < m_rows; ++i)
 		{
-			for (size_t j = 0; j < m_rows; ++j)
+			for (int j = 0; j < m_rows; ++j)
 			{
 				inverse(i, j) = adj(i, j) / ((float)det);
 			}
@@ -502,9 +487,9 @@ public:
 	*/
 	matrix<T>& fill(T value)
 	{
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_columns; j++)
+			for (int j = 0; j < m_columns; j++)
 			{
 				m_values[i][j] = value;
 			}
@@ -524,9 +509,9 @@ public:
 	{
 		if (values.size() == this->size())
 		{
-			for (size_t i = 0; i < m_rows; i++)
+			for (int i = 0; i < m_rows; i++)
 			{
-				for (size_t j = 0; j < m_columns; j++)
+				for (int j = 0; j < m_columns; j++)
 				{
 					this->m_values[i][j] = values[i * m_rows + j];
 				}
@@ -547,15 +532,15 @@ public:
 	{
 		// resize the matrix.
 		m_values.resize(new_row_count);
-		for (size_t i = 0; i < new_row_count; ++i)
+		for (int i = 0; i < new_row_count; ++i)
 		{
 			m_values[i].resize(new_col_count);
 		}
 
 		// fill new entries with fill_value
-		for (size_t row = 0; row < new_row_count; ++row)
+		for (int row = 0; row < new_row_count; ++row)
 		{
-			for (size_t col = 0; col < new_col_count; ++col)
+			for (int col = 0; col < new_col_count; ++col)
 			{
 				if (row >= m_rows || col >= m_columns)
 				{
@@ -576,7 +561,7 @@ public:
 	{
 		if (row_index >= m_rows) return false;
 
-		for (size_t i = 0; i < m_columns; ++i)
+		for (int i = 0; i < m_columns; ++i)
 		{
 			if (m_values[row_index][i] != 0) return false;
 		}
@@ -588,7 +573,7 @@ public:
 	{
 		if (col_index >= m_columns) return false;
 
-		for (size_t i = 0; i < m_rows; ++i)
+		for (int i = 0; i < m_rows; ++i)
 		{
 			if (m_values[i][col_index] != 0) return false;
 		}
@@ -600,7 +585,7 @@ public:
 	{
 		if (row1 >= m_rows || row2 >= m_rows) return false;
 
-		for (size_t i = 0; i < m_columns; ++i)
+		for (int i = 0; i < m_columns; ++i)
 		{
 			if (m_values[row1][i] != m_values[row2][i]) return false;
 		}
@@ -612,7 +597,7 @@ public:
 	{
 		if (col1 >= m_columns || col2 >= m_columns) return false;
 
-		for (size_t i = 0; i < m_rows; ++i)
+		for (int i = 0; i < m_rows; ++i)
 		{
 			if (m_values[i][col1] != m_values[i][col2]) return false;
 		}
@@ -620,11 +605,11 @@ public:
 	}
 
 	//! Return the number of rows this matrix has.
-	size_t rows() const { return m_rows; }
+	int rows() const { return m_rows; }
 	//! Return the number of columns this matrix has.
-	size_t columns() const { return m_columns; }
+	int columns() const { return m_columns; }
 	//! Return the number of elements this matrix has.
-	size_t size() const { return m_rows * m_columns; }
+	int size() const { return m_rows * m_columns; }
 	//! Return the values of this matrix as a two dimensional vector.
 	std::vector<std::vector<T>> values() const { return m_values; }
 
@@ -641,7 +626,7 @@ private:
 		std::vector<std::vector<T>> cofactor_storage;
 		int sign = 1;
 
-		for (size_t i = 0; i < n; ++i)
+		for (int i = 0; i < n; ++i)
 		{
 			cofactor_storage = get_cofactor(mat, 0, i, n);
 			determinante += sign * mat[0][i] * calculate_determinante(cofactor_storage, n - 1);
@@ -661,14 +646,14 @@ private:
 
 		std::vector<std::vector<T>> result;
 		result.resize(mat.size());
-		for (size_t i = 0; i < result.size(); ++i)
+		for (int i = 0; i < result.size(); ++i)
 		{
 			result[i].resize(mat[i].size());
 		}
 
-		for (size_t row = 0; row < n; ++row)
+		for (int row = 0; row < n; ++row)
 		{
-			for (size_t col = 0; col < n; ++col)
+			for (int col = 0; col < n; ++col)
 			{
 				if (row != cf_row && col != cf_col)
 				{
@@ -685,7 +670,7 @@ private:
 		return result;
 	}
 
-	size_t m_rows;
-	size_t m_columns;
+	int m_rows;
+	int m_columns;
 	std::vector<std::vector<T>> m_values;
 };

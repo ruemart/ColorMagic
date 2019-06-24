@@ -12,7 +12,7 @@ float color_manipulation::color_distance::euclidean_distance_squared(color_space
 	if (color1_rgb_d == color2_rgb_d) return 0.f; // after conversion to same color space both colors are equal
 
 	float squared_distance = 0.f;
-	for (std::vector<float>::size_type i = 0; i < color1_rgb_d->get_component_vector().size() - 1; ++i) // -1 because alpha gets ignored
+	for (std::vector<float>::size_type i = 0; i < color1_rgb_d->get_component_vector().size(); ++i)
 	{
 		squared_distance += powf(color1_rgb_d->get_component_vector()[i] - color2_rgb_d->get_component_vector()[i], 2.f);
 	}

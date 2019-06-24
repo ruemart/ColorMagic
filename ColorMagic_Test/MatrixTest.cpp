@@ -19,7 +19,7 @@ protected:
 
 TEST_F(Matrix_Test, OperatorTests)
 {
-	matrix<int> matrix_3x3(3, 1);
+	matrix<int> matrix_3x3(3, 3, 1);
 
 	EXPECT_EQ(1, matrix_3x3(1, 1));
 
@@ -43,7 +43,7 @@ TEST_F(Matrix_Test, OperatorTests)
 
 TEST_F(Matrix_Test, AccessorAndFillTests)
 {
-	matrix<int> matrix_3x3(3, 1);
+	matrix<int> matrix_3x3(3, 3, 1);
 
 	EXPECT_EQ(3, matrix_3x3.columns());
 	EXPECT_EQ(3, matrix_3x3.rows());
@@ -77,18 +77,14 @@ TEST_F(Matrix_Test, DeterminanteTests)
 {
 	matrix<int> matrix1(2, 1);
 	matrix<int> matrix2(2, 2, 0);
-	matrix<int> matrix3(4, 4);
 	std::vector<int> data1{ 1, 0, 2, -1, 3, 0, 0, 5, 2, 1, 4, -3, 1, 0, 5, 0 };
-	matrix3.insert(data1);
-	matrix<int> matrix4(6, 6);
+	matrix<int> matrix3(4, 4, data1);
 	std::vector<int> data2{ 4, 3, 2, -5, -2, 3, 0, 4, 2, -1, -3, 2, 2, -4, -4, 1, -2, 0, -4, 3, 2, -2, -1, 0, 3, -2, 1, 4, 3, 1, -2, 3, -3, 2, 0, -5 };
-	matrix4.insert(data2);
-	matrix<int> matrix5(2);
+	matrix<int> matrix4(6, 6, data2);
 	std::vector<int> data3{ 4, 3, 0, 4 };
-	matrix5.insert(data3);
-	matrix<int> matrix6(3);
+	matrix<int> matrix5(2, data3);
 	std::vector<int> data4{ 1, 2, 3, 5, 4, 3, 2, 4, 6 };
-	matrix6.insert(data4);
+	matrix<int> matrix6(3, data4);
 
 	EXPECT_EQ(0, matrix1.determinante());
 	EXPECT_EQ(0, matrix2.determinante());

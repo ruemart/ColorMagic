@@ -16,9 +16,8 @@ namespace color_space
 	{
 	public:
 		//! Default constructor.
-		white_point()
+		white_point() : m_chromaticity_coordinate(std::array<float, 3>()), m_tristimulus(std::array<float, 3>())
 		{
-
 		}
 
 		//! Default constructor.
@@ -318,7 +317,7 @@ namespace color_space
 		/*!
 		* Represents Philips TL83, Ultralume 30 (3000 Kelvin)
 		*/
-		white_point* F12_2Degree() { return new white_point(0.10804f, 1.f, 0.3922f, 0.4369, 0.4044f); }
+		white_point* F12_2Degree() { return new white_point(0.10804f, 1.f, 0.3922f, 0.4369f, 0.4044f); }
 
 
 		//! CIE_D50 tristimulus white (10°)

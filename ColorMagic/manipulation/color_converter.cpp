@@ -468,9 +468,13 @@ color_space::hsl* color_manipulation::color_converter::xyz_to_hsl(color_space::x
 
 color_space::lab* color_manipulation::color_converter::xyz_to_lab(color_space::xyz* color)
 {
-	auto l = 116.f * xyz_to_lab_helper(color->y() / color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() * 100.f) - 16.f;
-	auto a = 500.f * (xyz_to_lab_helper(color->x() / color->get_rgb_color_space()->get_white_point()->get_tristimulus_x() * 100.f) - xyz_to_lab_helper(color->y() / color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() * 100.f));
-	auto b = 200.f * (xyz_to_lab_helper(color->y() / color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() * 100.f) - xyz_to_lab_helper(color->z() / color->get_rgb_color_space()->get_white_point()->get_tristimulus_z() * 100.f));
+	auto func_x = xyz_to_lab_helper(color->x() / color->get_rgb_color_space()->get_white_point()->get_tristimulus_x());
+	auto func_y = xyz_to_lab_helper(color->y() / color->get_rgb_color_space()->get_white_point()->get_tristimulus_y());
+	auto func_z = xyz_to_lab_helper(color->z() / color->get_rgb_color_space()->get_white_point()->get_tristimulus_z());
+
+	auto l = 116.f * func_y - 16.f;
+	auto a = 500.f * (func_x - func_y);
+	auto b = 200.f * (func_y - func_z);
 
 	auto lab = new color_space::lab(l, a, b, 0, color->get_rgb_color_space());
 	lab->alpha(transform_range(color->alpha(), color->get_component_min(), color->get_component_max(), lab->get_component_min(), lab->get_component_max()));
@@ -549,14 +553,7 @@ float color_manipulation::color_converter::hsl_to_rgb_helper(float var1, float v
 
 float color_manipulation::color_converter::xyz_to_lab_helper(float color_component)
 {
-	if (color_component > 216.f / 24389.f)
-	{
-		return N_ROOT(color_component, 3.f);
-	}
-	else
-	{
-		return ((24389.f / 27.f) * color_component + 16.f) / 116.f;
-	}
+	return color_component > (216.f / 24389.f) ? N_ROOT(color_component, 3.f) : ((24389.f / 27.f) * color_component + 16.f) / 116.f;
 }
 
 float color_manipulation::color_converter::lab_to_xyz_helper(float color_component, bool out_y_component)

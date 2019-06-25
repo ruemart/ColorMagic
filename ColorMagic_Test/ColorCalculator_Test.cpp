@@ -176,7 +176,7 @@ TEST_F(ColorCalculator_Test, HSV_Add)
 	auto hsv_blue = new hsv(240.f, 1.f, 1.f, 1.f, srgb);
 	auto hsv_pink = new hsv(300.f, 1.f, 1.f, 1.f, srgb);
 	auto hsv_rose = new hsv(300.f, 0.5f, 1.f, 1.f, srgb);
-	auto hsv_purple = new hsv(253.f, 0.9f, 1.f, 1.f, srgb);
+	auto hsv_purple = new hsv(253.9f, 0.9f, 1.f, 1.f, srgb);
 
 	auto red_red_sum = color_manipulation::color_calculation::add(hsv_red, hsv_red);
 	EXPECT_NEAR(hsv_red->hue(), red_red_sum->hue(), avg_error);
@@ -205,7 +205,7 @@ TEST_F(ColorCalculator_Test, HSL_Add)
 	auto hsv_blue = new hsl(240.f, 1.f, 0.5f, 1.f, srgb);
 	auto hsv_pink = new hsl(300.f, 1.f, 0.5f, 1.f, srgb);
 	auto hsv_rose = new hsl(300.f, 1.f, 0.75f, 1.f, srgb);
-	auto hsv_purple = new hsl(253.f, 1.f, 0.55f, 1.f, srgb);
+	auto hsv_purple = new hsl(253.9f, 1.f, 0.55f, 1.f, srgb);
 
 	auto red_red_sum = color_manipulation::color_calculation::add(hsv_red, hsv_red);
 	EXPECT_NEAR(hsv_red->hue(), red_red_sum->hue(), avg_error);
@@ -420,7 +420,7 @@ TEST_F(ColorCalculator_Test, HSV_Subtract)
 	EXPECT_NEAR(0.5f, pink_blue_sub2->value(), avg_error);
 
 	auto pink_blue_sub3 = color_manipulation::color_calculation::subtract(hsv_pink, hsv_blue, 0.25f);
-	EXPECT_NEAR(313.f, pink_blue_sub3->hue(), avg_error);
+	EXPECT_NEAR(313.9f, pink_blue_sub3->hue(), avg_error);
 	EXPECT_NEAR(0.9f, pink_blue_sub3->saturation(), avg_error);
 	EXPECT_NEAR(0.75f, pink_blue_sub3->value(), avg_error);
 }
@@ -447,7 +447,7 @@ TEST_F(ColorCalculator_Test, HSL_Subtract)
 	EXPECT_NEAR(0.28f, pink_blue_sub2->lightness(), avg_error);
 
 	auto pink_blue_sub3 = color_manipulation::color_calculation::subtract(hsl_pink, hsl_blue, 0.25f);
-	EXPECT_NEAR(313.f, pink_blue_sub3->hue(), avg_error);
+	EXPECT_NEAR(313.9f, pink_blue_sub3->hue(), avg_error);
 	EXPECT_NEAR(0.82f, pink_blue_sub3->saturation(), avg_error);
 	EXPECT_NEAR(0.41f, pink_blue_sub3->lightness(), avg_error);
 }
@@ -562,10 +562,10 @@ TEST_F(ColorCalculator_Test, HSV_Average)
 	colors.push_back(new hsv(240.f, 1.f, 1.f, 1.f, srgb));
 	colors.push_back(new hsv(300.f, 1.f, 1.f, 1.f, srgb));
 	colors.push_back(new hsv(300.f, 0.5f, 1.f, 1.f, srgb));
-	colors.push_back(new hsv(253.f, 0.9f, 1.f, 1.f, srgb));
+	colors.push_back(new hsv(253.9f, 0.9f, 1.f, 1.f, srgb));
 
 	auto avg = color_manipulation::color_calculation::average_hsv(colors);
-	ASSERT_NEAR(218.f, avg->hue(), avg_error);
+	ASSERT_NEAR(218.8f, avg->hue(), avg_error);
 	ASSERT_NEAR(0.88f, avg->saturation(), avg_error);
 	ASSERT_NEAR(1.f, avg->value(), avg_error);
 }
@@ -577,10 +577,10 @@ TEST_F(ColorCalculator_Test, HSL_Average)
 	colors.push_back(new hsl(240.f, 1.f, 0.5f, 1.f, srgb));
 	colors.push_back(new hsl(300.f, 1.f, 0.5f, 1.f, srgb));
 	colors.push_back(new hsl(300.f, 0.5f, 0.5f, 1.f, srgb));
-	colors.push_back(new hsl(253.f, 0.9f, 0.5f, 1.f, srgb));
+	colors.push_back(new hsl(253.9f, 0.9f, 0.5f, 1.f, srgb));
 
 	auto avg = color_manipulation::color_calculation::average_hsl(colors);
-	ASSERT_NEAR(218.f, avg->hue(), avg_error);
+	ASSERT_NEAR(218.8f, avg->hue(), avg_error);
 	ASSERT_NEAR(0.88f, avg->saturation(), avg_error);
 	ASSERT_NEAR(0.5f, avg->lightness(), avg_error);
 }

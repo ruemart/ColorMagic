@@ -35,8 +35,8 @@ protected:
 		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, 1.f, srgb);
 		hsv_yellow = new hsv(60.f, 1.f, 1.f, 1.f, srgb);
 		hsl_yellow = new hsl(60.f, 1.f, 0.5f, 1.f, srgb);
-		xyz_yellow = new xyz(0.77f, 0.9278f, 0.1385f, 100.f, srgb);
-		lab_yellow = new lab(97.14f, -21.56f, 94.48f, 128.f, srgb);
+		xyz_yellow = new xyz(0.77f, 0.9278f, 0.1385f, 1.f, srgb);
+		lab_yellow = new lab(97.14f, -21.56f, 94.48f, 1.f, srgb);
 		grey_d = new grey_deepcolor(0.6666f, 1.f, srgb);
 		grey_t = new grey_truecolor(170.f, 255.f, srgb);
 		rgb_d_yellow = new rgb_deepcolor(1.f, 1.f, 0.f, 1.f, srgb);

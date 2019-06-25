@@ -16,6 +16,7 @@
 #include "..\spaces\rgb_deepcolor.h"
 #include "..\spaces\rgb_truecolor.h"
 #include "..\spaces\xyz.h"
+#include "..\spaces\xyy.h"
 #include "..\spaces\rgb_color_space_definition.h"
 
 #include <string>
@@ -111,6 +112,15 @@ namespace color_manipulation
 		*/
 		static color_space::color_base* from_xyz(color_space::xyz* in_color, color_type out_type);
 
+		//! Static function that converts an xyY color to an arbitrary color space.
+		/*!
+		* Wrapper function that calls the correct converter function depending on the output color type.
+		* \param in_color The color to convert.
+		* \param out_color The desired color space of the output color.
+		* \return The converted input color.
+		*/
+		static color_space::color_base* from_xyy(color_space::xyy* in_color, color_type out_type);
+
 		//! Static function that converts an lab color to an arbitrary color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the output color type.
@@ -184,6 +194,14 @@ namespace color_manipulation
 		*/
 		static color_space::xyz* to_xyz(color_space::color_base* in_color);
 
+		//! Static function that converts an arbitrary color to xyY color space.
+		/*!
+		* Wrapper function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* to_xyy(color_space::color_base* in_color);
+
 		//! Static function that converts an arbitrary color to lab color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
@@ -193,6 +211,9 @@ namespace color_manipulation
 		static color_space::lab* to_lab(color_space::color_base* in_color);
 
 	protected:
+
+#pragma region RGB_TRUE CONVERTER FUNCTIONS
+
 		//! Static function that converts a rgb true color to rgb deep color space.
 		/*!
 		* Divides each component by 255.
@@ -254,6 +275,15 @@ namespace color_manipulation
 		*/
 		static color_space::xyz* rgb_true_to_xyz(color_space::rgb_truecolor* color);
 
+		//! Static function that converts a rgb true color to xyY color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to xyY.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyz color space.
+		*/
+		static color_space::xyy* rgb_true_to_xyy(color_space::rgb_truecolor* color);
+
 		//! Static function that converts a rgb true color to lab color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -263,7 +293,10 @@ namespace color_manipulation
 		*/
 		static color_space::lab* rgb_true_to_lab(color_space::rgb_truecolor* color);
 
+#pragma endregion
 
+#pragma region RGB_DEEP CONVERTER FUNCTIONS
+		
 		//! Static function that converts a rgb deep color to rgb true color space.
 		/*!
 		* Multiplies each component by 255.
@@ -323,15 +356,19 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb deep color to xyz color space.
 		/*!
-		* The resulting components are calculated by the following formulas:
-		* x = red * 0.4124564 + green * 0.3575761 + blue * 0.1804375
-		* y = red * 0.2126729 + green * 0.7151522 + blue * 0.0721750
-		* z = red * 0.0193339 + green * 0.1191920 + blue * 0.9503041
-		* Finally all components are multiplied by 100.
+		* Static function that converts a rgb deep color to xyz color space.
 		* \param in_color The color to convert.
 		* \return The input color converted to xyz color space.
 		*/
 		static color_space::xyz* rgb_deep_to_xyz(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to xyY color space.
+		/*!
+		* Static function that converts a rgb deep color to xyY color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* rgb_deep_to_xyy(color_space::rgb_deepcolor* color);
 
 		//! Static function that converts a rgb deep color to lab color space.
 		/*!
@@ -341,7 +378,7 @@ namespace color_manipulation
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* rgb_deep_to_lab(color_space::rgb_deepcolor* color);
-
+			   		
 		//! Static function that converts a rgb deep color to srgb.
 		/*!
 		* Depending on the value of each component it is divided by 12.92 (if smaller than 0.04045)
@@ -362,7 +399,10 @@ namespace color_manipulation
 		*/
 		static color_space::rgb_deepcolor* linear_srgb_deep_to_rgb_deep(color_space::rgb_deepcolor* color);
 
+#pragma endregion
 
+#pragma region GREY_TRUE CONVERTER FUNCTIONS
+		
 		//! Static function that converts a grey true color to rgb true color space.
 		/*!
 		* Sets the grey colors value as the red, green and blue components.
@@ -424,6 +464,15 @@ namespace color_manipulation
 		*/
 		static color_space::xyz* grey_true_to_xyz(color_space::grey_truecolor* color);
 
+		//! Static function that converts a grey true color to xyY color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to xyY.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* grey_true_to_xyy(color_space::grey_truecolor* color);
+
 		//! Static function that converts a grey true color to lab color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -433,7 +482,10 @@ namespace color_manipulation
 		*/
 		static color_space::lab* grey_true_to_lab(color_space::grey_truecolor* color);
 
+#pragma endregion
 
+#pragma region GREY_DEEP CONVERTER FUNCTIONS
+		
 		//! Static function that converts a grey deep color to rgb true color space.
 		/*!
 		* Multiplies value and alpha by 255 and sets value as red, green and blue components.
@@ -494,6 +546,15 @@ namespace color_manipulation
 		*/
 		static color_space::xyz* grey_deep_to_xyz(color_space::grey_deepcolor* color);
 
+		//! Static function that converts a grey deep color to xyY color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to xyY.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* grey_deep_to_xyy(color_space::grey_deepcolor* color);
+
 		//! Static function that converts a grey deep color to lab color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -502,6 +563,10 @@ namespace color_manipulation
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* grey_deep_to_lab(color_space::grey_deepcolor* color);
+
+#pragma endregion
+
+#pragma region CMYK CONVERTER FUNCTIONS
 
 		//! Static function that converts a cmyk color to rgb true color space.
 		/*!
@@ -568,6 +633,15 @@ namespace color_manipulation
 		*/
 		static color_space::xyz* cmyk_to_xyz(color_space::cmyk* color);
 
+		//! Static function that converts a cmyk color to xyY color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to xyY.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* cmyk_to_xyy(color_space::cmyk* color);
+
 		//! Static function that converts a cmyk color to lab color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -577,7 +651,10 @@ namespace color_manipulation
 		*/
 		static color_space::lab* cmyk_to_lab(color_space::cmyk* color);
 
+#pragma endregion
 
+#pragma region HSV CONVERTER FUNCTIONS
+				
 		//! Static function that converts a hsv color to rgb true color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -645,6 +722,15 @@ namespace color_manipulation
 		*/
 		static color_space::xyz* hsv_to_xyz(color_space::hsv* color);
 
+		//! Static function that converts a hsv color to xyY color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to xyY.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* hsv_to_xyy(color_space::hsv* color);
+
 		//! Static function that converts a hsv color to lab color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -653,6 +739,10 @@ namespace color_manipulation
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* hsv_to_lab(color_space::hsv* color);
+
+#pragma endregion
+
+#pragma region HSL CONVERTER FUNCTIONS
 
 		//! Static function that converts a hsl color to rgb true color space.
 		/*!
@@ -729,6 +819,15 @@ namespace color_manipulation
 		*/
 		static color_space::xyz* hsl_to_xyz(color_space::hsl* color);
 
+		//! Static function that converts a hsl color to xyY color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to xyY.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* hsl_to_xyy(color_space::hsl* color);
+
 		//! Static function that converts a hsl color to lab color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -737,6 +836,10 @@ namespace color_manipulation
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* hsl_to_lab(color_space::hsl* color);
+
+#pragma endregion
+
+#pragma region XYZ CONVERTER FUNCTIONS
 
 		//! Static function that converts a xyz color to rgb true color space.
 		/*!
@@ -809,6 +912,14 @@ namespace color_manipulation
 		*/
 		static color_space::hsl* xyz_to_hsl(color_space::xyz* color);
 
+		//! Static function that converts a xyz color to xyY color space.
+		/*!
+		* Static function that converts a xyz color to xyY color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* xyz_to_xyy(color_space::xyz* color);
+
 		//! Static function that converts a xyz color to hsl color space.
 		/*!
 		* The calculation is done by using the following formula (where rw is tristimulus white)
@@ -820,6 +931,94 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::lab* xyz_to_lab(color_space::xyz* color);
+
+#pragma endregion
+
+#pragma region XYY CONVERTER FUNCTIONS
+
+		//! Static function that converts a xyY color to rgb true color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to rgb true.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
+		static color_space::rgb_truecolor* xyy_to_rgb_true(color_space::xyy* color);
+
+		//! Static function that converts a xyY color to rgb deep color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to rgb deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb deep color space.
+		*/
+		static color_space::rgb_deepcolor* xyy_to_rgb_deep(color_space::xyy* color);
+
+		//! Static function that converts a xyY color to grey true color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to grey true.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey true color space.
+		*/
+		static color_space::grey_truecolor* xyy_to_grey_true(color_space::xyy* color);
+
+		//! Static function that converts a xyY color to grey deep color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to grey deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey deep color space.
+		*/
+		static color_space::grey_deepcolor* xyy_to_grey_deep(color_space::xyy* color);
+
+		//! Static function that converts a xyY color to cmyk color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to cmyk.
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
+		static color_space::cmyk* xyy_to_cmyk(color_space::xyy* color);
+
+		//! Static function that converts a xyY color to hsv color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hsv.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsv color space.
+		*/
+		static color_space::hsv* xyy_to_hsv(color_space::xyy* color);
+
+		//! Static function that converts a xyY color to hsl color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hsl.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
+		static color_space::hsl* xyy_to_hsl(color_space::xyy* color);
+
+		//! Static function that converts a xyY color to xyz color space.
+		/*!
+		* Static function that converts a xyY color to xyz color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyz* xyy_to_xyz(color_space::xyy* color);
+
+		//! Static function that converts a xyY color to lab color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to lab.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
+		static color_space::lab* xyy_to_lab(color_space::xyy* color);
+
+#pragma endregion
+
+#pragma region LAB CONVERTER FUNCTIONS
 
 		//! Static function that converts a lab color to rgb true color space.
 		/*!
@@ -896,6 +1095,17 @@ namespace color_manipulation
 		* \return The input color converted to xyz color space.
 		*/
 		static color_space::xyz* lab_to_xyz(color_space::lab* color);
+
+		//! Static function that converts a lab color to xyY color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to xyY.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyz color space.
+		*/
+		static color_space::xyy* lab_to_xyy(color_space::lab* color);
+
+#pragma endregion
 
 	private:
 		//! Static function that helps to convert from hsl to rgb

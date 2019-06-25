@@ -14,6 +14,7 @@ color_space::cmyk::cmyk(const color_space::cmyk & other) : color_base(other.alph
 {
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.get_component_vector();
+	this->alpha(other.alpha());
 }
 
 color_space::cmyk::cmyk(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 4, other.get_component_max(), other.get_component_min())

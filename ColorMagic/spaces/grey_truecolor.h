@@ -56,6 +56,16 @@ namespace color_space
 		//! \param new_grey The grey value to set.
 		void grey(float new_grey);
 
+		//! Returns the currently set alpha.
+		/*! Returns the currently set alpha.
+		*/
+		float alpha() const override;
+
+		//! Sets a new alpha value (0-1).
+		/*! Sets a new alpha value (0-1).
+		*/
+		void alpha(float new_alpha) override;
+
 	private:
 
 	};

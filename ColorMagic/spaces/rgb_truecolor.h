@@ -99,6 +99,16 @@ namespace color_space
 		//! \param new_blue The blue value to set.
 		void blue(float new_blue);
 
+		//! Returns the currently set alpha.
+		/*! Returns the currently set alpha.
+		*/
+		float alpha() const override;
+
+		//! Sets a new alpha value (0-1).
+		/*! Sets a new alpha value (0-1).
+		*/
+		void alpha(float new_alpha) override;
+
 	private:
 
 	};

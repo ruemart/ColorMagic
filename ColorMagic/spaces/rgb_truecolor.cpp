@@ -7,6 +7,7 @@ color_space::rgb_truecolor::rgb_truecolor(float value, float alpha, rgb_color_sp
 	this->red(value);
 	this->green(value);
 	this->blue(value);
+	this->alpha(alpha);
 }
 
 color_space::rgb_truecolor::rgb_truecolor(float r, float g, float b, float alpha, rgb_color_space_definition* color_space) : color_base(alpha, color_space, 3, 255.f, 0.f)
@@ -15,6 +16,7 @@ color_space::rgb_truecolor::rgb_truecolor(float r, float g, float b, float alpha
 	this->red(r);
 	this->green(g);
 	this->blue(b);
+	this->alpha(alpha);
 }
 
 color_space::rgb_truecolor::rgb_truecolor(std::string hex_code, rgb_color_space_definition* color_space) : color_base(0, color_space, 3, 255.f, 0.f)
@@ -70,6 +72,7 @@ color_space::rgb_truecolor::rgb_truecolor(const color_space::rgb_truecolor & oth
 {
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.get_component_vector();
+	this->alpha(other.alpha());
 }
 
 color_space::rgb_truecolor::rgb_truecolor(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 3, other.get_component_max(), other.get_component_min())
@@ -125,4 +128,14 @@ float color_space::rgb_truecolor::blue()
 void color_space::rgb_truecolor::blue(float new_blue)
 {
 	set_component(new_blue, 2);
+}
+
+float color_space::rgb_truecolor::alpha() const
+{
+	return color_base::alpha() * 255.f;
+}
+
+void color_space::rgb_truecolor::alpha(float new_alpha)
+{
+	color_base::alpha(new_alpha / 255.f);
 }

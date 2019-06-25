@@ -11,6 +11,7 @@ color_space::grey_deepcolor::grey_deepcolor(const color_space::grey_deepcolor & 
 {
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.get_component_vector();
+	this->alpha(other.alpha());
 }
 
 color_space::grey_deepcolor::grey_deepcolor(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 1, other.get_component_max(), other.get_component_min())

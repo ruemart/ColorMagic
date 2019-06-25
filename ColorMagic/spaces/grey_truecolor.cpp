@@ -5,12 +5,14 @@ color_space::grey_truecolor::grey_truecolor(float value, float alpha, rgb_color_
 {
 	this->m_type = color_type::GREY_TRUE;
 	this->grey(value);
+	this->alpha(alpha);
 }
 
 color_space::grey_truecolor::grey_truecolor(const color_space::grey_truecolor & other) : color_base(other.alpha(), other.get_rgb_color_space(), 1, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.get_component_vector();
+	this->alpha(other.alpha());
 }
 
 color_space::grey_truecolor::grey_truecolor(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 1, other.get_component_max(), other.get_component_min())
@@ -46,4 +48,14 @@ float color_space::grey_truecolor::grey()
 void color_space::grey_truecolor::grey(float new_grey)
 {
 	set_component(new_grey, 0);
+}
+
+float color_space::grey_truecolor::alpha() const
+{
+	return color_base::alpha() * 255.f;
+}
+
+void color_space::grey_truecolor::alpha(float new_alpha)
+{
+	color_base::alpha(new_alpha / 255.f);
 }

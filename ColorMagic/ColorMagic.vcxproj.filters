@@ -90,6 +90,9 @@
     <ClInclude Include="utils\matrix.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="spaces\xyy.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -142,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="manipulation\color_calculation.cpp">
       <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\xyy.cpp">
+      <Filter>spaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

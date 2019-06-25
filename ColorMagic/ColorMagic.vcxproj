@@ -169,6 +169,7 @@
     <ClInclude Include="spaces\rgb_color_space_definition.h" />
     <ClInclude Include="spaces\rgb_deepcolor.h" />
     <ClInclude Include="spaces\rgb_truecolor.h" />
+    <ClInclude Include="spaces\xyy.h" />
     <ClInclude Include="spaces\xyz.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="spaces\lab.cpp" />
     <ClCompile Include="spaces\rgb_deepcolor.cpp" />
     <ClCompile Include="spaces\rgb_truecolor.cpp" />
+    <ClCompile Include="spaces\xyy.cpp" />
     <ClCompile Include="spaces\xyz.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

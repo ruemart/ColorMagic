@@ -42,8 +42,8 @@ protected:
 		hsl_yellow = new hsl(60.f, 1.f, 0.5f, 1.f, srgb);
 		hsl_red = new hsl(0.f, 1.f, 0.5f, 1.f, srgb);
 
-		xyz_yellow = new xyz(77.f, 92.78f, 13.85f, 100.f, srgb);
-		xyz_red = new xyz(41.24f, 21.26f, 1.93f, 100.f, srgb);
+		xyz_yellow = new xyz(0.77f, 0.9278f, 0.1385f, 100.f, srgb);
+		xyz_red = new xyz(0.4124f, 0.2126f, 0.0193f, 100.f, srgb);
 
 		lab_yellow = new lab(97.14f, -21.56f, 94.48f, 128.f, srgb);
 		lab_red = new lab(53.23f, 80.11f, 67.22f, 128.f, srgb);

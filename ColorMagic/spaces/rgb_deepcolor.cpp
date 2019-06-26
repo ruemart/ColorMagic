@@ -21,6 +21,7 @@ color_space::rgb_deepcolor::rgb_deepcolor(const color_space::rgb_deepcolor & oth
 {
 	this->m_type = other.get_color_type();
 	this->m_component_vector = other.get_component_vector();
+	this->alpha(other.alpha());
 }
 
 color_space::rgb_deepcolor::rgb_deepcolor(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 3, other.get_component_max(), other.get_component_min())

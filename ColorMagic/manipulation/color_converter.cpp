@@ -433,8 +433,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::xyz_to_rgb_deep
 {
 	auto rgb_components = color->get_rgb_color_space()->get_inverse_transform_matrix() * color->get_component_vector();
 
-	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new color_space::rgb_deepcolor(rgb_components[0], rgb_components[1], rgb_components[2], 0, color->get_rgb_color_space()));
-	rgb_deep->alpha(transform_range(color->alpha(), color->get_component_min(), color->get_component_max(), rgb_deep->get_component_min(), rgb_deep->get_component_max()));
+	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new color_space::rgb_deepcolor(rgb_components[0], rgb_components[1], rgb_components[2], color->alpha(), color->get_rgb_color_space()));
 	rgb_deep->red(round_float_to_n_decimals(clamp_float(rgb_deep->red(), 0.f, 1.f), 1));
 	rgb_deep->green(round_float_to_n_decimals(clamp_float(rgb_deep->green(), 0.f, 1.f), 1));
 	rgb_deep->blue(round_float_to_n_decimals(clamp_float(rgb_deep->blue(), 0.f, 1.f), 1));
@@ -477,7 +476,7 @@ color_space::lab* color_manipulation::color_converter::xyz_to_lab(color_space::x
 	auto b = 200.f * (func_y - func_z);
 
 	auto lab = new color_space::lab(l, a, b, 0, color->get_rgb_color_space());
-	lab->alpha(transform_range(color->alpha(), color->get_component_min(), color->get_component_max(), lab->get_component_min(), lab->get_component_max()));
+	lab->alpha(color->alpha());
 	return lab;
 }
 
@@ -524,7 +523,7 @@ color_space::xyz* color_manipulation::color_converter::lab_to_xyz(color_space::l
 	auto z_temp = lab_to_xyz_helper(f_y - (color->b() / 200.f));
 
 	auto xyz = new color_space::xyz(x_temp * color->get_rgb_color_space()->get_white_point()->get_tristimulus_x(), y_temp * color->get_rgb_color_space()->get_white_point()->get_tristimulus_y(), z_temp * color->get_rgb_color_space()->get_white_point()->get_tristimulus_z(), 0.f, color->get_rgb_color_space());
-	xyz->alpha(transform_range(color->alpha(), color->get_component_min(), color->get_component_max(), xyz->get_component_min(), xyz->get_component_max()));
+	xyz->alpha(color->alpha());
 	return xyz;
 }
 

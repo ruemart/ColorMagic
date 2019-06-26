@@ -47,7 +47,7 @@ namespace color_space
 		/*!
 		* Default destructor.
 		*/
-		virtual ~color_base() 
+		virtual ~color_base()
 		{
 			m_component_vector.clear();
 		}
@@ -91,10 +91,10 @@ namespace color_space
 		*/
 		virtual float alpha() const { return m_alpha; }
 
-		//! Sets a new alpha value.
-		/*! Sets a new alpha value.
+		//! Sets a new alpha value (0-1).
+		/*! Sets a new alpha value (0-1).
 		*/
-		virtual void alpha(float new_alpha) { m_alpha = new_alpha; }
+		virtual void alpha(float new_alpha) { m_alpha = clamp(new_alpha, m_a_max, m_a_min); }
 
 		//! Equality operator overload.
 		/*!
@@ -197,6 +197,18 @@ namespace color_space
 		* Alpha value of the color.
 		*/
 		float m_alpha;
+
+		//! Maximum value (inclusive) alpha can have.
+		/*!
+		* Maximum value (inclusive) alpha can have.
+		*/
+		float m_a_max = 1.f;
+
+		//! Minimum value (inclusive) alpha can have.
+		/*!
+		* Minimum value (inclusive) alpha can have.
+		*/
+		float m_a_min = 0.f;
 
 		//! Maximum value (inclusive) each component can have.
 		/*!

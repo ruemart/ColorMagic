@@ -10,14 +10,14 @@ protected:
 	rgb_deepcolor* red;
 	rgb_deepcolor* yellow;
 	rgb_deepcolor* white;
-	reference_white* d65_2deg;
+	rgb_color_space_definition* srgb;
 
 	virtual void SetUp()
 	{
-		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
-		red = new rgb_deepcolor(1.f, 0.f, 0.f, 1.f, d65_2deg);
-		yellow = new rgb_deepcolor(1.f, 1.f, 0.f, 1.f, d65_2deg);
-		white = new rgb_deepcolor(1.f, 1.f, 1.f, 1.f, d65_2deg);
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
+		red = new rgb_deepcolor(1.f, 0.f, 0.f, 1.f, srgb);
+		yellow = new rgb_deepcolor(1.f, 1.f, 0.f, 1.f, srgb);
+		white = new rgb_deepcolor(1.f, 1.f, 1.f, 1.f, srgb);
 	}
 
 	virtual void TearDown()
@@ -30,13 +30,13 @@ protected:
 
 TEST_F(RGB_Deep_Test, Constructor_Tests)
 {
-	EXPECT_EQ(*yellow, *(new rgb_deepcolor(1.f, 1.f, 0.f, 1.f, d65_2deg)));
+	EXPECT_EQ(*yellow, *(new rgb_deepcolor(1.f, 1.f, 0.f, 1.f, srgb)));
 	EXPECT_EQ(*yellow, *(new rgb_deepcolor(*yellow)));
 }
 
 TEST_F(RGB_Deep_Test, Operator_Tests)
 {
-	auto blue = new rgb_deepcolor(0.f, 0.f, 1.f, 1.f, d65_2deg);
+	auto blue = new rgb_deepcolor(0.f, 0.f, 1.f, 1.f, srgb);
 	EXPECT_TRUE(*blue != *red);
 	blue = red;
 	EXPECT_TRUE(*blue == *red);

@@ -10,14 +10,14 @@ protected:
 	cmyk* red;
 	cmyk* yellow;
 	cmyk* white;
-	reference_white* d65_2deg;
+	rgb_color_space_definition* srgb;
 
 	virtual void SetUp()
 	{
-		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
-		red = new cmyk(0.15f, 1.f, 0.9f, 0.1f, 1.f, d65_2deg);
-		yellow = new cmyk(0.05f, 0.f, 0.9f, 0.f, 1.f, d65_2deg);
-		white = new cmyk(0.f, 0.f, 0.f, 0.f, 1.f, d65_2deg);
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
+		red = new cmyk(0.15f, 1.f, 0.9f, 0.1f, 1.f, srgb);
+		yellow = new cmyk(0.05f, 0.f, 0.9f, 0.f, 1.f, srgb);
+		white = new cmyk(0.f, 0.f, 0.f, 0.f, 1.f, srgb);
 	}
 
 	virtual void TearDown()
@@ -31,12 +31,12 @@ protected:
 TEST_F(CMYK_Test, Constructor_Tests)
 {
 	EXPECT_EQ(*yellow, *(new cmyk(*yellow)));
-	EXPECT_EQ(*yellow, *(new cmyk(0.05f, 0.f, 0.9f, 0.f, 1.f, d65_2deg)));
+	EXPECT_EQ(*yellow, *(new cmyk(0.05f, 0.f, 0.9f, 0.f, 1.f, srgb)));
 }
 
 TEST_F(CMYK_Test, Operator_Tests)
 {
-	auto blue = new cmyk(1.f, 0.33f, 0.f, 0.f, 1.f, d65_2deg);
+	auto blue = new cmyk(1.f, 0.33f, 0.f, 0.f, 1.f, srgb);
 	EXPECT_TRUE(*blue != *red);
 	blue = red;
 	EXPECT_TRUE(*blue == *red);

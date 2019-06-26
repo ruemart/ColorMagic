@@ -24,9 +24,9 @@ namespace color_space
 		* \param a The value that will be set for a component (default 0).
 		* \param b The value that will be set for b component (default 0).
 		* \param alpha The value that will be set for alpha.
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		lab(float luminance, float a, float b, float alpha, reference_white* ref_white);
+		lab(float luminance, float a, float b, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!

@@ -11,12 +11,12 @@ protected:
 	float avg_error = 0.05f;
 
 	rgb_truecolor *rgb_t_red;
-	reference_white* d65_2deg;
+	rgb_color_space_definition* srgb;
 
 	virtual void SetUp()
 	{
-		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
-		rgb_t_red = new rgb_truecolor(255, 0, 0, 255, d65_2deg);
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
+		rgb_t_red = new rgb_truecolor(255, 0, 0, 255, srgb);
 	}
 
 	virtual void TearDown()
@@ -27,10 +27,10 @@ protected:
 
 TEST_F(ColorAdjustments_Test, SaturateRGB)
 {
-	auto minus100 = rgb_truecolor(76, 76, 76, 255, d65_2deg);
-	auto plus50 = rgb_truecolor(211, 19, 19, 255, d65_2deg);
-	auto minus50 = rgb_truecolor(166, 38, 38, 255, d65_2deg);
-	auto zero = rgb_truecolor(255, 0, 0, 255, d65_2deg);
+	auto minus100 = rgb_truecolor(76, 76, 76, 255, srgb);
+	auto plus50 = rgb_truecolor(211, 19, 19, 255, srgb);
+	auto minus50 = rgb_truecolor(166, 38, 38, 255, srgb);
+	auto zero = rgb_truecolor(255, 0, 0, 255, srgb);
 
 	auto minus100_calc = *(dynamic_cast<rgb_truecolor*>(color_manipulation::color_adjustments::saturate_in_rgb_space(rgb_t_red, -1.f)));
 	EXPECT_NEAR(minus100.red(), minus100_calc.red(), avg_error);
@@ -55,10 +55,10 @@ TEST_F(ColorAdjustments_Test, SaturateRGB)
 
 TEST_F(ColorAdjustments_Test, SaturateHSL)
 {
-	auto minus100 = rgb_truecolor(128, 128, 128, 255, d65_2deg);
-	auto plus50 = rgb_truecolor(223, 32, 32, 255, d65_2deg);
-	auto minus50 = rgb_truecolor(191, 64, 64, 255, d65_2deg);
-	auto zero = rgb_truecolor(255, 0, 0, 255, d65_2deg);
+	auto minus100 = rgb_truecolor(128, 128, 128, 255, srgb);
+	auto plus50 = rgb_truecolor(223, 32, 32, 255, srgb);
+	auto minus50 = rgb_truecolor(191, 64, 64, 255, srgb);
+	auto zero = rgb_truecolor(255, 0, 0, 255, srgb);
 
 	auto minus100_calc = *(dynamic_cast<rgb_truecolor*>(color_manipulation::color_adjustments::saturate_in_hsl_space(rgb_t_red, -1.f)));
 	EXPECT_NEAR(minus100.red(), minus100_calc.red(), avg_error);
@@ -83,10 +83,10 @@ TEST_F(ColorAdjustments_Test, SaturateHSL)
 
 TEST_F(ColorAdjustments_Test, LuminateRGB)
 {
-	auto minus100 = rgb_truecolor(0, 0, 0, 255, d65_2deg);
-	auto plus50 = rgb_truecolor(192, 0, 0, 255, d65_2deg);
-	auto minus50 = rgb_truecolor(128, 0, 0, 255, d65_2deg);
-	auto zero = rgb_truecolor(255, 0, 0, 255, d65_2deg);
+	auto minus100 = rgb_truecolor(0, 0, 0, 255, srgb);
+	auto plus50 = rgb_truecolor(192, 0, 0, 255, srgb);
+	auto minus50 = rgb_truecolor(128, 0, 0, 255, srgb);
+	auto zero = rgb_truecolor(255, 0, 0, 255, srgb);
 
 	auto minus100_calc = *(dynamic_cast<rgb_truecolor*>(color_manipulation::color_adjustments::luminate_in_rgb_space(rgb_t_red, -1.f)));
 	EXPECT_NEAR(minus100.red(), minus100_calc.red(), avg_error);
@@ -111,10 +111,10 @@ TEST_F(ColorAdjustments_Test, LuminateRGB)
 
 TEST_F(ColorAdjustments_Test, LuminateHSL)
 {
-	auto minus100 = rgb_truecolor(0, 0, 0, 255, d65_2deg);
-	auto plus50 = rgb_truecolor(192, 0, 0, 255, d65_2deg);
-	auto minus50 = rgb_truecolor(128, 0, 0, 255, d65_2deg);
-	auto zero = rgb_truecolor(255, 0, 0, 255, d65_2deg);
+	auto minus100 = rgb_truecolor(0, 0, 0, 255, srgb);
+	auto plus50 = rgb_truecolor(192, 0, 0, 255, srgb);
+	auto minus50 = rgb_truecolor(128, 0, 0, 255, srgb);
+	auto zero = rgb_truecolor(255, 0, 0, 255, srgb);
 
 	auto minus100_calc = *(dynamic_cast<rgb_truecolor*>(color_manipulation::color_adjustments::luminate_in_hsl_space(rgb_t_red, -1.f)));
 	EXPECT_NEAR(minus100.red(), minus100_calc.red(), avg_error);

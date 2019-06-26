@@ -24,25 +24,25 @@ protected:
 	rgb_truecolor *rgb_t_violet;
 	rgb_truecolor *rgb_t_pink;
 	rgb_truecolor *rgb_t_pink2;
-	reference_white* d65_2deg;
+	rgb_color_space_definition* srgb;
 
 	virtual void SetUp()
 	{
-		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
-		rgb_t_red = new rgb_truecolor(255, 0, 0, 255, d65_2deg);
-		rgb_t_orange = new rgb_truecolor(255, 128, 0, 255, d65_2deg);
-		rgb_t_yellow = new rgb_truecolor(204, 255, 0, 255, d65_2deg);
-		rgb_t_green = new rgb_truecolor(0, 255, 0, 255, d65_2deg);
-		rgb_t_light_green = new rgb_truecolor(0, 255, 127, 255, d65_2deg);
-		rgb_t_mint = new rgb_truecolor(0, 255, 102, 255, d65_2deg);
-		rgb_t_lime = new rgb_truecolor(127, 255, 0, 255, d65_2deg);
-		rgb_t_blue = new rgb_truecolor(0, 0, 255, 255, d65_2deg);
-		rgb_t_light_blue = new rgb_truecolor(0, 102, 255, 255, d65_2deg);
-		rgb_t_light_blue2 = new rgb_truecolor(0, 128, 255, 255, d65_2deg);
-		rgb_t_cyan = new rgb_truecolor(0, 255, 255, 255, d65_2deg);
-		rgb_t_violet = new rgb_truecolor(128, 0, 255, 255, d65_2deg);
-		rgb_t_pink = new rgb_truecolor(204, 0, 255, 255, d65_2deg);
-		rgb_t_pink2 = new rgb_truecolor(255, 0, 127, 255, d65_2deg);
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
+		rgb_t_red = new rgb_truecolor(255, 0, 0, 255, srgb);
+		rgb_t_orange = new rgb_truecolor(255, 128, 0, 255, srgb);
+		rgb_t_yellow = new rgb_truecolor(204, 255, 0, 255, srgb);
+		rgb_t_green = new rgb_truecolor(0, 255, 0, 255, srgb);
+		rgb_t_light_green = new rgb_truecolor(0, 255, 127, 255, srgb);
+		rgb_t_mint = new rgb_truecolor(0, 255, 102, 255, srgb);
+		rgb_t_lime = new rgb_truecolor(127, 255, 0, 255, srgb);
+		rgb_t_blue = new rgb_truecolor(0, 0, 255, 255, srgb);
+		rgb_t_light_blue = new rgb_truecolor(0, 102, 255, 255, srgb);
+		rgb_t_light_blue2 = new rgb_truecolor(0, 128, 255, 255, srgb);
+		rgb_t_cyan = new rgb_truecolor(0, 255, 255, 255, srgb);
+		rgb_t_violet = new rgb_truecolor(128, 0, 255, 255, srgb);
+		rgb_t_pink = new rgb_truecolor(204, 0, 255, 255, srgb);
+		rgb_t_pink2 = new rgb_truecolor(255, 0, 127, 255, srgb);
 	}
 
 	virtual void TearDown()
@@ -168,14 +168,14 @@ TEST_F(ColorCombinations_Test, Analogous)
 
 TEST_F(ColorCombinations_Test, Monochromatic)
 {
-	auto desaturated_red_1 = new rgb_truecolor(191, 64, 64, 255, d65_2deg);
-	auto desaturated_red_2 = new rgb_truecolor(159, 96, 96, 255, d65_2deg);
+	auto desaturated_red_1 = new rgb_truecolor(191, 64, 64, 255, srgb);
+	auto desaturated_red_2 = new rgb_truecolor(159, 96, 96, 255, srgb);
 
-	auto deluminated_red_1 = new rgb_truecolor(128, 0, 0);
-	auto deluminated_red_2 = new rgb_truecolor(64, 0, 0);
+	auto deluminated_red_1 = new rgb_truecolor(128, 0, 0, 255, srgb);
+	auto deluminated_red_2 = new rgb_truecolor(64, 0, 0, 255, srgb);
 
-	auto mono_red_1 = new rgb_truecolor(96, 32, 32, 255, d65_2deg);
-	auto mono_red_2 = new rgb_truecolor(40, 24, 24, 255, d65_2deg);
+	auto mono_red_1 = new rgb_truecolor(96, 32, 32, 255, srgb);
+	auto mono_red_2 = new rgb_truecolor(40, 24, 24, 255, srgb);
 
 	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 0, -0.5, 3));
 	EXPECT_ANY_THROW(color_manipulation::color_combinations::create_monochromatic(rgb_t_red, 0, 1.5, 3));
@@ -225,9 +225,9 @@ TEST_F(ColorCombinations_Test, Monochromatic)
 	EXPECT_NEAR(mono_red_2->green(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->green(), avg_error);
 	EXPECT_NEAR(mono_red_2->blue(), dynamic_cast<color_space::rgb_truecolor*>(mono[2])->blue(), avg_error);
 
-	auto desaturated_blue_1 = new hsl(240, 1.f, 0.5f, 1.f, d65_2deg);
-	auto desaturated_blue_2 = new hsl(240, 0.8f, 0.5f, 1.f, d65_2deg);
-	auto desaturated_blue_3 = new hsl(240, 0.6f, 0.5f, 1.f, d65_2deg);
+	auto desaturated_blue_1 = new hsl(240, 1.f, 0.5f, 1.f, srgb);
+	auto desaturated_blue_2 = new hsl(240, 0.8f, 0.5f, 1.f, srgb);
+	auto desaturated_blue_3 = new hsl(240, 0.6f, 0.5f, 1.f, srgb);
 	auto desaturated_blues = color_manipulation::color_combinations::create_monochromatic(desaturated_blue_1, 0, 0.2, 3);
 	EXPECT_EQ(3, desaturated_blues.size());
 	EXPECT_NEAR(desaturated_blue_1->hue(), dynamic_cast<color_space::hsl*>(desaturated_blues[0])->hue(), avg_error);

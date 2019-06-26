@@ -41,7 +41,7 @@ color_space::rgb_truecolor * color_manipulation::color_calculation::add(color_sp
 	auto b = std::sqrtf(weight1 * std::powf(color1->blue(), 2.f) + weight2 * std::powf(color2->blue(), 2.f));
 	auto a = include_alpha ? std::sqrtf(weight1 * std::powf(color1->alpha(), 2.f) + weight2 * std::powf(color2->alpha(), 2.f)) : color1->alpha();
 
-	return new color_space::rgb_truecolor(fminf(fmaxf(r, 0), 255), fminf(fmaxf(g, 0), 255), fminf(fmaxf(b, 0), 255), fminf(fmaxf(a, 0), 255), color1->get_reference_white());
+	return new color_space::rgb_truecolor(fminf(fmaxf(r, 0), 255), fminf(fmaxf(g, 0), 255), fminf(fmaxf(b, 0), 255), fminf(fmaxf(a, 0), 255), color1->get_rgb_color_space());
 }
 
 color_space::rgb_deepcolor * color_manipulation::color_calculation::add(color_space::rgb_deepcolor * color1, color_space::rgb_deepcolor * color2, float weight1, float weight2, bool include_alpha)
@@ -54,7 +54,7 @@ color_space::rgb_deepcolor * color_manipulation::color_calculation::add(color_sp
 	auto b = std::sqrtf(weight1 * std::powf(color1->blue(), 2.f) + weight2 * std::powf(color2->blue(), 2.f));
 	auto a = include_alpha ? std::sqrtf(weight1 * std::powf(color1->alpha(), 2.f) + weight2 * std::powf(color2->alpha(), 2.f)) : color1->alpha();
 
-	return new color_space::rgb_deepcolor(r, g, b, a, color1->get_reference_white());
+	return new color_space::rgb_deepcolor(r, g, b, a, color1->get_rgb_color_space());
 }
 
 color_space::grey_truecolor * color_manipulation::color_calculation::add(color_space::grey_truecolor * color1, color_space::grey_truecolor * color2, float weight1, float weight2, bool include_alpha)
@@ -65,7 +65,7 @@ color_space::grey_truecolor * color_manipulation::color_calculation::add(color_s
 	auto v = weight1 * color1->grey() + weight2 * color2->grey();
 	auto a = include_alpha ? weight1 * color1->alpha() + weight2 * color2->alpha() : color1->alpha();
 
-	return new color_space::grey_truecolor(fminf(fmaxf(v, 0), 255), fminf(fmaxf(a, 0), 255), color1->get_reference_white());
+	return new color_space::grey_truecolor(fminf(fmaxf(v, 0), 255), fminf(fmaxf(a, 0), 255), color1->get_rgb_color_space());
 }
 
 color_space::grey_deepcolor * color_manipulation::color_calculation::add(color_space::grey_deepcolor * color1, color_space::grey_deepcolor * color2, float weight1, float weight2, bool include_alpha)
@@ -76,7 +76,7 @@ color_space::grey_deepcolor * color_manipulation::color_calculation::add(color_s
 	auto v = weight1 * color1->grey() + weight2 * color2->grey();
 	auto a = include_alpha ? weight1 * color1->alpha() + weight2 * color2->alpha() : color1->alpha();
 
-	return new color_space::grey_deepcolor(v, a, color1->get_reference_white());
+	return new color_space::grey_deepcolor(v, a, color1->get_rgb_color_space());
 }
 
 color_space::cmyk * color_manipulation::color_calculation::add(color_space::cmyk * color1, color_space::cmyk * color2, float weight1, float weight2, bool include_alpha)
@@ -90,7 +90,7 @@ color_space::cmyk * color_manipulation::color_calculation::add(color_space::cmyk
 	auto k = weight1 * color1->black() + weight2 * color2->black();
 	auto a = include_alpha ? weight1 * color1->alpha() + weight2 * color2->alpha() : color1->alpha();
 
-	return new color_space::cmyk(c, m, y, k, a, color1->get_reference_white());
+	return new color_space::cmyk(c, m, y, k, a, color1->get_rgb_color_space());
 }
 
 color_space::hsv * color_manipulation::color_calculation::add(color_space::hsv * color1, color_space::hsv * color2, float weight1, float weight2, bool include_alpha)
@@ -107,7 +107,7 @@ color_space::hsv * color_manipulation::color_calculation::add(color_space::hsv *
 	auto a = include_alpha ? weight1 * color1->alpha() + weight2 * color2->alpha() : color1->alpha();
 	vector2 = convert_from_vector(new float[3]{ x, y, z });
 
-	return new color_space::hsv(vector2[0], vector2[1], vector2[2], a, color1->get_reference_white());
+	return new color_space::hsv(vector2[0], vector2[1], vector2[2], a, color1->get_rgb_color_space());
 }
 
 color_space::hsl * color_manipulation::color_calculation::add(color_space::hsl * color1, color_space::hsl * color2, float weight1, float weight2, bool include_alpha)
@@ -128,7 +128,7 @@ color_space::xyz * color_manipulation::color_calculation::add(color_space::xyz *
 	auto z = weight1 * color1->z() + weight2 * color2->z();
 	auto a = include_alpha ? weight1 * color1->alpha() + weight2 * color2->alpha() : color1->alpha();
 
-	return new color_space::xyz(x, y, z, a, color1->get_reference_white());
+	return new color_space::xyz(x, y, z, a, color1->get_rgb_color_space());
 }
 
 color_space::lab * color_manipulation::color_calculation::add(color_space::lab * color1, color_space::lab * color2, float weight1, float weight2, bool include_alpha)
@@ -267,7 +267,7 @@ color_space::rgb_truecolor * color_manipulation::color_calculation::subtract(col
 	auto b = color1->blue() - weight * color2->blue();
 	auto a = include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha();
 
-	return new color_space::rgb_truecolor(r, g, b, a, color1->get_reference_white());
+	return new color_space::rgb_truecolor(r, g, b, a, color1->get_rgb_color_space());
 }
 
 color_space::rgb_deepcolor * color_manipulation::color_calculation::subtract(color_space::rgb_deepcolor * color1, color_space::rgb_deepcolor * color2, float weight, bool include_alpha)
@@ -279,21 +279,21 @@ color_space::rgb_deepcolor * color_manipulation::color_calculation::subtract(col
 	auto b = color1->blue() - weight * color2->blue();
 	auto a = include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha();
 
-	return new color_space::rgb_deepcolor(r, g, b, a, color1->get_reference_white());
+	return new color_space::rgb_deepcolor(r, g, b, a, color1->get_rgb_color_space());
 }
 
 color_space::grey_truecolor * color_manipulation::color_calculation::subtract(color_space::grey_truecolor * color1, color_space::grey_truecolor * color2, float weight, bool include_alpha)
 {
 	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
 
-	return new color_space::grey_truecolor(color1->grey() - weight * color2->grey(), include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha(), color1->get_reference_white());
+	return new color_space::grey_truecolor(color1->grey() - weight * color2->grey(), include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha(), color1->get_rgb_color_space());
 }
 
 color_space::grey_deepcolor * color_manipulation::color_calculation::subtract(color_space::grey_deepcolor * color1, color_space::grey_deepcolor * color2, float weight, bool include_alpha)
 {
 	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
 
-	return new color_space::grey_deepcolor(color1->grey() - weight * color2->grey(), include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha(), color1->get_reference_white());
+	return new color_space::grey_deepcolor(color1->grey() - weight * color2->grey(), include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha(), color1->get_rgb_color_space());
 }
 
 color_space::cmyk * color_manipulation::color_calculation::subtract(color_space::cmyk * color1, color_space::cmyk * color2, float weight, bool include_alpha)
@@ -306,7 +306,7 @@ color_space::cmyk * color_manipulation::color_calculation::subtract(color_space:
 	auto k = color1->black() - weight * color2->black();
 	auto a = include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha();
 
-	return new color_space::cmyk(c, m, y, k, a, color1->get_reference_white());
+	return new color_space::cmyk(c, m, y, k, a, color1->get_rgb_color_space());
 }
 
 color_space::hsv * color_manipulation::color_calculation::subtract(color_space::hsv * color1, color_space::hsv * color2, float weight, bool include_alpha)
@@ -322,7 +322,7 @@ color_space::hsv * color_manipulation::color_calculation::subtract(color_space::
 	vector2 = convert_from_vector(new float[3]{ x, y, z });
 	auto a = include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha();
 
-	return new color_space::hsv(vector2[0], vector2[1], vector2[2], a, color1->get_reference_white());
+	return new color_space::hsv(vector2[0], vector2[1], vector2[2], a, color1->get_rgb_color_space());
 }
 
 color_space::hsl * color_manipulation::color_calculation::subtract(color_space::hsl * color1, color_space::hsl * color2, float weight, bool include_alpha)
@@ -341,7 +341,7 @@ color_space::xyz * color_manipulation::color_calculation::subtract(color_space::
 	auto z = color1->z() - weight * color2->z();
 	auto a = include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha();
 
-	return new color_space::xyz(x, y, z, a, color1->get_reference_white());
+	return new color_space::xyz(x, y, z, a, color1->get_rgb_color_space());
 }
 
 color_space::lab * color_manipulation::color_calculation::subtract(color_space::lab * color1, color_space::lab * color2, float weight, bool include_alpha)
@@ -363,7 +363,7 @@ color_space::rgb_truecolor * color_manipulation::color_calculation::average_rgb_
 		sum[2] += colors[i]->blue();
 		sum[3] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
 	}
-	return new color_space::rgb_truecolor(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_reference_white());
+	return new color_space::rgb_truecolor(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_rgb_color_space());
 }
 
 color_space::rgb_deepcolor * color_manipulation::color_calculation::average_rgb_deep(std::vector<color_space::rgb_deepcolor*> colors, bool include_alpha)
@@ -378,7 +378,7 @@ color_space::rgb_deepcolor * color_manipulation::color_calculation::average_rgb_
 		sum[2] += colors[i]->blue();
 		sum[3] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
 	}
-	return new color_space::rgb_deepcolor(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_reference_white());
+	return new color_space::rgb_deepcolor(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_rgb_color_space());
 }
 
 color_space::grey_truecolor * color_manipulation::color_calculation::average_grey_true(std::vector<color_space::grey_truecolor*> colors, bool include_alpha)
@@ -391,7 +391,7 @@ color_space::grey_truecolor * color_manipulation::color_calculation::average_gre
 		sum[0] += colors[i]->grey();
 		sum[1] = include_alpha ? sum[1] + colors[i]->alpha() : colors[0]->alpha();
 	}
-	return new color_space::grey_truecolor(sum[0] / colors.size(), include_alpha ? sum[1] / colors.size() : sum[1], colors[0]->get_reference_white());
+	return new color_space::grey_truecolor(sum[0] / colors.size(), include_alpha ? sum[1] / colors.size() : sum[1], colors[0]->get_rgb_color_space());
 }
 
 color_space::grey_deepcolor * color_manipulation::color_calculation::average_grey_deep(std::vector<color_space::grey_deepcolor*> colors, bool include_alpha)
@@ -404,7 +404,7 @@ color_space::grey_deepcolor * color_manipulation::color_calculation::average_gre
 		sum[0] += colors[i]->grey();
 		sum[1] = include_alpha ? sum[1] + colors[i]->alpha() : colors[0]->alpha();
 	}
-	return new color_space::grey_deepcolor(sum[0] / colors.size(), include_alpha ? sum[1] / colors.size() : sum[1], colors[0]->get_reference_white());
+	return new color_space::grey_deepcolor(sum[0] / colors.size(), include_alpha ? sum[1] / colors.size() : sum[1], colors[0]->get_rgb_color_space());
 }
 
 color_space::cmyk * color_manipulation::color_calculation::average_cmyk(std::vector<color_space::cmyk*> colors, bool include_alpha)
@@ -420,7 +420,7 @@ color_space::cmyk * color_manipulation::color_calculation::average_cmyk(std::vec
 		sum[3] += colors[i]->black();
 		sum[4] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
 	}
-	return new color_space::cmyk(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), sum[3] / colors.size(), include_alpha ? sum[4] / colors.size() : sum[4], colors[0]->get_reference_white());
+	return new color_space::cmyk(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), sum[3] / colors.size(), include_alpha ? sum[4] / colors.size() : sum[4], colors[0]->get_rgb_color_space());
 }
 
 color_space::hsv * color_manipulation::color_calculation::average_hsv(std::vector<color_space::hsv*> colors, bool include_alpha)
@@ -435,7 +435,7 @@ color_space::hsv * color_manipulation::color_calculation::average_hsv(std::vecto
 		sum[2] += colors[i]->value();
 		sum[3] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
 	}
-	return new color_space::hsv(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_reference_white());
+	return new color_space::hsv(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_rgb_color_space());
 }
 
 color_space::hsl * color_manipulation::color_calculation::average_hsl(std::vector<color_space::hsl*> colors, bool include_alpha)
@@ -450,7 +450,7 @@ color_space::hsl * color_manipulation::color_calculation::average_hsl(std::vecto
 		sum[2] += colors[i]->lightness();
 		sum[3] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
 	}
-	return new color_space::hsl(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_reference_white());
+	return new color_space::hsl(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_rgb_color_space());
 }
 
 color_space::xyz * color_manipulation::color_calculation::average_xyz(std::vector<color_space::xyz*> colors, bool include_alpha)
@@ -465,7 +465,7 @@ color_space::xyz * color_manipulation::color_calculation::average_xyz(std::vecto
 		sum[2] += colors[i]->z();
 		sum[3] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
 	}
-	return new color_space::xyz(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_reference_white());
+	return new color_space::xyz(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_rgb_color_space());
 }
 
 color_space::lab * color_manipulation::color_calculation::average_lab(std::vector<color_space::lab*> colors, bool include_alpha)
@@ -480,7 +480,7 @@ color_space::lab * color_manipulation::color_calculation::average_lab(std::vecto
 		sum[2] += colors[i]->b();
 		sum[3] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
 	}
-	return new color_space::lab(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_reference_white());
+	return new color_space::lab(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_rgb_color_space());
 }
 
 float * color_manipulation::color_calculation::convert_to_vector(float hue, float saturation, float third_component)

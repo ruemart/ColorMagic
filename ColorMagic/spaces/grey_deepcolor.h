@@ -23,9 +23,9 @@ namespace color_space
 		* Sets grey and alpha value.
 		* \param value The value that will be set for grey value.
 		* \param alpha The value that will be set for alpha.
-		* \param ref_white The reference_white used for conversions from or to lab color space.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		grey_deepcolor(float value, float alpha, reference_white* ref_white);
+		grey_deepcolor(float value, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!

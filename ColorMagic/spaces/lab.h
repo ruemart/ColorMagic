@@ -23,8 +23,9 @@ namespace color_space
 		* \param l The value that will be set for luminance component (default 0).
 		* \param a The value that will be set for a component (default 0).
 		* \param b The value that will be set for b component (default 0).
+		* \param ref_white The reference_white used for conversions from or to lab color space.
 		*/
-		lab(float luminance = 0.f, float a = 0.f, float b = 0.f);
+		lab(float luminance, float a, float b, reference_white* ref_white);
 
 		//! Default copy constructor.
 		/*!

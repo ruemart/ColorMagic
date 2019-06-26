@@ -27,18 +27,20 @@ protected:
 	grey_truecolor* grey_t;
 	rgb_deepcolor* rgb_d_yellow;
 	rgb_truecolor* rgb_t_yellow;
+	reference_white* d65_2deg;
 
 	virtual void SetUp()
 	{
-		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f);
-		hsv_yellow = new hsv(60.f, 1.f, 1.f);
-		hsl_yellow = new hsl(60.f, 1.f, 0.5f);
-		xyz_yellow = new xyz(77.f, 92.78f, 13.85f);
-		lab_yellow = new lab(97.14f, -21.56f, 94.48f);
-		grey_d = new grey_deepcolor(0.6666f);
-		grey_t = new grey_truecolor(170.f);
-		rgb_d_yellow = new rgb_deepcolor(1.f, 1.f, 0.f);
-		rgb_t_yellow = new rgb_truecolor(255.f, 255.f, 0.f);
+		d65_2deg = &color_space::reference_white_presets::D65_2Degree;
+		cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, d65_2deg);
+		hsv_yellow = new hsv(60.f, 1.f, 1.f, d65_2deg);
+		hsl_yellow = new hsl(60.f, 1.f, 0.5f, d65_2deg);
+		xyz_yellow = new xyz(77.f, 92.78f, 13.85f, d65_2deg);
+		lab_yellow = new lab(97.14f, -21.56f, 94.48f, d65_2deg);
+		grey_d = new grey_deepcolor(0.6666f, 1.f, d65_2deg);
+		grey_t = new grey_truecolor(170.f, 255.f, d65_2deg);
+		rgb_d_yellow = new rgb_deepcolor(1.f, 1.f, 0.f, 1.f, d65_2deg);
+		rgb_t_yellow = new rgb_truecolor(255.f, 255.f, 0.f, 255.f, d65_2deg);
 	}
 
 	virtual void TearDown()
@@ -119,7 +121,7 @@ TEST_F(ColorConverter_Test, From_RGB_Deep)
 
 TEST_F(ColorConverter_Test, From_Grey_True)
 {
-	EXPECT_EQ(*(new rgb_truecolor(170.f)), *dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::RGB_TRUE)));
+	EXPECT_EQ(*(new rgb_truecolor(170.f, 170.f, 170.f, 255.f, d65_2deg)), *dynamic_cast<rgb_truecolor*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::RGB_TRUE)));
 
 	auto cmyk_converted = dynamic_cast<cmyk*>(color_manipulation::color_converter::from_grey_true(grey_t, color_type::CMYK));
 	EXPECT_NEAR(0.f, cmyk_converted->cyan(), avg_error);

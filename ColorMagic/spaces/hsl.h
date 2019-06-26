@@ -21,11 +21,12 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets the value of each component.
-		* \param hue The value that will be set for hue component (default 0).
-		* \param saturation The value that will be set for saturation component (default 0).
-		* \param lightness The value that will be set for lightness component (default 0).
+		* \param hue The value that will be set for hue component.
+		* \param saturation The value that will be set for saturation component.
+		* \param lightness The value that will be set for lightness component.
+		* \param ref_white The reference_white used for conversions from or to lab color space.
 		*/
-		hsl(float hue = 0.f, float saturation = 0.f, float lightness = 0.f);
+		hsl(float hue, float saturation, float lightness, reference_white* ref_white);
 
 		//! Default copy constructor.
 		/*!

@@ -20,10 +20,11 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets a uniform value for each component and an alpha value.
-		* \param value The value that will be set for red, green and blue (default 0).
-		* \param alpha The value that will be set for alpha (default 1).
+		* \param value The value that will be set for red, green and blue.
+		* \param alpha The value that will be set for alpha.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		rgb_deepcolor(float value = 0.f, float alpha = 1.f);
+		rgb_deepcolor(float value, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default constructor.
 		/*!
@@ -31,9 +32,10 @@ namespace color_space
 		* \param r The value that will be set for red.
 		* \param g The value that will be set for green.
 		* \param b The value that will be set for blue.
-		* \param a The value that will be set for alpha (default 1).
+		* \param a The value that will be set for alpha.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		rgb_deepcolor(float r, float g, float b, float a = 1.f);
+		rgb_deepcolor(float r, float g, float b, float a, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!
@@ -79,14 +81,6 @@ namespace color_space
 		//! Setter for blue component.
 		//! \param new_blue The blue value to set.
 		void blue(float new_blue);
-
-		//! Getter for alpha component.
-		//! \return The alpha component of this color.
-		float alpha();
-
-		//! Setter for alpha component.
-		//! \param new_alpha The alpha value to set.
-		void alpha(float new_alpha);
 
 	private:
 

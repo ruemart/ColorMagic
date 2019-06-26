@@ -21,10 +21,11 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets grey and alpha value.
-		* \param value The value that will be set for grey value (default 0).
-		* \param alpha The value that will be set for alpha (default 1).
+		* \param value The value that will be set for grey value.
+		* \param alpha The value that will be set for alpha.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		grey_deepcolor(float value = 0.f, float alpha = 1.f);
+		grey_deepcolor(float value, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!
@@ -54,14 +55,6 @@ namespace color_space
 		//! Setter for grey component.
 		//! \param new_grey The grey value to set.
 		void grey(float new_grey);
-
-		//! Getter for alpha component.
-		//! \return The alpha component of this color.
-		float alpha();
-
-		//! Setter for alpha component.
-		//! \param new_alpha The alpha value to set.
-		void alpha(float new_alpha);
 
 	private:
 

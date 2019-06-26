@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "hsl.h"
 
-color_space::hsl::hsl(float hue, float saturation, float lightness) : color_base(3)
+color_space::hsl::hsl(float hue, float saturation, float lightness, float alpha, rgb_color_space_definition* color_space) : color_base(alpha, color_space, 3)
 {
 	this->m_type = color_type::HSL;
 	this->hue(hue);
@@ -9,18 +9,19 @@ color_space::hsl::hsl(float hue, float saturation, float lightness) : color_base
 	this->lightness(lightness);
 }
 
-color_space::hsl::hsl(const color_space::hsl & other) : color_base(3, other.get_component_max(), other.get_component_min())
+color_space::hsl::hsl(const color_space::hsl & other) : color_base(other.alpha(), other.get_rgb_color_space(), 3, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
-	this->m_component_vector = other.m_component_vector;
+	this->m_component_vector = other.get_component_vector();
+	this->alpha(other.alpha());
 }
 
-color_space::hsl::hsl(const color_base & other) : color_base(3, other.get_component_max(), other.get_component_min())
+color_space::hsl::hsl(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 3, other.get_component_max(), other.get_component_min())
 {
-	if (other.get_color_type() == color_type::HSL && other.m_component_vector.size() == 3)
+	if (other.get_color_type() == color_type::HSL && other.get_component_vector().size() == 3)
 	{
 		this->m_type = color_type::HSL;
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 	}
 	else
 	{
@@ -33,7 +34,7 @@ color_space::hsl & color_space::hsl::operator=(const color_space::hsl & other)
 	if (this != &other)
 	{
 		this->m_type = other.get_color_type();
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();
 	}

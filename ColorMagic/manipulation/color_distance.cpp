@@ -12,9 +12,9 @@ float color_manipulation::color_distance::euclidean_distance_squared(color_space
 	if (color1_rgb_d == color2_rgb_d) return 0.f; // after conversion to same color space both colors are equal
 
 	float squared_distance = 0.f;
-	for (std::vector<float>::size_type i = 0; i < color1_rgb_d->m_component_vector.size() - 1; ++i) // -1 because alpha gets ignored
+	for (std::vector<float>::size_type i = 0; i < color1_rgb_d->get_component_vector().size(); ++i)
 	{
-		squared_distance += powf(color1_rgb_d->m_component_vector[i] - color2_rgb_d->m_component_vector[i], 2.f);
+		squared_distance += powf(color1_rgb_d->get_component_vector()[i] - color2_rgb_d->get_component_vector()[i], 2.f);
 	}
 
 	return squared_distance;
@@ -56,9 +56,9 @@ float color_manipulation::color_distance::cielab_delta_e_cie76(color_space::colo
 	if (color1_lab == color2_lab) return 0.f; // after conversion to same color space both colors are equal
 
 	float squared_distance = 0.f;
-	for (std::vector<float>::size_type i = 0; i < color1_lab->m_component_vector.size(); ++i)
+	for (std::vector<float>::size_type i = 0; i < color1_lab->get_component_vector().size(); ++i)
 	{
-		squared_distance += powf(color1_lab->m_component_vector[i] - color2_lab->m_component_vector[i], 2.f);
+		squared_distance += powf(color1_lab->get_component_vector()[i] - color2_lab->get_component_vector()[i], 2.f);
 	}
 
 	return sqrtf(squared_distance);
@@ -190,7 +190,7 @@ float color_manipulation::color_distance::cmc_delta_e_lc84(color_space::color_ba
 		sL = (0.040975f * color1_lab->luminance()) / (1.f + 0.01765f * color1_lab->luminance());
 	}
 
-	auto sC = (float)((0.0638f * C1) / (1.f + 0.0131 * C1) + 0.638f);
+	auto sC = (float)((0.0638f * C1) / (1.f + 0.0131f * C1) + 0.638f);
 	auto sH = sC * (F * T + 1.f - F);
 
 	return sqrtf(powf(delta_L / (lightness * sL), 2.f) + powf(delta_C / (chroma * sC), 2.f) + powf(delta_H / sH, 2.f));

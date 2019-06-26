@@ -10,12 +10,14 @@ protected:
 	xyz* yellow;
 	xyz* black;
 	xyz* white;
+	rgb_color_space_definition* srgb;
 
 	virtual void SetUp()
 	{
-		yellow = new xyz(0.77f, 0.9278f, 0.1385f);
-		black = new xyz(0.f, 0.f, 0.f);
-		white = new xyz(1.f, 1.f, 1.f);
+		srgb = color_space::rgb_color_space_definition_presets().sRGB();
+		yellow = new xyz(0.77f, 0.9278f, 0.1385f, 1.f, srgb);
+		black = new xyz(0.f, 0.f, 0.f, 1.f, srgb);
+		white = new xyz(1.f, 1.f, 1.f, 1.f, srgb);
 	}
 
 	virtual void TearDown()
@@ -28,14 +30,14 @@ protected:
 
 TEST_F(XYZ_Test, Constructor_Tests)
 {
-	EXPECT_EQ(*black, *(new xyz()));
-	EXPECT_EQ(*yellow, *(new xyz(0.77f, 0.9278f, 0.1385f)));
-	EXPECT_EQ(*white, *(new xyz(1.f, 1.f, 1.f)));
+	EXPECT_EQ(*yellow, *(new xyz(*yellow)));
+	EXPECT_EQ(*yellow, *(new xyz(0.77f, 0.9278f, 0.1385f, 1.f, srgb)));
+	EXPECT_EQ(*white, *(new xyz(1.f, 1.f, 1.f, 1.f, srgb)));
 }
 
 TEST_F(XYZ_Test, Operator_Tests)
 {
-	auto blue = new xyz(0.f, 0.f, 1.f);
+	auto blue = new xyz(0.f, 0.f, 1.f, 1.f, srgb);
 	EXPECT_TRUE(*blue != *yellow);
 	blue = yellow;
 	EXPECT_TRUE(*blue == *yellow);

@@ -47,6 +47,8 @@
     <ClCompile Include="HSL_Test.cpp" />
     <ClCompile Include="HSV_Test.cpp" />
     <ClCompile Include="Lab_Test.cpp" />
+    <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="RGBColorSpaceDefinitionTest.cpp" />
     <ClCompile Include="RGB_Deep_Test.cpp" />
     <ClCompile Include="RGB_True_Test.cpp" />
     <ClCompile Include="Main_TestAll.cpp" />
@@ -56,6 +58,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="XYY_Test.cpp" />
     <ClCompile Include="XYZ_Test.cpp" />
   </ItemGroup>
   <ItemGroup>

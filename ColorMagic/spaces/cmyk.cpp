@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "cmyk.h"
 
-color_space::cmyk::cmyk(float cyan, float magenta, float yellow, float black) : color_base(4)
+color_space::cmyk::cmyk(float cyan, float magenta, float yellow, float black, float alpha, rgb_color_space_definition* color_space) : color_base(alpha, color_space, 4)
 {
 	this->m_type = color_type::CMYK;
 	this->cyan(cyan);
@@ -10,18 +10,19 @@ color_space::cmyk::cmyk(float cyan, float magenta, float yellow, float black) : 
 	this->black(black);
 }
 
-color_space::cmyk::cmyk(const color_space::cmyk & other) : color_base(4, other.get_component_max(), other.get_component_min())
+color_space::cmyk::cmyk(const color_space::cmyk & other) : color_base(other.alpha(), other.get_rgb_color_space(), 4, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
-	this->m_component_vector = other.m_component_vector;
+	this->m_component_vector = other.get_component_vector();
+	this->alpha(other.alpha());
 }
 
-color_space::cmyk::cmyk(const color_base & other) : color_base(4, other.get_component_max(), other.get_component_min())
+color_space::cmyk::cmyk(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 4, other.get_component_max(), other.get_component_min())
 {
-	if (other.get_color_type() == color_type::CMYK && other.m_component_vector.size() == 4)
+	if (other.get_color_type() == color_type::CMYK && other.get_component_vector().size() == 4)
 	{
 		this->m_type = color_type::CMYK;
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 	}
 	else
 	{
@@ -34,7 +35,7 @@ color_space::cmyk & color_space::cmyk::operator=(const cmyk & other)
 	if (this != &other)
 	{
 		this->m_type = other.get_color_type();
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();
 	}

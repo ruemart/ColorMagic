@@ -6,6 +6,7 @@
 #pragma once
 
 #include "color_type.h"
+#include "..\spaces\rgb_color_space_definition.h"
 #include "..\spaces\color_base.h"
 #include "..\spaces\cmyk.h"
 #include "..\spaces\grey_deepcolor.h"
@@ -182,10 +183,10 @@ public:
 	/*!
 	* Initializes the class with a hex code.
 	* \param hex_code The desired colors hex code.
+	* \param ref_white The reference_white used for conversions from or to lab color space.
 	*/
-	predefined_color(HexcodeColors hex_code) { base = new color_space::rgb_truecolor(hex_code); }
+	predefined_color(HexcodeColors hex_code, color_space::rgb_color_space_definition* ref_white) { base = new color_space::rgb_truecolor(hex_code, ref_white); }
 	predefined_color() = delete;
-	predefined_color(predefined_color& other) = delete;
 
 	//! Returns the desired color as rgb true color.
 	/*!

@@ -20,12 +20,14 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets the value of each component.
-		* \param cyan The value that will be set for cyan component (default 0).
-		* \param magenta The value that will be set for magenta component (default 0).
-		* \param yellow The value that will be set for yellow component (default 0).
-		* \param black The value that will be set for black component (default 0).
+		* \param cyan The value that will be set for cyan component.
+		* \param magenta The value that will be set for magenta component.
+		* \param yellow The value that will be set for yellow component.
+		* \param black The value that will be set for black component.
+		* \param black The alpha value for this color.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		cmyk(float cyan = 0.f, float magenta = 0.f, float yellow = 0.f, float black = 0.f);
+		cmyk(float cyan, float magenta, float yellow, float black, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!

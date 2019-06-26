@@ -81,6 +81,18 @@
     <ClInclude Include="manipulation\color_calculation.h">
       <Filter>manipulation</Filter>
     </ClInclude>
+    <ClInclude Include="spaces\rgb_color_space_definition.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\white_point.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\matrix.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\xyy.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -133,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="manipulation\color_calculation.cpp">
       <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\xyy.cpp">
+      <Filter>spaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

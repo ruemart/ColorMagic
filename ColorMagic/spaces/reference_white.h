@@ -21,6 +21,17 @@ namespace color_space
 		*/
 		reference_white(float x, float y, float z) : x(x), y(y), z(z) { }
 
+		//! Default deconstructor.
+		/*!
+		* Default deconstructor.
+		*/
+		~reference_white()
+		{
+			x = -1;
+			y = -1;
+			z = -1;
+		}
+
 		//! The x component of the reference white.
 		/*!
 		* The x component of the reference white.

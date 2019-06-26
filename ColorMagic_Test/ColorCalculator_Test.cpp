@@ -139,11 +139,11 @@ TEST_F(ColorCalculator_Test, Grey_Deep_Add)
 
 TEST_F(ColorCalculator_Test, CMYK_Add)
 {
-	auto cmyk_cyan = new cmyk(1.f, 0.f, 0.f, 0.f, d65_2deg);
-	auto cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, d65_2deg);
-	auto cmyk_green = new cmyk(1.f, 0.f, 1.f, 0.f, d65_2deg);
-	auto cmyk_lime = new cmyk(0.5f, 0.f, 0.5f, 0.f, d65_2deg);
-	auto cmyk_lemon = new cmyk(0.25f, 0.f, 1.f, 0.f, d65_2deg);
+	auto cmyk_cyan = new cmyk(1.f, 0.f, 0.f, 0.f, 1.f, d65_2deg);
+	auto cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, 1.f, d65_2deg);
+	auto cmyk_green = new cmyk(1.f, 0.f, 1.f, 0.f, 1.f, d65_2deg);
+	auto cmyk_lime = new cmyk(0.5f, 0.f, 0.5f, 0.f, 1.f, d65_2deg);
+	auto cmyk_lemon = new cmyk(0.25f, 0.f, 1.f, 0.f, 1.f, d65_2deg);
 
 	auto cyan_cyan_sum = color_manipulation::color_calculation::add(cmyk_cyan, cmyk_cyan);
 	EXPECT_NEAR(cmyk_cyan->cyan(), cyan_cyan_sum->cyan(), avg_error);
@@ -172,11 +172,11 @@ TEST_F(ColorCalculator_Test, CMYK_Add)
 
 TEST_F(ColorCalculator_Test, HSV_Add)
 {
-	auto hsv_red = new hsv(0.f, 1.f, 1.f, d65_2deg);
-	auto hsv_blue = new hsv(240.f, 1.f, 1.f, d65_2deg);
-	auto hsv_pink = new hsv(300.f, 1.f, 1.f, d65_2deg);
-	auto hsv_rose = new hsv(300.f, 0.5f, 1.f, d65_2deg);
-	auto hsv_purple = new hsv(253.f, 0.9f, 1.f, d65_2deg);
+	auto hsv_red = new hsv(0.f, 1.f, 1.f, 1.f, d65_2deg);
+	auto hsv_blue = new hsv(240.f, 1.f, 1.f, 1.f, d65_2deg);
+	auto hsv_pink = new hsv(300.f, 1.f, 1.f, 1.f, d65_2deg);
+	auto hsv_rose = new hsv(300.f, 0.5f, 1.f, 1.f, d65_2deg);
+	auto hsv_purple = new hsv(253.f, 0.9f, 1.f, 1.f, d65_2deg);
 
 	auto red_red_sum = color_manipulation::color_calculation::add(hsv_red, hsv_red);
 	EXPECT_NEAR(hsv_red->hue(), red_red_sum->hue(), avg_error);
@@ -201,11 +201,11 @@ TEST_F(ColorCalculator_Test, HSV_Add)
 
 TEST_F(ColorCalculator_Test, HSL_Add)
 {
-	auto hsv_red = new hsl(0.f, 1.f, 0.5f, d65_2deg);
-	auto hsv_blue = new hsl(240.f, 1.f, 0.5f, d65_2deg);
-	auto hsv_pink = new hsl(300.f, 1.f, 0.5f, d65_2deg);
-	auto hsv_rose = new hsl(300.f, 1.f, 0.75f, d65_2deg);
-	auto hsv_purple = new hsl(253.f, 1.f, 0.55f, d65_2deg);
+	auto hsv_red = new hsl(0.f, 1.f, 0.5f, 1.f, d65_2deg);
+	auto hsv_blue = new hsl(240.f, 1.f, 0.5f, 1.f, d65_2deg);
+	auto hsv_pink = new hsl(300.f, 1.f, 0.5f, 1.f, d65_2deg);
+	auto hsv_rose = new hsl(300.f, 1.f, 0.75f, 1.f, d65_2deg);
+	auto hsv_purple = new hsl(253.f, 1.f, 0.55f, 1.f, d65_2deg);
 
 	auto red_red_sum = color_manipulation::color_calculation::add(hsv_red, hsv_red);
 	EXPECT_NEAR(hsv_red->hue(), red_red_sum->hue(), avg_error);
@@ -230,11 +230,11 @@ TEST_F(ColorCalculator_Test, HSL_Add)
 
 TEST_F(ColorCalculator_Test, XYZ_Add)
 {
-	auto xyz_red = new xyz(41.2f, 21.3f, 2.f, d65_2deg);
-	auto xyz_blue = new xyz(18.f, 7.2f, 100.f, d65_2deg);
-	auto xyz_pink = new xyz(59.2f, 28.5f, 100.f, d65_2deg);
-	auto xyz_purple1 = new xyz(29.6f, 14.25f, 51.f, d65_2deg);
-	auto xyz_purple2 = new xyz(28.3f, 12.5f, 100.f, d65_2deg);
+	auto xyz_red = new xyz(41.2f, 21.3f, 2.f, 100.f, d65_2deg);
+	auto xyz_blue = new xyz(18.f, 7.2f, 100.f, 100.f, d65_2deg);
+	auto xyz_pink = new xyz(59.2f, 28.5f, 100.f, 100.f, d65_2deg);
+	auto xyz_purple1 = new xyz(29.6f, 14.25f, 51.f, 100.f, d65_2deg);
+	auto xyz_purple2 = new xyz(28.3f, 12.5f, 100.f, 100.f, d65_2deg);
 
 	auto red_red_sum = color_manipulation::color_calculation::add(xyz_red, xyz_red);
 	EXPECT_NEAR(2.f * xyz_red->x(), red_red_sum->x(), avg_error);
@@ -369,9 +369,9 @@ TEST_F(ColorCalculator_Test, Grey_Deep_Subtract)
 
 TEST_F(ColorCalculator_Test, CMYK_Subtract)
 {
-	auto cmyk_cyan = new cmyk(1.f, 0.f, 0.f, 0.f, d65_2deg);
-	auto cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, d65_2deg);
-	auto cmyk_green = new cmyk(1.f, 0.f, 1.f, 0.f, d65_2deg);
+	auto cmyk_cyan = new cmyk(1.f, 0.f, 0.f, 0.f, 1.f, d65_2deg);
+	auto cmyk_yellow = new cmyk(0.f, 0.f, 1.f, 0.f, 1.f, d65_2deg);
+	auto cmyk_green = new cmyk(1.f, 0.f, 1.f, 0.f, 1.f, d65_2deg);
 
 	auto cyan_cyan_sub = color_manipulation::color_calculation::subtract(cmyk_cyan, cmyk_cyan);
 	EXPECT_NEAR(0.f, cyan_cyan_sub->cyan(), avg_error);
@@ -400,9 +400,9 @@ TEST_F(ColorCalculator_Test, CMYK_Subtract)
 
 TEST_F(ColorCalculator_Test, HSV_Subtract)
 {
-	auto hsv_red = new hsv(0.f, 1.f, 1.f, d65_2deg);
-	auto hsv_blue = new hsv(240.f, 1.f, 1.f, d65_2deg);
-	auto hsv_pink = new hsv(300.f, 1.f, 1.f, d65_2deg);
+	auto hsv_red = new hsv(0.f, 1.f, 1.f, 1.f, d65_2deg);
+	auto hsv_blue = new hsv(240.f, 1.f, 1.f, 1.f, d65_2deg);
+	auto hsv_pink = new hsv(300.f, 1.f, 1.f, 1.f, d65_2deg);
 
 	auto red_red_sub = color_manipulation::color_calculation::subtract(hsv_red, hsv_red);
 	EXPECT_NEAR(0.f, red_red_sub->hue(), avg_error);
@@ -427,9 +427,9 @@ TEST_F(ColorCalculator_Test, HSV_Subtract)
 
 TEST_F(ColorCalculator_Test, HSL_Subtract)
 {
-	auto hsl_red = new hsl(0.f, 1.f, 0.5f, d65_2deg);
-	auto hsl_blue = new hsl(240.f, 1.f, 0.5f, d65_2deg);
-	auto hsl_pink = new hsl(300.f, 1.f, 0.5f, d65_2deg);
+	auto hsl_red = new hsl(0.f, 1.f, 0.5f, 1.f, d65_2deg);
+	auto hsl_blue = new hsl(240.f, 1.f, 0.5f, 1.f, d65_2deg);
+	auto hsl_pink = new hsl(300.f, 1.f, 0.5f, 1.f, d65_2deg);
 
 	auto red_red_sub = color_manipulation::color_calculation::subtract(hsl_red, hsl_red);
 	EXPECT_NEAR(0.f, red_red_sub->hue(), avg_error);
@@ -454,9 +454,9 @@ TEST_F(ColorCalculator_Test, HSL_Subtract)
 
 TEST_F(ColorCalculator_Test, XYZ_Subtract)
 {
-	auto xyz_red = new xyz(41.2f, 21.3f, 2.f, d65_2deg);
-	auto xyz_blue = new xyz(18.f, 7.2f, 100.f, d65_2deg);
-	auto xyz_pink = new xyz(59.2f, 28.5f, 100.f, d65_2deg);
+	auto xyz_red = new xyz(41.2f, 21.3f, 2.f, 100.f, d65_2deg);
+	auto xyz_blue = new xyz(18.f, 7.2f, 100.f, 100.f, d65_2deg);
+	auto xyz_pink = new xyz(59.2f, 28.5f, 100.f, 100.f, d65_2deg);
 
 	auto red_red_sub = color_manipulation::color_calculation::subtract(xyz_red, xyz_red);
 	EXPECT_NEAR(0.f, red_red_sub->x(), avg_error);
@@ -542,11 +542,11 @@ TEST_F(ColorCalculator_Test, Grey_Deep_Average)
 TEST_F(ColorCalculator_Test, CMYK_Average)
 {
 	auto colors = std::vector<cmyk*>();
-	colors.push_back(new cmyk(1.f, 0.f, 0.f, 0.f, d65_2deg));
-	colors.push_back(new cmyk(0.f, 0.f, 1.f, 0.f, d65_2deg));
-	colors.push_back(new cmyk(1.f, 0.f, 1.f, 0.f, d65_2deg));
-	colors.push_back(new cmyk(0.5f, 0.f, 0.5f, 0.f, d65_2deg));
-	colors.push_back(new cmyk(0.25f, 0.f, 1.f, 0.f, d65_2deg));
+	colors.push_back(new cmyk(1.f, 0.f, 0.f, 0.f, 1.f, d65_2deg));
+	colors.push_back(new cmyk(0.f, 0.f, 1.f, 0.f, 1.f, d65_2deg));
+	colors.push_back(new cmyk(1.f, 0.f, 1.f, 0.f, 1.f, d65_2deg));
+	colors.push_back(new cmyk(0.5f, 0.f, 0.5f, 0.f, 1.f, d65_2deg));
+	colors.push_back(new cmyk(0.25f, 0.f, 1.f, 0.f, 1.f, d65_2deg));
 
 	auto avg = color_manipulation::color_calculation::average_cmyk(colors);
 	ASSERT_NEAR(0.55f, avg->cyan(), avg_error);
@@ -558,11 +558,11 @@ TEST_F(ColorCalculator_Test, CMYK_Average)
 TEST_F(ColorCalculator_Test, HSV_Average)
 {
 	auto colors = std::vector<hsv*>();
-	colors.push_back(new hsv(0.f, 1.f, 1.f, d65_2deg));
-	colors.push_back(new hsv(240.f, 1.f, 1.f, d65_2deg));
-	colors.push_back(new hsv(300.f, 1.f, 1.f, d65_2deg));
-	colors.push_back(new hsv(300.f, 0.5f, 1.f, d65_2deg));
-	colors.push_back(new hsv(253.f, 0.9f, 1.f, d65_2deg));
+	colors.push_back(new hsv(0.f, 1.f, 1.f, 1.f, d65_2deg));
+	colors.push_back(new hsv(240.f, 1.f, 1.f, 1.f, d65_2deg));
+	colors.push_back(new hsv(300.f, 1.f, 1.f, 1.f, d65_2deg));
+	colors.push_back(new hsv(300.f, 0.5f, 1.f, 1.f, d65_2deg));
+	colors.push_back(new hsv(253.f, 0.9f, 1.f, 1.f, d65_2deg));
 
 	auto avg = color_manipulation::color_calculation::average_hsv(colors);
 	ASSERT_NEAR(218.f, avg->hue(), avg_error);
@@ -573,11 +573,11 @@ TEST_F(ColorCalculator_Test, HSV_Average)
 TEST_F(ColorCalculator_Test, HSL_Average)
 {
 	auto colors = std::vector<hsl*>();
-	colors.push_back(new hsl(0.f, 1.f, 0.5f, d65_2deg));
-	colors.push_back(new hsl(240.f, 1.f, 0.5f, d65_2deg));
-	colors.push_back(new hsl(300.f, 1.f, 0.5f, d65_2deg));
-	colors.push_back(new hsl(300.f, 0.5f, 0.5f, d65_2deg));
-	colors.push_back(new hsl(253.f, 0.9f, 0.5f, d65_2deg));
+	colors.push_back(new hsl(0.f, 1.f, 0.5f, 1.f, d65_2deg));
+	colors.push_back(new hsl(240.f, 1.f, 0.5f, 1.f, d65_2deg));
+	colors.push_back(new hsl(300.f, 1.f, 0.5f, 1.f, d65_2deg));
+	colors.push_back(new hsl(300.f, 0.5f, 0.5f, 1.f, d65_2deg));
+	colors.push_back(new hsl(253.f, 0.9f, 0.5f, 1.f, d65_2deg));
 
 	auto avg = color_manipulation::color_calculation::average_hsl(colors);
 	ASSERT_NEAR(218.f, avg->hue(), avg_error);
@@ -588,11 +588,11 @@ TEST_F(ColorCalculator_Test, HSL_Average)
 TEST_F(ColorCalculator_Test, XYZ_Average)
 {
 	auto colors = std::vector<xyz*>();
-	colors.push_back(new xyz(41.2f, 21.3f, 2.f, d65_2deg));
-	colors.push_back(new xyz(18.f, 7.2f, 100.f, d65_2deg));
-	colors.push_back(new xyz(59.2f, 28.5f, 100.f, d65_2deg));
-	colors.push_back(new xyz(29.6f, 14.25f, 51.f, d65_2deg));
-	colors.push_back(new xyz(28.3f, 12.5f, 100.f, d65_2deg));
+	colors.push_back(new xyz(41.2f, 21.3f, 2.f, 100.f, d65_2deg));
+	colors.push_back(new xyz(18.f, 7.2f, 100.f, 100.f, d65_2deg));
+	colors.push_back(new xyz(59.2f, 28.5f, 100.f, 100.f, d65_2deg));
+	colors.push_back(new xyz(29.6f, 14.25f, 51.f, 100.f, d65_2deg));
+	colors.push_back(new xyz(28.3f, 12.5f, 100.f, 100.f, d65_2deg));
 
 	auto avg = color_manipulation::color_calculation::average_xyz(colors);
 	ASSERT_NEAR(35.26f, avg->x(), avg_error);

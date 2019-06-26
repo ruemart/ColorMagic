@@ -36,7 +36,7 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 
 	for (auto i = 1; i <= number_of_colors - 1; ++i)
 	{
-		auto new_color = new color_space::hsl(color_hsl->hue() + (i * degrees), color_hsl->saturation(), color_hsl->lightness(), color->m_reference_white);
+		auto new_color = new color_space::hsl(color_hsl->hue() + (i * degrees), color_hsl->saturation(), color_hsl->lightness(), color->alpha(), color->get_reference_white());
 		combination.push_back(color_manipulation::color_converter::convertTo(new_color, color->get_color_type()));
 	}
 
@@ -51,9 +51,9 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 	std::vector<color_space::color_base*> triplet;
 	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(base_color, color_type::HSL));
 
-	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() - distance_between, color_hsl->saturation(), color_hsl->lightness(), base_color->m_reference_white), base_color->get_color_type()));
+	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() - distance_between, color_hsl->saturation(), color_hsl->lightness(), base_color->alpha(), base_color->get_reference_white()), base_color->get_color_type()));
 	triplet.push_back(base_color);
-	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() + distance_between, color_hsl->saturation(), color_hsl->lightness(), base_color->m_reference_white), base_color->get_color_type()));
+	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() + distance_between, color_hsl->saturation(), color_hsl->lightness(), base_color->alpha(), base_color->get_reference_white()), base_color->get_color_type()));
 
 	return triplet;
 }
@@ -75,13 +75,13 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 		switch (mode)
 		{
 		case 0:
-			combination.push_back(color_converter::convertTo(color_adjustments::saturate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness(), base_color->m_reference_white), amount), in_color_type));
+			combination.push_back(color_converter::convertTo(color_adjustments::saturate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness(), base_color->alpha(), base_color->get_reference_white()), amount), in_color_type));
 			break;
 		case 1:
-			combination.push_back(color_converter::convertTo(color_adjustments::luminate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness(), base_color->m_reference_white), amount), in_color_type));
+			combination.push_back(color_converter::convertTo(color_adjustments::luminate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness(), base_color->alpha(), base_color->get_reference_white()), amount), in_color_type));
 			break;
 		case 2:
-			combination.push_back(color_converter::convertTo(color_adjustments::luminate_in_hsl_space(color_adjustments::saturate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness(), base_color->m_reference_white), amount), amount), in_color_type));
+			combination.push_back(color_converter::convertTo(color_adjustments::luminate_in_hsl_space(color_adjustments::saturate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness(), base_color->alpha(), base_color->get_reference_white()), amount), amount), in_color_type));
 			break;
 		default:
 			throw new std::invalid_argument("Invalid mode.");;

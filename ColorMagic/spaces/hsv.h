@@ -23,9 +23,10 @@ namespace color_space
 		* \param hue The value that will be set for hue component.
 		* \param saturation The value that will be set for saturation component.
 		* \param value The value that will be set for value component.
+		* \param alpha The value that will be set for alpha.
 		* \param ref_white The reference_white used for conversions from or to lab color space.
 		*/
-		hsv(float hue, float saturation, float value, reference_white* ref_white);
+		hsv(float hue, float saturation, float value, float alpha, reference_white* ref_white);
 
 		//! Default copy constructor.
 		/*!

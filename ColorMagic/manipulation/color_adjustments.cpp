@@ -15,7 +15,7 @@ color_space::color_base * color_manipulation::color_adjustments::saturate_in_rgb
 	auto new_g = color_rgb_d->green() - percentage * (L - color_rgb_d->green());
 	auto new_b = color_rgb_d->blue() - percentage * (L - color_rgb_d->blue());
 
-	return color_manipulation::color_converter::convertTo(new color_space::rgb_deepcolor(new_r, new_g, new_b, color_rgb_d->alpha(), color->m_reference_white), color->get_color_type());
+	return color_manipulation::color_converter::convertTo(new color_space::rgb_deepcolor(new_r, new_g, new_b, color_rgb_d->alpha(), color->get_reference_white()), color->get_color_type());
 }
 
 void color_manipulation::color_adjustments::saturate_in_hsl_space(color_space::color_base & color, float percentage)
@@ -49,7 +49,7 @@ color_space::color_base * color_manipulation::color_adjustments::luminate_in_rgb
 	auto new_g = color_rgb_d->green() * factor;
 	auto new_b = color_rgb_d->blue() * factor;
 
-	return color_manipulation::color_converter::convertTo(new color_space::rgb_deepcolor(new_r, new_g, new_b, color_rgb_d->alpha(), color->m_reference_white), color->get_color_type());
+	return color_manipulation::color_converter::convertTo(new color_space::rgb_deepcolor(new_r, new_g, new_b, color_rgb_d->alpha(), color->get_reference_white()), color->get_color_type());
 }
 
 void color_manipulation::color_adjustments::luminate_in_hsl_space(color_space::color_base & color, float percentage)

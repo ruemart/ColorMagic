@@ -23,9 +23,10 @@ namespace color_space
 		* \param x The value that will be set for x component.
 		* \param y The value that will be set for y component.
 		* \param z The value that will be set for z component.
+		* \param alpha The value that will be set for alpha (default 255).
 		* \param ref_white The reference_white used for conversions from or to lab color space.
 		*/
-		xyz(float x, float y, float z, reference_white* ref_white);
+		xyz(float x, float y, float z, float alpha, reference_white* ref_white);
 
 		//! Default copy constructor.
 		/*!

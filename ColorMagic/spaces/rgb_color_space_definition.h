@@ -15,7 +15,7 @@ namespace color_space
 	{
 	public:
 		//! Default constructor.
-		rgb_color_space_definition() : m_white(new white_point()), m_red(std::array<float, 3>()), m_green(std::array<float, 3>()), m_blue(std::array<float, 3>())
+		rgb_color_space_definition() : m_red(std::array<float, 3>()), m_green(std::array<float, 3>()), m_blue(std::array<float, 3>()), m_white(new white_point())
 		{
 		}
 

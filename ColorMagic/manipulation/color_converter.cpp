@@ -118,15 +118,15 @@ color_space::hsv* color_manipulation::color_converter::rgb_deep_to_hsv(color_spa
 		int hue;
 		if (max == color->red())
 		{
-			hue = 60 * (((int)((color->green() - color->blue()) / delta)) % 6);
+			hue = 60.f * fmod(((color->green() - color->blue()) / delta), 6.f);
 		}
 		else if (max == color->green())
 		{
-			hue = 60 * (int)(((color->blue() - color->red()) / delta) + 2);
+			hue = 60.f * (((color->blue() - color->red()) / delta) + 2.f);
 		}
 		else
 		{
-			hue = 60 * (int)(((color->red() - color->green()) / delta) + 4);
+			hue = 60.f * (((color->red() - color->green()) / delta) + 4.f);
 		}
 
 		auto saturation = delta / max;

@@ -236,6 +236,12 @@ public:
 	*/
 	inline color_space::xyz* get_xyz() { return color_manipulation::color_converter::to_xyz(base); }
 
+	//! Returns the desired color as xyY color.
+	/*!
+	* \return The desired color as xyY color.
+	*/
+	inline color_space::xyy* get_xyy() { return color_manipulation::color_converter::to_xyy(base); }
+
 	//! Returns the desired color as lab color.
 	/*!
 	* \return The desired color as lab color.

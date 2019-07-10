@@ -346,6 +346,11 @@ TEST_F(ColorConverter_Test, To_HSV)
 
 TEST_F(ColorConverter_Test, To_HSL)
 {
+	color_space::rgb_deepcolor* cyan = new color_space::rgb_deepcolor(0.f, 0.5747f, 0.5747f, 1.f, srgb);
+	EXPECT_NEAR(180.f, color_manipulation::color_converter::to_hsl(cyan)->hue(), avg_error);
+	EXPECT_NEAR(1.f, color_manipulation::color_converter::to_hsl(cyan)->saturation(), avg_error);
+	EXPECT_NEAR(0.2873f, color_manipulation::color_converter::to_hsl(cyan)->lightness(), avg_error);
+
 	EXPECT_NEAR(hsl_yellow->hue(), color_manipulation::color_converter::to_hsl(rgb_t_yellow)->hue(), avg_error);
 	EXPECT_NEAR(hsl_yellow->saturation(), color_manipulation::color_converter::to_hsl(rgb_t_yellow)->saturation(), avg_error);
 	EXPECT_NEAR(hsl_yellow->lightness(), color_manipulation::color_converter::to_hsl(rgb_t_yellow)->lightness(), avg_error);

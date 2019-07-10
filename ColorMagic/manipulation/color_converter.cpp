@@ -5,28 +5,28 @@
 
 color_space::color_base* color_manipulation::color_converter::convertTo(color_space::color_base* in_color, color_type out_color)
 {
-	switch (in_color->get_color_type())
+	switch (out_color)
 	{
 	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::from_rgb_true(dynamic_cast<color_space::rgb_truecolor*>(in_color), out_color);
+		return color_manipulation::color_converter::to_rgb_true(in_color);
 	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::from_rgb_deep(dynamic_cast<color_space::rgb_deepcolor*>(in_color), out_color);
+		return color_manipulation::color_converter::to_rgb_deep(in_color);
 	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::from_grey_true(dynamic_cast<color_space::grey_truecolor*>(in_color), out_color);
+		return color_manipulation::color_converter::to_grey_true(in_color);
 	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::from_grey_deep(dynamic_cast<color_space::grey_deepcolor*>(in_color), out_color);
+		return color_manipulation::color_converter::to_grey_deep(in_color);
 	case color_type::CMYK:
-		return color_manipulation::color_converter::from_cmyk(dynamic_cast<color_space::cmyk*>(in_color), out_color);
+		return color_manipulation::color_converter::to_cmyk(in_color);
 	case color_type::HSV:
-		return color_manipulation::color_converter::from_hsv(dynamic_cast<color_space::hsv*>(in_color), out_color);
+		return color_manipulation::color_converter::to_hsv(in_color);
 	case color_type::HSL:
-		return color_manipulation::color_converter::from_hsl(dynamic_cast<color_space::hsl*>(in_color), out_color);
+		return color_manipulation::color_converter::to_hsl(in_color);
 	case color_type::XYZ:
-		return color_manipulation::color_converter::from_xyz(dynamic_cast<color_space::xyz*>(in_color), out_color);
+		return color_manipulation::color_converter::to_xyz(in_color);
 	case color_type::XYY:
-		return color_manipulation::color_converter::from_xyy(dynamic_cast<color_space::xyy*>(in_color), out_color);
+		return color_manipulation::color_converter::to_xyy(in_color);
 	case color_type::LAB:
-		return color_manipulation::color_converter::from_lab(dynamic_cast<color_space::lab*>(in_color), out_color);
+		return color_manipulation::color_converter::to_lab(in_color);
 	default:
 		return nullptr;
 	}

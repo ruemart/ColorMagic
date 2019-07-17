@@ -11,6 +11,103 @@
 
 namespace color_space
 {
+	class gamma_part
+	{
+	public:
+		gamma_part() : m_gamma_function(nullptr), m_upper_border(1.f) {}
+
+		gamma_part(std::function<float(float)> gamma_function, float upper_border = 1.f) : m_gamma_function(gamma_function), m_upper_border(upper_border) {}
+
+		gamma_part(const gamma_part& other)
+		{
+			this->m_gamma_function = other.get_gamma_function();
+			this->m_upper_border = other.get_upper_border();
+		}
+
+		gamma_part& operator=(const gamma_part& other)
+		{
+			if (this != &other)
+			{
+				this->m_gamma_function = other.get_gamma_function();
+				this->m_upper_border = other.get_upper_border();
+			}
+			return *this;
+		}
+
+		bool operator==(const gamma_part& other)
+		{
+			return m_upper_border == other.get_upper_border();
+		}
+
+		friend bool operator==(const gamma_part& lhs, const gamma_part& rhs)
+		{
+			return lhs.get_upper_border() == rhs.get_upper_border();
+		}
+
+		bool operator!=(const gamma_part& other)
+		{
+			return !(*this == other);
+		}
+
+		friend bool operator!=(const gamma_part& lhs, const gamma_part& rhs)
+		{
+			return !(lhs == rhs);
+		}
+
+		bool operator<(const gamma_part& other)
+		{
+			return m_upper_border < other.get_upper_border();
+		}
+
+		friend bool operator<(const gamma_part& lhs, const gamma_part& rhs)
+		{
+			return lhs.get_upper_border() < rhs.get_upper_border();
+		}
+
+		bool operator>(const gamma_part& other)
+		{
+			return m_upper_border > other.get_upper_border();
+		}
+
+		friend bool operator>(const gamma_part& lhs, const gamma_part& rhs)
+		{
+			return lhs.get_upper_border() > rhs.get_upper_border();
+		}
+
+		bool operator<=(const gamma_part& other)
+		{
+			return m_upper_border <= other.get_upper_border();
+		}
+
+		friend bool operator<=(const gamma_part& lhs, const gamma_part& rhs)
+		{
+			return lhs.get_upper_border() <= rhs.get_upper_border();
+		}
+
+		bool operator>=(const gamma_part& other)
+		{
+			return m_upper_border >= other.get_upper_border();
+		}
+
+		friend bool operator>=(const gamma_part& lhs, const gamma_part& rhs)
+		{
+			return lhs.get_upper_border() >= rhs.get_upper_border();
+		}
+
+		float get_upper_border() const { return m_upper_border; }
+
+		void set_upper_border(float new_border) { m_upper_border = new_border; }
+
+		std::function<float(float)> get_gamma_function() const { return m_gamma_function; }
+
+		void set_gamma_function(std::function<float(float)> new_gamma_function) { m_gamma_function = new_gamma_function; }
+
+	protected:
+		float m_upper_border;
+
+		std::function<float(float)> m_gamma_function;
+	};
+
 	class gamma
 	{
 	public:
@@ -99,7 +196,7 @@ namespace color_space
 
 		friend bool operator!=(const gamma& lhs, const gamma& rhs)
 		{
-			return !(*lhs == rhs);
+			return !(lhs == rhs);
 		}
 
 		std::vector<gamma_part*> get_gamma_curve_parts() const { return m_gamma_curve_parts; }
@@ -174,109 +271,7 @@ namespace color_space
 
 		std::vector<gamma_part*> m_inverse_gamma_curve_parts;
 	};
-
-	class gamma_part
-	{
-	public:
-		gamma_part() : m_gamma_function(nullptr), m_upper_border(1.f) {}
-
-		gamma_part(std::function<float(float)> gamma_function, float upper_border = 1.f) : m_gamma_function(gamma_function), m_upper_border(upper_border) {}
-
-		gamma_part(const gamma_part& other)
-		{
-			this->m_gamma_function = other.get_gamma_function();
-			this->m_upper_border = other.get_upper_border();
-		}
-
-		gamma_part& operator=(const gamma_part& other)
-		{
-			if (this != &other)
-			{
-				this->m_gamma_function = other.get_gamma_function();
-				this->m_upper_border = other.get_upper_border();
-			}
-			return *this;
-		}
-
-		bool operator==(const gamma_part& other) 
-		{
-			return m_upper_border == other.get_upper_border();
-		}
-
-		friend bool operator==(const gamma_part& lhs, const gamma_part& rhs)
-		{
-			return lhs.get_factor() == rhs.get_factor() && lhs.get_upper_border() == rhs.get_upper_border() && lhs.get_exponent() == rhs.get_exponent();
-		}
-		
-		bool operator!=(const gamma_part& other)
-		{
-			return !(*this == other);
-		}
-		
-		friend bool operator!=(const gamma_part& lhs, const gamma_part& rhs)
-		{
-			return !(*lhs == rhs);
-		}
-
-		bool operator<(const gamma_part& other)
-		{
-			return m_upper_border < other.get_upper_border();
-		}
-
-		friend bool operator<(const gamma_part& lhs, const gamma_part& rhs)
-		{
-			return lhs.get_upper_border() < rhs.get_upper_border();
-		}
-
-		bool operator>(const gamma_part& other)
-		{
-			return m_upper_border > other.get_upper_border();
-		}
-
-		friend bool operator>(const gamma_part& lhs, const gamma_part& rhs)
-		{
-			return lhs.get_upper_border() > rhs.get_upper_border();
-		}
-
-		bool operator<=(const gamma_part& other)
-		{
-			return m_upper_border <= other.get_upper_border();
-		}
-
-		friend bool operator<=(const gamma_part& lhs, const gamma_part& rhs)
-		{
-			return lhs.get_upper_border() <= rhs.get_upper_border();
-		}
-
-		bool operator>=(const gamma_part& other)
-		{
-			return m_upper_border >= other.get_upper_border();
-		}
-
-		friend bool operator>=(const gamma_part& lhs, const gamma_part& rhs)
-		{
-			return lhs.get_upper_border() >= rhs.get_upper_border();
-		}
-
-		float get_upper_border() const { return m_upper_border; }
-
-		void set_upper_border(float new_border) { m_upper_border = new_border; }
-
-		std::function<float(float)> get_gamma_function() const { return m_gamma_function; }
-
-		void set_gamma_function(std::function<float(float)> new_gamma_function) { m_gamma_function = new_gamma_function; }
-
-	protected:
-		float m_upper_border;
-
-		std::function<float(float)> m_gamma_function;
-	};
-
-	//! Class that stores some default reference white values.
-	/*!
-	* This class stores reference whites like A, B, C, Equal Energy, D50, or D65.
-	* The values for these reference whites were taken from https://www.easyrgb.com
-	*/
+	
 	class gamma_presets
 	{
 	public:

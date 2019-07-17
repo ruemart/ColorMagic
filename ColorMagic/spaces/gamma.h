@@ -34,19 +34,14 @@ namespace color_space
 			return *this;
 		}
 
-		bool operator==(const gamma_part& other)
-		{
-			return m_upper_border == other.get_upper_border();
-		}
-
 		friend bool operator==(const gamma_part& lhs, const gamma_part& rhs)
 		{
-			return lhs.get_upper_border() == rhs.get_upper_border();
+			return lhs.get_upper_border() == rhs.get_upper_border() && lhs.get_gamma_function_address() == rhs.get_gamma_function_address();
 		}
 
-		bool operator!=(const gamma_part& other)
+		friend bool operator==(gamma_part& lhs, gamma_part& rhs)
 		{
-			return !(*this == other);
+			return lhs.get_upper_border() == rhs.get_upper_border() && lhs.get_gamma_function_address() == rhs.get_gamma_function_address();
 		}
 
 		friend bool operator!=(const gamma_part& lhs, const gamma_part& rhs)
@@ -54,9 +49,9 @@ namespace color_space
 			return !(lhs == rhs);
 		}
 
-		bool operator<(const gamma_part& other)
+		friend bool operator!=(gamma_part& lhs, gamma_part& rhs)
 		{
-			return m_upper_border < other.get_upper_border();
+			return !(lhs == rhs);
 		}
 
 		friend bool operator<(const gamma_part& lhs, const gamma_part& rhs)
@@ -64,19 +59,9 @@ namespace color_space
 			return lhs.get_upper_border() < rhs.get_upper_border();
 		}
 
-		bool operator>(const gamma_part& other)
-		{
-			return m_upper_border > other.get_upper_border();
-		}
-
 		friend bool operator>(const gamma_part& lhs, const gamma_part& rhs)
 		{
 			return lhs.get_upper_border() > rhs.get_upper_border();
-		}
-
-		bool operator<=(const gamma_part& other)
-		{
-			return m_upper_border <= other.get_upper_border();
 		}
 
 		friend bool operator<=(const gamma_part& lhs, const gamma_part& rhs)
@@ -84,12 +69,27 @@ namespace color_space
 			return lhs.get_upper_border() <= rhs.get_upper_border();
 		}
 
-		bool operator>=(const gamma_part& other)
+		friend bool operator>=(const gamma_part& lhs, const gamma_part& rhs)
 		{
-			return m_upper_border >= other.get_upper_border();
+			return lhs.get_upper_border() >= rhs.get_upper_border();
 		}
 
-		friend bool operator>=(const gamma_part& lhs, const gamma_part& rhs)
+		friend bool operator<(gamma_part& lhs, gamma_part& rhs)
+		{
+			return lhs.get_upper_border() < rhs.get_upper_border();
+		}
+
+		friend bool operator>(gamma_part& lhs, gamma_part& rhs)
+		{
+			return lhs.get_upper_border() > rhs.get_upper_border();
+		}
+
+		friend bool operator<=(gamma_part& lhs, gamma_part& rhs)
+		{
+			return lhs.get_upper_border() <= rhs.get_upper_border();
+		}
+
+		friend bool operator>=(gamma_part& lhs, gamma_part& rhs)
 		{
 			return lhs.get_upper_border() >= rhs.get_upper_border();
 		}
@@ -102,7 +102,15 @@ namespace color_space
 
 		void set_gamma_function(std::function<float(float)> new_gamma_function) { m_gamma_function = new_gamma_function; }
 
+		long get_gamma_function_address() const
+		{
+			if (!m_gamma_function) return 0;
+
+			return *(long *)(char *)&m_gamma_function;
+		}
+
 	protected:
+
 		float m_upper_border;
 
 		std::function<float(float)> m_gamma_function;
@@ -115,16 +123,16 @@ namespace color_space
 
 		gamma(std::vector<gamma_part*> gamma_parts, std::vector<gamma_part*> inverse_gamma_parts) : m_gamma_curve_parts(gamma_parts), m_inverse_gamma_curve_parts(inverse_gamma_parts)
 		{
-			sort_gamma_parts(m_gamma_curve_parts);
-			sort_gamma_parts(m_inverse_gamma_curve_parts);
+			sort_gamma_parts();
+			sort_inverse_gamma_parts();
 		}
 
 		gamma(const gamma& other)
 		{
 			m_gamma_curve_parts = other.get_gamma_curve_parts();
 			m_inverse_gamma_curve_parts = other.get_inverse_gamma_curve_parts();
-			sort_gamma_parts(m_gamma_curve_parts);
-			sort_gamma_parts(m_inverse_gamma_curve_parts);
+			sort_gamma_parts();
+			sort_inverse_gamma_parts();
 		}
 
 		gamma& operator=(const gamma& other)
@@ -133,8 +141,8 @@ namespace color_space
 			{
 				m_gamma_curve_parts = other.get_gamma_curve_parts();
 				m_inverse_gamma_curve_parts = other.get_inverse_gamma_curve_parts();
-				sort_gamma_parts(m_gamma_curve_parts);
-				sort_gamma_parts(m_inverse_gamma_curve_parts);
+				sort_gamma_parts();
+				sort_inverse_gamma_parts();
 			}
 			return *this;
 		}
@@ -204,7 +212,7 @@ namespace color_space
 		void add_gamma_curve_part(gamma_part* new_part)
 		{
 			m_gamma_curve_parts.push_back(new_part);
-			sort_gamma_parts(m_gamma_curve_parts);
+			sort_gamma_parts();
 		}
 
 		bool remove_gamma_curve_part(std::vector<gamma_part*>::iterator position)
@@ -215,7 +223,7 @@ namespace color_space
 		void set_gamma_curve_parts(std::vector<gamma_part*> new_gamma_curve_parts)
 		{
 			m_gamma_curve_parts = new_gamma_curve_parts;
-			sort_gamma_parts(m_gamma_curve_parts);
+			sort_gamma_parts();
 		}
 
 		std::vector<gamma_part*> get_inverse_gamma_curve_parts() const { return m_inverse_gamma_curve_parts; }
@@ -223,7 +231,7 @@ namespace color_space
 		void add_inverse_gamma_curve_part(gamma_part* new_part)
 		{
 			m_inverse_gamma_curve_parts.push_back(new_part);
-			sort_gamma_parts(m_inverse_gamma_curve_parts);
+			sort_inverse_gamma_parts();
 		}
 
 		bool remove_inverse_gamma_curve_part(std::vector<gamma_part*>::iterator position)
@@ -234,13 +242,15 @@ namespace color_space
 		void set_inverse_gamma_curve_parts(std::vector<gamma_part*> new_gamma_curve_parts)
 		{
 			m_inverse_gamma_curve_parts = new_gamma_curve_parts;
-			sort_gamma_parts(m_inverse_gamma_curve_parts);
+			sort_inverse_gamma_parts();
 		}
 
 		float gamma_correction(float input_value)
 		{
-			for(gamma_part* part : m_gamma_curve_parts)
+			for (gamma_part* part : m_gamma_curve_parts)
 			{
+				if (part == nullptr || !(part->get_gamma_function())) continue;
+
 				if (input_value <= part->get_upper_border())
 				{
 					return (part->get_gamma_function())(input_value);
@@ -253,6 +263,8 @@ namespace color_space
 		{
 			for (gamma_part* part : m_inverse_gamma_curve_parts)
 			{
+				if (part == nullptr || !(part->get_gamma_function())) continue;
+
 				if (input_value <= part->get_upper_border())
 				{
 					return (part->get_gamma_function())(input_value);
@@ -262,16 +274,21 @@ namespace color_space
 		}
 
 	protected:
-		void sort_gamma_parts(std::vector<gamma_part*> gamma_parts)
+		void sort_gamma_parts()
 		{
-			std::sort(gamma_parts.begin(), gamma_parts.end());
+			std::sort(m_gamma_curve_parts.begin(), m_gamma_curve_parts.end(), [](gamma_part* gp1, gamma_part* gp2) { return (*gp1) < (*gp2); });
+		}
+
+		void sort_inverse_gamma_parts()
+		{
+			std::sort(m_inverse_gamma_curve_parts.begin(), m_inverse_gamma_curve_parts.end(), [](gamma_part* gp1, gamma_part* gp2) { return (*gp1) < (*gp2); });
 		}
 
 		std::vector<gamma_part*> m_gamma_curve_parts;
 
 		std::vector<gamma_part*> m_inverse_gamma_curve_parts;
 	};
-	
+
 	class gamma_presets
 	{
 	public:
@@ -285,7 +302,7 @@ namespace color_space
 
 			return new gamma(g, ig);
 		}
-		
+
 		gamma* gamma2_2()
 		{
 			std::vector<gamma_part*> g;
@@ -368,7 +385,7 @@ namespace color_space
 
 			ig.push_back(new gamma_part([](float input) { return 4.5f * input; }, 0.018053968510807f));
 			ig.push_back(new gamma_part([](float input) { return 1.099f * std::powf(input, 0.45f) - 0.099f; }, 1.f));
-			
+
 			return new gamma(g, ig);
 		}
 	};

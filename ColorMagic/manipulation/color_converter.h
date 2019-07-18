@@ -288,26 +288,6 @@ namespace color_manipulation
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* rgb_deep_to_lab(color_space::rgb_deepcolor* color);
-			   		
-		//! Static function that converts a rgb deep color to srgb.
-		/*!
-		* Depending on the value of each component it is divided by 12.92 (if smaller than 0.04045)
-		* or it will be converted by the formula:
-		* ((comp + 0.055) / 1.055)^2.4
-		* \param in_color The color to convert.
-		* \return The input color converted to srgb.
-		*/
-		static color_space::rgb_deepcolor* rgb_deep_to_linear_srgb_deep(color_space::rgb_deepcolor* color);
-		
-		//! Static function that converts a srgb color to rgb deep.
-		/*!
-		* Depending on the value of each component it is multiplied by 12.92 (if smaller than 0.003108)
-		* or it will be converted by the formula:
-		* sqrt((comp * 1.055)^2.4) - 0.055
-		* \param in_color The color to convert.
-		* \return The input color converted to rgb deep.
-		*/
-		static color_space::rgb_deepcolor* linear_srgb_deep_to_rgb_deep(color_space::rgb_deepcolor* color);
 
 #pragma endregion
 

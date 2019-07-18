@@ -403,7 +403,7 @@ namespace color_space
 		* The Ekta Space PS5 color space.
 		* It uses the D50 reference white and a gamma of 2.2.
 		*/
-		rgb_color_space_definition* donRGB4() { return new rgb_color_space_definition(0.6950f, 0.3050f, 0.2600f, 0.7000f, 0.1100f, 0.0050f, m_white_presets.D50_2Degree(), m_gamma_presets.gamma2_2()); }
+		rgb_color_space_definition* ektaSpacePS5() { return new rgb_color_space_definition(0.6950f, 0.3050f, 0.2600f, 0.7000f, 0.1100f, 0.0050f, m_white_presets.D50_2Degree(), m_gamma_presets.gamma2_2()); }
 
 		//! The ProPhoto RGB color space.
 		/*!

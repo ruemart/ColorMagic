@@ -271,7 +271,8 @@ namespace color_space
 	//! Class that stores some default reference white values.
 	/*!
 	* This class stores reference whites like A, B, C, Equal Energy, D50, or D65.
-	* The values for these reference whites were taken from https://www.easyrgb.com
+	* The values for these reference whites were taken from https://www.easyrgb.com and 
+	* http://www.brucelindbloom.com/index.html?WorkingSpaceInfo.html#Specifications
 	*/
 	class rgb_color_space_definition_presets
 	{
@@ -301,28 +302,28 @@ namespace color_space
 		/*!
 		* The PAL/SECAM color space is used for television in Europe, Asia, Afrika, Australia and parts of
 		* South America.
-		* It uses the D65 reference white.
+		* It uses the D65 reference white and a gamma of 2.8.
 		*/
 		rgb_color_space_definition* pal_secam() { return new rgb_color_space_definition(0.64f, 0.33f, 0.29f, 0.6f, 0.15f, 0.06f, m_white_presets.D65_2Degree(), m_gamma_presets.gamma2_8()); }
 
 		//! The NTSC color space used in America.
 		/*!
 		* The NTSC color space is used for television in North America and parts of South America.
-		* It uses the D65 reference white.
+		* It uses the D65 reference white and a gamma of 2.2.
 		*/
 		rgb_color_space_definition* americaNTSC() { return new rgb_color_space_definition(0.63f, 0.34f, 0.31f, 0.595f, 0.155f, 0.07f, m_white_presets.D65_2Degree(), m_gamma_presets.gamma2_2()); }
 
 		//! The NTSC color space from 1953.
 		/*!
 		* Old version of the NTSC color space from 1953.
-		* It uses the C reference white.
+		* It uses the C reference white and a gamma of 2.2.
 		*/
 		rgb_color_space_definition* oldNTSC() { return new rgb_color_space_definition(0.67f, 0.33f, 0.21f, 0.71f, 0.14f, 0.08f, m_white_presets.C_2Degree(), m_gamma_presets.gamma2_2()); }
 
 		//! The Apple RGB color space.
 		/*!
 		* The Apple RGB color space is an RGB color space developed by Apple.
-		* It uses the D65 reference white.
+		* It uses the D65 reference white and a gamma of 1.8.
 		*/
 		rgb_color_space_definition* appleRGB() { return new rgb_color_space_definition(0.625f, 0.34f, 0.28f, 0.595f, 0.155f, 0.07f, m_white_presets.D65_2Degree(), m_gamma_presets.gamma1_8()); }
 
@@ -330,7 +331,7 @@ namespace color_space
 		/*!
 		* DCI-P3, or DCI/P3, is a common RGB color space for digital movie projection
 		* from the American film industry.
-		* It uses the D65 reference white.
+		* It uses the D65 reference white and a gamma of 2.6.
 		*/
 		rgb_color_space_definition* dci_p3() { return new rgb_color_space_definition(0.68f, 0.32f, 0.265f, 0.69f, 0.15f, 0.06f, m_white_presets.D65_2Degree(), m_gamma_presets.gamma2_6()); }
 
@@ -362,12 +363,68 @@ namespace color_space
 		*/
 		rgb_color_space_definition* rommRGB() { return new rgb_color_space_definition(0.7347f, 0.2653f, 0.1596f, 0.8404f, 0.0366f, 0.0001f, m_white_presets.D50_2Degree(), m_gamma_presets.gammaRomm()); }
 
+		//! The Best-RGB color space.
+		/*!
+		* The Best-RGB color space.
+		* It uses the D50 reference white and a gamma of 2.2.
+		*/
+		rgb_color_space_definition* bestRGB() { return new rgb_color_space_definition(0.7347f, 0.2653f, 0.2150f, 0.7750f, 0.1300f, 0.0350f, m_white_presets.D50_2Degree(), m_gamma_presets.gamma2_2()); }
+
+		//! The Beta-RGB color space.
+		/*!
+		* The Beta-RGB color space.
+		* It uses the D50 reference white and a gamma of 2.2.
+		*/
+		rgb_color_space_definition* betaRGB() { return new rgb_color_space_definition(0.6888f, 0.3112f, 0.1986f, 0.7551f, 0.1265f, 0.0352f, m_white_presets.D50_2Degree(), m_gamma_presets.gamma2_2()); }
+
+		//! The Bruce-RGB color space.
+		/*!
+		* The Bruce-RGB color space.
+		* It uses the D65 reference white and a gamma of 2.2.
+		*/
+		rgb_color_space_definition* bruceRGB() { return new rgb_color_space_definition(0.6400f, 0.3300f, 0.2800f, 0.6500f, 0.1500f, 0.0600f, m_white_presets.D65_2Degree(), m_gamma_presets.gamma2_2()); }
+
+		//! The ColorMatch-RGB color space.
+		/*!
+		* The ColorMatch-RGB color space.
+		* It uses the D50 reference white and a gamma of 1.8.
+		*/
+		rgb_color_space_definition* colorMatchRGB() { return new rgb_color_space_definition(0.6300f, 0.3400f, 0.2950f, 0.6050f, 0.1500f, 0.0750f, m_white_presets.D50_2Degree(), m_gamma_presets.gamma1_8()); }
+
+		//! The DonRGB4 color space.
+		/*!
+		* The DonRGB4 color space.
+		* It uses the D50 reference white and a gamma of 2.2.
+		*/
+		rgb_color_space_definition* donRGB4() { return new rgb_color_space_definition(0.6960f, 0.3000f, 0.2150f, 0.7650f, 0.1300f, 0.0350f, m_white_presets.D50_2Degree(), m_gamma_presets.gamma2_2()); }
+
+		//! The Ekta Space PS5 color space.
+		/*!
+		* The Ekta Space PS5 color space.
+		* It uses the D50 reference white and a gamma of 2.2.
+		*/
+		rgb_color_space_definition* donRGB4() { return new rgb_color_space_definition(0.6950f, 0.3050f, 0.2600f, 0.7000f, 0.1100f, 0.0050f, m_white_presets.D50_2Degree(), m_gamma_presets.gamma2_2()); }
+
+		//! The ProPhoto RGB color space.
+		/*!
+		* The ProPhoto RGB color space.
+		* It uses the D50 reference white and a gamma of 1.8.
+		*/
+		rgb_color_space_definition* ProPhotoRGB() { return new rgb_color_space_definition(0.7347f, 0.2653f, 0.1596f, 0.8404f, 0.0366f, 0.0001f, m_white_presets.D50_2Degree(), m_gamma_presets.gamma1_8()); }
+
+		//! The SMPTE-C RGB color space.
+		/*!
+		* The SMPTE-C RGB color space.
+		* It uses the D65 reference white and a gamma of 2.2.
+		*/
+		rgb_color_space_definition* SMPTE_C_RGB() { return new rgb_color_space_definition(0.6300f, 0.3400f, 0.3100f, 0.5950f, 0.1550f, 0.0700f, m_white_presets.D65_2Degree(), m_gamma_presets.gamma2_2()); }
+
 		//! The CIE RGB (1931) color space.
 		/*!
 		* The CIE 1931 color spaces were the first defined quantitative links between distributions
 		* of wavelengths in the electromagnetic visible spectrum, and physiologically perceived colors
 		* in human color vision.
-		* It uses the E reference white.
+		* It uses the E reference white and a gamma of 2.2.
 		*/
 		rgb_color_space_definition* cieRGB() { return new rgb_color_space_definition(0.7347f, 0.2653f, 0.2738f, 0.7174f, 0.1666f, 0.0089f, m_white_presets.E_2Degree(), m_gamma_presets.gamma2_2()); }
 
@@ -376,7 +433,7 @@ namespace color_space
 		* The CIE 1931 color spaces were the first defined quantitative links between distributions
 		* of wavelengths in the electromagnetic visible spectrum, and physiologically perceived colors
 		* in human color vision. This gammut of this color space covers the whole xyz area.
-		* It uses the E reference white.
+		* It uses the E reference white and a gamma of 2.2.
 		*/
 		rgb_color_space_definition* cieXYZ() { return new rgb_color_space_definition(1.f, 0.f, 0.f, 1.f, 0.f, 0.f, m_white_presets.E_2Degree(), m_gamma_presets.gamma2_2()); }
 	};

@@ -151,6 +151,24 @@ namespace color_space
 			return result;
 		}
 
+		//! Does the gamma correction for each component of this color.
+		void do_gamma_correction()
+		{
+			for (size_t i = 0; i < m_component_vector.size(); ++i)
+			{
+				m_component_vector[i] = m_rgb_color_space->get_gamma_curve()->gamma_correction(m_component_vector[i]);
+			}
+		}
+
+		//! Does the inverse gamma correction for each component of this color.
+		void do_inverse_gamma_correction()
+		{
+			for (size_t i = 0; i < m_component_vector.size(); ++i)
+			{
+				m_component_vector[i] = m_rgb_color_space->get_gamma_curve()->inverse_gamma_correction(m_component_vector[i]);
+			}
+		}
+
 	protected:
 		//! Clamps a given value between a given max and min value (inclusive).
 		/*!

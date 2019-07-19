@@ -17,6 +17,7 @@ enum color_type
 	HSL, /*!< HSL - for hsl color spaces */  
 	XYZ, /*!< XYZ - for xyz color spaces */  
 	XYY, /*!< XYY - for xyY color spaces */
+	CIELUV, /*!< CIELUV - for cieluv color spaces */
 	LAB, /*!< LAB - for lab color spaces */  
 	UNDEFINED /*!< UNDEFINED - Default value of color_base objects */  
 };

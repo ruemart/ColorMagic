@@ -96,6 +96,9 @@
     <ClInclude Include="spaces\gamma.h">
       <Filter>spaces</Filter>
     </ClInclude>
+    <ClInclude Include="spaces\cieluv.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">

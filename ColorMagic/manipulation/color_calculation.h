@@ -139,6 +139,18 @@ namespace color_manipulation
 		*/
 		static color_space::xyy* add(color_space::xyy* color1, color_space::xyy* color2, float weight1 = 1.f, float weight2 = 1.f, bool include_alpha = false);
 
+		//! Static function that adds two cieluv colors.
+		/*!
+		* Adds both cieluv colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::cieluv* add(color_space::cieluv* color1, color_space::cieluv* color2, float weight1 = 1.f, float weight2 = 1.f, bool include_alpha = false);
+
 		//! Static function that adds two lab colors.
 		/*!
 		* Converts both colors to xyz space (which is linear) and adds them. Afterwards the resulting color is converted back to lab.
@@ -264,13 +276,25 @@ namespace color_manipulation
 		/*!
 		* Performs an additive color mix of both xyy colors. The mix ratio of the two colors can be varied in the range [0,1]
 		* by using their corresponding weights.
-		* \param color1 The first of the two xyz colors to add.
-		* \param color2 The second of the two xyz colors to add.
+		* \param color1 The first of the two xyy colors to add.
+		* \param color2 The second of the two xyy colors to add.
 		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
 		* \param include_alpha Whether alpha should be included in the calculation or not.
 		* \return a new color object with the resulting color of this calculation.
 		*/
 		static color_space::xyy* mix(color_space::xyy* color1, color_space::xyy* color2, float weight = 0.5f, bool include_alpha = false);
+
+		//! Static function that mixes two colors in cieluv color space.
+		/*!
+		* Performs an additive color mix of both cieluv colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
+		* \param color1 The first of the two cieluv colors to add.
+		* \param color2 The second of the two cieluv colors to add.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::cieluv* mix(color_space::cieluv* color1, color_space::cieluv* color2, float weight = 0.5f, bool include_alpha = false);
 
 		//! Static function that mixes two colors in lab color space.
 		/*!
@@ -386,13 +410,24 @@ namespace color_manipulation
 		//! Static function that subtracts two colors in xyz color space.
 		/*!
 		* Subtracts both xyy colors.
-		* \param color1 The first of the two xyz colors to subtract.
-		* \param color2 The second of the two xyz colors to subtract.
+		* \param color1 The first of the two xyy colors to subtract.
+		* \param color2 The second of the two xyy colors to subtract.
 		* \param weight The second colors weight in the range [0,1].
 		* \param include_alpha Whether alpha should be included in the calculation or not.
 		* \return a new color object with the resulting color of this calculation.
 		*/
 		static color_space::xyy* subtract(color_space::xyy* color1, color_space::xyy* color2, float weight = 1.f, bool include_alpha = false);
+
+		//! Static function that subtracts two colors in cieluv color space.
+		/*!
+		* Subtracts both cieluv colors.
+		* \param color1 The first of the two cieluv colors to subtract.
+		* \param color2 The second of the two cieluv colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::cieluv* subtract(color_space::cieluv* color1, color_space::cieluv* color2, float weight = 1.f, bool include_alpha = false);
 
 		//! Static function that subtracts two colors in lab color space.
 		/*!
@@ -485,6 +520,15 @@ namespace color_manipulation
 		* \return a new color object with the resulting color of this calculation.
 		*/
 		static color_space::xyy* average_xyy(std::vector<color_space::xyy*> colors, bool include_alpha = false);
+
+		//! Static function that averages a vector of cieluv colors.
+		/*!
+		* Averages each cieluv component of the colors seperately.
+		* \param colors The vector of colors to average.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::cieluv* average_cieluv(std::vector<color_space::cieluv*> colors, bool include_alpha = false);
 
 		//! Static function that averages a vector of lab colors.
 		/*!

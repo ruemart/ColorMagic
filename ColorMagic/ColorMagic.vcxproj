@@ -159,6 +159,7 @@
     <ClInclude Include="manipulation\color_converter.h" />
     <ClInclude Include="manipulation\color_distance.h" />
     <ClInclude Include="spaces\cmyk.h" />
+    <ClInclude Include="spaces\gamma.h" />
     <ClInclude Include="spaces\grey_deepcolor.h" />
     <ClInclude Include="spaces\grey_truecolor.h" />
     <ClInclude Include="spaces\hsl.h" />

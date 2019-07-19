@@ -22,7 +22,8 @@ protected:
 TEST_F(RGBColorSpaceDefinition_Test, Constructor_Tests)
 {
 	white_point ref_white(0.3127f, 0.3290f);
-	rgb_color_space_definition d65_2(0.64f, 0.33f, 0.3f, 0.6f, 0.15f, 0.06f, &ref_white);
+	gamma_presets g_presets;
+	rgb_color_space_definition d65_2(0.64f, 0.33f, 0.3f, 0.6f, 0.15f, 0.06f, &ref_white, g_presets.sRGB());
 
 	std::vector<float> result_data{ 0.412383f, 0.357585f, 0.18048f, 0.212635f, 0.71517f, 0.072192f, 0.01933f, 0.119195f, 0.950528f };
 	matrix<float> resulting_transform(3, result_data);

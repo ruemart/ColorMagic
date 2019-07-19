@@ -142,7 +142,7 @@ color_space::hsl* color_manipulation::color_converter::rgb_deep_to_hsl(color_spa
 
 color_space::xyz* color_manipulation::color_converter::rgb_deep_to_xyz(color_space::rgb_deepcolor* color)
 {
-	color = rgb_deep_to_linear_srgb_deep(color);
+	color->do_inverse_gamma_correction();
 
 	auto xyz_components = color->get_rgb_color_space()->get_transform_matrix() * color->get_component_vector();
 	return new color_space::xyz(xyz_components[0], xyz_components[1], xyz_components[2], color->alpha(), color->get_rgb_color_space());
@@ -156,42 +156,6 @@ color_space::xyy* color_manipulation::color_converter::rgb_deep_to_xyy(color_spa
 color_space::lab* color_manipulation::color_converter::rgb_deep_to_lab(color_space::rgb_deepcolor* color)
 {
 	return color_manipulation::color_converter::xyz_to_lab(color_manipulation::color_converter::rgb_deep_to_xyz(color));
-}
-
-color_space::rgb_deepcolor* color_manipulation::color_converter::rgb_deep_to_linear_srgb_deep(color_space::rgb_deepcolor* color)
-{
-	float components[3] = { color->red(), color->green(), color->blue() };
-	for (auto i = 0; i < 3; ++i)
-	{
-		if (components[i] <= 0.04045f)
-		{
-			components[i] /= 12.92f;
-		}
-		else
-		{
-			components[i] = std::powf((components[i] + 0.055f) / 1.055f, 2.4f);
-		}
-	}
-
-	return new color_space::rgb_deepcolor(components[0], components[1], components[2], color->alpha(), color->get_rgb_color_space());
-}
-
-color_space::rgb_deepcolor* color_manipulation::color_converter::linear_srgb_deep_to_rgb_deep(color_space::rgb_deepcolor* color)
-{
-	float components[3] = { color->red(), color->green(), color->blue() };
-	for (auto i = 0; i < 3; ++i)
-	{
-		if (components[i] <= 0.0031308f)
-		{
-			components[i] *= 12.92f;
-		}
-		else
-		{
-			components[i] = N_ROOT(components[i] * 1.055f, 2.4f) - 0.055f;
-		}
-	}
-
-	return new color_space::rgb_deepcolor(components[0], components[1], components[2], color->alpha(), color->get_rgb_color_space());
 }
 
 color_space::rgb_truecolor* color_manipulation::color_converter::grey_true_to_rgb_true(color_space::grey_truecolor* color)
@@ -469,11 +433,12 @@ color_space::rgb_truecolor* color_manipulation::color_converter::xyz_to_rgb_true
 color_space::rgb_deepcolor* color_manipulation::color_converter::xyz_to_rgb_deep(color_space::xyz* color)
 {
 	auto rgb_components = color->get_rgb_color_space()->get_inverse_transform_matrix() * color->get_component_vector();
-
-	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new color_space::rgb_deepcolor(rgb_components[0], rgb_components[1], rgb_components[2], color->alpha(), color->get_rgb_color_space()));
+	auto rgb_deep = new color_space::rgb_deepcolor(rgb_components[0], rgb_components[1], rgb_components[2], color->alpha(), color->get_rgb_color_space());
 	rgb_deep->red(round_float_to_n_decimals(clamp_float(rgb_deep->red(), 0.f, 1.f), 1));
 	rgb_deep->green(round_float_to_n_decimals(clamp_float(rgb_deep->green(), 0.f, 1.f), 1));
 	rgb_deep->blue(round_float_to_n_decimals(clamp_float(rgb_deep->blue(), 0.f, 1.f), 1));
+	
+	rgb_deep->do_gamma_correction();
 	return rgb_deep;
 }
 

@@ -187,6 +187,7 @@
     <ClCompile Include="manipulation\color_combinations.cpp" />
     <ClCompile Include="manipulation\color_converter.cpp" />
     <ClCompile Include="manipulation\color_distance.cpp" />
+    <ClCompile Include="spaces\cieluv.cpp" />
     <ClCompile Include="spaces\cmyk.cpp" />
     <ClCompile Include="spaces\grey_deepcolor.cpp" />
     <ClCompile Include="spaces\grey_truecolor.cpp" />

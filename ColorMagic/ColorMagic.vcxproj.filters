@@ -155,5 +155,8 @@
     <ClCompile Include="spaces\xyy.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
+    <ClCompile Include="spaces\cieluv.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

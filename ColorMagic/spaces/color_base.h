@@ -156,7 +156,7 @@ namespace color_space
 		{
 			for (size_t i = 0; i < m_component_vector.size(); ++i)
 			{
-				m_component_vector[i] = m_rgb_color_space->get_gamma_curve()->gamma_correction(m_component_vector[i]);
+				m_component_vector[i] = clamp(m_rgb_color_space->get_gamma_curve()->gamma_correction(m_component_vector[i]), m_max, m_min);
 			}
 		}
 
@@ -165,7 +165,7 @@ namespace color_space
 		{
 			for (size_t i = 0; i < m_component_vector.size(); ++i)
 			{
-				m_component_vector[i] = m_rgb_color_space->get_gamma_curve()->inverse_gamma_correction(m_component_vector[i]);
+				m_component_vector[i] = clamp(m_rgb_color_space->get_gamma_curve()->inverse_gamma_correction(m_component_vector[i]), m_max, m_min);
 			}
 		}
 

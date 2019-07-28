@@ -149,11 +149,11 @@ namespace color_space
 		}
 
 	protected:
-		//! The upper border.
-		float m_upper_border;
-
 		//! The gamma function.
 		std::function<float(float)> m_gamma_function;
+
+		//! The upper border.
+		float m_upper_border;
 	};
 
 	//! Class that stores functions for gamma and inverse gamma calculation.

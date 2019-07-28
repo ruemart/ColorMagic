@@ -166,6 +166,7 @@
     <ClInclude Include="spaces\hsv.h" />
     <ClInclude Include="spaces\color_base.h" />
     <ClInclude Include="spaces\lab.h" />
+    <ClInclude Include="spaces\cieluv.h" />
     <ClInclude Include="spaces\white_point.h" />
     <ClInclude Include="spaces\rgb_color_space_definition.h" />
     <ClInclude Include="spaces\rgb_deepcolor.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="manipulation\color_combinations.cpp" />
     <ClCompile Include="manipulation\color_converter.cpp" />
     <ClCompile Include="manipulation\color_distance.cpp" />
+    <ClCompile Include="spaces\cieluv.cpp" />
     <ClCompile Include="spaces\cmyk.cpp" />
     <ClCompile Include="spaces\grey_deepcolor.cpp" />
     <ClCompile Include="spaces\grey_truecolor.cpp" />

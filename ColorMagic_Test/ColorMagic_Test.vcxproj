@@ -36,6 +36,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CIELUV_Test.cpp" />
     <ClCompile Include="CMYK_Test.cpp" />
     <ClCompile Include="ColorAdjustments.cpp" />
     <ClCompile Include="ColorCalculator_Test.cpp" />

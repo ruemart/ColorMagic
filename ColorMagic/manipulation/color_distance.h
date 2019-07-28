@@ -24,36 +24,34 @@ namespace color_manipulation
 		* The calculation is done in RGB deep color space and returns distances in the range of [0,3] where 0 means equality and 3 means
 		* maximum distance (black - white). This method is the fastest but most inaccurate method to calculate the distance of two colors.
 		* \sa euclidean_distance(), euclidean_distance_weighted()
-		* \param color1 the first of the two colors to compare. Color space does not matter since it will be converted to RGB deep before doing 
-		* any calculation.
-		* \param color2 the second of the two colors to compare. Color space does not matter since it will be converted to RGB deep before doing 
-		* any calculation.
+		* \param color1 the first of the two colors to compare.
+		* \param color2 the second of the two colors to compare.
+		* \param calculation_space The color space to use for the calculation. Valid values are RGB_DEEP and CIELUV. If another type is 
+		* specified RGB_DEEP will be used.
 		* \return The calculated euclidean distance in the range [0,3].
 		*/
-		static float euclidean_distance_squared(color_space::color_base* color1, color_space::color_base* color2);
+		static float euclidean_distance_squared(color_space::color_base* color1, color_space::color_base* color2, color_type calculation_space = color_type::RGB_DEEP);
 
 		//! Static function that calculates the distance of the two given colors by using euclidean distance.
 		/*!
 		* The calculation is done in RGB deep color space. By using this function the square root is part of the calculation. The results
 		* are in a range of [0,sqrt(3)] where 0 means equality and sqrt(3) means maximum distance (black - white).
 		* \sa euclidean_distance_squared(), euclidean_distance_weighted()
-		* \param color1 the first of the two colors to compare. Color space does not matter since it will be converted to RGB deep before doing 
-		* any calculation.
-		* \param color2 the second of the two colors to compare. Color space does not matter since it will be converted to RGB deep before doing 
-		* any calculation.
+		* \param color1 the first of the two colors to compare.
+		* \param color2 the second of the two colors to compare.
+		* \param calculation_space The color space to use for the calculation. Valid values are RGB_DEEP and CIELUV. If another type is
+		* specified RGB_DEEP will be used.
 		* \return The calculated euclidean distance in the range [0,sqrt(3)].
 		*/
-		static float euclidean_distance(color_space::color_base* color1, color_space::color_base* color2);
+		static float euclidean_distance(color_space::color_base* color1, color_space::color_base* color2, color_type calculation_space = color_type::RGB_DEEP);
 
 		//! Static function that calculates the distance of the two given colors by using weighted euclidean distance.
 		/*!
 		* The calculation is done in RGB deep color space. By using this function weight factors are used to achieve a better fit to the 
 		* perception of the human eye. Therefore the factors 2, 4 and 3 are applied to the three color chanels (RGB).
 		* \sa euclidean_distance_squared(), euclidean_distance() 
-		* \param color1 the first of the two colors to compare. Color space does not matter since it will be converted to RGB deep before doing
-		* any calculation.
-		* \param color2 the second of the two colors to compare. Color space does not matter since it will be converted to RGB deep before doing
-		* any calculation.
+		* \param color1 the first of the two colors to compare.
+		* \param color2 the second of the two colors to compare.
 		* \return The calculated euclidean distance.
 		*/
 		static float euclidean_distance_weighted(color_space::color_base* color1, color_space::color_base* color2);

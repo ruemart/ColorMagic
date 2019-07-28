@@ -2,25 +2,40 @@
 #include "color_distance.h"
 #include "color_converter.h"
 
-float color_manipulation::color_distance::euclidean_distance_squared(color_space::color_base * color1, color_space::color_base * color2)
+float color_manipulation::color_distance::euclidean_distance_squared(color_space::color_base * color1, color_space::color_base * color2, color_type calculation_space)
 {
 	if (color1 == color2) return 0.f; // both colors have same type and are equal
 
-	auto color1_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color1, color_type::RGB_DEEP));
-	auto color2_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color2, color_type::RGB_DEEP));
-
-	if (color1_rgb_d == color2_rgb_d) return 0.f; // after conversion to same color space both colors are equal
-
 	float squared_distance = 0.f;
-	for (std::vector<float>::size_type i = 0; i < color1_rgb_d->get_component_vector().size(); ++i)
+	if (calculation_space == color_type::CIELUV)
 	{
-		squared_distance += powf(color1_rgb_d->get_component_vector()[i] - color2_rgb_d->get_component_vector()[i], 2.f);
+		auto color1_cieluv = color_manipulation::color_converter::to_cieluv(color1);
+		auto color2_cieluv = color_manipulation::color_converter::to_cieluv(color2);
+
+		if (color1_cieluv == color2_cieluv) return 0.f; // after conversion to same color space both colors are equal
+
+		for (std::vector<float>::size_type i = 0; i < color1_cieluv->get_component_vector().size(); ++i)
+		{
+			squared_distance += powf(color1_cieluv->get_component_vector()[i] - color2_cieluv->get_component_vector()[i], 2.f);
+		}
+	}
+	else
+	{
+		auto color1_rgb_d = color_manipulation::color_converter::to_rgb_deep(color1);
+		auto color2_rgb_d = color_manipulation::color_converter::to_rgb_deep(color2);
+
+		if (color1_rgb_d == color2_rgb_d) return 0.f; // after conversion to same color space both colors are equal
+
+		for (std::vector<float>::size_type i = 0; i < color1_rgb_d->get_component_vector().size(); ++i)
+		{
+			squared_distance += powf(color1_rgb_d->get_component_vector()[i] - color2_rgb_d->get_component_vector()[i], 2.f);
+		}
 	}
 
 	return squared_distance;
 }
 
-float color_manipulation::color_distance::euclidean_distance(color_space::color_base * color1, color_space::color_base * color2)
+float color_manipulation::color_distance::euclidean_distance(color_space::color_base * color1, color_space::color_base * color2, color_type calculation_space)
 {
 	if (color1 == color2) return 0.f; // both colors have same type and are equal
 
@@ -31,8 +46,8 @@ float color_manipulation::color_distance::euclidean_distance_weighted(color_spac
 {
 	if (color1 == color2) return 0.f; // both colors have same type and are equal
 
-	auto color1_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color1, color_type::RGB_DEEP));
-	auto color2_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color2, color_type::RGB_DEEP));
+	auto color1_rgb_d = color_manipulation::color_converter::to_rgb_deep(color1);
+	auto color2_rgb_d = color_manipulation::color_converter::to_rgb_deep(color2);
 
 	if (color1_rgb_d == color2_rgb_d) return 0.f; // after conversion to same color space both colors are equal
 
@@ -49,9 +64,9 @@ float color_manipulation::color_distance::cielab_delta_e_cie76(color_space::colo
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
 	if (color1 == color2) return 0.f; // both colors have same type and are equal
-	
-	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
-	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
+
+	auto color1_lab = color_manipulation::color_converter::to_lab(color1);
+	auto color2_lab = color_manipulation::color_converter::to_lab(color2);
 
 	if (color1_lab == color2_lab) return 0.f; // after conversion to same color space both colors are equal
 
@@ -68,9 +83,9 @@ float color_manipulation::color_distance::cielab_delta_e_cie94(color_space::colo
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
 	if (color1 == color2) return 0.f; // both colors have same type and are equal
-	
-	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
-	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
+
+	auto color1_lab = color_manipulation::color_converter::to_lab(color1);
+	auto color2_lab = color_manipulation::color_converter::to_lab(color2);
 
 	if (color1_lab == color2_lab) return 0.f; // after conversion to same color space both colors are equal
 
@@ -89,9 +104,9 @@ float color_manipulation::color_distance::cielab_delta_e_cie00(color_space::colo
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
 	if (color1 == color2) return 0.f; // both colors have same type and are equal
-	
-	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
-	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
+
+	auto color1_lab = color_manipulation::color_converter::to_lab(color1);
+	auto color2_lab = color_manipulation::color_converter::to_lab(color2);
 
 	if (color1_lab == color2_lab) return 0.f; // after conversion to same color space both colors are equal
 
@@ -152,9 +167,9 @@ float color_manipulation::color_distance::cmc_delta_e_lc84(color_space::color_ba
 {
 	// Equation source: https://en.wikipedia.org/wiki/Color_difference
 	if (color1 == color2) return 0.f; // both colors have same type and are equal
-	
-	auto color1_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color1, color_type::LAB));
-	auto color2_lab = dynamic_cast<color_space::lab*>(color_manipulation::color_converter::convertTo(color2, color_type::LAB));
+
+	auto color1_lab = color_manipulation::color_converter::to_lab(color1);
+	auto color2_lab = color_manipulation::color_converter::to_lab(color2);
 
 	if (color1_lab == color2_lab) return 0.f; // after conversion to same color space both colors are equal
 

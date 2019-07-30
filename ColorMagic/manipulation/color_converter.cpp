@@ -122,23 +122,23 @@ color_space::hsv* color_manipulation::color_converter::rgb_deep_to_hsv(color_spa
 	else
 	{
 		float delta = max - min;
-		int hue;
+		float hue;
 		if (max == color->red())
 		{
-			hue = (int)(60.f * fmod(((color->green() - color->blue()) / delta), 6.f));
+			hue = 60.f * fmod(((color->green() - color->blue()) / delta), 6.f);
 		}
 		else if (max == color->green())
 		{
-			hue = (int)(60.f * (((color->blue() - color->red()) / delta) + 2.f));
+			hue = 60.f * (((color->blue() - color->red()) / delta) + 2.f);
 		}
 		else
 		{
-			hue = (int)(60.f * (((color->red() - color->green()) / delta) + 4.f));
+			hue = 60.f * (((color->red() - color->green()) / delta) + 4.f);
 		}
 
 		auto saturation = delta / max;
 		auto value = max;
-		return new color_space::hsv((float)hue, saturation, value, color->alpha(), color->get_rgb_color_space());
+		return new color_space::hsv(hue, saturation, value, color->alpha(), color->get_rgb_color_space());
 	}
 }
 
@@ -331,16 +331,16 @@ color_space::rgb_truecolor* color_manipulation::color_converter::hsv_to_rgb_true
 color_space::rgb_deepcolor* color_manipulation::color_converter::hsv_to_rgb_deep(color_space::hsv* color)
 {
 	auto chroma = color->value() * color->saturation();
-	auto h_temp = (int)(color->hue() / 60.f);
-	auto x = chroma * (1 - std::abs((h_temp % 2) - 1));
+	auto h_temp = color->hue() / 60.f;
+	auto x = chroma * (1.f - std::fabsf(std::fmodf(h_temp, 2.f) - 1.f));
 	auto m = color->value() - chroma;
 	float r_temp, g_temp, b_temp;
-	if (h_temp >= 0 && h_temp <= 1) { r_temp = chroma;	g_temp = x;			b_temp = 0.f; }
-	else if (h_temp > 1 && h_temp <= 2) { r_temp = x;		g_temp = chroma;	b_temp = 0.f; }
-	else if (h_temp > 2 && h_temp <= 3) { r_temp = 0.f;		g_temp = chroma;	b_temp = x; }
-	else if (h_temp > 3 && h_temp <= 4) { r_temp = 0.f;		g_temp = x;			b_temp = chroma; }
-	else if (h_temp > 4 && h_temp <= 5) { r_temp = x;		g_temp = 0.f;		b_temp = chroma; }
-	else if (h_temp > 5 && h_temp <= 6) { r_temp = chroma;	g_temp = 0.f;		b_temp = x; }
+	if (h_temp >= 0.f && h_temp <= 1.f) { r_temp = chroma;	g_temp = x;			b_temp = 0.f; }
+	else if (h_temp > 1.f && h_temp <= 2.f) { r_temp = x;		g_temp = chroma;	b_temp = 0.f; }
+	else if (h_temp > 2.f && h_temp <= 3.f) { r_temp = 0.f;		g_temp = chroma;	b_temp = x; }
+	else if (h_temp > 3.f && h_temp <= 4.f) { r_temp = 0.f;		g_temp = x;			b_temp = chroma; }
+	else if (h_temp > 4.f && h_temp <= 5.f) { r_temp = x;		g_temp = 0.f;		b_temp = chroma; }
+	else if (h_temp > 5.f && h_temp <= 6.f) { r_temp = chroma;	g_temp = 0.f;		b_temp = x; }
 	else { r_temp = 0.f;		g_temp = 0.f;		b_temp = 0.f; }
 	return new color_space::rgb_deepcolor(r_temp + m, g_temp + m, b_temp + m, color->alpha(), color->get_rgb_color_space());
 }

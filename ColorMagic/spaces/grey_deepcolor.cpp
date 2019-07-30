@@ -16,7 +16,7 @@ color_space::grey_deepcolor::grey_deepcolor(const color_space::grey_deepcolor & 
 
 color_space::grey_deepcolor::grey_deepcolor(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 1, other.get_component_max(), other.get_component_min())
 {
-	if (other.get_color_type() == color_type::GREY_DEEP && other.get_component_vector().size() == 2)
+	if (other.get_color_type() == color_type::GREY_DEEP && other.get_component_vector().size() == 1)
 	{
 		this->m_type = color_type::GREY_DEEP;
 		this->m_component_vector = other.get_component_vector();

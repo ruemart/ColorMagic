@@ -93,6 +93,12 @@
     <ClInclude Include="spaces\xyy.h">
       <Filter>spaces</Filter>
     </ClInclude>
+    <ClInclude Include="spaces\gamma.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\cieluv.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -147,6 +153,9 @@
       <Filter>manipulation</Filter>
     </ClCompile>
     <ClCompile Include="spaces\xyy.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\cieluv.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
   </ItemGroup>

@@ -5,28 +5,30 @@
 
 color_space::color_base* color_manipulation::color_converter::convertTo(color_space::color_base* in_color, color_type out_color)
 {
-	switch (in_color->get_color_type())
+	switch (out_color)
 	{
 	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::from_rgb_true(dynamic_cast<color_space::rgb_truecolor*>(in_color), out_color);
+		return color_manipulation::color_converter::to_rgb_true(in_color);
 	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::from_rgb_deep(dynamic_cast<color_space::rgb_deepcolor*>(in_color), out_color);
+		return color_manipulation::color_converter::to_rgb_deep(in_color);
 	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::from_grey_true(dynamic_cast<color_space::grey_truecolor*>(in_color), out_color);
+		return color_manipulation::color_converter::to_grey_true(in_color);
 	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::from_grey_deep(dynamic_cast<color_space::grey_deepcolor*>(in_color), out_color);
+		return color_manipulation::color_converter::to_grey_deep(in_color);
 	case color_type::CMYK:
-		return color_manipulation::color_converter::from_cmyk(dynamic_cast<color_space::cmyk*>(in_color), out_color);
+		return color_manipulation::color_converter::to_cmyk(in_color);
 	case color_type::HSV:
-		return color_manipulation::color_converter::from_hsv(dynamic_cast<color_space::hsv*>(in_color), out_color);
+		return color_manipulation::color_converter::to_hsv(in_color);
 	case color_type::HSL:
-		return color_manipulation::color_converter::from_hsl(dynamic_cast<color_space::hsl*>(in_color), out_color);
+		return color_manipulation::color_converter::to_hsl(in_color);
 	case color_type::XYZ:
-		return color_manipulation::color_converter::from_xyz(dynamic_cast<color_space::xyz*>(in_color), out_color);
+		return color_manipulation::color_converter::to_xyz(in_color);
 	case color_type::XYY:
-		return color_manipulation::color_converter::from_xyy(dynamic_cast<color_space::xyy*>(in_color), out_color);
+		return color_manipulation::color_converter::to_xyy(in_color);
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::to_cieluv(in_color);
 	case color_type::LAB:
-		return color_manipulation::color_converter::from_lab(dynamic_cast<color_space::lab*>(in_color), out_color);
+		return color_manipulation::color_converter::to_lab(in_color);
 	default:
 		return nullptr;
 	}
@@ -74,6 +76,11 @@ color_space::xyy* color_manipulation::color_converter::rgb_true_to_xyy(color_spa
 	return color_manipulation::color_converter::xyz_to_xyy(color_manipulation::color_converter::rgb_true_to_xyz(color));
 }
 
+color_space::cieluv * color_manipulation::color_converter::rgb_true_to_cieluv(color_space::rgb_truecolor * color)
+{
+	return color_manipulation::color_converter::xyz_to_cieluv(color_manipulation::color_converter::rgb_true_to_xyz(color));
+}
+
 color_space::lab* color_manipulation::color_converter::rgb_true_to_lab(color_space::rgb_truecolor* color)
 {
 	return color_manipulation::color_converter::rgb_deep_to_lab(color_manipulation::color_converter::rgb_true_to_rgb_deep(color));
@@ -115,23 +122,23 @@ color_space::hsv* color_manipulation::color_converter::rgb_deep_to_hsv(color_spa
 	else
 	{
 		float delta = max - min;
-		int hue;
+		float hue;
 		if (max == color->red())
 		{
-			hue = 60 * (((int)((color->green() - color->blue()) / delta)) % 6);
+			hue = 60.f * fmod(((color->green() - color->blue()) / delta), 6.f);
 		}
 		else if (max == color->green())
 		{
-			hue = 60 * (int)(((color->blue() - color->red()) / delta) + 2);
+			hue = 60.f * (((color->blue() - color->red()) / delta) + 2.f);
 		}
 		else
 		{
-			hue = 60 * (int)(((color->red() - color->green()) / delta) + 4);
+			hue = 60.f * (((color->red() - color->green()) / delta) + 4.f);
 		}
 
 		auto saturation = delta / max;
 		auto value = max;
-		return new color_space::hsv((float)hue, saturation, value, color->alpha(), color->get_rgb_color_space());
+		return new color_space::hsv(hue, saturation, value, color->alpha(), color->get_rgb_color_space());
 	}
 }
 
@@ -142,7 +149,7 @@ color_space::hsl* color_manipulation::color_converter::rgb_deep_to_hsl(color_spa
 
 color_space::xyz* color_manipulation::color_converter::rgb_deep_to_xyz(color_space::rgb_deepcolor* color)
 {
-	color = rgb_deep_to_linear_srgb_deep(color);
+	color->do_inverse_gamma_correction();
 
 	auto xyz_components = color->get_rgb_color_space()->get_transform_matrix() * color->get_component_vector();
 	return new color_space::xyz(xyz_components[0], xyz_components[1], xyz_components[2], color->alpha(), color->get_rgb_color_space());
@@ -153,45 +160,14 @@ color_space::xyy* color_manipulation::color_converter::rgb_deep_to_xyy(color_spa
 	return color_manipulation::color_converter::xyz_to_xyy(color_manipulation::color_converter::rgb_deep_to_xyz(color));
 }
 
+color_space::cieluv * color_manipulation::color_converter::rgb_deep_to_cieluv(color_space::rgb_deepcolor * color)
+{
+	return color_manipulation::color_converter::xyz_to_cieluv(color_manipulation::color_converter::rgb_deep_to_xyz(color));
+}
+
 color_space::lab* color_manipulation::color_converter::rgb_deep_to_lab(color_space::rgb_deepcolor* color)
 {
 	return color_manipulation::color_converter::xyz_to_lab(color_manipulation::color_converter::rgb_deep_to_xyz(color));
-}
-
-color_space::rgb_deepcolor* color_manipulation::color_converter::rgb_deep_to_linear_srgb_deep(color_space::rgb_deepcolor* color)
-{
-	float components[3] = { color->red(), color->green(), color->blue() };
-	for (auto i = 0; i < 3; ++i)
-	{
-		if (components[i] <= 0.04045f)
-		{
-			components[i] /= 12.92f;
-		}
-		else
-		{
-			components[i] = std::powf((components[i] + 0.055f) / 1.055f, 2.4f);
-		}
-	}
-
-	return new color_space::rgb_deepcolor(components[0], components[1], components[2], color->alpha(), color->get_rgb_color_space());
-}
-
-color_space::rgb_deepcolor* color_manipulation::color_converter::linear_srgb_deep_to_rgb_deep(color_space::rgb_deepcolor* color)
-{
-	float components[3] = { color->red(), color->green(), color->blue() };
-	for (auto i = 0; i < 3; ++i)
-	{
-		if (components[i] <= 0.0031308f)
-		{
-			components[i] *= 12.92f;
-		}
-		else
-		{
-			components[i] = N_ROOT(components[i] * 1.055f, 2.4f) - 0.055f;
-		}
-	}
-
-	return new color_space::rgb_deepcolor(components[0], components[1], components[2], color->alpha(), color->get_rgb_color_space());
 }
 
 color_space::rgb_truecolor* color_manipulation::color_converter::grey_true_to_rgb_true(color_space::grey_truecolor* color)
@@ -232,6 +208,11 @@ color_space::xyz* color_manipulation::color_converter::grey_true_to_xyz(color_sp
 color_space::xyy* color_manipulation::color_converter::grey_true_to_xyy(color_space::grey_truecolor * color)
 {
 	return color_manipulation::color_converter::xyz_to_xyy(color_manipulation::color_converter::grey_true_to_xyz(color));
+}
+
+color_space::cieluv * color_manipulation::color_converter::grey_true_to_cieluv(color_space::grey_truecolor * color)
+{
+	return color_manipulation::color_converter::xyz_to_cieluv(color_manipulation::color_converter::grey_true_to_xyz(color));
 }
 
 color_space::lab* color_manipulation::color_converter::grey_true_to_lab(color_space::grey_truecolor* color)
@@ -277,6 +258,11 @@ color_space::xyz* color_manipulation::color_converter::grey_deep_to_xyz(color_sp
 color_space::xyy* color_manipulation::color_converter::grey_deep_to_xyy(color_space::grey_deepcolor * color)
 {
 	return color_manipulation::color_converter::xyz_to_xyy(color_manipulation::color_converter::grey_deep_to_xyz(color));
+}
+
+color_space::cieluv * color_manipulation::color_converter::grey_deep_to_cieluv(color_space::grey_deepcolor * color)
+{
+	return color_manipulation::color_converter::xyz_to_cieluv(color_manipulation::color_converter::grey_deep_to_xyz(color));
 }
 
 color_space::lab* color_manipulation::color_converter::grey_deep_to_lab(color_space::grey_deepcolor* color)
@@ -327,6 +313,11 @@ color_space::xyy * color_manipulation::color_converter::cmyk_to_xyy(color_space:
 	return color_manipulation::color_converter::xyz_to_xyy(color_manipulation::color_converter::cmyk_to_xyz(color));
 }
 
+color_space::cieluv * color_manipulation::color_converter::cmyk_to_cieluv(color_space::cmyk * color)
+{
+	return color_manipulation::color_converter::xyz_to_cieluv(color_manipulation::color_converter::cmyk_to_xyz(color));
+}
+
 color_space::lab* color_manipulation::color_converter::cmyk_to_lab(color_space::cmyk* color)
 {
 	return color_manipulation::color_converter::rgb_deep_to_lab(color_manipulation::color_converter::cmyk_to_rgb_deep(color));
@@ -340,16 +331,16 @@ color_space::rgb_truecolor* color_manipulation::color_converter::hsv_to_rgb_true
 color_space::rgb_deepcolor* color_manipulation::color_converter::hsv_to_rgb_deep(color_space::hsv* color)
 {
 	auto chroma = color->value() * color->saturation();
-	auto h_temp = (int)(color->hue() / 60.f);
-	auto x = chroma * (1 - std::abs((h_temp % 2) - 1));
+	auto h_temp = color->hue() / 60.f;
+	auto x = chroma * (1.f - std::fabsf(std::fmodf(h_temp, 2.f) - 1.f));
 	auto m = color->value() - chroma;
 	float r_temp, g_temp, b_temp;
-	if (h_temp >= 0 && h_temp <= 1) { r_temp = chroma;	g_temp = x;			b_temp = 0.f; }
-	else if (h_temp > 1 && h_temp <= 2) { r_temp = x;		g_temp = chroma;	b_temp = 0.f; }
-	else if (h_temp > 2 && h_temp <= 3) { r_temp = 0.f;		g_temp = chroma;	b_temp = x; }
-	else if (h_temp > 3 && h_temp <= 4) { r_temp = 0.f;		g_temp = x;			b_temp = chroma; }
-	else if (h_temp > 4 && h_temp <= 5) { r_temp = x;		g_temp = 0.f;		b_temp = chroma; }
-	else if (h_temp > 5 && h_temp <= 6) { r_temp = chroma;	g_temp = 0.f;		b_temp = x; }
+	if (h_temp >= 0.f && h_temp <= 1.f) { r_temp = chroma;	g_temp = x;			b_temp = 0.f; }
+	else if (h_temp > 1.f && h_temp <= 2.f) { r_temp = x;		g_temp = chroma;	b_temp = 0.f; }
+	else if (h_temp > 2.f && h_temp <= 3.f) { r_temp = 0.f;		g_temp = chroma;	b_temp = x; }
+	else if (h_temp > 3.f && h_temp <= 4.f) { r_temp = 0.f;		g_temp = x;			b_temp = chroma; }
+	else if (h_temp > 4.f && h_temp <= 5.f) { r_temp = x;		g_temp = 0.f;		b_temp = chroma; }
+	else if (h_temp > 5.f && h_temp <= 6.f) { r_temp = chroma;	g_temp = 0.f;		b_temp = x; }
 	else { r_temp = 0.f;		g_temp = 0.f;		b_temp = 0.f; }
 	return new color_space::rgb_deepcolor(r_temp + m, g_temp + m, b_temp + m, color->alpha(), color->get_rgb_color_space());
 }
@@ -386,6 +377,11 @@ color_space::xyz* color_manipulation::color_converter::hsv_to_xyz(color_space::h
 color_space::xyy* color_manipulation::color_converter::hsv_to_xyy(color_space::hsv * color)
 {
 	return color_manipulation::color_converter::xyz_to_xyy(color_manipulation::color_converter::hsv_to_xyz(color));
+}
+
+color_space::cieluv * color_manipulation::color_converter::hsv_to_cieluv(color_space::hsv * color)
+{
+	return color_manipulation::color_converter::xyz_to_cieluv(color_manipulation::color_converter::hsv_to_xyz(color));
 }
 
 color_space::lab* color_manipulation::color_converter::hsv_to_lab(color_space::hsv* color)
@@ -456,6 +452,11 @@ color_space::xyy* color_manipulation::color_converter::hsl_to_xyy(color_space::h
 	return color_manipulation::color_converter::xyz_to_xyy(color_manipulation::color_converter::hsl_to_xyz(color));
 }
 
+color_space::cieluv * color_manipulation::color_converter::hsl_to_cieluv(color_space::hsl * color)
+{
+	return color_manipulation::color_converter::xyz_to_cieluv(color_manipulation::color_converter::hsl_to_xyz(color));
+}
+
 color_space::lab* color_manipulation::color_converter::hsl_to_lab(color_space::hsl* color)
 {
 	return color_manipulation::color_converter::rgb_deep_to_lab(color_manipulation::color_converter::hsl_to_rgb_deep(color));
@@ -469,11 +470,12 @@ color_space::rgb_truecolor* color_manipulation::color_converter::xyz_to_rgb_true
 color_space::rgb_deepcolor* color_manipulation::color_converter::xyz_to_rgb_deep(color_space::xyz* color)
 {
 	auto rgb_components = color->get_rgb_color_space()->get_inverse_transform_matrix() * color->get_component_vector();
-
-	auto rgb_deep = linear_srgb_deep_to_rgb_deep(new color_space::rgb_deepcolor(rgb_components[0], rgb_components[1], rgb_components[2], color->alpha(), color->get_rgb_color_space()));
+	auto rgb_deep = new color_space::rgb_deepcolor(rgb_components[0], rgb_components[1], rgb_components[2], color->alpha(), color->get_rgb_color_space());
 	rgb_deep->red(round_float_to_n_decimals(clamp_float(rgb_deep->red(), 0.f, 1.f), 1));
 	rgb_deep->green(round_float_to_n_decimals(clamp_float(rgb_deep->green(), 0.f, 1.f), 1));
 	rgb_deep->blue(round_float_to_n_decimals(clamp_float(rgb_deep->blue(), 0.f, 1.f), 1));
+
+	rgb_deep->do_gamma_correction();
 	return rgb_deep;
 }
 
@@ -514,6 +516,29 @@ color_space::xyy * color_manipulation::color_converter::xyz_to_xyy(color_space::
 	auto y = color->y() / (color->x() + color->y() + color->z());
 
 	return new color_space::xyy(x, y, color->y(), color->alpha(), color->get_rgb_color_space());
+}
+
+color_space::cieluv * color_manipulation::color_converter::xyz_to_cieluv(color_space::xyz * color)
+{
+	auto y_temp = color->x() / color->get_rgb_color_space()->get_white_point()->get_tristimulus_y();
+	auto u_temp = 4.f * color->x() / (color->x() + 15.f * color->y() + 3.f * color->z());
+	auto v_temp = 9.f * color->y() / (color->x() + 15.f * color->y() + 3.f * color->z());
+
+	auto u_w_temp = 4.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_x() /
+		(color->get_rgb_color_space()->get_white_point()->get_tristimulus_x() +
+			15.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() +
+			3.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_z());
+
+	auto v_w_temp = 4.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() /
+		(color->get_rgb_color_space()->get_white_point()->get_tristimulus_x() +
+			15.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() +
+			3.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_z());
+
+	auto L = y_temp > 0.008856f ? 116.f * N_ROOT(y_temp, 3) - 16.f : 903.3f * y_temp;
+	auto u = 13.f * L * (u_temp - u_w_temp);
+	auto v = 13.f * L * (v_temp - v_w_temp);
+
+	return new color_space::cieluv(L, u, v, color->alpha(), color->get_rgb_color_space());
 }
 
 color_space::lab* color_manipulation::color_converter::xyz_to_lab(color_space::xyz* color)
@@ -579,9 +604,82 @@ color_space::xyz * color_manipulation::color_converter::xyy_to_xyz(color_space::
 	return new color_space::xyz(x, color->Y(), z, color->alpha(), color->get_rgb_color_space());
 }
 
+color_space::cieluv * color_manipulation::color_converter::xyy_to_cieluv(color_space::xyy * color)
+{
+	return color_manipulation::color_converter::xyz_to_cieluv(color_manipulation::color_converter::xyy_to_xyz(color));
+}
+
 color_space::lab * color_manipulation::color_converter::xyy_to_lab(color_space::xyy * color)
 {
 	return color_manipulation::color_converter::xyz_to_lab(color_manipulation::color_converter::xyy_to_xyz(color));
+}
+
+color_space::rgb_truecolor * color_manipulation::color_converter::cieluv_to_rgb_true(color_space::cieluv * color)
+{
+	return color_manipulation::color_converter::xyz_to_rgb_true(color_manipulation::color_converter::cieluv_to_xyz(color));
+}
+
+color_space::rgb_deepcolor * color_manipulation::color_converter::cieluv_to_rgb_deep(color_space::cieluv * color)
+{
+	return color_manipulation::color_converter::xyz_to_rgb_deep(color_manipulation::color_converter::cieluv_to_xyz(color));
+}
+
+color_space::grey_truecolor * color_manipulation::color_converter::cieluv_to_grey_true(color_space::cieluv * color)
+{
+	return color_manipulation::color_converter::xyz_to_grey_true(color_manipulation::color_converter::cieluv_to_xyz(color));
+}
+
+color_space::grey_deepcolor * color_manipulation::color_converter::cieluv_to_grey_deep(color_space::cieluv * color)
+{
+	return color_manipulation::color_converter::xyz_to_grey_deep(color_manipulation::color_converter::cieluv_to_xyz(color));
+}
+
+color_space::cmyk * color_manipulation::color_converter::cieluv_to_cmyk(color_space::cieluv * color)
+{
+	return color_manipulation::color_converter::xyz_to_cmyk(color_manipulation::color_converter::cieluv_to_xyz(color));
+}
+
+color_space::hsv * color_manipulation::color_converter::cieluv_to_hsv(color_space::cieluv * color)
+{
+	return color_manipulation::color_converter::xyz_to_hsv(color_manipulation::color_converter::cieluv_to_xyz(color));
+}
+
+color_space::hsl * color_manipulation::color_converter::cieluv_to_hsl(color_space::cieluv * color)
+{
+	return color_manipulation::color_converter::xyz_to_hsl(color_manipulation::color_converter::cieluv_to_xyz(color));
+}
+
+color_space::xyz * color_manipulation::color_converter::cieluv_to_xyz(color_space::cieluv * color)
+{
+	auto u_temp = 4.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_x() /
+		(color->get_rgb_color_space()->get_white_point()->get_tristimulus_x() +
+			15.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() +
+			3.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_z());
+
+	auto v_temp = 9.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() /
+		(color->get_rgb_color_space()->get_white_point()->get_tristimulus_x() +
+			15.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() +
+			3.f * color->get_rgb_color_space()->get_white_point()->get_tristimulus_z());
+
+	auto Y = color->L() > 903.3f * 0.008856f ? powf((color->L() + 16.f) / 116.f, 3.f) : color->L() / 903.3f;
+	auto a = 1.f / 3.f * ((52.f * color->L() / (color->u() + 13.f * color->L() * u_temp)) - 1.f);
+	auto b = -5.f * Y;
+	auto c = -1.f / 3.f;
+	auto d = Y * ((39.f * color->L() / (color->v() + 13.f * color->L() * v_temp)) - 5.f);
+
+	auto X = (d - b) / (a - c);
+	auto Z = X * a + b;
+	return new color_space::xyz(X, Y, Z, color->alpha(), color->get_rgb_color_space());
+}
+
+color_space::xyy * color_manipulation::color_converter::cieluv_to_xyy(color_space::cieluv * color)
+{
+	return color_manipulation::color_converter::xyz_to_xyy(color_manipulation::color_converter::cieluv_to_xyz(color));
+}
+
+color_space::lab * color_manipulation::color_converter::cieluv_to_lab(color_space::cieluv * color)
+{
+	return color_manipulation::color_converter::xyz_to_lab(color_manipulation::color_converter::cieluv_to_xyz(color));
 }
 
 color_space::rgb_truecolor* color_manipulation::color_converter::lab_to_rgb_true(color_space::lab* color)
@@ -629,6 +727,11 @@ color_space::xyz* color_manipulation::color_converter::lab_to_xyz(color_space::l
 	auto xyz = new color_space::xyz(x_temp * color->get_rgb_color_space()->get_white_point()->get_tristimulus_x(), y_temp * color->get_rgb_color_space()->get_white_point()->get_tristimulus_y(), z_temp * color->get_rgb_color_space()->get_white_point()->get_tristimulus_z(), 0.f, color->get_rgb_color_space());
 	xyz->alpha(color->alpha());
 	return xyz;
+}
+
+color_space::cieluv * color_manipulation::color_converter::lab_to_cieluv(color_space::lab * color)
+{
+	return color_manipulation::color_converter::xyz_to_cieluv(color_manipulation::color_converter::lab_to_xyz(color));
 }
 
 color_space::xyy * color_manipulation::color_converter::lab_to_xyy(color_space::lab * color)
@@ -712,296 +815,6 @@ float color_manipulation::color_converter::transform_range(float value, float ol
 	return (((value - old_min) * new_range) / old_range) + new_min;
 }
 
-color_space::color_base* color_manipulation::color_converter::from_rgb_true(color_space::rgb_truecolor* in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return in_color;
-	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::rgb_true_to_rgb_deep(in_color);
-	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::rgb_true_to_grey_true(in_color);
-	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::rgb_true_to_grey_deep(in_color);
-	case color_type::CMYK:
-		return color_manipulation::color_converter::rgb_true_to_cmyk(in_color);
-	case color_type::HSV:
-		return color_manipulation::color_converter::rgb_true_to_hsv(in_color);
-	case color_type::HSL:
-		return color_manipulation::color_converter::rgb_true_to_hsl(in_color);
-	case color_type::XYZ:
-		return color_manipulation::color_converter::rgb_true_to_xyz(in_color);
-	case color_type::XYY:
-		return color_manipulation::color_converter::rgb_true_to_xyy(in_color);
-	case color_type::LAB:
-		return color_manipulation::color_converter::rgb_true_to_lab(in_color);
-	default:
-		return nullptr;
-	}
-}
-
-color_space::color_base * color_manipulation::color_converter::from_rgb_deep(color_space::rgb_deepcolor * in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::rgb_deep_to_rgb_true(in_color);
-	case color_type::RGB_DEEP:
-		return in_color;
-	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::rgb_deep_to_grey_true(in_color);
-	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::rgb_deep_to_grey_deep(in_color);
-	case color_type::CMYK:
-		return color_manipulation::color_converter::rgb_deep_to_cmyk(in_color);
-	case color_type::HSV:
-		return color_manipulation::color_converter::rgb_deep_to_hsv(in_color);
-	case color_type::HSL:
-		return color_manipulation::color_converter::rgb_deep_to_hsl(in_color);
-	case color_type::XYZ:
-		return color_manipulation::color_converter::rgb_deep_to_xyz(in_color);
-	case color_type::XYY:
-		return color_manipulation::color_converter::rgb_deep_to_xyy(in_color);
-	case color_type::LAB:
-		return color_manipulation::color_converter::rgb_deep_to_lab(in_color);
-	default:
-		return nullptr;
-	}
-}
-
-color_space::color_base * color_manipulation::color_converter::from_grey_true(color_space::grey_truecolor * in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::grey_true_to_rgb_true(in_color);
-	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::grey_true_to_rgb_deep(in_color);
-	case color_type::GREY_TRUE:
-		return in_color;
-	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::grey_true_to_grey_deep(in_color);
-	case color_type::CMYK:
-		return color_manipulation::color_converter::grey_true_to_cmyk(in_color);
-	case color_type::HSV:
-		return color_manipulation::color_converter::grey_true_to_hsv(in_color);
-	case color_type::HSL:
-		return color_manipulation::color_converter::grey_true_to_hsl(in_color);
-	case color_type::XYZ:
-		return color_manipulation::color_converter::grey_true_to_xyz(in_color);
-	case color_type::XYY:
-		return color_manipulation::color_converter::grey_true_to_xyy(in_color);
-	case color_type::LAB:
-		return color_manipulation::color_converter::grey_true_to_lab(in_color);
-	default:
-		return nullptr;
-	}
-}
-
-color_space::color_base * color_manipulation::color_converter::from_grey_deep(color_space::grey_deepcolor * in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::grey_deep_to_rgb_true(in_color);
-	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::grey_deep_to_rgb_deep(in_color);
-	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::grey_deep_to_grey_true(in_color);
-	case color_type::GREY_DEEP:
-		return in_color;
-	case color_type::CMYK:
-		return color_manipulation::color_converter::grey_deep_to_cmyk(in_color);
-	case color_type::HSV:
-		return color_manipulation::color_converter::grey_deep_to_hsv(in_color);
-	case color_type::HSL:
-		return color_manipulation::color_converter::grey_deep_to_hsl(in_color);
-	case color_type::XYZ:
-		return color_manipulation::color_converter::grey_deep_to_xyz(in_color);
-	case color_type::XYY:
-		return color_manipulation::color_converter::grey_deep_to_xyy(in_color);
-	case color_type::LAB:
-		return color_manipulation::color_converter::grey_deep_to_lab(in_color);
-	default:
-		return nullptr;
-	}
-}
-
-color_space::color_base * color_manipulation::color_converter::from_cmyk(color_space::cmyk * in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::cmyk_to_rgb_true(in_color);
-	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::cmyk_to_rgb_deep(in_color);
-	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::cmyk_to_grey_true(in_color);
-	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::cmyk_to_grey_deep(in_color);
-	case color_type::CMYK:
-		return in_color;
-	case color_type::HSV:
-		return color_manipulation::color_converter::cmyk_to_hsv(in_color);
-	case color_type::HSL:
-		return color_manipulation::color_converter::cmyk_to_hsl(in_color);
-	case color_type::XYZ:
-		return color_manipulation::color_converter::cmyk_to_xyz(in_color);
-	case color_type::XYY:
-		return color_manipulation::color_converter::cmyk_to_xyy(in_color);
-	case color_type::LAB:
-		return color_manipulation::color_converter::cmyk_to_lab(in_color);
-	default:
-		return nullptr;
-	}
-}
-
-color_space::color_base * color_manipulation::color_converter::from_hsv(color_space::hsv * in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::hsv_to_rgb_true(in_color);
-	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::hsv_to_rgb_deep(in_color);
-	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::hsv_to_grey_true(in_color);
-	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::hsv_to_grey_deep(in_color);
-	case color_type::CMYK:
-		return color_manipulation::color_converter::hsv_to_cmyk(in_color);
-	case color_type::HSV:
-		return in_color;
-	case color_type::HSL:
-		return color_manipulation::color_converter::hsv_to_hsl(in_color);
-	case color_type::XYZ:
-		return color_manipulation::color_converter::hsv_to_xyz(in_color);
-	case color_type::XYY:
-		return color_manipulation::color_converter::hsv_to_xyy(in_color);
-	case color_type::LAB:
-		return color_manipulation::color_converter::hsv_to_lab(in_color);
-	default:
-		return nullptr;
-	}
-}
-
-color_space::color_base * color_manipulation::color_converter::from_hsl(color_space::hsl * in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::hsl_to_rgb_true(in_color);
-	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::hsl_to_rgb_deep(in_color);
-	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::hsl_to_grey_true(in_color);
-	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::hsl_to_grey_deep(in_color);
-	case color_type::CMYK:
-		return color_manipulation::color_converter::hsl_to_cmyk(in_color);
-	case color_type::HSV:
-		return color_manipulation::color_converter::hsl_to_hsv(in_color);
-	case color_type::HSL:
-		return in_color;
-	case color_type::XYZ:
-		return color_manipulation::color_converter::hsl_to_xyz(in_color);
-	case color_type::XYY:
-		return color_manipulation::color_converter::hsl_to_xyy(in_color);
-	case color_type::LAB:
-		return color_manipulation::color_converter::hsl_to_lab(in_color);
-	default:
-		return nullptr;
-	}
-}
-
-color_space::color_base * color_manipulation::color_converter::from_xyz(color_space::xyz * in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::xyz_to_rgb_true(in_color);
-	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::xyz_to_rgb_deep(in_color);
-	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::xyz_to_grey_true(in_color);
-	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::xyz_to_grey_deep(in_color);
-	case color_type::CMYK:
-		return color_manipulation::color_converter::xyz_to_cmyk(in_color);
-	case color_type::HSV:
-		return color_manipulation::color_converter::xyz_to_hsv(in_color);
-	case color_type::HSL:
-		return color_manipulation::color_converter::xyz_to_hsl(in_color);
-	case color_type::XYZ:
-		return in_color;
-	case color_type::XYY:
-		return color_manipulation::color_converter::xyz_to_xyy(in_color);
-	case color_type::LAB:
-		return color_manipulation::color_converter::xyz_to_lab(in_color);
-	default:
-		return nullptr;
-	}
-}
-
-color_space::color_base * color_manipulation::color_converter::from_xyy(color_space::xyy * in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::xyy_to_rgb_true(in_color);
-	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::xyy_to_rgb_deep(in_color);
-	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::xyy_to_grey_true(in_color);
-	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::xyy_to_grey_deep(in_color);
-	case color_type::CMYK:
-		return color_manipulation::color_converter::xyy_to_cmyk(in_color);
-	case color_type::HSV:
-		return color_manipulation::color_converter::xyy_to_hsv(in_color);
-	case color_type::HSL:
-		return color_manipulation::color_converter::xyy_to_hsl(in_color);
-	case color_type::XYZ:
-		return color_manipulation::color_converter::xyy_to_xyz(in_color);
-	case color_type::XYY:
-		return in_color;
-	case color_type::LAB:
-		return color_manipulation::color_converter::xyy_to_lab(in_color);
-	default:
-		return nullptr;
-	}
-}
-
-color_space::color_base * color_manipulation::color_converter::from_lab(color_space::lab * in_color, color_type out_type)
-{
-	switch (out_type)
-	{
-	case color_type::RGB_TRUE:
-		return color_manipulation::color_converter::lab_to_rgb_true(in_color);
-	case color_type::RGB_DEEP:
-		return color_manipulation::color_converter::lab_to_rgb_deep(in_color);
-	case color_type::GREY_TRUE:
-		return color_manipulation::color_converter::lab_to_grey_true(in_color);
-	case color_type::GREY_DEEP:
-		return color_manipulation::color_converter::lab_to_grey_deep(in_color);
-	case color_type::CMYK:
-		return color_manipulation::color_converter::lab_to_cmyk(in_color);
-	case color_type::HSV:
-		return color_manipulation::color_converter::lab_to_hsv(in_color);
-	case color_type::HSL:
-		return color_manipulation::color_converter::lab_to_hsl(in_color);
-	case color_type::XYZ:
-		return color_manipulation::color_converter::lab_to_xyz(in_color);
-	case color_type::XYY:
-		return color_manipulation::color_converter::lab_to_xyy(in_color);
-	case color_type::LAB:
-		return in_color;
-	default:
-		return nullptr;
-	}
-}
-
 color_space::rgb_truecolor * color_manipulation::color_converter::to_rgb_true(color_space::color_base * in_color)
 {
 	switch (in_color->get_color_type())
@@ -1024,6 +837,8 @@ color_space::rgb_truecolor * color_manipulation::color_converter::to_rgb_true(co
 		return color_manipulation::color_converter::xyz_to_rgb_true(dynamic_cast<color_space::xyz*>(in_color));
 	case color_type::XYY:
 		return color_manipulation::color_converter::xyy_to_rgb_true(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_rgb_true(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return color_manipulation::color_converter::lab_to_rgb_true(dynamic_cast<color_space::lab*>(in_color));
 	default:
@@ -1053,6 +868,8 @@ color_space::rgb_deepcolor * color_manipulation::color_converter::to_rgb_deep(co
 		return color_manipulation::color_converter::xyz_to_rgb_deep(dynamic_cast<color_space::xyz*>(in_color));
 	case color_type::XYY:
 		return color_manipulation::color_converter::xyy_to_rgb_deep(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_rgb_deep(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return color_manipulation::color_converter::lab_to_rgb_deep(dynamic_cast<color_space::lab*>(in_color));
 	default:
@@ -1082,6 +899,8 @@ color_space::grey_truecolor * color_manipulation::color_converter::to_grey_true(
 		return color_manipulation::color_converter::xyz_to_grey_true(dynamic_cast<color_space::xyz*>(in_color));
 	case color_type::XYY:
 		return color_manipulation::color_converter::xyy_to_grey_true(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_grey_true(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return color_manipulation::color_converter::lab_to_grey_true(dynamic_cast<color_space::lab*>(in_color));
 	default:
@@ -1111,6 +930,8 @@ color_space::grey_deepcolor * color_manipulation::color_converter::to_grey_deep(
 		return color_manipulation::color_converter::xyz_to_grey_deep(dynamic_cast<color_space::xyz*>(in_color));
 	case color_type::XYY:
 		return color_manipulation::color_converter::xyy_to_grey_deep(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_grey_deep(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return color_manipulation::color_converter::lab_to_grey_deep(dynamic_cast<color_space::lab*>(in_color));
 	default:
@@ -1140,6 +961,8 @@ color_space::cmyk * color_manipulation::color_converter::to_cmyk(color_space::co
 		return color_manipulation::color_converter::xyz_to_cmyk(dynamic_cast<color_space::xyz*>(in_color));
 	case color_type::XYY:
 		return color_manipulation::color_converter::xyy_to_cmyk(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_cmyk(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return color_manipulation::color_converter::lab_to_cmyk(dynamic_cast<color_space::lab*>(in_color));
 	default:
@@ -1169,6 +992,8 @@ color_space::hsv * color_manipulation::color_converter::to_hsv(color_space::colo
 		return color_manipulation::color_converter::xyz_to_hsv(dynamic_cast<color_space::xyz*>(in_color));
 	case color_type::XYY:
 		return color_manipulation::color_converter::xyy_to_hsv(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_hsv(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return color_manipulation::color_converter::lab_to_hsv(dynamic_cast<color_space::lab*>(in_color));
 	default:
@@ -1198,6 +1023,8 @@ color_space::hsl * color_manipulation::color_converter::to_hsl(color_space::colo
 		return color_manipulation::color_converter::xyz_to_hsl(dynamic_cast<color_space::xyz*>(in_color));
 	case color_type::XYY:
 		return color_manipulation::color_converter::xyy_to_hsl(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_hsl(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return color_manipulation::color_converter::lab_to_hsl(dynamic_cast<color_space::lab*>(in_color));
 	default:
@@ -1227,6 +1054,8 @@ color_space::xyz * color_manipulation::color_converter::to_xyz(color_space::colo
 		return dynamic_cast<color_space::xyz*>(in_color);
 	case color_type::XYY:
 		return color_manipulation::color_converter::xyy_to_xyz(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_xyz(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return color_manipulation::color_converter::lab_to_xyz(dynamic_cast<color_space::lab*>(in_color));
 	default:
@@ -1256,8 +1085,41 @@ color_space::xyy * color_manipulation::color_converter::to_xyy(color_space::colo
 		return color_manipulation::color_converter::xyz_to_xyy(dynamic_cast<color_space::xyz*>(in_color));
 	case color_type::XYY:
 		return dynamic_cast<color_space::xyy*>(in_color);
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_xyy(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return color_manipulation::color_converter::lab_to_xyy(dynamic_cast<color_space::lab*>(in_color));
+	default:
+		return nullptr;
+	}
+}
+
+color_space::cieluv * color_manipulation::color_converter::to_cieluv(color_space::color_base * in_color)
+{
+	switch (in_color->get_color_type())
+	{
+	case color_type::RGB_TRUE:
+		return color_manipulation::color_converter::rgb_true_to_cieluv(dynamic_cast<color_space::rgb_truecolor*>(in_color));
+	case color_type::RGB_DEEP:
+		return color_manipulation::color_converter::rgb_deep_to_cieluv(dynamic_cast<color_space::rgb_deepcolor*>(in_color));
+	case color_type::GREY_TRUE:
+		return color_manipulation::color_converter::grey_true_to_cieluv(dynamic_cast<color_space::grey_truecolor*>(in_color));
+	case color_type::GREY_DEEP:
+		return color_manipulation::color_converter::grey_deep_to_cieluv(dynamic_cast<color_space::grey_deepcolor*>(in_color));
+	case color_type::CMYK:
+		return color_manipulation::color_converter::cmyk_to_cieluv(dynamic_cast<color_space::cmyk*>(in_color));
+	case color_type::HSV:
+		return color_manipulation::color_converter::hsv_to_cieluv(dynamic_cast<color_space::hsv*>(in_color));
+	case color_type::HSL:
+		return color_manipulation::color_converter::hsl_to_cieluv(dynamic_cast<color_space::hsl*>(in_color));
+	case color_type::XYZ:
+		return color_manipulation::color_converter::xyz_to_cieluv(dynamic_cast<color_space::xyz*>(in_color));
+	case color_type::XYY:
+		return color_manipulation::color_converter::xyy_to_cieluv(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return dynamic_cast<color_space::cieluv*>(in_color);
+	case color_type::LAB:
+		return color_manipulation::color_converter::lab_to_cieluv(dynamic_cast<color_space::lab*>(in_color));
 	default:
 		return nullptr;
 	}
@@ -1285,6 +1147,8 @@ color_space::lab * color_manipulation::color_converter::to_lab(color_space::colo
 		return color_manipulation::color_converter::xyz_to_lab(dynamic_cast<color_space::xyz*>(in_color));
 	case color_type::XYY:
 		return color_manipulation::color_converter::xyy_to_lab(dynamic_cast<color_space::xyy*>(in_color));
+	case color_type::CIELUV:
+		return color_manipulation::color_converter::cieluv_to_lab(dynamic_cast<color_space::cieluv*>(in_color));
 	case color_type::LAB:
 		return dynamic_cast<color_space::lab*>(in_color);
 	default:

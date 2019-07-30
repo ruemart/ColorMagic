@@ -14,7 +14,7 @@ public:
 	/*!
 	* Sets the matrix size (row and column count) to 0.
 	*/
-	matrix() : m_values(std::vector<std::vector<T>>()), m_rows(0), m_columns(0)
+	matrix() : m_rows(0), m_columns(0), m_values(std::vector<std::vector<T>>())
 	{
 	}
 
@@ -646,9 +646,9 @@ private:
 
 		std::vector<std::vector<T>> result;
 		result.resize(mat.size());
-		for (int i = 0; i < result.size(); ++i)
+		for (int k = 0; k < result.size(); ++k)
 		{
-			result[i].resize(mat[i].size());
+			result[k].resize(mat[k].size());
 		}
 
 		for (int row = 0; row < n; ++row)

@@ -21,11 +21,13 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets the value of each component.
-		* \param hue The value that will be set for hue component (default 0).
-		* \param saturation The value that will be set for saturation component (default 0).
-		* \param lightness The value that will be set for lightness component (default 0).
+		* \param hue The value that will be set for hue component.
+		* \param saturation The value that will be set for saturation component.
+		* \param lightness The value that will be set for lightness component.
+		* \param alpha The value that will be set for alpha.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		hsl(float hue = 0.f, float saturation = 0.f, float lightness = 0.f);
+		hsl(float hue, float saturation, float lightness, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!

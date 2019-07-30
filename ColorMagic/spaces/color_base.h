@@ -7,6 +7,7 @@
 #define _USE_MATH_DEFINES
 
 #include "..\utils\color_type.h"
+#include "rgb_color_space_definition.h"
 
 #include <vector>
 #include <exception>
@@ -24,12 +25,15 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets number of color components as well as the components max and min values.
+		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		* \param component_count The number of components the color will have.
 		* \param component_max The maximum number each component can have (inclusive).
 		* \param component_min The minimum number each component can have (inclusive).
 		*/
-		color_base(size_t component_count, float component_max = 1.f, float component_min = 0.f)
+		color_base(float alpha, rgb_color_space_definition* color_space, size_t component_count, float component_max = 1.f, float component_min = 0.f)
 		{
+			m_alpha = alpha;
+			m_rgb_color_space = color_space;
 			m_max = component_max;
 			m_min = component_min;
 
@@ -39,11 +43,26 @@ namespace color_space
 			}
 		}
 
+		//! Default destructor.
+		/*!
+		* Default destructor.
+		*/
+		virtual ~color_base()
+		{
+			m_component_vector.clear();
+		}
+
 		//! Returns the color space the color is located in.
 		/*!
 		* Returns the color space the color is located in.
 		*/
 		virtual color_type get_color_type() const { return m_type; }
+
+		//! Returns the colors component values.
+		/*!
+		* Returns the colors component values as float vector.
+		*/
+		virtual std::vector<float> get_component_vector() const { return m_component_vector; }
 
 		//! Returns the maximum value each component can have.
 		/*!
@@ -56,6 +75,26 @@ namespace color_space
 		* Returns the minimum value each component can have.
 		*/
 		virtual float get_component_min() const { return m_min; }
+
+		//! Sets a new color space definition.
+		/*! Sets a new color space definition used for conversion to or from xyz and lab.
+		*/
+		virtual void set_rgb_color_space(rgb_color_space_definition* new_color_space) { m_rgb_color_space = new_color_space; }
+
+		//! Returns the currently used color space definition.
+		/*! Returns the currently used color space definition that will be used for conversions from or to xyz and lab color space.
+		*/
+		virtual rgb_color_space_definition* get_rgb_color_space() const { return m_rgb_color_space; }
+
+		//! Returns the currently set alpha.
+		/*! Returns the currently set alpha.
+		*/
+		virtual float alpha() const { return m_alpha; }
+
+		//! Sets a new alpha value (0-1).
+		/*! Sets a new alpha value (0-1).
+		*/
+		virtual void alpha(float new_alpha) { m_alpha = clamp(new_alpha, m_a_max, m_a_min); }
 
 		//! Equality operator overload.
 		/*!
@@ -96,7 +135,7 @@ namespace color_space
 		*/
 		color_base operator+(const color_base& rhs)
 		{
-			color_base result(this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
+			color_base result(this->alpha(), this->get_rgb_color_space(), this->m_component_vector.size(), this->get_component_max(), this->get_component_min());
 			if (this->get_color_type() == rhs.get_color_type() && this->m_component_vector.size() == rhs.m_component_vector.size())
 			{
 				result.m_type = this->m_type;
@@ -112,11 +151,23 @@ namespace color_space
 			return result;
 		}
 
-		//! Vector that stores the components of the color.
-		/*!
-		* Vector that stores the components of the color.
-		*/
-		std::vector<float> m_component_vector;
+		//! Does the gamma correction for each component of this color.
+		void do_gamma_correction()
+		{
+			for (size_t i = 0; i < m_component_vector.size(); ++i)
+			{
+				m_component_vector[i] = clamp(m_rgb_color_space->get_gamma_curve()->gamma_correction(m_component_vector[i]), m_max, m_min);
+			}
+		}
+
+		//! Does the inverse gamma correction for each component of this color.
+		void do_inverse_gamma_correction()
+		{
+			for (size_t i = 0; i < m_component_vector.size(); ++i)
+			{
+				m_component_vector[i] = clamp(m_rgb_color_space->get_gamma_curve()->inverse_gamma_correction(m_component_vector[i]), m_max, m_min);
+			}
+		}
 
 	protected:
 		//! Clamps a given value between a given max and min value (inclusive).
@@ -146,6 +197,36 @@ namespace color_space
 		* \param min The minimum number for the clamping operation.
 		*/
 		void set_component(float new_value, int index, float max, float min) { m_component_vector[index] = clamp(new_value, max, min); }
+
+		//! Vector that stores the components of the color.
+		/*!
+		* Vector that stores the components of the color.
+		*/
+		std::vector<float> m_component_vector;
+
+		//! The rgb color space definition used for conversion to or from xyz and lab.
+		/*!
+		* The rgb color space definition used for conversion to or from xyz and lab.
+		*/
+		rgb_color_space_definition* m_rgb_color_space;
+
+		//! Alpha value of the color.
+		/*!
+		* Alpha value of the color.
+		*/
+		float m_alpha;
+
+		//! Maximum value (inclusive) alpha can have.
+		/*!
+		* Maximum value (inclusive) alpha can have.
+		*/
+		float m_a_max = 1.f;
+
+		//! Minimum value (inclusive) alpha can have.
+		/*!
+		* Minimum value (inclusive) alpha can have.
+		*/
+		float m_a_min = 0.f;
 
 		//! Maximum value (inclusive) each component can have.
 		/*!

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "rgb_truecolor.h"
 
-color_space::rgb_truecolor::rgb_truecolor(float value, float alpha) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(float value, float alpha, rgb_color_space_definition* color_space) : color_base(alpha, color_space, 3, 255.f, 0.f)
 {
 	this->m_type = color_type::RGB_TRUE;
 	this->red(value);
@@ -10,16 +10,16 @@ color_space::rgb_truecolor::rgb_truecolor(float value, float alpha) : color_base
 	this->alpha(alpha);
 }
 
-color_space::rgb_truecolor::rgb_truecolor(float r, float g, float b, float a) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(float r, float g, float b, float alpha, rgb_color_space_definition* color_space) : color_base(alpha, color_space, 3, 255.f, 0.f)
 {
 	this->m_type = color_type::RGB_TRUE;
 	this->red(r);
 	this->green(g);
 	this->blue(b);
-	this->alpha(a);
+	this->alpha(alpha);
 }
 
-color_space::rgb_truecolor::rgb_truecolor(std::string hex_code) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(std::string hex_code, rgb_color_space_definition* color_space) : color_base(0, color_space, 3, 255.f, 0.f)
 {
 	std::regex regex("^[#0-9A-Fa-f]+$");
 
@@ -59,7 +59,7 @@ color_space::rgb_truecolor::rgb_truecolor(std::string hex_code) : color_base(4, 
 	}
 }
 
-color_space::rgb_truecolor::rgb_truecolor(int hex_code) : color_base(4, 255.f, 0.f)
+color_space::rgb_truecolor::rgb_truecolor(int hex_code, rgb_color_space_definition* color_space) : color_base(0, color_space, 3, 255.f, 0.f)
 {
 	this->m_type = color_type::RGB_TRUE;
 	this->alpha((float)((hex_code >> 24) & 0xff));
@@ -68,18 +68,19 @@ color_space::rgb_truecolor::rgb_truecolor(int hex_code) : color_base(4, 255.f, 0
 	this->blue((float)((hex_code) & 0xff));
 }
 
-color_space::rgb_truecolor::rgb_truecolor(const color_space::rgb_truecolor & other) : color_base(4, other.get_component_max(), other.get_component_min())
+color_space::rgb_truecolor::rgb_truecolor(const color_space::rgb_truecolor & other) : color_base(other.alpha(), other.get_rgb_color_space(), 3, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
-	this->m_component_vector = other.m_component_vector;
+	this->m_component_vector = other.get_component_vector();
+	this->alpha(other.alpha());
 }
 
-color_space::rgb_truecolor::rgb_truecolor(const color_base & other) : color_base(4, other.get_component_max(), other.get_component_min())
+color_space::rgb_truecolor::rgb_truecolor(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 3, other.get_component_max(), other.get_component_min())
 {
-	if (other.get_color_type() == color_type::RGB_TRUE && other.m_component_vector.size() == 4)
+	if (other.get_color_type() == color_type::RGB_TRUE && other.get_component_vector().size() == 4)
 	{
 		this->m_type = color_type::RGB_TRUE;
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 	}
 	else
 	{
@@ -92,7 +93,7 @@ color_space::rgb_truecolor & color_space::rgb_truecolor::operator=(const color_s
 	if (this != &other)
 	{
 		this->m_type = other.get_color_type();
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();
 	}
@@ -129,12 +130,12 @@ void color_space::rgb_truecolor::blue(float new_blue)
 	set_component(new_blue, 2);
 }
 
-float color_space::rgb_truecolor::alpha()
+float color_space::rgb_truecolor::alpha() const
 {
-	return m_component_vector[3];
+	return color_base::alpha() * 255.f;
 }
 
 void color_space::rgb_truecolor::alpha(float new_alpha)
 {
-	set_component(new_alpha, 3);
+	color_base::alpha(new_alpha / 255.f);
 }

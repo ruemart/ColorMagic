@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "hsv.h"
 
-color_space::hsv::hsv(float hue, float saturation, float value) : color_base(3)
+color_space::hsv::hsv(float hue, float saturation, float value, float alpha, rgb_color_space_definition* color_space) : color_base(alpha, color_space, 3)
 {
 	this->m_type = color_type::HSV;
 	this->hue(hue);
@@ -9,18 +9,19 @@ color_space::hsv::hsv(float hue, float saturation, float value) : color_base(3)
 	this->value(value);
 }
 
-color_space::hsv::hsv(const color_space::hsv & other) : color_base(3, other.get_component_max(), other.get_component_min())
+color_space::hsv::hsv(const color_space::hsv & other) : color_base(other.alpha(), other.get_rgb_color_space(), 3, other.get_component_max(), other.get_component_min())
 {
 	this->m_type = other.get_color_type();
-	this->m_component_vector = other.m_component_vector;
+	this->m_component_vector = other.get_component_vector();
+	this->alpha(other.alpha());
 }
 
-color_space::hsv::hsv(const color_base & other) : color_base(3, other.get_component_max(), other.get_component_min())
+color_space::hsv::hsv(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 3, other.get_component_max(), other.get_component_min())
 {
-	if (other.get_color_type() == color_type::HSV && other.m_component_vector.size() == 3)
+	if (other.get_color_type() == color_type::HSV && other.get_component_vector().size() == 3)
 	{
 		this->m_type = color_type::HSV;
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 	}
 	else
 	{
@@ -33,7 +34,7 @@ color_space::hsv & color_space::hsv::operator=(const color_space::hsv & other)
 	if (this != &other)
 	{
 		this->m_type = other.get_color_type();
-		this->m_component_vector = other.m_component_vector;
+		this->m_component_vector = other.get_component_vector();
 		this->m_max = other.get_component_max();
 		this->m_min = other.get_component_min();
 	}

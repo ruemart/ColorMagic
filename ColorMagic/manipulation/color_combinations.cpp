@@ -36,7 +36,7 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 
 	for (auto i = 1; i <= number_of_colors - 1; ++i)
 	{
-		auto new_color = new color_space::hsl(color_hsl->hue() + (i * degrees), color_hsl->saturation(), color_hsl->lightness());
+		auto new_color = new color_space::hsl(color_hsl->hue() + (i * degrees), color_hsl->saturation(), color_hsl->lightness(), color->alpha(), color->get_rgb_color_space());
 		combination.push_back(color_manipulation::color_converter::convertTo(new_color, color->get_color_type()));
 	}
 
@@ -51,9 +51,9 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 	std::vector<color_space::color_base*> triplet;
 	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(base_color, color_type::HSL));
 
-	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() - distance_between, color_hsl->saturation(), color_hsl->lightness()), base_color->get_color_type()));
+	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() - distance_between, color_hsl->saturation(), color_hsl->lightness(), base_color->alpha(), base_color->get_rgb_color_space()), base_color->get_color_type()));
 	triplet.push_back(base_color);
-	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() + distance_between, color_hsl->saturation(), color_hsl->lightness()), base_color->get_color_type()));
+	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() + distance_between, color_hsl->saturation(), color_hsl->lightness(), base_color->alpha(), base_color->get_rgb_color_space()), base_color->get_color_type()));
 
 	return triplet;
 }
@@ -66,20 +66,22 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 
 	std::vector<color_space::color_base*> combination;
 	combination.push_back(base_color);
+	auto in_color_type = base_color->get_color_type();
 
 	amount *= -1.f; // negative amounts decrease saturation/lightness of colors by using saturate/luminate functions.
 	for (int i = 0; i < color_count - 1; ++i) // -1 because the first color is the input color
 	{
+		auto last_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(combination[combination.size() - 1], color_type::HSL));
 		switch (mode)
 		{
 		case 0:
-			combination.push_back(color_adjustments::saturate_in_hsl_space(combination[combination.size() - 1], amount));
+			combination.push_back(color_converter::convertTo(color_adjustments::saturate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness(), base_color->alpha(), base_color->get_rgb_color_space()), amount), in_color_type));
 			break;
 		case 1:
-			combination.push_back(color_adjustments::luminate_in_hsl_space(combination[combination.size() - 1], amount));
+			combination.push_back(color_converter::convertTo(color_adjustments::luminate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness(), base_color->alpha(), base_color->get_rgb_color_space()), amount), in_color_type));
 			break;
 		case 2:
-			combination.push_back(color_adjustments::luminate_in_hsl_space(color_adjustments::saturate_in_hsl_space(combination[combination.size() - 1], amount), amount));
+			combination.push_back(color_converter::convertTo(color_adjustments::luminate_in_hsl_space(color_adjustments::saturate_in_hsl_space(new color_space::hsl(last_hsl->hue(), last_hsl->saturation(), last_hsl->lightness(), base_color->alpha(), base_color->get_rgb_color_space()), amount), amount), in_color_type));
 			break;
 		default:
 			throw new std::invalid_argument("Invalid mode.");;

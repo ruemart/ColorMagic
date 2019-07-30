@@ -36,17 +36,21 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CIELUV_Test.cpp" />
     <ClCompile Include="CMYK_Test.cpp" />
     <ClCompile Include="ColorAdjustments.cpp" />
     <ClCompile Include="ColorCalculator_Test.cpp" />
     <ClCompile Include="ColorCombinations_Test.cpp" />
     <ClCompile Include="ColorConverter_Test.cpp" />
     <ClCompile Include="ColorDistance_Test.cpp" />
+    <ClCompile Include="Gamma_Test.cpp" />
     <ClCompile Include="Grey_Deep_Test.cpp" />
     <ClCompile Include="Grey_True_Test.cpp" />
     <ClCompile Include="HSL_Test.cpp" />
     <ClCompile Include="HSV_Test.cpp" />
     <ClCompile Include="Lab_Test.cpp" />
+    <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="RGBColorSpaceDefinitionTest.cpp" />
     <ClCompile Include="RGB_Deep_Test.cpp" />
     <ClCompile Include="RGB_True_Test.cpp" />
     <ClCompile Include="Main_TestAll.cpp" />
@@ -56,6 +60,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="XYY_Test.cpp" />
     <ClCompile Include="XYZ_Test.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
 #pragma once
 
 #include "color_type.h"
+#include "..\spaces\rgb_color_space_definition.h"
 #include "..\spaces\color_base.h"
 #include "..\spaces\cmyk.h"
 #include "..\spaces\grey_deepcolor.h"
@@ -182,10 +183,10 @@ public:
 	/*!
 	* Initializes the class with a hex code.
 	* \param hex_code The desired colors hex code.
+	* \param ref_white The reference_white used for conversions from or to lab color space.
 	*/
-	predefined_color(HexcodeColors hex_code) { base = new color_space::rgb_truecolor(hex_code); }
+	predefined_color(HexcodeColors hex_code, color_space::rgb_color_space_definition* ref_white) { base = new color_space::rgb_truecolor(hex_code, ref_white); }
 	predefined_color() = delete;
-	predefined_color(predefined_color& other) = delete;
 
 	//! Returns the desired color as rgb true color.
 	/*!
@@ -197,49 +198,55 @@ public:
 	/*!
 	* \return The desired color as rgb deep color.
 	*/
-	inline color_space::rgb_deepcolor* get_rgb_deep() { return dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::from_rgb_true(base, color_type::RGB_DEEP)); }
+	inline color_space::rgb_deepcolor* get_rgb_deep() { return color_manipulation::color_converter::to_rgb_deep(base); }
 
 	//! Returns the desired color as grey true color.
 	/*!
 	* \return The desired color as grey true color.
 	*/
-	inline color_space::grey_truecolor* get_grey_true() { return dynamic_cast<color_space::grey_truecolor*>(color_manipulation::color_converter::from_rgb_true(base, color_type::GREY_TRUE)); }
+	inline color_space::grey_truecolor* get_grey_true() { return color_manipulation::color_converter::to_grey_true(base); }
 
 	//! Returns the desired color as grey deep color.
 	/*!
 	* \return The desired color as grey deep color.
 	*/
-	inline color_space::grey_deepcolor* get_grey_deep() { return dynamic_cast<color_space::grey_deepcolor*>(color_manipulation::color_converter::from_rgb_true(base, color_type::GREY_DEEP)); }
+	inline color_space::grey_deepcolor* get_grey_deep() { return color_manipulation::color_converter::to_grey_deep(base); }
 
 	//! Returns the desired color as cmyk color.
 	/*!
 	* \return The desired color as cmyk color.
 	*/
-	inline color_space::cmyk* get_cmyk() { return dynamic_cast<color_space::cmyk*>(color_manipulation::color_converter::from_rgb_true(base, color_type::CMYK)); }
+	inline color_space::cmyk* get_cmyk() { return color_manipulation::color_converter::to_cmyk(base); }
 
 	//! Returns the desired color as hsv color.
 	/*!
 	* \return The desired color as hsv color.
 	*/
-	inline color_space::hsv* get_hsv() { return dynamic_cast<color_space::hsv*>(color_manipulation::color_converter::from_rgb_true(base, color_type::HSV)); }
+	inline color_space::hsv* get_hsv() { return color_manipulation::color_converter::to_hsv(base); }
 
 	//! Returns the desired color as hsl color.
 	/*!
 	* \return The desired color as hsl color.
 	*/
-	inline color_space::hsl* get_hsl() { return dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::from_rgb_true(base, color_type::HSL)); }
+	inline color_space::hsl* get_hsl() { return color_manipulation::color_converter::to_hsl(base); }
 
 	//! Returns the desired color as xyz color.
 	/*!
 	* \return The desired color as xyz color.
 	*/
-	inline color_space::xyz* get_xyz() { return dynamic_cast<color_space::xyz*>(color_manipulation::color_converter::from_rgb_true(base, color_type::XYZ)); }
+	inline color_space::xyz* get_xyz() { return color_manipulation::color_converter::to_xyz(base); }
+
+	//! Returns the desired color as xyY color.
+	/*!
+	* \return The desired color as xyY color.
+	*/
+	inline color_space::xyy* get_xyy() { return color_manipulation::color_converter::to_xyy(base); }
 
 	//! Returns the desired color as lab color.
 	/*!
 	* \return The desired color as lab color.
 	*/
-	inline color_space::lab* get_lab() { return dynamic_cast<color_space::lab*>(color_manipulation::color_converter::from_rgb_true(base, color_type::LAB)); }
+	inline color_space::lab* get_lab() { return color_manipulation::color_converter::to_lab(base); }
 private:
 	color_space::rgb_truecolor* base;
 };

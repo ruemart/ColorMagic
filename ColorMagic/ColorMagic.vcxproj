@@ -159,19 +159,25 @@
     <ClInclude Include="manipulation\color_converter.h" />
     <ClInclude Include="manipulation\color_distance.h" />
     <ClInclude Include="spaces\cmyk.h" />
+    <ClInclude Include="spaces\gamma.h" />
     <ClInclude Include="spaces\grey_deepcolor.h" />
     <ClInclude Include="spaces\grey_truecolor.h" />
     <ClInclude Include="spaces\hsl.h" />
     <ClInclude Include="spaces\hsv.h" />
     <ClInclude Include="spaces\color_base.h" />
     <ClInclude Include="spaces\lab.h" />
+    <ClInclude Include="spaces\cieluv.h" />
+    <ClInclude Include="spaces\white_point.h" />
+    <ClInclude Include="spaces\rgb_color_space_definition.h" />
     <ClInclude Include="spaces\rgb_deepcolor.h" />
     <ClInclude Include="spaces\rgb_truecolor.h" />
+    <ClInclude Include="spaces\xyy.h" />
     <ClInclude Include="spaces\xyz.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utils\colors.h" />
     <ClInclude Include="utils\color_type.h" />
+    <ClInclude Include="utils\matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp" />
@@ -181,6 +187,7 @@
     <ClCompile Include="manipulation\color_combinations.cpp" />
     <ClCompile Include="manipulation\color_converter.cpp" />
     <ClCompile Include="manipulation\color_distance.cpp" />
+    <ClCompile Include="spaces\cieluv.cpp" />
     <ClCompile Include="spaces\cmyk.cpp" />
     <ClCompile Include="spaces\grey_deepcolor.cpp" />
     <ClCompile Include="spaces\grey_truecolor.cpp" />
@@ -189,6 +196,7 @@
     <ClCompile Include="spaces\lab.cpp" />
     <ClCompile Include="spaces\rgb_deepcolor.cpp" />
     <ClCompile Include="spaces\rgb_truecolor.cpp" />
+    <ClCompile Include="spaces\xyy.cpp" />
     <ClCompile Include="spaces\xyz.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

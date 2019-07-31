@@ -60,6 +60,27 @@ namespace color_manipulation
 		*/
 		color_space::color_base* bradford_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
 
+		//! Transforms a given color to the given target color space definition by using XYZ Scale method.
+		/*!
+		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using XYZ Scale matrices and finally the result is converted back to input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_color_space The target color space definition containing the target white point definition.
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* xyz_scale_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space);
+
+		//! Transforms a given color with the given target white point by using XYZ Scale method.
+		/*!
+		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using XYZ Scale matrices and finally the result is converted back to
+		* input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_white_point The target white point.
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* xyz_scale_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
+
 	protected:
 
 		//! Helper method that actually does the transformation while the public methods are just container functions.
@@ -115,6 +136,28 @@ namespace color_manipulation
 			0.9869929f, -0.1470543f, 0.1599627f,
 			0.4323053f, 0.5183603f, 0.0492912f,
 			-0.0085287f, 0.0400428f, 0.9684867f
+		});
+
+		//! Adaptation matrix of the XYZ Scale method.
+		/*!
+		* Adaptation matrix of the XYZ Scale method.
+		*/
+		matrix<float> m_xyz_scale = matrix<float>(3, 3, std::vector<float>
+		{
+			1.f, 0.f, -0.f,
+			-0.f, 1.f, 0.f,
+			0.f, -0.f, 1.f
+		});
+
+		//! Inverted adaptation matrix of the XYZ Scale method.
+		/*!
+		* Inverted adaptation matrix of the XYZ Scale method.
+		*/
+		matrix<float> m_inverted_xyz_scale = matrix<float>(3, 3, std::vector<float>
+		{
+			1.f, -0.f, 0.f,
+			0.f, 1.f, 0.f,
+			-0.f, 0.f, 1.f
 		});
 	};
 }

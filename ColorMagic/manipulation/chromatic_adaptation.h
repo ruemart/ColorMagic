@@ -38,18 +38,40 @@ namespace color_manipulation
 		* \return The transformed color in the input color space.
 		*/
 		color_space::color_base* von_kries_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
+
+		//! Transforms a given color to the given target color space definition by using Bradford method.
+		/*!
+		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using Bradford matrices and finally the result is converted back to input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_color_space The target color space definition containing the target white point definition.
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* bradford_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space);
+
+		//! Transforms a given color with the given target white point by using Bradford method.
+		/*!
+		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using Bradford matrices and finally the result is converted back to
+		* input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_white_point The target white point.
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* bradford_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
+
 	protected:
 
-		//! Helper method that calculates the transformation matrix.
+		//! Helper method that actually does the transformation while the public methods are just container functions.
 		/*!
 		* Helper method that calculates the transformation matrix.
-		* \param source_wp The input colors white point.
-		* \param dest_wp The target white point.
+		* \param color The color to transform.
+		* \param target_color_space The target color space definition containing the target white point definition.
 		* \param mat The adaptation matrix of the chosen method.
 		* \param inverted_mat The inverted adaptation matrix of the chosen method.
-		* \return The calculated transformation matrix for the chosen method.
+		* \return The transformed color in the input color space.
 		*/
-		matrix<float> calculate_transform_matrix(color_space::white_point* source_wp, color_space::white_point* dest_wp, matrix<float> mat, matrix<float> inverted_mat);
+		color_space::color_base* do_adaption(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space, matrix<float> mat, matrix<float> inverted_mat);
 
 		//! Adaptation matrix of the von Kries method.
 		/*!
@@ -71,6 +93,28 @@ namespace color_manipulation
 			1.8599364f, -1.1293816f, 0.2198974f,
 			0.3611914f, 0.6388125f, -0.0000064f,
 			0.f, 0.f, 1.0890636f 
+		});
+
+		//! Adaptation matrix of the Bradford method.
+		/*!
+		* Adaptation matrix of the Bradford method.
+		*/
+		matrix<float> m_bradford = matrix<float>(3, 3, std::vector<float>
+		{
+			0.8951f, 0.2664f, -0.1614f,
+			-0.7502f, 1.7135f, 0.0367f,
+			0.0389f, -0.0685f, 1.0296f
+		});
+
+		//! Inverted adaptation matrix of the Bradford method.
+		/*!
+		* Inverted adaptation matrix of the Bradford method.
+		*/
+		matrix<float> m_inverted_bradford = matrix<float>(3, 3, std::vector<float>
+		{
+			0.9869929f, -0.1470543f, 0.1599627f,
+			0.4323053f, 0.5183603f, 0.0492912f,
+			-0.0085287f, 0.0400428f, 0.9684867f
 		});
 	};
 }

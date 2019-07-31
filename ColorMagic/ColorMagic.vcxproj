@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="manipulation\chromatic_adaptation.h" />
     <ClInclude Include="manipulation\color_adjustments.h" />
     <ClInclude Include="manipulation\color_calculation.h" />
     <ClInclude Include="manipulation\color_combinations.h" />

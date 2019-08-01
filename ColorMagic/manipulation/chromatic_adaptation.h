@@ -81,6 +81,27 @@ namespace color_manipulation
 		*/
 		color_space::color_base* xyz_scale_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
 
+		//! Transforms a given color to the given target color space definition by using Sharp method.
+		/*!
+		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using Sharp matrices and finally the result is converted back to input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_color_space The target color space definition containing the target white point definition.
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* sharp_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space);
+
+		//! Transforms a given color with the given target white point by using Sharp method.
+		/*!
+		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using Sharp matrices and finally the result is converted back to
+		* input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_white_point The target white point.
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* sharp_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
+
 	protected:
 
 		//! Helper method that actually does the transformation while the public methods are just container functions.
@@ -158,6 +179,28 @@ namespace color_manipulation
 			1.f, -0.f, 0.f,
 			0.f, 1.f, 0.f,
 			-0.f, 0.f, 1.f
+		});
+
+		//! Adaptation matrix of the Sharp method.
+		/*!
+		* Adaptation matrix of the Sharp method.
+		*/
+		matrix<float> m_sharp = matrix<float>(3, 3, std::vector<float>
+		{
+			1.2694f, -0.0988f, -0.1706f,
+			-0.8364f, 1.8006f, 0.0357f,
+			0.0297f, -0.0315f, 1.0018f
+		});
+
+		//! Inverted adaptation matrix of the Sharp method.
+		/*!
+		* Inverted adaptation matrix of the Sharp method.
+		*/
+		matrix<float> m_inverted_sharp = matrix<float>(3, 3, std::vector<float>
+		{
+			0.81563f, 0.04715f, 0.13722f,
+			0.37911f, 0.57694f, 0.044f,
+			-0.01226f, 0.01674f, 0.99552f
 		});
 	};
 }

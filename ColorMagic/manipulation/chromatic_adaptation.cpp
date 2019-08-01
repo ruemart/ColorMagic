@@ -3,7 +3,7 @@
 
 color_space::color_base * color_manipulation::color_adjustments::von_kries_adaptation(color_space::color_base * color, color_space::rgb_color_space_definition * target_color_space)
 {
-	do_adaption(color, target_color_space, m_von_kries, m_inverted_von_kries);
+	return do_adaption(color, target_color_space, m_von_kries, m_inverted_von_kries);
 }
 
 color_space::color_base * color_manipulation::color_adjustments::von_kries_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
@@ -18,7 +18,7 @@ color_space::color_base * color_manipulation::color_adjustments::von_kries_adapt
 
 color_space::color_base * color_manipulation::color_adjustments::bradford_adaptation(color_space::color_base * color, color_space::rgb_color_space_definition * target_color_space)
 {
-	do_adaption(color, target_color_space, m_bradford, m_inverted_bradford);
+	return do_adaption(color, target_color_space, m_bradford, m_inverted_bradford);
 }
 
 color_space::color_base * color_manipulation::color_adjustments::bradford_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
@@ -33,7 +33,7 @@ color_space::color_base * color_manipulation::color_adjustments::bradford_adapta
 
 color_space::color_base * color_manipulation::color_adjustments::xyz_scale_adaptation(color_space::color_base * color, color_space::rgb_color_space_definition * target_color_space)
 {
-	do_adaption(color, target_color_space, m_xyz_scale, m_inverted_xyz_scale);
+	return do_adaption(color, target_color_space, m_xyz_scale, m_inverted_xyz_scale);
 }
 
 color_space::color_base * color_manipulation::color_adjustments::xyz_scale_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
@@ -48,7 +48,7 @@ color_space::color_base * color_manipulation::color_adjustments::xyz_scale_adapt
 
 color_space::color_base * color_manipulation::color_adjustments::sharp_adaptation(color_space::color_base * color, color_space::rgb_color_space_definition * target_color_space)
 {
-	do_adaption(color, target_color_space, m_sharp, m_inverted_sharp);
+	return do_adaption(color, target_color_space, m_sharp, m_inverted_sharp);
 }
 
 color_space::color_base * color_manipulation::color_adjustments::sharp_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
@@ -63,7 +63,7 @@ color_space::color_base * color_manipulation::color_adjustments::sharp_adaptatio
 
 color_space::color_base * color_manipulation::color_adjustments::cmccat2000_adaptation(color_space::color_base * color, color_space::rgb_color_space_definition * target_color_space)
 {
-	do_adaption(color, target_color_space, m_cmccat2000, m_inverted_cmccat2000);
+	return do_adaption(color, target_color_space, m_cmccat2000, m_inverted_cmccat2000);
 }
 
 color_space::color_base * color_manipulation::color_adjustments::cmccat2000_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)

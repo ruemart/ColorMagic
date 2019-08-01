@@ -61,6 +61,21 @@ color_space::color_base * color_manipulation::color_adjustments::sharp_adaptatio
 	return sharp_adaptation(color, color_space_def);
 }
 
+color_space::color_base * color_manipulation::color_adjustments::cmccat2000_adaptation(color_space::color_base * color, color_space::rgb_color_space_definition * target_color_space)
+{
+	do_adaption(color, target_color_space, m_cmccat2000, m_inverted_cmccat2000);
+}
+
+color_space::color_base * color_manipulation::color_adjustments::cmccat2000_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
+{
+	auto color_space_def = new color_space::rgb_color_space_definition(color->get_rgb_color_space()->get_red_x(), color->get_rgb_color_space()->get_red_y(),
+		color->get_rgb_color_space()->get_green_x(), color->get_rgb_color_space()->get_green_y(),
+		color->get_rgb_color_space()->get_blue_x(), color->get_rgb_color_space()->get_blue_y(),
+		target_white_point, color->get_rgb_color_space()->get_gamma_curve());
+
+	return cmccat2000_adaptation(color, color_space_def);
+}
+
 color_space::color_base * color_manipulation::color_adjustments::do_adaption(color_space::color_base * color, color_space::rgb_color_space_definition * target_color_space, matrix<float> mat, matrix<float> inverted_mat)
 {
 	// Convert to XYZ space

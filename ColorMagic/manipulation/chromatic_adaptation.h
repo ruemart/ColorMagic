@@ -9,6 +9,8 @@
 #include "color_converter.h"
 #include "..\utils\matrix.h"
 
+#include <math.h>
+
 namespace color_manipulation
 {
 	//! Static class for chromatic adaptation.
@@ -106,6 +108,7 @@ namespace color_manipulation
 		/*!
 		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
 		* Afterwards the transformation is done using CMCCAT2000 matrices and finally the result is converted back to input color space.
+		* This version of CMCCAT2000 igonores the degree of adaption. Use overloaded function to include D in the calculation.
 		* \param color The color to convert. If the color is not in xyz space it will be converted first.
 		* \param target_color_space The target color space definition containing the target white point definition.
 		* \return The transformed color in the input color space.
@@ -116,12 +119,40 @@ namespace color_manipulation
 		/*!
 		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
 		* Afterwards the transformation is done using CMCCAT2000 matrices and finally the result is converted back to
-		* input color space.
+		* input color space. This version of CMCCAT2000 igonores the degree of adaption. Use overloaded function to 
+		* include D in the calculation.
 		* \param color The color to convert. If the color is not in xyz space it will be converted first.
 		* \param target_white_point The target white point.
 		* \return The transformed color in the input color space.
 		*/
 		color_space::color_base* cmccat2000_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
+
+		//! Transforms a given color to the given target color space definition by using CMCCAT2000 method.
+		/*!
+		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using CMCCAT2000 matrices and finally the result is converted back to input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_color_space The target color space definition containing the target white point definition.
+		* \param f Defines the surrounding conditions. Use 1.f for normal, 0.9f for dim and 0.8f for dark conditions.
+		* \param adapting_field_luminance The luminance of the adapting field. Default value = 100
+		* \param reference_field_luminance The luminance of the adapting field. Default value = 100
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* cmccat2000_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space, float f, float adapting_field_luminance = 100.f, float reference_field_luminance = 100.f);
+
+		//! Transforms a given color with the given target white point by using CMCCAT2000 method.
+		/*!
+		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using CMCCAT2000 matrices and finally the result is converted back to
+		* input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_white_point The target white point.
+		* \param f Defines the surrounding conditions. Use 1.f for normal, 0.9f for dim and 0.8f for dark conditions.
+		* \param adapting_field_luminance The luminance of the adapting field. Default value = 100
+		* \param reference_field_luminance The luminance of the adapting field. Default value = 100
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* cmccat2000_adaptation(color_space::color_base* color, color_space::white_point* target_white_point, float f, float adapting_field_luminance = 100.f, float reference_field_luminance = 100.f);
 
 	protected:
 

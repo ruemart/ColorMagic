@@ -95,8 +95,8 @@ matrix<float> color_manipulation::chromatic_adaptation::m_cat02 = matrix<float>(
 matrix<float> color_manipulation::chromatic_adaptation::m_inverted_cat02 = matrix<float>(3, 3, std::vector<float>
 {
 	1.09612f, -0.27887f, 0.18275f,
-		0.45437f, 0.47353f, 0.0721f
-		- 0.00963f, -0.0057f, 1.01533f
+		0.45437f, 0.47353f, 0.0721f,
+		-0.00963f, -0.0057f, 1.01533f
 });
 
 color_space::color_base * color_manipulation::chromatic_adaptation::von_kries_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
@@ -108,9 +108,9 @@ color_space::color_base * color_manipulation::chromatic_adaptation::bradford_ada
 {
 	// Convert to XYZ space and transform using bradford matrix (incl. normalization)
 	auto rgb_comp = m_bradford * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
-	rgb_comp[0] = rgb_comp[0] / color->get_component_vector()[1];
-	rgb_comp[1] = rgb_comp[1] / color->get_component_vector()[1];
-	rgb_comp[2] = rgb_comp[2] / color->get_component_vector()[1];
+	rgb_comp[0] /= color->get_component_vector()[1];
+	rgb_comp[1] /= color->get_component_vector()[1];
+	rgb_comp[2] /= color->get_component_vector()[1];
 
 	// Create scaled white point vectors (incl. normalization)
 	std::vector<float> source_wp = std::vector<float>();
@@ -165,9 +165,9 @@ color_space::color_base * color_manipulation::chromatic_adaptation::cmccat97_ada
 {
 	// Convert to XYZ space and transform using cmccat97 matrix (incl. normalization)
 	auto rgb_comp = m_cmccat97 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
-	rgb_comp[0] = rgb_comp[0] / color->get_component_vector()[1];
-	rgb_comp[1] = rgb_comp[1] / color->get_component_vector()[1];
-	rgb_comp[2] = rgb_comp[2] / color->get_component_vector()[1];
+	rgb_comp[0] /= color->get_component_vector()[1];
+	rgb_comp[1] /= color->get_component_vector()[1];
+	rgb_comp[2] /= color->get_component_vector()[1];
 
 	// Create scaled white point vectors (incl. normalization)
 	std::vector<float> source_wp = std::vector<float>();
@@ -188,12 +188,12 @@ color_space::color_base * color_manipulation::chromatic_adaptation::cmccat97_ada
 	if (d < 0.f) d = 0.f;
 	if (d > 1.f) d = 1.f;
 
-	// Adapt color
+	// Adapt color (incl. undo of normalization)
 	auto p = powf(scaled_source_wp[2] / scaled_dest_wp[2], 0.0834f);
 	std::vector<float> rgbc;
-	rgbc.push_back(rgb_comp[0] * (d * (scaled_dest_wp[0] / scaled_source_wp[0]) + 1.f - d));
-	rgbc.push_back(rgb_comp[1] * (d * (scaled_dest_wp[1] / scaled_source_wp[1]) + 1.f - d));
-	rgbc.push_back(powf(fabsf(rgb_comp[2]), p) * (d * (scaled_dest_wp[2] / powf(scaled_source_wp[2], p)) + 1.f - d));
+	rgbc.push_back(color->get_component_vector()[1] * (rgb_comp[0] * (d * (scaled_dest_wp[0] / scaled_source_wp[0]) + 1.f - d)));
+	rgbc.push_back(color->get_component_vector()[1] * (rgb_comp[1] * (d * (scaled_dest_wp[1] / scaled_source_wp[1]) + 1.f - d)));
+	rgbc.push_back(color->get_component_vector()[1] * (powf(fabsf(rgb_comp[2]), p) * (d * (scaled_dest_wp[2] / powf(scaled_source_wp[2], p)) + 1.f - d)));
 
 	auto transformed_components = m_inverted_cmccat97 * rgbc;
 	color->get_rgb_color_space()->set_white_point(target_white_point);
@@ -214,8 +214,18 @@ color_space::color_base * color_manipulation::chromatic_adaptation::cmccat2000_a
 	auto tmp_xyz_comp = m_cmccat2000 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
 	
 	// Create scaled white point vectors
-	auto scaled_source_wp = m_cmccat2000 * std::vector<float> { color->get_rgb_color_space()->get_white_point()->get_tristimulus().begin(), color->get_rgb_color_space()->get_white_point()->get_tristimulus().end() };
-	auto scaled_dest_wp = m_cmccat2000 * std::vector<float> { target_white_point->get_tristimulus().begin(), target_white_point->get_tristimulus().end() };
+	std::vector<float> source_wp = std::vector<float>();
+	source_wp.push_back(color->get_rgb_color_space()->get_white_point()->get_tristimulus()[0]);
+	source_wp.push_back(color->get_rgb_color_space()->get_white_point()->get_tristimulus()[1]);
+	source_wp.push_back(color->get_rgb_color_space()->get_white_point()->get_tristimulus()[2]);
+
+	std::vector<float> dest_wp = std::vector<float>();
+	dest_wp.push_back(target_white_point->get_tristimulus()[0]);
+	dest_wp.push_back(target_white_point->get_tristimulus()[1]);
+	dest_wp.push_back(target_white_point->get_tristimulus()[2]);
+
+	auto scaled_source_wp = m_cmccat2000 * source_wp;
+	auto scaled_dest_wp = m_cmccat2000 * dest_wp;
 
 	// Compute degree of adaption
 	auto d = f * (0.08f * log10f(0.5f * (adapting_field_luminance + reference_field_luminance)) + 0.76f - 0.45f * ((adapting_field_luminance - reference_field_luminance) / (adapting_field_luminance + reference_field_luminance)));
@@ -249,8 +259,18 @@ color_space::color_base * color_manipulation::chromatic_adaptation::cat02_adapta
 	auto tmp_xyz_comp = m_cat02 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
 
 	// Create scaled white point vectors
-	auto scaled_source_wp = m_cat02 * std::vector<float> { color->get_rgb_color_space()->get_white_point()->get_tristimulus().begin(), color->get_rgb_color_space()->get_white_point()->get_tristimulus().end() };
-	auto scaled_dest_wp = m_cat02 * std::vector<float> { target_white_point->get_tristimulus().begin(), target_white_point->get_tristimulus().end() };
+	std::vector<float> source_wp = std::vector<float>();
+	source_wp.push_back(color->get_rgb_color_space()->get_white_point()->get_tristimulus()[0]);
+	source_wp.push_back(color->get_rgb_color_space()->get_white_point()->get_tristimulus()[1]);
+	source_wp.push_back(color->get_rgb_color_space()->get_white_point()->get_tristimulus()[2]);
+
+	std::vector<float> dest_wp = std::vector<float>();
+	dest_wp.push_back(target_white_point->get_tristimulus()[0]);
+	dest_wp.push_back(target_white_point->get_tristimulus()[1]);
+	dest_wp.push_back(target_white_point->get_tristimulus()[2]);
+
+	auto scaled_source_wp = m_cat02 * source_wp;
+	auto scaled_dest_wp = m_cat02 * dest_wp;
 
 	// Compute degree of adaption
 	auto d = f * (1.f - (1.f / 3.6f) * expf((-adapting_field_luminance - 42.f) / 92.f));
@@ -279,8 +299,18 @@ color_space::color_base * color_manipulation::chromatic_adaptation::do_adaption(
 	auto tmp_color = color_manipulation::color_converter::to_xyz(color);
 
 	// Create scaled white point vectors
-	auto scaled_source_wp = mat * std::vector<float> { color->get_rgb_color_space()->get_white_point()->get_tristimulus().begin(), color->get_rgb_color_space()->get_white_point()->get_tristimulus().end() };
-	auto scaled_dest_wp = mat * std::vector<float> { target_white_point->get_tristimulus().begin(), target_white_point->get_tristimulus().end() };
+	std::vector<float> source_wp = std::vector<float>();
+	source_wp.push_back(color->get_rgb_color_space()->get_white_point()->get_tristimulus()[0]);
+	source_wp.push_back(color->get_rgb_color_space()->get_white_point()->get_tristimulus()[1]);
+	source_wp.push_back(color->get_rgb_color_space()->get_white_point()->get_tristimulus()[2]);
+
+	std::vector<float> dest_wp = std::vector<float>();
+	dest_wp.push_back(target_white_point->get_tristimulus()[0]);
+	dest_wp.push_back(target_white_point->get_tristimulus()[1]);
+	dest_wp.push_back(target_white_point->get_tristimulus()[2]);
+
+	auto scaled_source_wp = mat * source_wp;
+	auto scaled_dest_wp = mat * dest_wp;
 
 	// Create white point matrix from scaled white point vectors
 	auto wp_matrix = matrix<float>(3, 3, std::vector<float>

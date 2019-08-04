@@ -94,11 +94,24 @@ namespace color_manipulation
 		* \param color The color to convert. If the color is not in xyz space it will be converted first.
 		* \param target_white_point The target white point.
 		* \param f Defines the surrounding conditions. Use 1.f for normal, 0.9f for dim and 0.8f for dark conditions.
-		* \param adapting_field_luminance The luminance of the adapting field. Default value = 100
-		* \param reference_field_luminance The luminance of the adapting field. Default value = 100
+		* \param adapting_field_luminance The luminance of the adapting field (\sa calculate_adapting_luminance()). Default value = 100 
+		* \param reference_field_luminance The luminance of the reference field. Default value = 100
 		* \return The transformed color in the input color space.
 		*/
 		color_space::color_base* cmccat2000_adaptation(color_space::color_base* color, color_space::white_point* target_white_point, float f, float adapting_field_luminance = 100.f, float reference_field_luminance = 100.f);
+
+		//! Helper method to calculate the adapting luminance needed in the non-simplified versions of CMCCAT97 and CMCCAT2000.
+		/*!
+		* Helper method to calculate the adapting luminance needed in the non-simplified versions of CMCCAT97 and CMCCAT2000.
+		* \param luminance The luminance of the target white point under the test illuminant (in cd/m^2).
+		* \param bg_luminance_factor The luminance factor of the background. If assuming the perfect diffusor for the source 
+		* and target whites their luminance factors both will be 100.
+		* \return The adapting luminance.
+		*/
+		float calculate_adapting_luminance(float luminance, float bg_luminance_factor = 100.f)
+		{
+			return luminance * bg_luminance_factor / 100.f;
+		}
 
 	protected:
 

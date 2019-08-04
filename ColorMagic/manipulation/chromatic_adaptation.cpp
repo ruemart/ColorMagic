@@ -140,6 +140,41 @@ color_space::color_base * color_manipulation::color_adjustments::cmccat2000_adap
 	return color_manipulation::color_converter::convertTo(tmp_trans_color, color->get_color_type());
 }
 
+color_space::color_base * color_manipulation::color_adjustments::cat02_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
+{
+	return do_adaption(color, target_white_point, m_cat02, m_inverted_cat02);
+}
+
+color_space::color_base * color_manipulation::color_adjustments::cat02_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance)
+{
+	// Convert to XYZ space and transform using cmccat2000 matrix
+	auto tmp_xyz_comp = m_cat02 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
+
+	// Create scaled white point vectors
+	auto scaled_source_wp = m_cat02 * std::vector<float> { color->get_rgb_color_space()->get_white_point()->get_tristimulus().begin(), color->get_rgb_color_space()->get_white_point()->get_tristimulus().end() };
+	auto scaled_dest_wp = m_cat02 * std::vector<float> { target_white_point->get_tristimulus().begin(), target_white_point->get_tristimulus().end() };
+
+	// Compute degree of adaption
+	auto d = f * (1.f - (1.f / 3.6f) * expf((-adapting_field_luminance - 42.f) / 92.f));
+	if (d < 0.f) d = 0.f;
+	if (d > 1.f) d = 1.f;
+
+	auto wp_y_factor = d * (color->get_rgb_color_space()->get_white_point()->get_tristimulus_y() / target_white_point->get_tristimulus_y());
+
+	// Adapt color
+	std::vector<float> rgbc;
+	rgbc.push_back(tmp_xyz_comp[0] * (d * (scaled_dest_wp[0] / scaled_source_wp[0]) + 1.f - d));
+	rgbc.push_back(tmp_xyz_comp[1] * (d * (scaled_dest_wp[1] / scaled_source_wp[1]) + 1.f - d));
+	rgbc.push_back(tmp_xyz_comp[2] * (d * (scaled_dest_wp[2] / scaled_source_wp[2]) + 1.f - d));
+
+	auto transformed_components = m_inverted_cat02 * rgbc;
+	color->get_rgb_color_space()->set_white_point(target_white_point);
+	auto tmp_trans_color = new color_space::xyz(transformed_components[0], transformed_components[1], transformed_components[2], color->alpha(), color->get_rgb_color_space());
+
+	// Convert transformed color back to input color space
+	return color_manipulation::color_converter::convertTo(tmp_trans_color, color->get_color_type());
+}
+
 color_space::color_base * color_manipulation::color_adjustments::do_adaption(color_space::color_base * color, color_space::white_point * target_white_point, matrix<float> mat, matrix<float> inverted_mat)
 {
 	// Convert to XYZ space

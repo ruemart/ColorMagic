@@ -124,6 +124,30 @@ namespace color_manipulation
 		*/
 		color_space::color_base* cmccat2000_adaptation(color_space::color_base* color, color_space::white_point* target_white_point, float f, float adapting_field_luminance = 100.f, float reference_field_luminance = 100.f);
 
+		//! Transforms a given color with the given target white point by using CAT02 method.
+		/*!
+		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using CAT02 matrices and finally the result is converted back to
+		* input color space. This version of CAT02 igonores the degree of adaption.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_white_point The target white point.
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* cat02_adaptation_simplified(color_space::color_base* color, color_space::white_point* target_white_point);
+
+		//! Transforms a given color with the given target white point by using CAT02 method.
+		/*!
+		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using CAT02 matrices and finally the result is converted back to
+		* input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_white_point The target white point.
+		* \param f Defines the surrounding conditions. Use 1.f for normal, 0.9f for dim and 0.8f for dark conditions.
+		* \param adapting_field_luminance The luminance of the adapting field (\sa calculate_adapting_luminance()). Default value = 100
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* cat02_adaptation(color_space::color_base* color, color_space::white_point* target_white_point, float f, float adapting_field_luminance = 100.f);
+
 		//! Helper method to calculate the adapting luminance needed in the non-simplified versions of CMCCAT97 and CMCCAT2000.
 		/*!
 		* Helper method to calculate the adapting luminance needed in the non-simplified versions of CMCCAT97 and CMCCAT2000.
@@ -282,6 +306,28 @@ namespace color_manipulation
 			1.07645f, -0.23766f, 0.16121f,
 			0.41096f, 0.55434f, 0.03469f,
 			-0.01095f, -0.01339f, 1.02434f
+		});
+
+		//! Adaptation matrix of the CAT02 method.
+		/*!
+		* Adaptation matrix of the CAT02 method.
+		*/
+		matrix<float> m_cat02 = matrix<float>(3, 3, std::vector<float>
+		{
+			0.7328f, 0.4296f, -0.1624f,
+			-0.7036f, 1.6975f, 0.0061f,
+			0.003f, 0.0136f, 0.9834f
+		});
+
+		//! Inverted adaptation matrix of the CAT02 method.
+		/*!
+		* Inverted adaptation matrix of the CAT02 method.
+		*/
+		matrix<float> m_inverted_cat02 = matrix<float>(3, 3, std::vector<float>
+		{
+			1.09612f, -0.27887f, 0.18275f,
+			0.45437f, 0.47353f, 0.0721f
+			-0.00963f, -0.0057f, 1.01533f
 		});
 	};
 }

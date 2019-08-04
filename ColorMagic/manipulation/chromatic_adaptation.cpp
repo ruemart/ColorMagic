@@ -1,12 +1,110 @@
 #include "stdafx.h"
 #include "chromatic_adaptation.h"
 
-color_space::color_base * color_manipulation::color_adjustments::von_kries_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
+matrix<float> color_manipulation::chromatic_adaptation::m_von_kries = matrix<float>(3, 3, std::vector<float>
+{
+	0.40024f, 0.7076f, -0.08081f,
+		-0.2263f, 1.16532f, 0.0457f,
+		0.f, 0.f, 0.91822f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_inverted_von_kries = matrix<float>(3, 3, std::vector<float>
+{
+	1.8599364f, -1.1293816f, 0.2198974f,
+		0.3611914f, 0.6388125f, -0.0000064f,
+		0.f, 0.f, 1.0890636f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_bradford = matrix<float>(3, 3, std::vector<float>
+{
+	0.8951f, 0.2664f, -0.1614f,
+		-0.7502f, 1.7135f, 0.0367f,
+		0.0389f, -0.0685f, 1.0296f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_inverted_bradford = matrix<float>(3, 3, std::vector<float>
+{
+	0.9869929f, -0.1470543f, 0.1599627f,
+		0.4323053f, 0.5183603f, 0.0492912f,
+		-0.0085287f, 0.0400428f, 0.9684867f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_xyz_scale = matrix<float>(3, 3, std::vector<float>
+{
+	1.f, 0.f, -0.f,
+		-0.f, 1.f, 0.f,
+		0.f, -0.f, 1.f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_inverted_xyz_scale = matrix<float>(3, 3, std::vector<float>
+{
+	1.f, -0.f, 0.f,
+		0.f, 1.f, 0.f,
+		-0.f, 0.f, 1.f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_sharp = matrix<float>(3, 3, std::vector<float>
+{
+	1.2694f, -0.0988f, -0.1706f,
+		-0.8364f, 1.8006f, 0.0357f,
+		0.0297f, -0.0315f, 1.0018f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_inverted_sharp = matrix<float>(3, 3, std::vector<float>
+{
+	0.81563f, 0.04715f, 0.13722f,
+		0.37911f, 0.57694f, 0.044f,
+		-0.01226f, 0.01674f, 0.99552f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_cmccat97 = matrix<float>(3, 3, std::vector<float>
+{
+	0.8951f, 0.2664f, -0.1614f,
+		-0.7502f, 1.7135f, 0.0367f,
+		0.0389f, -0.0685f, 1.0296f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_inverted_cmccat97 = matrix<float>(3, 3, std::vector<float>
+{
+	0.98699f, -0.14705f, 0.15996f,
+		0.43231f, 0.51836f, 0.04929f,
+		-0.00853f, 0.04004f, 0.96849f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_cmccat2000 = matrix<float>(3, 3, std::vector<float>
+{
+	0.7982f, 0.3389f, -0.1371f,
+		-0.5918f, 1.5512f, 0.0406f,
+		0.0008f, 0.0239f, 0.9753f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_inverted_cmccat2000 = matrix<float>(3, 3, std::vector<float>
+{
+	1.07645f, -0.23766f, 0.16121f,
+		0.41096f, 0.55434f, 0.03469f,
+		-0.01095f, -0.01339f, 1.02434f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_cat02 = matrix<float>(3, 3, std::vector<float>
+{
+	0.7328f, 0.4296f, -0.1624f,
+		-0.7036f, 1.6975f, 0.0061f,
+		0.003f, 0.0136f, 0.9834f
+});
+
+matrix<float> color_manipulation::chromatic_adaptation::m_inverted_cat02 = matrix<float>(3, 3, std::vector<float>
+{
+	1.09612f, -0.27887f, 0.18275f,
+		0.45437f, 0.47353f, 0.0721f
+		- 0.00963f, -0.0057f, 1.01533f
+});
+
+color_space::color_base * color_manipulation::chromatic_adaptation::von_kries_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
 {
 	return do_adaption(color, target_white_point, m_von_kries, m_inverted_von_kries);
 }
 
-color_space::color_base * color_manipulation::color_adjustments::bradford_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
+color_space::color_base * color_manipulation::chromatic_adaptation::bradford_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
 {
 	// Convert to XYZ space and transform using bradford matrix (incl. normalization)
 	auto rgb_comp = m_bradford * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
@@ -43,27 +141,27 @@ color_space::color_base * color_manipulation::color_adjustments::bradford_adapta
 	return color_manipulation::color_converter::convertTo(tmp_trans_color, color->get_color_type());
 }
 
-color_space::color_base * color_manipulation::color_adjustments::bradford_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
+color_space::color_base * color_manipulation::chromatic_adaptation::bradford_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
 {
 	return do_adaption(color, target_white_point, m_bradford, m_inverted_bradford);
 }
 
-color_space::color_base * color_manipulation::color_adjustments::xyz_scale_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
+color_space::color_base * color_manipulation::chromatic_adaptation::xyz_scale_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
 {
 	return do_adaption(color, target_white_point, m_xyz_scale, m_inverted_xyz_scale);
 }
 
-color_space::color_base * color_manipulation::color_adjustments::sharp_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
+color_space::color_base * color_manipulation::chromatic_adaptation::sharp_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
 {
 	return do_adaption(color, target_white_point, m_sharp, m_inverted_sharp);
 }
 
-color_space::color_base * color_manipulation::color_adjustments::cmccat97_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
+color_space::color_base * color_manipulation::chromatic_adaptation::cmccat97_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
 {
 	return do_adaption(color, target_white_point, m_cmccat97, m_inverted_cmccat97);
 }
 
-color_space::color_base * color_manipulation::color_adjustments::cmccat97_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance)
+color_space::color_base * color_manipulation::chromatic_adaptation::cmccat97_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance)
 {
 	// Convert to XYZ space and transform using cmccat97 matrix (incl. normalization)
 	auto rgb_comp = m_cmccat97 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
@@ -105,12 +203,12 @@ color_space::color_base * color_manipulation::color_adjustments::cmccat97_adapta
 	return color_manipulation::color_converter::convertTo(tmp_trans_color, color->get_color_type());
 }
 
-color_space::color_base * color_manipulation::color_adjustments::cmccat2000_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
+color_space::color_base * color_manipulation::chromatic_adaptation::cmccat2000_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
 {
 	return do_adaption(color, target_white_point, m_cmccat2000, m_inverted_cmccat2000);
 }
 
-color_space::color_base * color_manipulation::color_adjustments::cmccat2000_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance, float reference_field_luminance)
+color_space::color_base * color_manipulation::chromatic_adaptation::cmccat2000_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance, float reference_field_luminance)
 {
 	// Convert to XYZ space and transform using cmccat2000 matrix
 	auto tmp_xyz_comp = m_cmccat2000 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
@@ -140,12 +238,12 @@ color_space::color_base * color_manipulation::color_adjustments::cmccat2000_adap
 	return color_manipulation::color_converter::convertTo(tmp_trans_color, color->get_color_type());
 }
 
-color_space::color_base * color_manipulation::color_adjustments::cat02_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
+color_space::color_base * color_manipulation::chromatic_adaptation::cat02_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
 {
 	return do_adaption(color, target_white_point, m_cat02, m_inverted_cat02);
 }
 
-color_space::color_base * color_manipulation::color_adjustments::cat02_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance)
+color_space::color_base * color_manipulation::chromatic_adaptation::cat02_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance)
 {
 	// Convert to XYZ space and transform using cmccat2000 matrix
 	auto tmp_xyz_comp = m_cat02 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
@@ -175,7 +273,7 @@ color_space::color_base * color_manipulation::color_adjustments::cat02_adaptatio
 	return color_manipulation::color_converter::convertTo(tmp_trans_color, color->get_color_type());
 }
 
-color_space::color_base * color_manipulation::color_adjustments::do_adaption(color_space::color_base * color, color_space::white_point * target_white_point, matrix<float> mat, matrix<float> inverted_mat)
+color_space::color_base * color_manipulation::chromatic_adaptation::do_adaption(color_space::color_base * color, color_space::white_point * target_white_point, matrix<float> mat, matrix<float> inverted_mat)
 {
 	// Convert to XYZ space
 	auto tmp_color = color_manipulation::color_converter::to_xyz(color);

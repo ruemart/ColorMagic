@@ -20,16 +20,6 @@ namespace color_manipulation
 	class color_adjustments
 	{
 	public:
-		//! Transforms a given color to the given target color space definition by using von Kies method.
-		/*!
-		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
-		* Afterwards the transformation is done using von Kies matrices and finally the result is converted back to input color space.
-		* \param color The color to convert. If the color is not in xyz space it will be converted first.
-		* \param target_color_space The target color space definition containing the target white point definition.
-		* \return The transformed color in the input color space.
-		*/
-		color_space::color_base* von_kries_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space);
-
 		//! Transforms a given color with the given target white point by using von Kies method.
 		/*!
 		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
@@ -40,16 +30,6 @@ namespace color_manipulation
 		* \return The transformed color in the input color space.
 		*/
 		color_space::color_base* von_kries_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
-
-		//! Transforms a given color to the given target color space definition by using Bradford method.
-		/*!
-		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
-		* Afterwards the transformation is done using Bradford matrices and finally the result is converted back to input color space.
-		* \param color The color to convert. If the color is not in xyz space it will be converted first.
-		* \param target_color_space The target color space definition containing the target white point definition.
-		* \return The transformed color in the input color space.
-		*/
-		color_space::color_base* bradford_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space);
 
 		//! Transforms a given color with the given target white point by using Bradford method.
 		/*!
@@ -62,15 +42,16 @@ namespace color_manipulation
 		*/
 		color_space::color_base* bradford_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
 
-		//! Transforms a given color to the given target color space definition by using XYZ Scale method.
+		//! Transforms a given color with the given target white point by using Bradford method.
 		/*!
-		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
-		* Afterwards the transformation is done using XYZ Scale matrices and finally the result is converted back to input color space.
+		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using Bradford matrices and finally the result is converted back to
+		* input color space.
 		* \param color The color to convert. If the color is not in xyz space it will be converted first.
-		* \param target_color_space The target color space definition containing the target white point definition.
+		* \param target_white_point The target white point.
 		* \return The transformed color in the input color space.
 		*/
-		color_space::color_base* xyz_scale_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space);
+		color_space::color_base* bradford_adaptation_simplified(color_space::color_base* color, color_space::white_point* target_white_point);
 
 		//! Transforms a given color with the given target white point by using XYZ Scale method.
 		/*!
@@ -83,16 +64,6 @@ namespace color_manipulation
 		*/
 		color_space::color_base* xyz_scale_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
 
-		//! Transforms a given color to the given target color space definition by using Sharp method.
-		/*!
-		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
-		* Afterwards the transformation is done using Sharp matrices and finally the result is converted back to input color space.
-		* \param color The color to convert. If the color is not in xyz space it will be converted first.
-		* \param target_color_space The target color space definition containing the target white point definition.
-		* \return The transformed color in the input color space.
-		*/
-		color_space::color_base* sharp_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space);
-
 		//! Transforms a given color with the given target white point by using Sharp method.
 		/*!
 		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
@@ -104,17 +75,6 @@ namespace color_manipulation
 		*/
 		color_space::color_base* sharp_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
 
-		//! Transforms a given color to the given target color space definition by using CMCCAT2000 method.
-		/*!
-		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
-		* Afterwards the transformation is done using CMCCAT2000 matrices and finally the result is converted back to input color space.
-		* This version of CMCCAT2000 igonores the degree of adaption. Use overloaded function to include D in the calculation.
-		* \param color The color to convert. If the color is not in xyz space it will be converted first.
-		* \param target_color_space The target color space definition containing the target white point definition.
-		* \return The transformed color in the input color space.
-		*/
-		color_space::color_base* cmccat2000_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space);
-
 		//! Transforms a given color with the given target white point by using CMCCAT2000 method.
 		/*!
 		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
@@ -125,20 +85,7 @@ namespace color_manipulation
 		* \param target_white_point The target white point.
 		* \return The transformed color in the input color space.
 		*/
-		color_space::color_base* cmccat2000_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
-
-		//! Transforms a given color to the given target color space definition by using CMCCAT2000 method.
-		/*!
-		* Transforms a given color to the given target color space definition. The color will first be converted to xyz space.
-		* Afterwards the transformation is done using CMCCAT2000 matrices and finally the result is converted back to input color space.
-		* \param color The color to convert. If the color is not in xyz space it will be converted first.
-		* \param target_color_space The target color space definition containing the target white point definition.
-		* \param f Defines the surrounding conditions. Use 1.f for normal, 0.9f for dim and 0.8f for dark conditions.
-		* \param adapting_field_luminance The luminance of the adapting field. Default value = 100
-		* \param reference_field_luminance The luminance of the adapting field. Default value = 100
-		* \return The transformed color in the input color space.
-		*/
-		color_space::color_base* cmccat2000_adaptation(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space, float f, float adapting_field_luminance = 100.f, float reference_field_luminance = 100.f);
+		color_space::color_base* cmccat2000_adaptation_simplified(color_space::color_base* color, color_space::white_point* target_white_point);
 
 		//! Transforms a given color with the given target white point by using CMCCAT2000 method.
 		/*!
@@ -165,7 +112,7 @@ namespace color_manipulation
 		* \param inverted_mat The inverted adaptation matrix of the chosen method.
 		* \return The transformed color in the input color space.
 		*/
-		color_space::color_base* do_adaption(color_space::color_base* color, color_space::rgb_color_space_definition* target_color_space, matrix<float> mat, matrix<float> inverted_mat);
+		color_space::color_base* do_adaption(color_space::color_base* color, color_space::white_point* target_white_point, matrix<float> mat, matrix<float> inverted_mat);
 
 		//! Adaptation matrix of the von Kries method.
 		/*!

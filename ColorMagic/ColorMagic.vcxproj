@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="manipulation\chromatic_adaptation.h" />
     <ClInclude Include="manipulation\color_adjustments.h" />
     <ClInclude Include="manipulation\color_calculation.h" />
     <ClInclude Include="manipulation\color_combinations.h" />
@@ -182,6 +183,7 @@
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="manipulation\chromatic_adaptation.cpp" />
     <ClCompile Include="manipulation\color_adjustments.cpp" />
     <ClCompile Include="manipulation\color_calculation.cpp" />
     <ClCompile Include="manipulation\color_combinations.cpp" />

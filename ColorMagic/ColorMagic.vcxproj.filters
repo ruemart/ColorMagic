@@ -99,6 +99,9 @@
     <ClInclude Include="spaces\cieluv.h">
       <Filter>spaces</Filter>
     </ClInclude>
+    <ClInclude Include="manipulation\chromatic_adaptation.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="spaces\cieluv.cpp">
       <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="manipulation\chromatic_adaptation.cpp">
+      <Filter>manipulation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

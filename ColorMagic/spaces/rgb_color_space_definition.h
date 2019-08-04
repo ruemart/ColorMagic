@@ -172,6 +172,12 @@ namespace color_space
 			return m_white;
 		}
 
+		//! Set a new white point.
+		void set_white_point(white_point* new_white_point)
+		{
+			m_white = new_white_point;
+		}
+
 		//! Access the matrix to transform from rgb space to xyz.
 		matrix<float> get_transform_matrix()
 		{

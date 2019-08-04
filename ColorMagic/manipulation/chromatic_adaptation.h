@@ -75,6 +75,30 @@ namespace color_manipulation
 		*/
 		color_space::color_base* sharp_adaptation(color_space::color_base* color, color_space::white_point* target_white_point);
 
+		//! Transforms a given color with the given target white point by using CMCCAT97 method.
+		/*!
+		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using CMCCAT97 matrices and finally the result is converted back to
+		* input color space. This version of CMCCAT97 igonores the degree of adaption.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_white_point The target white point.
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* cmccat97_adaptation_simplified(color_space::color_base* color, color_space::white_point* target_white_point);
+
+		//! Transforms a given color with the given target white point by using CMCCAT97 method.
+		/*!
+		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
+		* Afterwards the transformation is done using CMCCAT97 matrices and finally the result is converted back to
+		* input color space.
+		* \param color The color to convert. If the color is not in xyz space it will be converted first.
+		* \param target_white_point The target white point.
+		* \param f Defines the surrounding conditions. Use 1.f for normal, 0.9f for dim and 0.8f for dark conditions.
+		* \param adapting_field_luminance The luminance of the adapting field (\sa calculate_adapting_luminance()). Default value = 100
+		* \return The transformed color in the input color space.
+		*/
+		color_space::color_base* cmccat97_adaptation(color_space::color_base* color, color_space::white_point* target_white_point, float f, float adapting_field_luminance = 100.f);
+
 		//! Transforms a given color with the given target white point by using CMCCAT2000 method.
 		/*!
 		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
@@ -214,9 +238,33 @@ namespace color_manipulation
 			-0.01226f, 0.01674f, 0.99552f
 		});
 
+		//! Adaptation matrix of the CMCCAT97 method.
+		/*!
+		* Adaptation matrix of the CMCCAT97 method.
+		*/
+		matrix<float> m_cmccat97 = matrix<float>(3, 3, std::vector<float>
+		{
+			0.8951f, 0.2664f, -0.1614f,
+			-0.7502f, 1.7135f, 0.0367f,
+			0.0389f, -0.0685f, 1.0296f
+		});
+
+		//! Inverted adaptation matrix of the CMCCAT97 method.
+		/*!
+		* Inverted adaptation matrix of the CMCCAT97 method.
+		* Although the matrix equals bradford I added it to avoid confusion.
+		*/
+		matrix<float> m_inverted_cmccat97 = matrix<float>(3, 3, std::vector<float>
+		{
+			0.98699f, -0.14705f, 0.15996f,
+			0.43231f, 0.51836f, 0.04929f,
+			-0.00853f, 0.04004f, 0.96849f
+		});
+
 		//! Adaptation matrix of the CMCCAT2000 method.
 		/*!
 		* Adaptation matrix of the CMCCAT2000 method.
+		* Although the matrix equals bradford I added it to avoid confusion.
 		*/
 		matrix<float> m_cmccat2000 = matrix<float>(3, 3, std::vector<float>
 		{

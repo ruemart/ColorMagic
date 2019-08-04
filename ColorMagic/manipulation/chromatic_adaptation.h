@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "..\spaces\color_base.h"
 #include "color_converter.h"
+#include "..\spaces\color_base.h"
 #include "..\utils\matrix.h"
 
 #include <math.h>
@@ -15,7 +15,7 @@ namespace color_manipulation
 {
 	//! Static class for chromatic adaptation.
 	/*!
-	* This static class implements von Kries, Bradford and XYZ Scaling as chromatic adaptation methods.
+	* This static class implements von Kries, Bradford, XYZ Scaling and CMCCAT2000 as chromatic adaptation methods.
 	*/
 	class color_adjustments
 	{
@@ -46,7 +46,7 @@ namespace color_manipulation
 		/*!
 		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
 		* Afterwards the transformation is done using Bradford matrices and finally the result is converted back to
-		* input color space.
+		* input color space. This version of Bradford igonores the non-linear correction in the blue area. 
 		* \param color The color to convert. If the color is not in xyz space it will be converted first.
 		* \param target_white_point The target white point.
 		* \return The transformed color in the input color space.
@@ -79,8 +79,7 @@ namespace color_manipulation
 		/*!
 		* Transforms a given color with the given target white point. The color will first be converted to xyz space.
 		* Afterwards the transformation is done using CMCCAT2000 matrices and finally the result is converted back to
-		* input color space. This version of CMCCAT2000 igonores the degree of adaption. Use overloaded function to 
-		* include D in the calculation.
+		* input color space. This version of CMCCAT2000 igonores the degree of adaption. 
 		* \param color The color to convert. If the color is not in xyz space it will be converted first.
 		* \param target_white_point The target white point.
 		* \return The transformed color in the input color space.

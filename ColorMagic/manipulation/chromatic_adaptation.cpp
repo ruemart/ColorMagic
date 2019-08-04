@@ -8,7 +8,29 @@ color_space::color_base * color_manipulation::color_adjustments::von_kries_adapt
 
 color_space::color_base * color_manipulation::color_adjustments::bradford_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
 {
-	
+	// Convert to XYZ space and transform using cmccat2000 matrix
+	auto rgb_comp = m_bradford * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
+	rgb_comp[0] = rgb_comp[0] / color->get_component_vector()[1];
+	rgb_comp[1] = rgb_comp[1] / color->get_component_vector()[1];
+	rgb_comp[2] = rgb_comp[2] / color->get_component_vector()[1];
+
+	// Create scaled white point vectors
+	auto scaled_source_wp = m_bradford * std::vector<float> { color->get_rgb_color_space()->get_white_point()->get_tristimulus().begin(), color->get_rgb_color_space()->get_white_point()->get_tristimulus().end() };
+	auto scaled_dest_wp = m_bradford * std::vector<float> { target_white_point->get_tristimulus().begin(), target_white_point->get_tristimulus().end() };
+
+	// Adapt color
+	auto p = powf(scaled_dest_wp[2] / scaled_source_wp[2], 0.0834f);
+	std::vector<float> tmp_rgb_comp;
+	tmp_rgb_comp.push_back((scaled_source_wp[0] * (rgb_comp[0] / scaled_dest_wp[0])) * color->get_component_vector()[1]);
+	tmp_rgb_comp.push_back((scaled_source_wp[1] * (rgb_comp[1] / scaled_dest_wp[1])) * color->get_component_vector()[1]);
+	tmp_rgb_comp.push_back((scaled_source_wp[2] * powf(rgb_comp[2] / scaled_dest_wp[2], p)) * color->get_component_vector()[1]);
+
+	auto transformed_components = m_inverted_bradford * tmp_rgb_comp;
+	color->get_rgb_color_space()->set_white_point(target_white_point);
+	auto tmp_trans_color = new color_space::xyz(transformed_components[0], transformed_components[1], transformed_components[2], color->alpha(), color->get_rgb_color_space());
+
+	// Convert transformed color back to input color space
+	return color_manipulation::color_converter::convertTo(tmp_trans_color, color->get_color_type());
 }
 
 color_space::color_base * color_manipulation::color_adjustments::bradford_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)

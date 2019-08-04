@@ -201,7 +201,7 @@ namespace color_space
 		* Represents horizon light (5003 Kelvin).
 		* ICC profile PCS
 		*/
-		white_point* D50_2Degree() { return new white_point(0.9642f, 1.f, 82.51f, 0.3456f, 0.3585f); }
+		white_point* D50_2Degree() { return new white_point(0.9642f, 1.f, 0.8251f, 0.3456f, 0.3585f); }
 
 		//! CIE_D55 tristimulus white (2°).
 		/*!

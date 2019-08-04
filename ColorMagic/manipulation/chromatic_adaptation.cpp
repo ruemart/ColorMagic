@@ -101,11 +101,21 @@ matrix<float> color_manipulation::chromatic_adaptation::m_inverted_cat02 = matri
 
 color_space::color_base * color_manipulation::chromatic_adaptation::von_kries_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	return do_adaption(color, target_white_point, m_von_kries, m_inverted_von_kries);
 }
 
 color_space::color_base * color_manipulation::chromatic_adaptation::bradford_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	// Convert to XYZ space and transform using bradford matrix (incl. normalization)
 	auto rgb_comp = m_bradford * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
 	rgb_comp[0] /= color->get_component_vector()[1];
@@ -143,26 +153,51 @@ color_space::color_base * color_manipulation::chromatic_adaptation::bradford_ada
 
 color_space::color_base * color_manipulation::chromatic_adaptation::bradford_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	return do_adaption(color, target_white_point, m_bradford, m_inverted_bradford);
 }
 
 color_space::color_base * color_manipulation::chromatic_adaptation::xyz_scale_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	return do_adaption(color, target_white_point, m_xyz_scale, m_inverted_xyz_scale);
 }
 
 color_space::color_base * color_manipulation::chromatic_adaptation::sharp_adaptation(color_space::color_base * color, color_space::white_point * target_white_point)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	return do_adaption(color, target_white_point, m_sharp, m_inverted_sharp);
 }
 
 color_space::color_base * color_manipulation::chromatic_adaptation::cmccat97_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	return do_adaption(color, target_white_point, m_cmccat97, m_inverted_cmccat97);
 }
 
 color_space::color_base * color_manipulation::chromatic_adaptation::cmccat97_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	// Convert to XYZ space and transform using cmccat97 matrix (incl. normalization)
 	auto rgb_comp = m_cmccat97 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
 	rgb_comp[0] /= color->get_component_vector()[1];
@@ -205,11 +240,21 @@ color_space::color_base * color_manipulation::chromatic_adaptation::cmccat97_ada
 
 color_space::color_base * color_manipulation::chromatic_adaptation::cmccat2000_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	return do_adaption(color, target_white_point, m_cmccat2000, m_inverted_cmccat2000);
 }
 
 color_space::color_base * color_manipulation::chromatic_adaptation::cmccat2000_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance, float reference_field_luminance)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	// Convert to XYZ space and transform using cmccat2000 matrix
 	auto tmp_xyz_comp = m_cmccat2000 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
 	
@@ -250,11 +295,21 @@ color_space::color_base * color_manipulation::chromatic_adaptation::cmccat2000_a
 
 color_space::color_base * color_manipulation::chromatic_adaptation::cat02_adaptation_simplified(color_space::color_base * color, color_space::white_point * target_white_point)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	return do_adaption(color, target_white_point, m_cat02, m_inverted_cat02);
 }
 
 color_space::color_base * color_manipulation::chromatic_adaptation::cat02_adaptation(color_space::color_base * color, color_space::white_point * target_white_point, float f, float adapting_field_luminance)
 {
+	if (color->get_rgb_color_space()->get_white_point() == target_white_point)
+	{
+		return color;
+	}
+
 	// Convert to XYZ space and transform using cmccat2000 matrix
 	auto tmp_xyz_comp = m_cat02 * color_manipulation::color_converter::to_xyz(color)->get_component_vector();
 

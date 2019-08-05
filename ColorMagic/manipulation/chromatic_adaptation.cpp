@@ -143,7 +143,9 @@ color_space::color_base * color_manipulation::chromatic_adaptation::bradford_ada
 	tmp_rgb_comp.push_back((scaled_dest_wp[0] * (rgb_comp[0] / scaled_source_wp[0])) * color->get_component_vector()[1]);
 	tmp_rgb_comp.push_back((scaled_dest_wp[1] * (rgb_comp[1] / scaled_source_wp[1])) * color->get_component_vector()[1]);
 
-	tmp_rgb_comp.push_back((scaled_dest_wp[2] * powf((float)(rgb_comp[2] / scaled_source_wp[2]), p)) * color->get_component_vector()[1]); // avoid overflow of float
+	float div = rgb_comp[2] / scaled_source_wp[2];
+	tmp_rgb_comp.push_back((scaled_dest_wp[2] * powf(fabsf(div), p)) * color->get_component_vector()[1]); // avoid overflow of float
+	if (div < 0.f) tmp_rgb_comp[2] *= -1.f;
 
 	auto transformed_components = m_inverted_bradford * tmp_rgb_comp;
 	auto rgb_def = new color_space::rgb_color_space_definition(*color->get_rgb_color_space());
@@ -233,6 +235,8 @@ color_space::color_base * color_manipulation::chromatic_adaptation::cmccat97_ada
 	rgbc.push_back(color->get_component_vector()[1] * (rgb_comp[0] * (d * (scaled_dest_wp[0] / scaled_source_wp[0]) + 1.f - d)));
 	rgbc.push_back(color->get_component_vector()[1] * (rgb_comp[1] * (d * (scaled_dest_wp[1] / scaled_source_wp[1]) + 1.f - d)));
 	rgbc.push_back(color->get_component_vector()[1] * (powf(fabsf(rgb_comp[2]), p) * (d * (scaled_dest_wp[2] / powf(scaled_source_wp[2], p)) + 1.f - d)));
+
+	if (rgb_comp[2] < 0.f) rgbc[2] *= -1.f;
 
 	auto transformed_components = m_inverted_cmccat97 * rgbc;
 	auto rgb_def = new color_space::rgb_color_space_definition(*color->get_rgb_color_space());

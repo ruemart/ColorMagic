@@ -18,6 +18,8 @@ enum color_type
 	XYZ, /*!< XYZ - for xyz color spaces */  
 	XYY, /*!< XYY - for xyY color spaces */
 	CIELUV, /*!< CIELUV - for cieluv color spaces */
-	LAB, /*!< LAB - for lab color spaces */  
+	LAB, /*!< LAB - for lab color spaces */ 
+	LCH_AB, /*!< LCH_AB - for LAB colors in polar coordinate space */
+	LCH_UV, /*!< LCH_UV - for LUV colors in polar coordinate space */
 	UNDEFINED /*!< UNDEFINED - Default value of color_base objects */  
 };

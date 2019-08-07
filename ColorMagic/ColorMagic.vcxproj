@@ -168,6 +168,8 @@
     <ClInclude Include="spaces\color_base.h" />
     <ClInclude Include="spaces\lab.h" />
     <ClInclude Include="spaces\cieluv.h" />
+    <ClInclude Include="spaces\lch_ab.h" />
+    <ClInclude Include="spaces\lch_uv.h" />
     <ClInclude Include="spaces\white_point.h" />
     <ClInclude Include="spaces\rgb_color_space_definition.h" />
     <ClInclude Include="spaces\rgb_deepcolor.h" />
@@ -196,6 +198,8 @@
     <ClCompile Include="spaces\hsl.cpp" />
     <ClCompile Include="spaces\hsv.cpp" />
     <ClCompile Include="spaces\lab.cpp" />
+    <ClCompile Include="spaces\lch_ab.cpp" />
+    <ClCompile Include="spaces\lch_uv.cpp" />
     <ClCompile Include="spaces\rgb_deepcolor.cpp" />
     <ClCompile Include="spaces\rgb_truecolor.cpp" />
     <ClCompile Include="spaces\xyy.cpp" />

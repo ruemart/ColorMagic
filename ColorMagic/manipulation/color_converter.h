@@ -13,6 +13,8 @@
 #include "..\spaces\hsl.h"
 #include "..\spaces\hsv.h"
 #include "..\spaces\lab.h"
+#include "..\spaces\lch_ab.h"
+#include "..\spaces\lch_uv.h"
 #include "..\spaces\rgb_deepcolor.h"
 #include "..\spaces\rgb_truecolor.h"
 #include "..\spaces\xyz.h"
@@ -129,6 +131,22 @@ namespace color_manipulation
 		*/
 		static color_space::lab* to_lab(color_space::color_base* in_color);
 
+		//! Static function that converts an arbitrary color to lch(ab) color space.
+		/*!
+		* Wrapper function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* to_lch_ab(color_space::color_base* in_color);
+
+		//! Static function that converts an arbitrary color to lch(uv) color space.
+		/*!
+		* Wrapper function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* to_lch_uv(color_space::color_base* in_color);
+
 	protected:
 
 #pragma region RGB_TRUE CONVERTER FUNCTIONS
@@ -220,6 +238,24 @@ namespace color_manipulation
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* rgb_true_to_lab(color_space::rgb_truecolor* color);
+
+		//! Static function that converts a rgb true color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* rgb_true_to_lch_ab(color_space::rgb_truecolor* color);
+
+		//! Static function that converts a rgb true color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* rgb_true_to_lch_uv(color_space::rgb_truecolor* color);
 
 #pragma endregion
 
@@ -315,6 +351,24 @@ namespace color_manipulation
 		*/
 		static color_space::lab* rgb_deep_to_lab(color_space::rgb_deepcolor* color);
 
+		//! Static function that converts a rgb deep color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* rgb_deep_to_lch_ab(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* rgb_deep_to_lch_uv(color_space::rgb_deepcolor* color);
+
 #pragma endregion
 
 #pragma region GREY_TRUE CONVERTER FUNCTIONS
@@ -407,6 +461,24 @@ namespace color_manipulation
 		*/
 		static color_space::lab* grey_true_to_lab(color_space::grey_truecolor* color);
 
+		//! Static function that converts a grey true color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* grey_true_to_lch_ab(color_space::grey_truecolor* color);
+
+		//! Static function that converts a grey true color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* grey_true_to_lch_uv(color_space::grey_truecolor* color);
+
 #pragma endregion
 
 #pragma region GREY_DEEP CONVERTER FUNCTIONS
@@ -497,6 +569,24 @@ namespace color_manipulation
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* grey_deep_to_lab(color_space::grey_deepcolor* color);
+
+		//! Static function that converts a grey deep color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* grey_deep_to_lch_ab(color_space::grey_deepcolor* color);
+
+		//! Static function that converts a grey deep color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* grey_deep_to_lch_uv(color_space::grey_deepcolor* color);
 
 #pragma endregion
 
@@ -593,6 +683,24 @@ namespace color_manipulation
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* cmyk_to_lab(color_space::cmyk* color);
+
+		//! Static function that converts a cmyk color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* cmyk_to_lch_ab(color_space::cmyk* color);
+
+		//! Static function that converts a cmyk color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* cmyk_to_lch_uv(color_space::cmyk* color);
 
 #pragma endregion
 
@@ -691,6 +799,24 @@ namespace color_manipulation
 		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* hsv_to_lab(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* hsv_to_lch_ab(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* hsv_to_lch_uv(color_space::hsv* color);
 
 #pragma endregion
 
@@ -798,6 +924,24 @@ namespace color_manipulation
 		*/
 		static color_space::lab* hsl_to_lab(color_space::hsl* color);
 
+		//! Static function that converts a hsl color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* hsl_to_lch_ab(color_space::hsl* color);
+
+		//! Static function that converts a hsl color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* hsl_to_lch_uv(color_space::hsl* color);
+
 #pragma endregion
 
 #pragma region XYZ CONVERTER FUNCTIONS
@@ -901,6 +1045,24 @@ namespace color_manipulation
 		*/
 		static color_space::lab* xyz_to_lab(color_space::xyz* color);
 
+		//! Static function that converts a xyz color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* xyz_to_lch_ab(color_space::xyz* color);
+
+		//! Static function that converts a xyz color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* xyz_to_lch_uv(color_space::xyz* color);
+
 #pragma endregion
 
 #pragma region XYY CONVERTER FUNCTIONS
@@ -992,6 +1154,24 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::lab* xyy_to_lab(color_space::xyy* color);
+
+		//! Static function that converts a xyy color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* xyy_to_lch_ab(color_space::xyy* color);
+
+		//! Static function that converts a xyy color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* xyy_to_lch_uv(color_space::xyy* color);
 
 #pragma endregion
 
@@ -1085,6 +1265,23 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::lab* cieluv_to_lab(color_space::cieluv* color);
+
+		//! Static function that converts a cieluv color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* cieluv_to_lch_ab(color_space::cieluv* color);
+
+		//! Static function that converts a cieluv color to lch(uv) color space.
+		/*!
+		* Static function that converts a cieluv color to lch(uv) color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* cieluv_to_lch_uv(color_space::cieluv* color);
 
 #pragma endregion
 
@@ -1183,6 +1380,246 @@ namespace color_manipulation
 		* \return The input color converted to xyz color space.
 		*/
 		static color_space::xyy* lab_to_xyy(color_space::lab* color);
+
+		//! Static function that converts a lab color to lch(ab) color space.
+		/*!
+		* Static function that converts a lab color to lch(ab) color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* lab_to_lch_ab(color_space::lab* color);
+
+		//! Static function that converts a lab color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* lab_to_lch_uv(color_space::lab* color);
+
+#pragma endregion
+
+#pragma region LCH(AB) CONVERTER FUNCTIONS
+
+		//! Static function that converts a lch(ab) color to rgb true color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to rgb true.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
+		static color_space::rgb_truecolor* lch_ab_to_rgb_true(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to rgb deep color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to rgb deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb deep color space.
+		*/
+		static color_space::rgb_deepcolor* lch_ab_to_rgb_deep(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to grey true color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to grey true.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey true color space.
+		*/
+		static color_space::grey_truecolor* lch_ab_to_grey_true(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to grey deep color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to grey deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey deep color space.
+		*/
+		static color_space::grey_deepcolor* lch_ab_to_grey_deep(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to cmyk color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to cmyk.
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
+		static color_space::cmyk* lch_ab_to_cmyk(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to hsv color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to hsv.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsv color space.
+		*/
+		static color_space::hsv* lch_ab_to_hsv(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to hsl color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to hsl.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
+		static color_space::hsl* lch_ab_to_hsl(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to xyz color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to xyz.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyz* lch_ab_to_xyz(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to xyy color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to xyy.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyy color space.
+		*/
+		static color_space::xyy* lch_ab_to_xyy(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to cieluv color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to cieluv.
+		* \param in_color The color to convert.
+		* \return The input color converted to cieluv color space.
+		*/
+		static color_space::cieluv* lch_ab_to_cieluv(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to lab color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lab.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
+		static color_space::lab* lch_ab_to_lab(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* lch_ab_to_lch_uv(color_space::lch_ab* color);
+
+#pragma endregion
+
+#pragma region LCH(UV) CONVERTER FUNCTIONS
+
+		//! Static function that converts a lch(uv) color to rgb true color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to rgb true.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
+		static color_space::rgb_truecolor* lch_uv_to_rgb_true(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to rgb deep color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to rgb deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb deep color space.
+		*/
+		static color_space::rgb_deepcolor* lch_uv_to_rgb_deep(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to grey true color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to grey true.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey true color space.
+		*/
+		static color_space::grey_truecolor* lch_uv_to_grey_true(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to grey deep color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to grey deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey deep color space.
+		*/
+		static color_space::grey_deepcolor* lch_uv_to_grey_deep(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to cmyk color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to cmyk.
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
+		static color_space::cmyk* lch_uv_to_cmyk(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to hsv color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to hsv.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsv color space.
+		*/
+		static color_space::hsv* lch_uv_to_hsv(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to hsl color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to hsl.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
+		static color_space::hsl* lch_uv_to_hsl(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to xyz color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to xyz.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyz* lch_uv_to_xyz(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to xyy color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to xyy.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyy color space.
+		*/
+		static color_space::xyy* lch_uv_to_xyy(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to cieluv color space.
+		/*!
+		* Static function that converts a lch(uv) color to cieluv color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to cieluv color space.
+		*/
+		static color_space::cieluv* lch_uv_to_cieluv(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to lab color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lab.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
+		static color_space::lab* lch_uv_to_lab(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_ab* lch_uv_to_lch_ab(color_space::lch_uv* color);
 
 #pragma endregion
 

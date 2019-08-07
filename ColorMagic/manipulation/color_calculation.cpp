@@ -30,6 +30,10 @@ color_space::color_base * color_manipulation::color_calculation::add(color_space
 		return color_manipulation::color_calculation::add(color_manipulation::color_converter::to_cieluv(color1), color_manipulation::color_converter::to_cieluv(color2), weight1, weight2, include_alpha);
 	case color_type::LAB:
 		return color_manipulation::color_calculation::add(color_manipulation::color_converter::to_lab(color1), color_manipulation::color_converter::to_lab(color2), weight1, weight2, include_alpha);
+	case color_type::LCH_AB:
+		return color_manipulation::color_calculation::add(color_manipulation::color_converter::to_lch_ab(color1), color_manipulation::color_converter::to_lch_ab(color2), weight1, weight2, include_alpha);
+	case color_type::LCH_UV:
+		return color_manipulation::color_calculation::add(color_manipulation::color_converter::to_lch_uv(color1), color_manipulation::color_converter::to_lch_uv(color2), weight1, weight2, include_alpha);
 	default:
 		return nullptr;
 	}
@@ -169,6 +173,22 @@ color_space::lab * color_manipulation::color_calculation::add(color_space::lab *
 	return color_manipulation::color_converter::to_lab(color_manipulation::color_calculation::add(color_manipulation::color_converter::to_xyz(color1), color_manipulation::color_converter::to_xyz(color2), weight1, weight2, include_alpha));
 }
 
+color_space::lch_ab * color_manipulation::color_calculation::add(color_space::lch_ab * color1, color_space::lch_ab * color2, float weight1, float weight2, bool include_alpha)
+{
+	if (weight1 < 0.f || weight1 > 1.f) throw new std::invalid_argument("Parameter weight1 has to be in the range [0,1].");
+	if (weight2 < 0.f || weight2 > 1.f) throw new std::invalid_argument("Parameter weight2 has to be in the range [0,1].");
+
+	return color_manipulation::color_converter::to_lch_ab(color_manipulation::color_calculation::add(color_manipulation::color_converter::to_xyz(color1), color_manipulation::color_converter::to_xyz(color2), weight1, weight2, include_alpha));
+}
+
+color_space::lch_uv * color_manipulation::color_calculation::add(color_space::lch_uv * color1, color_space::lch_uv * color2, float weight1, float weight2, bool include_alpha)
+{
+	if (weight1 < 0.f || weight1 > 1.f) throw new std::invalid_argument("Parameter weight1 has to be in the range [0,1].");
+	if (weight2 < 0.f || weight2 > 1.f) throw new std::invalid_argument("Parameter weight2 has to be in the range [0,1].");
+
+	return color_manipulation::color_converter::to_lch_uv(color_manipulation::color_calculation::add(color_manipulation::color_converter::to_xyz(color1), color_manipulation::color_converter::to_xyz(color2), weight1, weight2, include_alpha));
+}
+
 color_space::color_base * color_manipulation::color_calculation::mix(color_space::color_base * color1, color_space::color_base * color2, float weight, bool include_alpha)
 {
 	if (weight <= 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
@@ -193,6 +213,10 @@ color_space::color_base * color_manipulation::color_calculation::mix(color_space
 		return color_manipulation::color_calculation::mix(color_manipulation::color_converter::to_xyz(color1), color_manipulation::color_converter::to_xyz(color2), weight, include_alpha);
 	case color_type::LAB:
 		return color_manipulation::color_calculation::mix(color_manipulation::color_converter::to_lab(color1), color_manipulation::color_converter::to_lab(color2), weight, include_alpha);
+	case color_type::LCH_AB:
+		return color_manipulation::color_calculation::mix(color_manipulation::color_converter::to_lch_ab(color1), color_manipulation::color_converter::to_lch_ab(color2), weight, include_alpha);
+	case color_type::LCH_UV:
+		return color_manipulation::color_calculation::mix(color_manipulation::color_converter::to_lch_uv(color1), color_manipulation::color_converter::to_lch_uv(color2), weight, include_alpha);
 	default:
 		return nullptr;
 	}
@@ -273,6 +297,20 @@ color_space::lab * color_manipulation::color_calculation::mix(color_space::lab *
 	return add(color1, color2, weight, 1.f - weight, include_alpha);
 }
 
+color_space::lch_ab * color_manipulation::color_calculation::mix(color_space::lch_ab * color1, color_space::lch_ab * color2, float weight, bool include_alpha)
+{
+	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
+
+	return add(color1, color2, weight, 1.f - weight, include_alpha);
+}
+
+color_space::lch_uv * color_manipulation::color_calculation::mix(color_space::lch_uv * color1, color_space::lch_uv * color2, float weight, bool include_alpha)
+{
+	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
+
+	return add(color1, color2, weight, 1.f - weight, include_alpha);
+}
+
 color_space::color_base * color_manipulation::color_calculation::subtract(color_space::color_base * color1, color_space::color_base * color2, float weight, bool include_alpha)
 {
 	if (weight <= 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
@@ -297,6 +335,10 @@ color_space::color_base * color_manipulation::color_calculation::subtract(color_
 		return color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_xyz(color1), color_manipulation::color_converter::to_xyz(color2), weight, include_alpha);
 	case color_type::LAB:
 		return color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_lab(color1), color_manipulation::color_converter::to_lab(color2), weight, include_alpha);
+	case color_type::LCH_AB:
+		return color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_lch_ab(color1), color_manipulation::color_converter::to_lch_ab(color2), weight, include_alpha);
+	case color_type::LCH_UV:
+		return color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_lch_uv(color1), color_manipulation::color_converter::to_lch_uv(color2), weight, include_alpha);
 	default:
 		return nullptr;
 	}
@@ -417,6 +459,20 @@ color_space::lab * color_manipulation::color_calculation::subtract(color_space::
 	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
 
 	return color_manipulation::color_converter::to_lab(color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_xyz(color1), color_manipulation::color_converter::to_xyz(color2), weight));
+}
+
+color_space::lch_ab * color_manipulation::color_calculation::subtract(color_space::lch_ab * color1, color_space::lch_ab * color2, float weight, bool include_alpha)
+{
+	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
+
+	return color_manipulation::color_converter::to_lch_ab(color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_xyz(color1), color_manipulation::color_converter::to_xyz(color2), weight));
+}
+
+color_space::lch_uv * color_manipulation::color_calculation::subtract(color_space::lch_uv * color1, color_space::lch_uv * color2, float weight, bool include_alpha)
+{
+	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
+
+	return color_manipulation::color_converter::to_lch_uv(color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_xyz(color1), color_manipulation::color_converter::to_xyz(color2), weight));
 }
 
 color_space::rgb_truecolor * color_manipulation::color_calculation::average_rgb_true(std::vector<color_space::rgb_truecolor*> colors, bool include_alpha)
@@ -579,6 +635,36 @@ color_space::lab * color_manipulation::color_calculation::average_lab(std::vecto
 		sum[3] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
 	}
 	return new color_space::lab(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_rgb_color_space());
+}
+
+color_space::lch_ab * color_manipulation::color_calculation::average_lch_ab(std::vector<color_space::lch_ab*> colors, bool include_alpha)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[4]{ 0.f, 0.f, 0.f, 0.f };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->luminance();
+		sum[1] += colors[i]->chroma();
+		sum[2] += colors[i]->hue();
+		sum[3] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
+	}
+	return new color_space::lch_ab(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_rgb_color_space());
+}
+
+color_space::lch_uv * color_manipulation::color_calculation::average_lch_uv(std::vector<color_space::lch_uv*> colors, bool include_alpha)
+{
+	if (colors.empty()) throw new std::invalid_argument("Parameter colors cannot be empty.");
+
+	auto sum = new float[4]{ 0.f, 0.f, 0.f, 0.f };
+	for (unsigned int i = 0; i < colors.size(); ++i)
+	{
+		sum[0] += colors[i]->luminance();
+		sum[1] += colors[i]->chroma();
+		sum[2] += colors[i]->hue();
+		sum[3] = include_alpha ? sum[3] + colors[i]->alpha() : colors[0]->alpha();
+	}
+	return new color_space::lch_uv(sum[0] / colors.size(), sum[1] / colors.size(), sum[2] / colors.size(), include_alpha ? sum[3] / colors.size() : sum[3], colors[0]->get_rgb_color_space());
 }
 
 float * color_manipulation::color_calculation::convert_to_vector(float hue, float saturation, float third_component)

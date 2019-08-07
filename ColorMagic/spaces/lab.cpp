@@ -25,7 +25,7 @@ color_space::lab::lab(const color_base & other) : color_base(other.alpha(), othe
 	}
 	else
 	{
-		throw new std::invalid_argument("LAB: Error while creating hsv class from base object. Base object and this derived class have different types.");
+		throw new std::invalid_argument("LAB: Error while creating lab class from base object. Base object and this derived class have different types.");
 	}
 }
 

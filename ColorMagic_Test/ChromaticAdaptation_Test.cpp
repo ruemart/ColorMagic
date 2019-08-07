@@ -44,8 +44,8 @@ TEST_F(ChromaticAdaptation_Test, Bradford_Test)
 	ASSERT_NEAR(0.f, simple_adapted_xyz->z(), avg_error);
 	
 	auto adapted_xyz = color_converter::to_xyz(chromatic_adaptation::bradford_adaptation(orange, target_d75));
-	ASSERT_NEAR(100.f, adapted_xyz->x(), avg_error);
-	ASSERT_NEAR(60.f, adapted_xyz->y(), avg_error);
+	ASSERT_NEAR(97.44f, adapted_xyz->x(), avg_error);
+	ASSERT_NEAR(58.96f, adapted_xyz->y(), avg_error);
 	ASSERT_NEAR(0.f, adapted_xyz->z(), avg_error);
 }
 
@@ -73,9 +73,9 @@ TEST_F(ChromaticAdaptation_Test, CMCCAT97_Test)
 	ASSERT_NEAR(0.f, simple_adapted_xyz->z(), avg_error);
 
 	auto adapted_xyz = color_converter::to_xyz(chromatic_adaptation::cmccat97_adaptation(orange, target_d75, 1.f, 100.f));
-	ASSERT_NEAR(100.f, adapted_xyz->x(), avg_error);
-	ASSERT_NEAR(60.02f, adapted_xyz->y(), avg_error);
-	ASSERT_NEAR(0.42f, adapted_xyz->z(), avg_error);
+	ASSERT_NEAR(97.50f, adapted_xyz->x(), avg_error);
+	ASSERT_NEAR(59.02f, adapted_xyz->y(), avg_error);
+	ASSERT_NEAR(0.f, adapted_xyz->z(), avg_error);
 }
 
 TEST_F(ChromaticAdaptation_Test, CMCCAT2000_Test)
@@ -86,9 +86,9 @@ TEST_F(ChromaticAdaptation_Test, CMCCAT2000_Test)
 	ASSERT_NEAR(0.21f, simple_adapted_xyz->z(), avg_error);
 
 	auto adapted_xyz = color_converter::to_xyz(chromatic_adaptation::cmccat2000_adaptation(orange, target_d75, 1.f, 100.f, 100.f));
-	ASSERT_NEAR(100.f, adapted_xyz->x(), avg_error);
-	ASSERT_NEAR(59.99f, adapted_xyz->y(), avg_error);
-	ASSERT_NEAR(0.f, adapted_xyz->z(), avg_error);
+	ASSERT_NEAR(97.95f, adapted_xyz->x(), avg_error);
+	ASSERT_NEAR(59.33f, adapted_xyz->y(), avg_error);
+	ASSERT_NEAR(0.19f, adapted_xyz->z(), avg_error);
 }
 
 TEST_F(ChromaticAdaptation_Test, CAT02_Test)
@@ -99,7 +99,7 @@ TEST_F(ChromaticAdaptation_Test, CAT02_Test)
 	ASSERT_NEAR(0.16f, simple_adapted_xyz->z(), avg_error);
 
 	auto adapted_xyz = color_converter::to_xyz(chromatic_adaptation::cat02_adaptation(orange, target_d75, 1.f, 100.f));
-	ASSERT_NEAR(99.99f, adapted_xyz->x(), avg_error);
-	ASSERT_NEAR(59.99f, adapted_xyz->y(), avg_error);
-	ASSERT_NEAR(0.f, adapted_xyz->z(), avg_error);
+	ASSERT_NEAR(97.55f, adapted_xyz->x(), avg_error);
+	ASSERT_NEAR(59.f, adapted_xyz->y(), avg_error);
+	ASSERT_NEAR(0.15f, adapted_xyz->z(), avg_error);
 }

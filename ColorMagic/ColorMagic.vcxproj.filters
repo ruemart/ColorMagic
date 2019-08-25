@@ -102,6 +102,12 @@
     <ClInclude Include="manipulation\chromatic_adaptation.h">
       <Filter>manipulation</Filter>
     </ClInclude>
+    <ClInclude Include="spaces\lch_ab.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\lch_uv.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -163,6 +169,12 @@
     </ClCompile>
     <ClCompile Include="manipulation\chromatic_adaptation.cpp">
       <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\lch_ab.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\lch_uv.cpp">
+      <Filter>spaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

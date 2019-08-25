@@ -72,6 +72,7 @@ namespace color_space
 			m_white = other.get_white_point();
 			m_transform_matrix = other.get_transform_matrix();
 			m_inverse_transform_matrix = other.get_inverse_transform_matrix();
+			m_gamma = other.get_gamma_curve();
 		}
 
 		//! Default deconstructor.
@@ -176,6 +177,8 @@ namespace color_space
 		void set_white_point(white_point* new_white_point)
 		{
 			m_white = new_white_point;
+			m_transform_matrix = calculate_transformation_matrix(m_red, m_green, m_blue, m_white->get_tristimulus());
+			m_inverse_transform_matrix = m_transform_matrix.invert();
 		}
 
 		//! Access the matrix to transform from rgb space to xyz.

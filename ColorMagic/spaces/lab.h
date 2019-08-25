@@ -20,7 +20,7 @@ namespace color_space
 		//! Default constructor.
 		/*!
 		* Sets the value of each component.
-		* \param l The value that will be set for luminance component (default 0).
+		* \param luminance The value that will be set for luminance component (default 0).
 		* \param a The value that will be set for a component (default 0).
 		* \param b The value that will be set for b component (default 0).
 		* \param alpha The value that will be set for alpha.
@@ -53,7 +53,7 @@ namespace color_space
 		//! \return The luminance component of this color.
 		float luminance();
 
-		//! Setter for x component.
+		//! Setter for luminance component.
 		//! \param new_luminance The luminance value to set.
 		void luminance(float new_luminance);
 

@@ -32,7 +32,7 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 
 	//number_of_colors = max(min(360, number_of_colors), 2); // Using exceptions instead of clamp. Maybe change back to clamp? I am unsure
 	auto degrees = 360.f / number_of_colors;
-	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
+	auto color_hsl = static_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
 
 	for (auto i = 1; i <= number_of_colors - 1; ++i)
 	{
@@ -49,7 +49,7 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 	if (distance_between > 360.f / 3.f) throw new std::invalid_argument("The distance can not be greater than 120 degrees.");
 
 	std::vector<color_space::color_base*> triplet;
-	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(base_color, color_type::HSL));
+	auto color_hsl = static_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(base_color, color_type::HSL));
 
 	triplet.push_back(color_manipulation::color_converter::convertTo(new color_space::hsl(color_hsl->hue() - distance_between, color_hsl->saturation(), color_hsl->lightness(), base_color->alpha(), base_color->get_rgb_color_space()), base_color->get_color_type()));
 	triplet.push_back(base_color);
@@ -71,7 +71,7 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 	amount *= -1.f; // negative amounts decrease saturation/lightness of colors by using saturate/luminate functions.
 	for (int i = 0; i < color_count - 1; ++i) // -1 because the first color is the input color
 	{
-		auto last_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(combination[combination.size() - 1], color_type::HSL));
+		auto last_hsl = static_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(combination[combination.size() - 1], color_type::HSL));
 		switch (mode)
 		{
 		case 0:
@@ -94,7 +94,7 @@ std::vector<color_space::color_base*> color_manipulation::color_combinations::cr
 std::vector<color_space::color_base*> color_manipulation::color_combinations::create_complimentary_split(color_space::color_base * base_color, float amount)
 {
 	std::vector<color_space::color_base*> complimentary;
-	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(base_color, color_type::HSL));
+	auto color_hsl = static_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(base_color, color_type::HSL));
 
 	auto complimentary_color = color_manipulation::color_combinations::create_complimentary(base_color);
 	auto analogous_colors = color_manipulation::color_combinations::create_analogous(complimentary_color, amount);

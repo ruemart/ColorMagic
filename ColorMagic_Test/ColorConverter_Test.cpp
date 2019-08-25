@@ -10,6 +10,10 @@
 #include "..\ColorMagic\spaces\rgb_deepcolor.h"
 #include "..\ColorMagic\spaces\rgb_truecolor.h"
 #include "..\ColorMagic\spaces\xyz.h"
+#include "..\ColorMagic\spaces\xyy.h"
+#include "..\ColorMagic\spaces\lch_uv.h"
+#include "..\ColorMagic\spaces\lch_ab.h"
+#include "..\ColorMagic\spaces\cieluv.h"
 #include "..\ColorMagic\manipulation\color_converter.h"
 
 using namespace color_space;
@@ -25,6 +29,9 @@ protected:
 	xyz* xyz_blue;
 	xyy* xyy_yellow;
 	xyy* xyy_blue;
+	cieluv* luv_yellow;
+	lch_uv* lch_uv_orange;
+	lch_ab* lch_ab_yellow;
 	lab* lab_yellow;
 	grey_deepcolor* grey_d;
 	grey_truecolor* grey_t;
@@ -42,6 +49,9 @@ protected:
 		xyz_blue = new xyz(0.18f, 0.072f, 0.95f, 1.f, srgb);
 		xyy_yellow = new xyy(0.42f, 0.505f, 0.928f, 1.f, srgb);
 		xyy_blue = new xyy(0.15f, 0.06f, 0.072f, 1.f, srgb);
+		luv_yellow = new cieluv(100.f, 100.f, 100.f, 1.f, srgb);
+		lch_uv_orange = new lch_uv(0.f, 100.f, 60.f, 1.f, srgb);
+		lch_ab_yellow = new lch_ab(83.3, 77.f, 90.f, 1.f, srgb);
 		lab_yellow = new lab(97.14f, -21.56f, 94.48f, 1.f, srgb);
 		grey_d = new grey_deepcolor(0.6666f, 1.f, srgb);
 		grey_t = new grey_truecolor(170.f, 255.f, srgb);
@@ -59,6 +69,9 @@ protected:
 		delete xyy_yellow;
 		delete xyy_blue;
 		delete lab_yellow;
+		delete luv_yellow;
+		delete lch_uv_orange;
+		delete lch_ab_yellow;
 		delete grey_d;
 		delete grey_t;
 		delete rgb_d_yellow;
@@ -122,6 +135,16 @@ TEST_F(ColorConverter_Test, To_RGB_True)
 	EXPECT_NEAR(rgb_t_yellow->green(), color_manipulation::color_converter::to_rgb_true(lab_yellow)->green(), avg_error);
 	EXPECT_NEAR(rgb_t_yellow->blue(), color_manipulation::color_converter::to_rgb_true(lab_yellow)->blue(), avg_error);
 	EXPECT_NEAR(rgb_t_yellow->alpha(), color_manipulation::color_converter::to_rgb_true(lab_yellow)->alpha(), avg_error);
+
+	EXPECT_NEAR(255.f, color_manipulation::color_converter::to_rgb_true(luv_yellow)->red(), avg_error);
+	EXPECT_NEAR(229.f, color_manipulation::color_converter::to_rgb_true(luv_yellow)->green(), avg_error);
+	EXPECT_NEAR(0.f, color_manipulation::color_converter::to_rgb_true(luv_yellow)->blue(), avg_error);
+	EXPECT_NEAR(255.f, color_manipulation::color_converter::to_rgb_true(luv_yellow)->alpha(), avg_error);
+
+	EXPECT_NEAR(245.f, color_manipulation::color_converter::to_rgb_true(lch_ab_yellow)->red(), avg_error);
+	EXPECT_NEAR(204.f, color_manipulation::color_converter::to_rgb_true(lch_ab_yellow)->green(), avg_error);
+	EXPECT_NEAR(44.f, color_manipulation::color_converter::to_rgb_true(lch_ab_yellow)->blue(), avg_error);
+	EXPECT_NEAR(255.f, color_manipulation::color_converter::to_rgb_true(lch_ab_yellow)->alpha(), avg_error);
 }
 
 TEST_F(ColorConverter_Test, To_RGB_Deep)

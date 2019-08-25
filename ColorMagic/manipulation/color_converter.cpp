@@ -541,9 +541,9 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::xyz_to_rgb_deep
 {
 	auto rgb_components = color->get_rgb_color_space()->get_inverse_transform_matrix() * color->get_component_vector();
 	auto rgb_deep = new color_space::rgb_deepcolor(rgb_components[0], rgb_components[1], rgb_components[2], color->alpha(), color->get_rgb_color_space());
-	rgb_deep->red(round_float_to_n_decimals(clamp_float(rgb_deep->red(), 0.f, 1.f), 1));
-	rgb_deep->green(round_float_to_n_decimals(clamp_float(rgb_deep->green(), 0.f, 1.f), 1));
-	rgb_deep->blue(round_float_to_n_decimals(clamp_float(rgb_deep->blue(), 0.f, 1.f), 1));
+	rgb_deep->red(clamp_float(rgb_deep->red(), 0.f, 1.f));
+	rgb_deep->green(clamp_float(rgb_deep->green(), 0.f, 1.f));
+	rgb_deep->blue(clamp_float(rgb_deep->blue(), 0.f, 1.f));
 
 	rgb_deep->do_gamma_correction();
 	return rgb_deep;

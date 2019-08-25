@@ -92,6 +92,30 @@ namespace color_space
 			
 		}
 
+		//! Equality operator
+		bool operator==(const white_point& other)
+		{
+			return m_tristimulus == other.get_tristimulus() && m_chromaticity_coordinate == other.get_chromaticity_coordinate();
+		}
+
+		//! Equality operator
+		bool operator==(const white_point& other) const
+		{
+			return m_tristimulus == other.get_tristimulus() && m_chromaticity_coordinate == other.get_chromaticity_coordinate();
+		}
+
+		//! Inequality operator
+		bool operator!=(const white_point& other)
+		{
+			return !(*this == other);
+		}
+
+		//! Inequality operator
+		bool operator!=(const white_point& other) const
+		{
+			return !(*this == other);
+		}
+
 		//! Convert an array of tristimulus values XYZ to an array of chromaticity coordinates xyz.
 		/*!
 		* Convert an array of tristimulus values XYZ to an array of chromaticity coordinates xyz.
@@ -166,13 +190,13 @@ namespace color_space
 		/*!
 		* Returns the chromaticity coordinate.
 		*/
-		std::array<float, 3> get_chromaticity_coordinate() { return m_chromaticity_coordinate; }
+		std::array<float, 3> get_chromaticity_coordinate() const { return m_chromaticity_coordinate; }
 
 		//! Returns the tristimulus.
 		/*!
 		* Returns the tristimulus.
 		*/
-		std::array<float, 3> get_tristimulus() { return m_tristimulus; }
+		std::array<float, 3> get_tristimulus() const { return m_tristimulus; }
 
 	private:
 		//! The chromaticity coordinate.
@@ -201,7 +225,7 @@ namespace color_space
 		* Represents horizon light (5003 Kelvin).
 		* ICC profile PCS
 		*/
-		white_point* D50_2Degree() { return new white_point(0.9642f, 1.f, 82.51f, 0.3456f, 0.3585f); }
+		white_point* D50_2Degree() { return new white_point(0.9642f, 1.f, 0.8251f, 0.3456f, 0.3585f); }
 
 		//! CIE_D55 tristimulus white (2°).
 		/*!

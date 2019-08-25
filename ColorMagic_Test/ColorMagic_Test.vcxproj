@@ -36,6 +36,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChromaticAdaptation_Test.cpp" />
     <ClCompile Include="CIELUV_Test.cpp" />
     <ClCompile Include="CMYK_Test.cpp" />
     <ClCompile Include="ColorAdjustments.cpp" />
@@ -49,6 +50,8 @@
     <ClCompile Include="HSL_Test.cpp" />
     <ClCompile Include="HSV_Test.cpp" />
     <ClCompile Include="Lab_Test.cpp" />
+    <ClCompile Include="LCH_ab_Test.cpp" />
+    <ClCompile Include="LCH_uv_Test.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="RGBColorSpaceDefinitionTest.cpp" />
     <ClCompile Include="RGB_Deep_Test.cpp" />

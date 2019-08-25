@@ -8,7 +8,7 @@ void color_manipulation::color_adjustments::saturate_in_rgb_space(color_space::c
 
 color_space::color_base * color_manipulation::color_adjustments::saturate_in_rgb_space(color_space::color_base* color, float percentage)
 {
-	auto color_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color, color_type::RGB_DEEP));
+	auto color_rgb_d = static_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color, color_type::RGB_DEEP));
 
 	auto L = 0.299f * color_rgb_d->red() + 0.587f * color_rgb_d->green() + 0.114f * color_rgb_d->blue();
 	auto new_r = color_rgb_d->red() - percentage * (L - color_rgb_d->red());
@@ -27,7 +27,7 @@ color_space::color_base * color_manipulation::color_adjustments::saturate_in_hsl
 {
 	if (percentage == 0.f) return color;
 
-	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
+	auto color_hsl = static_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
 
 	auto factor = 1.f + percentage;
 	color_hsl->saturation(color_hsl->saturation() * factor);
@@ -42,7 +42,7 @@ void color_manipulation::color_adjustments::luminate_in_rgb_space(color_space::c
 
 color_space::color_base * color_manipulation::color_adjustments::luminate_in_rgb_space(color_space::color_base * color, float percentage)
 {
-	auto color_rgb_d = dynamic_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color, color_type::RGB_DEEP));
+	auto color_rgb_d = static_cast<color_space::rgb_deepcolor*>(color_manipulation::color_converter::convertTo(color, color_type::RGB_DEEP));
 
 	auto factor = 1.f + percentage;
 	auto new_r = color_rgb_d->red() * factor;
@@ -61,7 +61,7 @@ color_space::color_base * color_manipulation::color_adjustments::luminate_in_hsl
 {
 	if (percentage == 0.f) return color;
 
-	auto color_hsl = dynamic_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
+	auto color_hsl = static_cast<color_space::hsl*>(color_manipulation::color_converter::convertTo(color, color_type::HSL));
 
 	auto factor = 1.f + percentage;
 	color_hsl->lightness(color_hsl->lightness() * factor);

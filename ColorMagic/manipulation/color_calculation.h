@@ -164,6 +164,32 @@ namespace color_manipulation
 		*/
 		static color_space::lab* add(color_space::lab* color1, color_space::lab* color2, float weight1 = 1.f, float weight2 = 1.f, bool include_alpha = false);
 
+		//! Static function that adds two lch_ab colors.
+		/*!
+		* Converts both colors to xyz space (which is linear) and adds them. Afterwards the resulting color is converted back to lab.
+		* The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::lch_ab* add(color_space::lch_ab* color1, color_space::lch_ab* color2, float weight1 = 1.f, float weight2 = 1.f, bool include_alpha = false);
+
+		//! Static function that adds two lch_uv colors.
+		/*!
+		* Converts both colors to xyz space (which is linear) and adds them. Afterwards the resulting color is converted back to lab.
+		* The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::lch_uv* add(color_space::lch_uv* color1, color_space::lch_uv* color2, float weight1 = 1.f, float weight2 = 1.f, bool include_alpha = false);
+
 		//! Static function that mixes two colors.
 		/*!
 		* Depending on the type of the first input color the calculation is done differently
@@ -308,6 +334,30 @@ namespace color_manipulation
 		*/
 		static color_space::lab* mix(color_space::lab* color1, color_space::lab* color2, float weight = 0.5f, bool include_alpha = false);
 
+		//! Static function that mixes two colors in lch_ab color space.
+		/*!
+		* Performs an additive color mix of both lch_ab colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
+		* \param color1 The first of the two lab colors to add.
+		* \param color2 The second of the two lab colors to add.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::lch_ab* mix(color_space::lch_ab* color1, color_space::lch_ab* color2, float weight = 0.5f, bool include_alpha = false);
+
+		//! Static function that mixes two colors in lch_uv color space.
+		/*!
+		* Performs an additive color mix of both lch_uv colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
+		* \param color1 The first of the two lab colors to add.
+		* \param color2 The second of the two lab colors to add.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::lch_uv* mix(color_space::lch_uv* color1, color_space::lch_uv* color2, float weight = 0.5f, bool include_alpha = false);
+
 		//! Static function that mixes two colors.
 		/*!
 		* Subtracts both rgb true colors. Depending on the type of the first input color the calculation is done differently.
@@ -440,6 +490,28 @@ namespace color_manipulation
 		*/
 		static color_space::lab* subtract(color_space::lab* color1, color_space::lab* color2, float weight = 1.f, bool include_alpha = false);
 
+		//! Static function that subtracts two colors in lch_ab color space.
+		/*!
+		* Subtracts both lch_ab colors.
+		* \param color1 The first of the two lch_ab colors to subtract.
+		* \param color2 The second of the two lch_ab colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::lch_ab* subtract(color_space::lch_ab* color1, color_space::lch_ab* color2, float weight = 1.f, bool include_alpha = false);
+
+		//! Static function that subtracts two colors in lch_uv color space.
+		/*!
+		* Subtracts both lch_uv colors.
+		* \param color1 The first of the two lch_uv colors to subtract.
+		* \param color2 The second of the two lch_uv colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::lch_uv* subtract(color_space::lch_uv* color1, color_space::lch_uv* color2, float weight = 1.f, bool include_alpha = false);
+
 		//! Static function that averages a vector of rgb true colors.
 		/*!
 		* Averages each rgb component of the colors seperately.
@@ -538,6 +610,24 @@ namespace color_manipulation
 		* \return a new color object with the resulting color of this calculation.
 		*/
 		static color_space::lab* average_lab(std::vector<color_space::lab*> colors, bool include_alpha = false);
+
+		//! Static function that averages a vector of lch_ab colors.
+		/*!
+		* Averages each lch_ab component of the colors seperately.
+		* \param colors The vector of colors to average.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::lch_ab* average_lch_ab(std::vector<color_space::lch_ab*> colors, bool include_alpha = false);
+
+		//! Static function that averages a vector of lch_uv colors.
+		/*!
+		* Averages each lch_uv component of the colors seperately.
+		* \param colors The vector of colors to average.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::lch_uv* average_lch_uv(std::vector<color_space::lch_uv*> colors, bool include_alpha = false);
 
 	private:
 		//! Converts a hsl or hsv color to a vector.

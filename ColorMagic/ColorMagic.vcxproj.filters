@@ -108,6 +108,9 @@
     <ClInclude Include="spaces\lch_uv.h">
       <Filter>spaces</Filter>
     </ClInclude>
+    <ClInclude Include="manipulation\porter_duff.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="spaces\lch_uv.cpp">
       <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="manipulation\porter_duff.cpp">
+      <Filter>manipulation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

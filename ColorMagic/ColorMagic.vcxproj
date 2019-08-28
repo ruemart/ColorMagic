@@ -159,6 +159,7 @@
     <ClInclude Include="manipulation\color_combinations.h" />
     <ClInclude Include="manipulation\color_converter.h" />
     <ClInclude Include="manipulation\color_distance.h" />
+    <ClInclude Include="manipulation\porter_duff.h" />
     <ClInclude Include="spaces\cmyk.h" />
     <ClInclude Include="spaces\gamma.h" />
     <ClInclude Include="spaces\grey_deepcolor.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="manipulation\color_combinations.cpp" />
     <ClCompile Include="manipulation\color_converter.cpp" />
     <ClCompile Include="manipulation\color_distance.cpp" />
+    <ClCompile Include="manipulation\porter_duff.cpp" />
     <ClCompile Include="spaces\cieluv.cpp" />
     <ClCompile Include="spaces\cmyk.cpp" />
     <ClCompile Include="spaces\grey_deepcolor.cpp" />

@@ -136,10 +136,7 @@ color_space::color_base * color_manipulation::porter_duff::do_porter_duff(color_
 	float both_area = source->alpha() * destination->alpha();
 
 	// Calculate resulting alpha value
-	float resulting_alpha =
-		(src_area * (s == region::NEITHER) ? 0.f : 1.f) +
-		(dest_area * (d == region::NEITHER) ? 0.f : 1.f) +
-		(both_area * (b == region::NEITHER) ? 0.f : 1.f);
+	float resulting_alpha =	src_area * ((s == region::NEITHER) ? 0.f : 1.f) + dest_area * ((d == region::NEITHER) ? 0.f : 1.f) + both_area * ((b == region::NEITHER) ? 0.f : 1.f);
 
 	// Create a new rgb object for the resulting color
 	color_space::rgb_deepcolor* resulting_color = new color_space::rgb_deepcolor(0.f, resulting_alpha, source->get_rgb_color_space());
@@ -148,8 +145,8 @@ color_space::color_base * color_manipulation::porter_duff::do_porter_duff(color_
 	for (size_t i = 0; i < resulting_color->get_component_vector().size(); ++i)
 	{
 		// Source and destination products
-		float s_product = src_area * (s == region::SOURCE) ? source->get_component_vector()[i] : 0.f;
-		float d_product = dest_area * (d == region::DESTINATION) ? destination->get_component_vector()[i] : 0.f;
+		float s_product = src_area * ((s == region::SOURCE) ? source->get_component_vector()[i] : 0.f);
+		float d_product = dest_area * ((d == region::DESTINATION) ? destination->get_component_vector()[i] : 0.f);
 
 		// Both product
 		float b_factor;
@@ -169,8 +166,9 @@ color_space::color_base * color_manipulation::porter_duff::do_porter_duff(color_
 		float b_product = both_area * b_factor;
 
 		// Sum up products and assign them to the resulting color object.
-		resulting_color->get_component_vector()[i] = s_product + d_product + b_product;
+		resulting_color->set_component(s_product + d_product + b_product, i);
 	}
 
+	resulting_color->alpha_divide();
 	return resulting_color;
 }

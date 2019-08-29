@@ -53,6 +53,7 @@
     <ClCompile Include="LCH_ab_Test.cpp" />
     <ClCompile Include="LCH_uv_Test.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="PorterDuff_Test.cpp" />
     <ClCompile Include="RGBColorSpaceDefinitionTest.cpp" />
     <ClCompile Include="RGB_Deep_Test.cpp" />
     <ClCompile Include="RGB_True_Test.cpp" />

@@ -64,6 +64,43 @@ namespace color_space
 		*/
 		virtual std::vector<float> get_component_vector() const { return m_component_vector; }
 
+		//! Returns one color component by index.
+		/*!
+		* Returns one color component by index.
+		* /param index is the index of the component to return.
+		*/
+		virtual float get_component(int index) const
+		{
+			if (index < 0 || index >= m_component_vector.size()) throw new std::out_of_range("Index out of range by accessing color component.");
+			return m_component_vector[index];
+		}
+
+		//! Setter for a component. 
+		/*!
+		* Clamps the given value with the local values of this class and adds it to the component vector.
+		* \param new_value The value to add to the component vector.
+		* \param index The index in the component vector to where the value should be added.
+		*/
+		void set_component(float new_value, int index) 
+		{
+			if (index < 0 || index >= m_component_vector.size()) throw new std::out_of_range("Index out of range by setting color component.");
+			m_component_vector[index] = clamp(new_value, m_max, m_min); 
+		}
+
+		//! Setter for a component. 
+		/*!
+		* Clamps the given value with the given max and min values and adds it to the component vector.
+		* \param new_value The value to add to the component vector.
+		* \param index The index in the component vector to where the value should be added.
+		* \param max The maximum number for the clamping operation.
+		* \param min The minimum number for the clamping operation.
+		*/
+		void set_component(float new_value, int index, float max, float min) 
+		{
+			if (index < 0 || index >= m_component_vector.size()) throw new std::out_of_range("Index out of range by setting color component.");
+			m_component_vector[index] = clamp(new_value, max, min); 
+		}
+
 		//! Returns the maximum value each component can have.
 		/*!
 		* Returns the maximum value each component can have.
@@ -151,6 +188,32 @@ namespace color_space
 			return result;
 		}
 
+		//! Multiplies each component with alpha.
+		/*!
+		* Multiplies each component with alpha.
+		*/
+		void alpha_multiply()
+		{
+			for (size_t i = 0; i < m_component_vector.size(); ++i)
+			{
+				m_component_vector[i] *= m_alpha;
+			}
+		}
+
+		//! Divides each component by alpha.
+		/*!
+		* Divides each component by alpha.
+		*/
+		void alpha_divide()
+		{
+			if (m_alpha == 0.f) return;
+
+			for (size_t i = 0; i < m_component_vector.size(); ++i)
+			{
+				m_component_vector[i] /= m_alpha;
+			}
+		}
+
 		//! Does the gamma correction for each component of this color.
 		void do_gamma_correction()
 		{
@@ -180,23 +243,6 @@ namespace color_space
 		*/
 		float clamp(float in_value, float max, float min) { return fmaxf(fminf(in_value, max), min); }
 
-		//! Setter for a component. 
-		/*!
-		* Clamps the given value with the local values of this class and adds it to the component vector.
-		* \param new_value The value to add to the component vector.
-		* \param index The index in the component vector to where the value should be added.
-		*/
-		void set_component(float new_value, int index) { m_component_vector[index] = clamp(new_value, m_max, m_min); }
-
-		//! Setter for a component. 
-		/*!
-		* Clamps the given value with the given max and min values and adds it to the component vector.
-		* \param new_value The value to add to the component vector.
-		* \param index The index in the component vector to where the value should be added.
-		* \param max The maximum number for the clamping operation.
-		* \param min The minimum number for the clamping operation.
-		*/
-		void set_component(float new_value, int index, float max, float min) { m_component_vector[index] = clamp(new_value, max, min); }
 
 		//! Vector that stores the components of the color.
 		/*!

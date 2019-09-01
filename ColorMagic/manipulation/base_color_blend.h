@@ -53,7 +53,7 @@ namespace color_manipulation
 		* blend mode to use special functions for the both area.
 		* \return the combination of source and destination calculated based on the given s, d, b parameters.
 		*/
-		virtual color_space::color_base* do_porter_duff(color_space::rgb_deepcolor* source, color_space::rgb_deepcolor* destination, bool use_s, bool use_d, both_region b)
+		virtual color_space::color_base* general_porter_duff(color_space::rgb_deepcolor* source, color_space::rgb_deepcolor* destination, bool use_s, bool use_d, both_region b)
 		{
 			// Check input params
 			if (source == nullptr) throw new std::invalid_argument("source color is null.");

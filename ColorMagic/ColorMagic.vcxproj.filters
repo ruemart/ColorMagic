@@ -116,6 +116,11 @@
     </ClInclude>
     <ClInclude Include="spaces\hcy.h">
       <Filter>spaces</Filter>
+    <ClInclude Include="manipulation\color_blend.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\base_color_blend.h">
+      <Filter>manipulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +198,8 @@
     </ClCompile>
     <ClCompile Include="spaces\hcy.cpp">
       <Filter>spaces</Filter>
+    <ClCompile Include="manipulation\color_blend.cpp">
+      <Filter>manipulation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

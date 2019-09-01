@@ -153,8 +153,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="manipulation\base_color_blend.h" />
     <ClInclude Include="manipulation\chromatic_adaptation.h" />
     <ClInclude Include="manipulation\color_adjustments.h" />
+    <ClInclude Include="manipulation\color_blend.h" />
     <ClInclude Include="manipulation\color_calculation.h" />
     <ClInclude Include="manipulation\color_combinations.h" />
     <ClInclude Include="manipulation\color_converter.h" />
@@ -190,6 +192,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="manipulation\chromatic_adaptation.cpp" />
     <ClCompile Include="manipulation\color_adjustments.cpp" />
+    <ClCompile Include="manipulation\color_blend.cpp" />
     <ClCompile Include="manipulation\color_calculation.cpp" />
     <ClCompile Include="manipulation\color_combinations.cpp" />
     <ClCompile Include="manipulation\color_converter.cpp" />

@@ -10,11 +10,12 @@ color_space::color_base * color_manipulation::color_blend::normal(color_space::c
 
 	return color_converter::convertTo(
 		(new color_blend())->general_porter_duff(
-			color_converter::to_rgb_deep(source), 
-			color_converter::to_rgb_deep(destination), 
+			color_converter::to_rgb_deep(source),
+			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::NORMAL_BLEND),
+			true,
+			[](float s_component, float d_component) { return s_component; }),
 		source->get_color_type());
 }
 
@@ -31,7 +32,11 @@ color_space::color_base * color_manipulation::color_blend::multiply(color_space:
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::MULTIPLY_BLEND),
+			true,
+			[](float s_component, float d_component)
+	{
+		return multiply_func(s_component, d_component);
+	}),
 		source->get_color_type());
 }
 
@@ -48,7 +53,11 @@ color_space::color_base * color_manipulation::color_blend::screen(color_space::c
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::SCREEN_BLEND),
+			true,
+			[](float s_component, float d_component)
+	{
+		return screen_func(s_component, d_component);
+	}),
 		source->get_color_type());
 }
 
@@ -65,7 +74,11 @@ color_space::color_base * color_manipulation::color_blend::overlay(color_space::
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::OVERLAY_BLEND),
+			true,
+			[](float s_component, float d_component)
+	{
+		return overlay_func(s_component, d_component);
+	}),
 		source->get_color_type());
 }
 
@@ -82,7 +95,8 @@ color_space::color_base * color_manipulation::color_blend::darken(color_space::c
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::DARKEN_BLEND),
+			true,
+			[](float s_component, float d_component) { return darken_func(s_component, d_component); }),
 		source->get_color_type());
 }
 
@@ -99,7 +113,8 @@ color_space::color_base * color_manipulation::color_blend::lighten(color_space::
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::LIGHTEN_BLEND),
+			true,
+			[](float s_component, float d_component) {return lighten_func(s_component, d_component); }),
 		source->get_color_type());
 }
 
@@ -116,7 +131,8 @@ color_space::color_base * color_manipulation::color_blend::color_dodge(color_spa
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::COLOR_DODGE_BLEND),
+			true,
+			[](float s_component, float d_component) { return color_dodge_func(s_component, d_component); }),
 		source->get_color_type());
 }
 
@@ -133,7 +149,8 @@ color_space::color_base * color_manipulation::color_blend::color_burn(color_spac
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::COLOR_BURN_BLEND),
+			true,
+			[](float s_component, float d_component) { return color_burn_func(s_component, d_component); }),
 		source->get_color_type());
 }
 
@@ -150,7 +167,8 @@ color_space::color_base * color_manipulation::color_blend::hard_light(color_spac
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::HARD_LIGHT_BLEND),
+			true,
+			[](float s_component, float d_component) {return hard_light_func(s_component, d_component); }),
 		source->get_color_type());
 }
 
@@ -167,7 +185,8 @@ color_space::color_base * color_manipulation::color_blend::soft_light(color_spac
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::SOFT_LIGHT_BLEND),
+			true,
+			[](float s_component, float d_component) {return soft_light_func(s_component, d_component); }),
 		source->get_color_type());
 }
 
@@ -184,7 +203,8 @@ color_space::color_base * color_manipulation::color_blend::difference(color_spac
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::DIFFERENCE_BLEND),
+			true,
+			[](float s_component, float d_component) {return difference_func(s_component, d_component); }),
 		source->get_color_type());
 }
 
@@ -201,7 +221,26 @@ color_space::color_base * color_manipulation::color_blend::exclusion(color_space
 			color_converter::to_rgb_deep(destination),
 			use_source_region,
 			use_destination_region,
-			both_region::EXCLUSION_BLEND),
+			true,
+			[](float s_component, float d_component) {return exclusion_func(s_component, d_component); }),
+		source->get_color_type());
+}
+
+color_space::color_base * color_manipulation::color_blend::custom_componentwise_blend(color_space::color_base * source, color_space::color_base * destination, bool use_source_region, bool use_destination_region, std::function<float(float, float)> blend_function)
+{
+	// Check input params
+	if (source == nullptr) throw new std::invalid_argument("source color is null.");
+	if (destination == nullptr) throw new std::invalid_argument("destination color is null.");
+	if (source->get_rgb_color_space() != destination->get_rgb_color_space()) throw new std::invalid_argument("The rgb color space definitions of both colors do not match.");
+
+	return color_converter::convertTo(
+		(new color_blend())->general_porter_duff(
+			color_converter::to_rgb_deep(source),
+			color_converter::to_rgb_deep(destination),
+			use_source_region,
+			use_destination_region,
+			true,
+			blend_function),
 		source->get_color_type());
 }
 
@@ -221,6 +260,11 @@ color_space::color_base * color_manipulation::color_blend::color(color_space::co
 }
 
 color_space::color_base * color_manipulation::color_blend::luminosity(color_space::color_base * source, color_space::color_base * destination, bool use_source_region, bool use_destination_region)
+{
+	return nullptr;
+}
+
+color_space::color_base * color_manipulation::color_blend::custom_combination_blend(color_space::color_base * source, color_space::color_base * destination, bool use_source_region, bool use_destination_region, std::function<float(float, float)> blend_function)
 {
 	return nullptr;
 }

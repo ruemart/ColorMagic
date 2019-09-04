@@ -111,6 +111,12 @@
     <ClInclude Include="manipulation\porter_duff.h">
       <Filter>manipulation</Filter>
     </ClInclude>
+    <ClInclude Include="spaces\hsi.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\hcl.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorMagic.cpp">
@@ -181,6 +187,12 @@
     </ClCompile>
     <ClCompile Include="manipulation\porter_duff.cpp">
       <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\hsi.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\hcl.cpp">
+      <Filter>spaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -146,15 +146,41 @@ color_space::hsv* color_manipulation::color_converter::rgb_deep_to_hsv(color_spa
 			hue = 60.f * (((color->red() - color->green()) / delta) + 4.f);
 		}
 
-		auto saturation = delta / max;
 		auto value = max;
+		auto saturation = (value == 0.f) ? 0.f : (delta / value);
 		return new color_space::hsv(hue, saturation, value, color->alpha(), color->get_rgb_color_space());
 	}
 }
 
 color_space::hsl* color_manipulation::color_converter::rgb_deep_to_hsl(color_space::rgb_deepcolor* color)
 {
-	return color_manipulation::color_converter::hsv_to_hsl(color_manipulation::color_converter::rgb_deep_to_hsv(color));
+	auto min = std::fmin(std::fmin(color->red(), color->green()), color->blue());
+	auto max = std::fmax(std::fmax(color->red(), color->green()), color->blue());
+	if (max == min) // red = green = blue
+	{
+		return new color_space::hsl(0.f, 0.f, min, color->alpha(), color->get_rgb_color_space());
+	}
+	else
+	{
+		float delta = max - min;
+		float hue;
+		if (max == color->red())
+		{
+			hue = 60.f * fmod(((color->green() - color->blue()) / delta), 6.f);
+		}
+		else if (max == color->green())
+		{
+			hue = 60.f * (((color->blue() - color->red()) / delta) + 2.f);
+		}
+		else
+		{
+			hue = 60.f * (((color->red() - color->green()) / delta) + 4.f);
+		}
+
+		auto lightness = 0.5f * (max + min);
+		auto saturation = (lightness == 0.f || lightness == 1.f) ? 0.f : (delta / (1.f - fabsf(2.f * lightness - 1.f)));
+		return new color_space::hsl(hue, saturation, lightness, color->alpha(), color->get_rgb_color_space());
+	}
 }
 
 color_space::xyz* color_manipulation::color_converter::rgb_deep_to_xyz(color_space::rgb_deepcolor* color)

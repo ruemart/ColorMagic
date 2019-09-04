@@ -114,7 +114,7 @@
     <ClInclude Include="spaces\hsi.h">
       <Filter>spaces</Filter>
     </ClInclude>
-    <ClInclude Include="spaces\hcl.h">
+    <ClInclude Include="spaces\hcy.h">
       <Filter>spaces</Filter>
     </ClInclude>
   </ItemGroup>
@@ -191,7 +191,7 @@
     <ClCompile Include="spaces\hsi.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
-    <ClCompile Include="spaces\hcl.cpp">
+    <ClCompile Include="spaces\hcy.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
   </ItemGroup>

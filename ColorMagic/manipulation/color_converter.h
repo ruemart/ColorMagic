@@ -10,8 +10,10 @@
 #include "..\spaces\cmyk.h"
 #include "..\spaces\grey_deepcolor.h"
 #include "..\spaces\grey_truecolor.h"
-#include "..\spaces\hsl.h"
+#include "..\spaces\hsi.h"
 #include "..\spaces\hsv.h"
+#include "..\spaces\hsl.h"
+#include "..\spaces\hcy.h"
 #include "..\spaces\lab.h"
 #include "..\spaces\lch_ab.h"
 #include "..\spaces\lch_uv.h"
@@ -83,6 +85,14 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* to_cmyk(color_space::color_base* in_color);
 
+		//! Static function that converts an arbitrary color to hsi color space.
+		/*!
+		* Wrapper function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* to_hsi(color_space::color_base* in_color);
+
 		//! Static function that converts an arbitrary color to hsv color space.
 		/*!
 		* Wrapper function that calls the correct converter function depending on the input colors type.
@@ -98,6 +108,14 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* to_hsl(color_space::color_base* in_color);
+
+		//! Static function that converts an arbitrary color to hcy color space.
+		/*!
+		* Wrapper function that calls the correct converter function depending on the input colors type.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* to_hcy(color_space::color_base* in_color);
 
 		//! Static function that converts an arbitrary color to xyz color space.
 		/*!
@@ -185,6 +203,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* rgb_true_to_cmyk(color_space::rgb_truecolor* color);
 
+		//! Static function that converts a rgb true color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* rgb_true_to_hsi(color_space::rgb_truecolor* color);
+
 		//! Static function that converts a rgb true color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -202,6 +229,15 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* rgb_true_to_hsl(color_space::rgb_truecolor* color);
+
+		//! Static function that converts a rgb true color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* rgb_true_to_hcy(color_space::rgb_truecolor* color);
 
 		//! Static function that converts a rgb true color to xyz color space.
 		/*!
@@ -296,14 +332,17 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* rgb_deep_to_cmyk(color_space::rgb_deepcolor* color);
 
+		//! Static function that converts a rgb deep color to hsi color space.
+		/*!
+		* Static function that converts a rgb deep color to hsi color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* rgb_deep_to_hsi(color_space::rgb_deepcolor* color);
+
 		//! Static function that converts a rgb deep color to hsv color space.
 		/*!
-		* First this function finds the minimum and maximum components of the input color.
-		* If max and min are equal the input color is grey and the resulting hsv color will 
-		* be hsv(0, 0, min).
-		* Otherwise hue is calculated depending on the max value and the difference of max 
-		* and min.
-		* Finally saturation is defined by delta / max and value is equal to max.
+		* Static function that converts a rgb deep color to hsv color space.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsv color space.
 		*/
@@ -311,12 +350,22 @@ namespace color_manipulation
 
 		//! Static function that converts a rgb deep color to hsl color space.
 		/*!
-		* Wrapper function that first converts the input color to hsv and afterwards
-		* the hsv color to hsl.
+		* Function that converts the input color to hsl.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* rgb_deep_to_hsl(color_space::rgb_deepcolor* color);
+
+		//! Static function that converts a rgb deep color to hcy color space.
+		/*!
+		* Function that converts a rgb deep color to hcy color space.
+		* Note that this conversion is not exactly revertable. That means 
+		* after doing a round trip conversion (RGB -> HCY -> RGB) the 
+		* result will differ from the input. 
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* rgb_deep_to_hcy(color_space::rgb_deepcolor* color);
 
 		//! Static function that converts a rgb deep color to xyz color space.
 		/*!
@@ -407,6 +456,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* grey_true_to_cmyk(color_space::grey_truecolor* color);
 
+		//! Static function that converts a grey true color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* grey_true_to_hsi(color_space::grey_truecolor* color);
+
 		//! Static function that converts a grey true color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -424,6 +482,15 @@ namespace color_manipulation
 		* \return The input color converted to hsv color space.
 		*/
 		static color_space::hsl* grey_true_to_hsl(color_space::grey_truecolor* color);
+
+		//! Static function that converts a grey true color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* grey_true_to_hcy(color_space::grey_truecolor* color);
 
 		//! Static function that converts a grey true color to xyz color space.
 		/*!
@@ -516,6 +583,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* grey_deep_to_cmyk(color_space::grey_deepcolor* color);
 
+		//! Static function that converts a grey deep color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* grey_deep_to_hsi(color_space::grey_deepcolor* color);
+
 		//! Static function that converts a grey deep color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -533,6 +609,15 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* grey_deep_to_hsl(color_space::grey_deepcolor* color);
+
+		//! Static function that converts a grey deep color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* grey_deep_to_hcy(color_space::grey_deepcolor* color);
 
 		//! Static function that converts a grey deep color to xyz color space.
 		/*!
@@ -630,6 +715,15 @@ namespace color_manipulation
 		*/
 		static color_space::grey_deepcolor* cmyk_to_grey_deep(color_space::cmyk* color);
 
+		//! Static function that converts a cmyk color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* cmyk_to_hsi(color_space::cmyk* color);
+
 		//! Static function that converts a cmyk color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -647,6 +741,15 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* cmyk_to_hsl(color_space::cmyk* color);
+
+		//! Static function that converts a cmyk color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* cmyk_to_hcy(color_space::cmyk* color);
 
 		//! Static function that converts a cmyk color to xyz color space.
 		/*!
@@ -704,6 +807,134 @@ namespace color_manipulation
 
 #pragma endregion
 
+
+#pragma region HSI CONVERTER FUNCTIONS
+
+		//! Static function that converts a hsi color to rgb true color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to rgb true.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
+		static color_space::rgb_truecolor* hsi_to_rgb_true(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to rgb deep color space.
+		/*!
+		* Converts the hsv input color to rgb deep by using the formula provided
+		* here: https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb deep color space.
+		*/
+		static color_space::rgb_deepcolor* hsi_to_rgb_deep(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to grey true color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey true.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey true color space.
+		*/
+		static color_space::grey_truecolor* hsi_to_grey_true(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to grey deep color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey deep color space.
+		*/
+		static color_space::grey_deepcolor* hsi_to_grey_deep(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to cmyk color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to cmyk.
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
+		static color_space::cmyk* hsi_to_cmyk(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to hsv color space.
+		/*!
+		* Static function that converts a hsi color to hsv color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsv color space.
+		*/
+		static color_space::hsv* hsi_to_hsv(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to hsl color space.
+		/*!
+		* Static function that converts a hsi color to hsl color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
+		static color_space::hsl* hsi_to_hsl(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to hcy color space.
+		/*!
+		* Static function that converts a hsi color to hcy color space.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* hsi_to_hcy(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to xyz color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to xyz.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyz color space.
+		*/
+		static color_space::xyz* hsi_to_xyz(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to xyY color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to xyY.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* hsi_to_xyy(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to cieluv color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to cieluv.
+		* \param in_color The color to convert.
+		* \return The input color converted to cieluv color space.
+		*/
+		static color_space::cieluv* hsi_to_cieluv(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to lab color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to lab.
+		* \param in_color The color to convert.
+		* \return The input color converted to lab color space.
+		*/
+		static color_space::lab* hsi_to_lab(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* hsi_to_lch_ab(color_space::hsi* color);
+
+		//! Static function that converts a hsi color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* hsi_to_lch_uv(color_space::hsi* color);
+
+#pragma endregion
+
 #pragma region HSV CONVERTER FUNCTIONS
 				
 		//! Static function that converts a hsv color to rgb true color space.
@@ -751,18 +982,32 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* hsv_to_cmyk(color_space::hsv* color);
 
+		//! Static function that converts a hsv color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* hsv_to_hsi(color_space::hsv* color);
+
 		//! Static function that converts a hsv color to hsl color space.
 		/*!
-		* Lightness is calculated as follows: ((2 - saturation) * value)
-		* Saturation is calculated as follows: saturation * value. If the resulting value is
-		* less or equal than 1 it will be divided by Lightness. Otherwise it will be divided 
-		* by (2 - Lightness)
-		* Finally Lightness will be divided by 2
-		* Hue does not change during the conversion.
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsl.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* hsv_to_hsl(color_space::hsv* color);
+
+		//! Static function that converts a hsv color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* hsv_to_hcy(color_space::hsv* color);
 
 		//! Static function that converts a hsv color to xyz color space.
 		/*!
@@ -833,15 +1078,7 @@ namespace color_manipulation
 
 		//! Static function that converts a hsl color to rgb deep color space.
 		/*!
-		* Converts the hsl input color to rgb deep by using the following formula:
-		* temp_hue = hue / 360
-		* temp1 = (lightness < 0.5) ? lightness * (1 + saturation) : lightness + saturation - (lightness * saturation)
-		* temp2 = 2 * lightness - var1
-		* These three temporary variables are used as input parameters for \sa hsl_to_rgb_helper() function
-		* in order to calculate red, green and blue:
-		* r = hsl_to_rgb_helper(temp1, temp2, temp_hue + 0.33)
-		* g = hsl_to_rgb_helper(temp1, temp2, temp_hue)
-		* b = hsl_to_rgb_helper(temp1, temp2, temp_hue - 0.33)
+		* Function that converts the hsl input color to rgb deep.
 		* \param in_color The color to convert.
 		* \return The input color converted to rgb true color space.
 		*/
@@ -874,19 +1111,29 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* hsl_to_cmyk(color_space::hsl* color);
 
+		//! Static function that converts a hsl color to hsi color space.
+		/*!
+		* function that converts the hsl input color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* hsl_to_hsi(color_space::hsl* color);
+
 		//! Static function that converts a hsl color to hsv color space.
 		/*!
-		* Converts the hsl input color to hsv by using the following formula:
-		* temp_lightness = lightness * 2
-		* If saturation is less or equal than 1, saturation = temp_lightness. Otherwise
-		* saturation is 2 - temp_lightness
-		* value = (temp_lightness + saturation) / 2
-		* saturation = (2 * saturation) / (temp_lightness + saturation)
-		* Hue does not change during the calculation.
+		* function that converts the hsl input color to hsv.
 		* \param in_color The color to convert.
 		* \return The input color converted to hsv color space.
 		*/
 		static color_space::hsv* hsl_to_hsv(color_space::hsl* color);
+
+		//! Static function that converts a hsl color to hcy color space.
+		/*!
+		* function that converts the hsl input color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* hsl_to_hcy(color_space::hsl* color);
 
 		//! Static function that converts a hsl color to xyz color space.
 		/*!
@@ -944,6 +1191,136 @@ namespace color_manipulation
 
 #pragma endregion
 
+
+#pragma region HCL CONVERTER FUNCTIONS
+
+		//! Static function that converts a hcy color to rgb true color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to rgb true.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
+		static color_space::rgb_truecolor* hcy_to_rgb_true(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to rgb deep color space.
+		/*!
+		* Function that converts the hcy input color to rgb deep.
+		* Note that this conversion is not exactly revertable. That means
+		* after doing a round trip conversion (RGB -> HCY -> RGB) the
+		* result will differ from the input.
+		* \param in_color The color to convert.
+		* \return The input color converted to rgb true color space.
+		*/
+		static color_space::rgb_deepcolor* hcy_to_rgb_deep(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to grey true color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey true.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey true color space.
+		*/
+		static color_space::grey_truecolor* hcy_to_grey_true(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to grey deep color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to grey deep.
+		* \param in_color The color to convert.
+		* \return The input color converted to grey deep color space.
+		*/
+		static color_space::grey_deepcolor* hcy_to_grey_deep(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to cmyk color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to cmyk.
+		* \param in_color The color to convert.
+		* \return The input color converted to cmyk color space.
+		*/
+		static color_space::cmyk* hcy_to_cmyk(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to hsi color space.
+		/*!
+		* function that converts the hcy input color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* hcy_to_hsi(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to hsv color space.
+		/*!
+		* function that converts the hcy input color to hsv.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsv color space.
+		*/
+		static color_space::hsv* hcy_to_hsv(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to hsl color space.
+		/*!
+		* function that converts the hcy input color to hsl.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsl color space.
+		*/
+		static color_space::hsl* hcy_to_hsl(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to xyz color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to xyz.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyz color space.
+		*/
+		static color_space::xyz* hcy_to_xyz(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to xyY color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to xyY.
+		* \param in_color The color to convert.
+		* \return The input color converted to xyY color space.
+		*/
+		static color_space::xyy* hcy_to_xyy(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to cieluv color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to cieluv.
+		* \param in_color The color to convert.
+		* \return The input color converted to cieluv color space.
+		*/
+		static color_space::cieluv* hcy_to_cieluv(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to lab color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to lab.
+		* \param in_color The color to convert.
+		* \return The input color converted to lab color space.
+		*/
+		static color_space::lab* hcy_to_lab(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to lch(ab) color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to lch(ab).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(ab) color space.
+		*/
+		static color_space::lch_ab* hcy_to_lch_ab(color_space::hcy* color);
+
+		//! Static function that converts a hcy color to lch(uv) color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to lch(uv).
+		* \param in_color The color to convert.
+		* \return The input color converted to lch(uv) color space.
+		*/
+		static color_space::lch_uv* hcy_to_lch_uv(color_space::hcy* color);
+
+#pragma endregion
+
 #pragma region XYZ CONVERTER FUNCTIONS
 
 		//! Static function that converts a xyz color to rgb true color space.
@@ -957,16 +1334,7 @@ namespace color_manipulation
 
 		//! Static function that converts a xyz color to rgb deep color space.
 		/*!
-		* First all components are divided by 100 to convert them to the range [0,1].
-		* Afterwars red, green and blue are calculated by:
-		* r = x * 3.2404542 + y * -1.5371385 + z * 0.4985314
-		* g = x * -0.9692660 + y * 1.8760108 + z * 0.0415560
-		* b = x * 0.0556434 + y * -0.2040259 + z * 1.0572252
-		* Then the resulting rgb color is converted from srgb to normal rgb by using the
-		* helper function linear_srgb_deep_to_rgb_deep().
-		* Finally all values are clamped to the range [0,1] (clamp_float()) and rounded 
-		* to 1 decimals (by using the helper function round_float_to_n_decimals())
-		* \sa linear_srgb_deep_to_rgb_deep(), clamp_float(), round_float_to_n_decimals()
+		* Function that converts a xyz color to rgb deep color space.
 		* \param in_color The color to convert.
 		* \return The input color converted to rgb deep color space.
 		*/
@@ -999,6 +1367,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* xyz_to_cmyk(color_space::xyz* color);
 
+		//! Static function that converts a xyz color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* xyz_to_hsi(color_space::xyz* color);
+
 		//! Static function that converts a xyz color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to rgb deep and afterwards
@@ -1017,6 +1394,15 @@ namespace color_manipulation
 		*/
 		static color_space::hsl* xyz_to_hsl(color_space::xyz* color);
 
+		//! Static function that converts a xyz color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to rgb deep and afterwards
+		* the rgb deep color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* xyz_to_hcy(color_space::xyz* color);
+
 		//! Static function that converts a xyz color to xyY color space.
 		/*!
 		* Static function that converts a xyz color to xyY color space.
@@ -1033,15 +1419,11 @@ namespace color_manipulation
 		*/
 		static color_space::cieluv* xyz_to_cieluv(color_space::xyz* color);
 
-		//! Static function that converts a xyz color to hsl color space.
+		//! Static function that converts a xyz color to lab color space.
 		/*!
-		* The calculation is done by using the following formula (where rw is tristimulus white)
-		* L = 116 *  xyz_to_lab_helper(y / rw_y) - 16;
-		* a = 500 * (xyz_to_lab_helper(x / rw_x) - xyz_to_lab_helper(y / rw_y))
-		* b = 200 * (xyz_to_lab_helper(y / rw_y) - xyz_to_lab_helper(z / rw_z))
-		* \sa xyz_to_lab_helper()
+		* Static function that converts a xyz color to lab color space.
 		* \param in_color The color to convert.
-		* \return The input color converted to hsl color space.
+		* \return The input color converted to lab color space.
 		*/
 		static color_space::lab* xyz_to_lab(color_space::xyz* color);
 
@@ -1112,6 +1494,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* xyy_to_cmyk(color_space::xyy* color);
 
+		//! Static function that converts a xyY color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* xyy_to_hsi(color_space::xyy* color);
+
 		//! Static function that converts a xyY color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
@@ -1129,6 +1520,15 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* xyy_to_hsl(color_space::xyy* color);
+
+		//! Static function that converts a xyY color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* xyy_to_hcy(color_space::xyy* color);
 
 		//! Static function that converts a xyY color to xyz color space.
 		/*!
@@ -1222,6 +1622,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* cieluv_to_cmyk(color_space::cieluv* color);
 
+		//! Static function that converts a cieluv color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* cieluv_to_hsi(color_space::cieluv* color);
+
 		//! Static function that converts a cieluv color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
@@ -1239,6 +1648,15 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* cieluv_to_hsl(color_space::cieluv* color);
+
+		//! Static function that converts a cieluv color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* cieluv_to_hcy(color_space::cieluv* color);
 
 		//! Static function that converts a cieluv color to xyz color space.
 		/*!
@@ -1332,6 +1750,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* lab_to_cmyk(color_space::lab* color);
 
+		//! Static function that converts a lab color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* lab_to_hsi(color_space::lab* color);
+
 		//! Static function that converts a lab color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to xyz and afterwards
@@ -1350,14 +1777,18 @@ namespace color_manipulation
 		*/
 		static color_space::hsl* lab_to_hsl(color_space::lab* color);
 
+		//! Static function that converts a lab color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to xyz and afterwards
+		* the xyz color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* lab_to_hcy(color_space::lab* color);
+
 		//! Static function that converts a lab color to xyz color space.
 		/*!
-		* temp_y = (luminance + 16) / 116
-		* y = lab_to_xyz_helper(luminance, true);
-		* x = lab_to_xyz_helper((a / 500) + temp_y
-		* z = lab_to_xyz_helper(temp_y - (b / 200)
-		* Finally all components are multiplied by their corresponding tristimulus white components
-		* \sa lab_to_xyz_helper()
+		* Function that converts a lab color to xyz color space.
 		* \param in_color The color to convert.
 		* \return The input color converted to xyz color space.
 		*/
@@ -1447,6 +1878,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* lch_ab_to_cmyk(color_space::lch_ab* color);
 
+		//! Static function that converts a lch(ab) color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* lch_ab_to_hsi(color_space::lch_ab* color);
+
 		//! Static function that converts a lch(ab) color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to lab and afterwards
@@ -1464,6 +1904,15 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* lch_ab_to_hsl(color_space::lch_ab* color);
+
+		//! Static function that converts a lch(ab) color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to lab and afterwards
+		* the lab color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* lch_ab_to_hcy(color_space::lch_ab* color);
 
 		//! Static function that converts a lch(ab) color to xyz color space.
 		/*!
@@ -1559,6 +2008,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* lch_uv_to_cmyk(color_space::lch_uv* color);
 
+		//! Static function that converts a lch(uv) color to hsi color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to hsi.
+		* \param in_color The color to convert.
+		* \return The input color converted to hsi color space.
+		*/
+		static color_space::hsi* lch_uv_to_hsi(color_space::lch_uv* color);
+
 		//! Static function that converts a lch(uv) color to hsv color space.
 		/*!
 		* Wrapper function that first converts the input color to cieluv and afterwards
@@ -1576,6 +2034,15 @@ namespace color_manipulation
 		* \return The input color converted to hsl color space.
 		*/
 		static color_space::hsl* lch_uv_to_hsl(color_space::lch_uv* color);
+
+		//! Static function that converts a lch(uv) color to hcy color space.
+		/*!
+		* Wrapper function that first converts the input color to cieluv and afterwards
+		* the cieluv color to hcy.
+		* \param in_color The color to convert.
+		* \return The input color converted to hcy color space.
+		*/
+		static color_space::hcy* lch_uv_to_hcy(color_space::lch_uv* color);
 
 		//! Static function that converts a lch(uv) color to xyz color space.
 		/*!
@@ -1624,6 +2091,18 @@ namespace color_manipulation
 #pragma endregion
 
 	private:
+		//! Static function that calculates hue for hsi, hsv, hsl and hcy color spaces.
+		/*!
+		* \param red The value of the rgb deep red component.
+		* \param green The value of the rgb deep green component.
+		* \param blue The value of the rgb deep blue component.
+		* \param max The maximum component value.
+		* \param min The minimum component value.
+		* \param delta The difference of max and min.
+		* \return The calculated hue value.
+		*/
+		static float hue_from_rgb_helper(float red, float green, float blue, float max, float min, float delta);
+
 		//! Static function that helps to convert from hsl to rgb
 		/*!
 		* Inspects value of var3 and returns a value dependent of the result.

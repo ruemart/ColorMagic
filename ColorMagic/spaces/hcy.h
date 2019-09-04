@@ -11,11 +11,11 @@
 
 namespace color_space
 {
-	//! Color space to represents hcl colors.
+	//! Color space to represents hcy colors.
 		/*!
 		* This class holds getters and setters for hue, saturation, lightness and various constructors.
 		*/
-	class hcl : public color_base
+	class hcy : public color_base
 	{
 	public:
 		//! Default constructor.
@@ -27,28 +27,28 @@ namespace color_space
 		* \param alpha The value that will be set for alpha.
 		* \param color_space The rgb color space definition used for conversion to or from xyz and lab.
 		*/
-		hcl(float hue, float chroma, float luma, float alpha, rgb_color_space_definition* color_space);
+		hcy(float hue, float chroma, float luma, float alpha, rgb_color_space_definition* color_space);
 
 		//! Default copy constructor.
 		/*!
-		* Constructs a hcl color from a given one.
-		* \param other The hcl object to construct this color from.
+		* Constructs a hcy color from a given one.
+		* \param other The hcy object to construct this color from.
 		*/
-		hcl(const hcl& other);
+		hcy(const hcy& other);
 
 		//! Default copy constructor.
 		/*!
-		* Constructs a hcl color from a color_base object.
+		* Constructs a hcy color from a color_base object.
 		* \param other The color_base object to construct this color from.
 		*/
-		hcl(const color_base& other);
+		hcy(const color_base& other);
 
 		//! Assignment operator overload.
 		/*!
 		* Assigns the components from the right hand object to the corresponding components of the left hand object.
-		* \param other The hcl object to get the component values from.
+		* \param other The hcy object to get the component values from.
 		*/
-		hcl& operator=(const hcl& other);
+		hcy& operator=(const hcy& other);
 
 		//! Getter for hue component.
 		//! \return The hue component of this color.

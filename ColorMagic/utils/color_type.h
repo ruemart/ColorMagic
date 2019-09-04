@@ -16,7 +16,7 @@ enum color_type
 	HSI, /*!< HSI - for hsi color spaces */
 	HSV, /*!< HSV - for hsv color spaces */
 	HSL, /*!< HSL - for hsl color spaces */
-	HCL, /*!< HCL - for hcl color spaces */
+	HCL, /*!< HCL - for hcy color spaces */
 	XYZ, /*!< XYZ - for xyz color spaces */  
 	XYY, /*!< XYY - for xyY color spaces */
 	CIELUV, /*!< CIELUV - for cieluv color spaces */

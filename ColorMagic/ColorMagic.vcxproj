@@ -164,7 +164,7 @@
     <ClInclude Include="spaces\gamma.h" />
     <ClInclude Include="spaces\grey_deepcolor.h" />
     <ClInclude Include="spaces\grey_truecolor.h" />
-    <ClInclude Include="spaces\hcl.h" />
+    <ClInclude Include="spaces\hcy.h" />
     <ClInclude Include="spaces\hsi.h" />
     <ClInclude Include="spaces\hsl.h" />
     <ClInclude Include="spaces\hsv.h" />
@@ -199,7 +199,7 @@
     <ClCompile Include="spaces\cmyk.cpp" />
     <ClCompile Include="spaces\grey_deepcolor.cpp" />
     <ClCompile Include="spaces\grey_truecolor.cpp" />
-    <ClCompile Include="spaces\hcl.cpp" />
+    <ClCompile Include="spaces\hcy.cpp" />
     <ClCompile Include="spaces\hsi.cpp" />
     <ClCompile Include="spaces\hsl.cpp" />
     <ClCompile Include="spaces\hsv.cpp" />

@@ -472,7 +472,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::hsi_to_rgb_deep
 	auto h_temp = color->hue() / 60.f;
 	auto Z = 1.f - std::fabsf(std::fmodf(h_temp, 2.f) - 1.f);
 	auto chroma = (3.f* color->intensity()* color->saturation()) / (1.f + Z);
-	auto x = chroma* Z;
+	auto x = chroma * Z;
 
 	float r_temp, g_temp, b_temp;
 	if (h_temp >= 0.f && h_temp <= 1.f) { r_temp = chroma;	g_temp = x;			b_temp = 0.f; }
@@ -553,9 +553,10 @@ color_space::rgb_truecolor* color_manipulation::color_converter::hsv_to_rgb_true
 
 color_space::rgb_deepcolor* color_manipulation::color_converter::hsv_to_rgb_deep(color_space::hsv* color)
 {
+	/*
 	auto chroma = color->value()* color->saturation();
 	auto h_temp = color->hue() / 60.f;
-	auto x = chroma* (1.f - std::fabsf(std::fmodf(h_temp, 2.f) - 1.f));
+	auto x = chroma * (1.f - std::fabsf(std::fmodf(h_temp, 2.f) - 1.f));
 	auto m = color->value() - chroma;
 	float r_temp, g_temp, b_temp;
 	if (h_temp >= 0.f && h_temp <= 1.f) { r_temp = chroma;	g_temp = x;			b_temp = 0.f; }
@@ -565,7 +566,15 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::hsv_to_rgb_deep
 	else if (h_temp > 4.f && h_temp <= 5.f) { r_temp = x;		g_temp = 0.f;		b_temp = chroma; }
 	else if (h_temp > 5.f && h_temp <= 6.f) { r_temp = chroma;	g_temp = 0.f;		b_temp = x; }
 	else { r_temp = 0.f;		g_temp = 0.f;		b_temp = 0.f; }
+
 	return new color_space::rgb_deepcolor(r_temp + m, g_temp + m, b_temp + m, color->alpha(), color->get_rgb_color_space());
+	*/
+
+	float r_temp = hsv_to_rgb_helper(color, 5.f);
+	float g_temp = hsv_to_rgb_helper(color, 3.f);
+	float b_temp = hsv_to_rgb_helper(color, 1.f);
+
+	return new color_space::rgb_deepcolor(r_temp, g_temp, b_temp, color->alpha(), color->get_rgb_color_space());
 }
 
 color_space::grey_truecolor* color_manipulation::color_converter::hsv_to_grey_true(color_space::hsv* color)
@@ -642,6 +651,8 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::hsl_to_rgb_deep
 {
 	if (color->lightness() == 0.f) return new color_space::rgb_deepcolor(0.f, 0.f, color->get_rgb_color_space());
 
+	/* Old not optimized version
+
 	float temp_h = color->hue() / 360.f;
 
 	float var1, var2;
@@ -658,6 +669,12 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::hsl_to_rgb_deep
 	auto r = hsl_to_rgb_helper(var1, var2, temp_h + 1.f / 3.f);
 	auto g = hsl_to_rgb_helper(var1, var2, temp_h);
 	auto b = hsl_to_rgb_helper(var1, var2, temp_h - 1.f / 3.f);
+
+	*/
+
+	float r = hsl_to_rgb_helper(color, 0.f);
+	float g = hsl_to_rgb_helper(color, 8.f);
+	float b = hsl_to_rgb_helper(color, 4.f);
 
 	return new color_space::rgb_deepcolor(r, g, b, color->alpha(), color->get_rgb_color_space());
 }
@@ -737,7 +754,7 @@ color_space::rgb_deepcolor* color_manipulation::color_converter::hcy_to_rgb_deep
 	float r = clamp_float(fabsf(unit_hue* 6.f - 3.f) - 1.f, 0.f, 1.f);
 	float g = clamp_float(2.f - fabsf(unit_hue* 6.f - 2.f), 0.f, 1.f);
 	float b = clamp_float(2.f - fabsf(unit_hue* 6.f - 4.f), 0.f, 1.f);
-	float Y = r* 0.2126f + g* 0.7152f + b* 0.0722f;
+	float Y = r * 0.2126f + g * 0.7152f + b * 0.0722f;
 	float tmp_chroma;
 	if (color->luma() < Y)
 	{
@@ -1066,10 +1083,10 @@ color_space::xyz* color_manipulation::color_converter::cieluv_to_xyz(color_space
 	auto a = 1.f / 3.f* ((52.f* color->L() / (color->u() + 13.f* color->L()* u_temp)) - 1.f);
 	auto b = -5.f* Y;
 	auto c = -1.f / 3.f;
-	auto d = Y* ((39.f* color->L() / (color->v() + 13.f* color->L()* v_temp)) - 5.f);
+	auto d = Y * ((39.f* color->L() / (color->v() + 13.f* color->L()* v_temp)) - 5.f);
 
 	auto X = (d - b) / (a - c);
-	auto Z = X* a + b;
+	auto Z = X * a + b;
 	return new color_space::xyz(X, Y, Z, color->alpha(), color->get_rgb_color_space());
 }
 
@@ -1352,6 +1369,12 @@ float color_manipulation::color_converter::hue_from_rgb_helper(float red, float 
 	}
 }
 
+float color_manipulation::color_converter::hsv_to_rgb_helper(color_space::hsv * color, float n)
+{
+	float k = fmodf(n + color->hue() / 60.f, 6.f);
+	return color->value() - color->value() * color->saturation() * fmaxf(fminf(k, fminf(4.f - k, 1.f)), 0.f);
+}
+
 float color_manipulation::color_converter::hsl_to_rgb_helper(float var1, float var2, float var3)
 {
 	if (var3 < 0.f) var3 += 1.f;
@@ -1373,6 +1396,14 @@ float color_manipulation::color_converter::hsl_to_rgb_helper(float var1, float v
 	}
 
 	return var2;
+}
+
+float color_manipulation::color_converter::hsl_to_rgb_helper(color_space::hsl * color, float n)
+{
+	float k = fmodf(n + color->hue() / 30.f, 12.f);
+	float a = color->saturation() * fminf(color->lightness(), 1.f - color->lightness());
+
+	return color->lightness() - a * fmaxf(fminf(k - 3.f, fminf(9.f - k, 1.f)), -1.f);
 }
 
 float color_manipulation::color_converter::xyz_to_lab_helper(float color_component)

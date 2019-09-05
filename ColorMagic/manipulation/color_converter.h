@@ -2103,6 +2103,16 @@ namespace color_manipulation
 		*/
 		static float hue_from_rgb_helper(float red, float green, float blue, float max, float min, float delta);
 
+		//! Static function that helps to convert from hsv to rgb
+		/*!
+		* Implements function that converts hsv in an optimized way to rgb. Call this
+		* function for each component.
+		* \param color The hsv color to convert to rgb
+		* \param n Input factor for conversion (R: n=0, G: n=8, B: n=4).
+		* \return The value of one of the resulting colors components.
+		*/
+		static float hsv_to_rgb_helper(color_space::hsv* color, float n);
+
 		//! Static function that helps to convert from hsl to rgb
 		/*!
 		* Inspects value of var3 and returns a value dependent of the result.
@@ -2113,6 +2123,16 @@ namespace color_manipulation
 		* \return The value of one of the resulting colors components.
 		*/
 		static float hsl_to_rgb_helper(float var1, float var2, float var3);
+
+		//! Static function that helps to convert from hsl to rgb
+		/*!
+		* Implements function that converts hsl in an optimized way to rgb. Call this 
+		* function for each component.
+		* \param color The hsl color to convert to rgb
+		* \param n Input factor for conversion (R: n=0, G: n=8, B: n=4).
+		* \return The value of one of the resulting colors components.
+		*/
+		static float hsl_to_rgb_helper(color_space::hsl* color, float n);
 
 		//! Static function that helps to convert from xyz to lab
 		/*!

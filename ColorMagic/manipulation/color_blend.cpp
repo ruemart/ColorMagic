@@ -246,25 +246,32 @@ color_space::color_base * color_manipulation::color_blend::custom_componentwise_
 
 color_space::color_base * color_manipulation::color_blend::hue(color_space::color_base * source, color_space::color_base * destination, bool use_source_region, bool use_destination_region)
 {
-	return nullptr;
+	color_space::hcy* s_hcy = color_manipulation::color_converter::to_hcy(source);
+	color_space::hcy* d_hcy = color_manipulation::color_converter::to_hcy(destination);
+	color_space::hcy* result = new color_space::hcy(s_hcy->hue(), d_hcy->chroma(), d_hcy->luma(), s_hcy->alpha(), s_hcy->get_rgb_color_space());
+	return color_manipulation::color_converter::convertTo(result, source->get_color_type());
 }
 
 color_space::color_base * color_manipulation::color_blend::saturation(color_space::color_base * source, color_space::color_base * destination, bool use_source_region, bool use_destination_region)
 {
-	return nullptr;
+	color_space::hcy* s_hcy = color_manipulation::color_converter::to_hcy(source);
+	color_space::hcy* d_hcy = color_manipulation::color_converter::to_hcy(destination);
+	color_space::hcy* result = new color_space::hcy(d_hcy->hue(), s_hcy->chroma(), d_hcy->luma(), s_hcy->alpha(), s_hcy->get_rgb_color_space());
+	return color_manipulation::color_converter::convertTo(result, source->get_color_type());
 }
 
 color_space::color_base * color_manipulation::color_blend::color(color_space::color_base * source, color_space::color_base * destination, bool use_source_region, bool use_destination_region)
 {
-	return nullptr;
+	color_space::hcy* s_hcy = color_manipulation::color_converter::to_hcy(source);
+	color_space::hcy* d_hcy = color_manipulation::color_converter::to_hcy(destination);
+	color_space::hcy* result = new color_space::hcy(s_hcy->hue(), s_hcy->chroma(), d_hcy->luma(), s_hcy->alpha(), s_hcy->get_rgb_color_space());
+	return color_manipulation::color_converter::convertTo(result, source->get_color_type());
 }
 
 color_space::color_base * color_manipulation::color_blend::luminosity(color_space::color_base * source, color_space::color_base * destination, bool use_source_region, bool use_destination_region)
 {
-	return nullptr;
-}
-
-color_space::color_base * color_manipulation::color_blend::custom_combination_blend(color_space::color_base * source, color_space::color_base * destination, bool use_source_region, bool use_destination_region, std::function<float(float, float)> blend_function)
-{
-	return nullptr;
+	color_space::hcy* s_hcy = color_manipulation::color_converter::to_hcy(source);
+	color_space::hcy* d_hcy = color_manipulation::color_converter::to_hcy(destination);
+	color_space::hcy* result = new color_space::hcy(d_hcy->hue(), d_hcy->chroma(), s_hcy->luma(), s_hcy->alpha(), s_hcy->get_rgb_color_space());
+	return color_manipulation::color_converter::convertTo(result, source->get_color_type());
 }

@@ -3,7 +3,7 @@
 
 color_space::hcy::hcy(float hue, float chroma, float luma, float alpha, rgb_color_space_definition * color_space) : color_base(alpha, color_space, 3)
 {
-	this->m_type = color_type::HSL;
+	this->m_type = color_type::HCY;
 	this->hue(hue);
 	this->chroma(chroma);
 	this->luma(luma);
@@ -18,9 +18,9 @@ color_space::hcy::hcy(const color_space::hcy & other) : color_base(other.alpha()
 
 color_space::hcy::hcy(const color_base & other) : color_base(other.alpha(), other.get_rgb_color_space(), 3, other.get_component_max(), other.get_component_min())
 {
-	if (other.get_color_type() == color_type::HCL && other.get_component_vector().size() == 3)
+	if (other.get_color_type() == color_type::HCY && other.get_component_vector().size() == 3)
 	{
-		this->m_type = color_type::HCL;
+		this->m_type = color_type::HCY;
 		this->m_component_vector = other.get_component_vector();
 	}
 	else

@@ -3,7 +3,7 @@
 
 color_space::hsi::hsi(float hue, float saturation, float intensity, float alpha, rgb_color_space_definition * color_space) : color_base(alpha, color_space, 3)
 {
-	this->m_type = color_type::HSL;
+	this->m_type = color_type::HSI;
 	this->hue(hue);
 	this->saturation(saturation);
 	this->intensity(intensity);

@@ -106,16 +106,7 @@ color_space::hsi * color_manipulation::color_calculation::add(color_space::hsi *
 	if (weight1 < 0.f || weight1 > 1.f) throw new std::invalid_argument("Parameter weight1 has to be in the range [0,1].");
 	if (weight2 < 0.f || weight2 > 1.f) throw new std::invalid_argument("Parameter weight2 has to be in the range [0,1].");
 
-	auto vector1 = convert_to_vector(color1->hue(), color1->saturation(), color1->intensity());
-	auto vector2 = convert_to_vector(color2->hue(), color2->saturation(), color2->intensity());
-
-	auto x = weight1 * vector1[0] + weight2 * vector2[0];
-	auto y = weight1 * vector1[1] + weight2 * vector2[1];
-	auto z = weight1 * vector1[2] + weight2 * vector2[2];
-	auto a = include_alpha ? weight1 * color1->alpha() + weight2 * color2->alpha() : color1->alpha();
-	vector2 = convert_from_vector(new float[3]{ x, y, z });
-
-	return new color_space::hsi(vector2[0], vector2[1], vector2[2], a, color1->get_rgb_color_space());
+	return color_manipulation::color_converter::to_hsi(color_manipulation::color_calculation::add(color_manipulation::color_converter::to_hsv(color1), color_manipulation::color_converter::to_hsv(color2), weight1, weight2, include_alpha));
 }
 
 color_space::hsv * color_manipulation::color_calculation::add(color_space::hsv * color1, color_space::hsv * color2, float weight1, float weight2, bool include_alpha)
@@ -140,16 +131,7 @@ color_space::hsl * color_manipulation::color_calculation::add(color_space::hsl *
 	if (weight1 < 0.f || weight1 > 1.f) throw new std::invalid_argument("Parameter weight1 has to be in the range [0,1].");
 	if (weight2 < 0.f || weight2 > 1.f) throw new std::invalid_argument("Parameter weight2 has to be in the range [0,1].");
 
-	auto vector1 = convert_to_vector(color1->hue(), color1->saturation(), color1->lightness());
-	auto vector2 = convert_to_vector(color2->hue(), color2->saturation(), color2->lightness());
-
-	auto x = weight1 * vector1[0] + weight2 * vector2[0];
-	auto y = weight1 * vector1[1] + weight2 * vector2[1];
-	auto z = weight1 * vector1[2] + weight2 * vector2[2];
-	auto a = include_alpha ? weight1 * color1->alpha() + weight2 * color2->alpha() : color1->alpha();
-	vector2 = convert_from_vector(new float[3]{ x, y, z });
-
-	return new color_space::hsl(vector2[0], vector2[1], vector2[2], a, color1->get_rgb_color_space());
+	return color_manipulation::color_converter::to_hsl(color_manipulation::color_calculation::add(color_manipulation::color_converter::to_hsv(color1), color_manipulation::color_converter::to_hsv(color2), weight1, weight2, include_alpha));
 }
 
 color_space::hcy * color_manipulation::color_calculation::add(color_space::hcy * color1, color_space::hcy * color2, float weight1, float weight2, bool include_alpha)
@@ -157,16 +139,7 @@ color_space::hcy * color_manipulation::color_calculation::add(color_space::hcy *
 	if (weight1 < 0.f || weight1 > 1.f) throw new std::invalid_argument("Parameter weight1 has to be in the range [0,1].");
 	if (weight2 < 0.f || weight2 > 1.f) throw new std::invalid_argument("Parameter weight2 has to be in the range [0,1].");
 
-	auto vector1 = convert_to_vector(color1->hue(), color1->chroma(), color1->luma());
-	auto vector2 = convert_to_vector(color2->hue(), color2->chroma(), color2->luma());
-
-	auto x = weight1 * vector1[0] + weight2 * vector2[0];
-	auto y = weight1 * vector1[1] + weight2 * vector2[1];
-	auto z = weight1 * vector1[2] + weight2 * vector2[2];
-	auto a = include_alpha ? weight1 * color1->alpha() + weight2 * color2->alpha() : color1->alpha();
-	vector2 = convert_from_vector(new float[3]{ x, y, z });
-
-	return new color_space::hcy(vector2[0], vector2[1], vector2[2], a, color1->get_rgb_color_space());
+	return color_manipulation::color_converter::to_hcy(color_manipulation::color_calculation::add(color_manipulation::color_converter::to_hsv(color1), color_manipulation::color_converter::to_hsv(color2), weight1, weight2, include_alpha));
 }
 
 color_space::xyz * color_manipulation::color_calculation::add(color_space::xyz * color1, color_space::xyz * color2, float weight1, float weight2, bool include_alpha)
@@ -456,16 +429,7 @@ color_space::hsi * color_manipulation::color_calculation::subtract(color_space::
 {
 	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
 
-	auto vector1 = convert_to_vector(color1->hue(), color1->saturation(), color1->intensity());
-	auto vector2 = convert_to_vector(color2->hue(), color2->saturation(), color2->intensity());
-
-	auto x = vector1[0] - weight * vector2[0];
-	auto y = vector1[1] - weight * vector2[1];
-	auto z = vector1[2] - weight * vector2[2];
-	vector2 = convert_from_vector(new float[3]{ x, y, z });
-	auto a = include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha();
-
-	return new color_space::hsi(vector2[0], vector2[1], vector2[2], a, color1->get_rgb_color_space());
+	return color_manipulation::color_converter::to_hsi(color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_hsv(color1), color_manipulation::color_converter::to_hsv(color2), weight));
 }
 
 color_space::hsv * color_manipulation::color_calculation::subtract(color_space::hsv * color1, color_space::hsv * color2, float weight, bool include_alpha)
@@ -488,32 +452,14 @@ color_space::hsl * color_manipulation::color_calculation::subtract(color_space::
 {
 	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
 
-	auto vector1 = convert_to_vector(color1->hue(), color1->saturation(), color1->lightness());
-	auto vector2 = convert_to_vector(color2->hue(), color2->saturation(), color2->lightness());
-
-	auto x = vector1[0] - weight * vector2[0];
-	auto y = vector1[1] - weight * vector2[1];
-	auto z = vector1[2] - weight * vector2[2];
-	vector2 = convert_from_vector(new float[3]{ x, y, z });
-	auto a = include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha();
-
-	return new color_space::hsl(vector2[0], vector2[1], vector2[2], a, color1->get_rgb_color_space());
+	return color_manipulation::color_converter::to_hsl(color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_hsv(color1), color_manipulation::color_converter::to_hsv(color2), weight));
 }
 
 color_space::hcy * color_manipulation::color_calculation::subtract(color_space::hcy * color1, color_space::hcy * color2, float weight, bool include_alpha)
 {
 	if (weight < 0.f || weight > 1.f) throw new std::invalid_argument("Parameter weight has to be in the range [0,1].");
 
-	auto vector1 = convert_to_vector(color1->hue(), color1->chroma(), color1->luma());
-	auto vector2 = convert_to_vector(color2->hue(), color2->chroma(), color2->luma());
-
-	auto x = vector1[0] - weight * vector2[0];
-	auto y = vector1[1] - weight * vector2[1];
-	auto z = vector1[2] - weight * vector2[2];
-	vector2 = convert_from_vector(new float[3]{ x, y, z });
-	auto a = include_alpha ? color1->alpha() - weight * color2->alpha() : color1->alpha();
-
-	return new color_space::hcy(vector2[0], vector2[1], vector2[2], a, color1->get_rgb_color_space());
+	return color_manipulation::color_converter::to_hcy(color_manipulation::color_calculation::subtract(color_manipulation::color_converter::to_hsv(color1), color_manipulation::color_converter::to_hsv(color2), weight));
 }
 
 color_space::xyz * color_manipulation::color_calculation::subtract(color_space::xyz * color1, color_space::xyz * color2, float weight, bool include_alpha)

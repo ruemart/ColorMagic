@@ -13,8 +13,10 @@ enum color_type
 	GREY_TRUE, /*!< GREY_TRUE - for grey true color spaces */  
 	GREY_DEEP, /*!< GREY_DEEP - for grey deep color spaces */  
 	CMYK, /*!< CMYK - for cmyk color spaces */  
-	HSV, /*!< HSV - for hsv color spaces */  
-	HSL, /*!< HSL - for hsl color spaces */  
+	HSI, /*!< HSI - for hsi color spaces */
+	HSV, /*!< HSV - for hsv color spaces */
+	HSL, /*!< HSL - for hsl color spaces */
+	HCY, /*!< HCY - for hcy color spaces */
 	XYZ, /*!< XYZ - for xyz color spaces */  
 	XYY, /*!< XYY - for xyY color spaces */
 	CIELUV, /*!< CIELUV - for cieluv color spaces */

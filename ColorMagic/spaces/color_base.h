@@ -215,6 +215,9 @@ namespace color_space
 		}
 
 		//! Does the gamma correction for each component of this color.
+		/*!
+		* linear color to "normal" color.
+		*/
 		void do_gamma_correction()
 		{
 			for (size_t i = 0; i < m_component_vector.size(); ++i)
@@ -224,6 +227,9 @@ namespace color_space
 		}
 
 		//! Does the inverse gamma correction for each component of this color.
+		/*!
+		* "Normal" color to linear color.
+		*/
 		void do_inverse_gamma_correction()
 		{
 			for (size_t i = 0; i < m_component_vector.size(); ++i)

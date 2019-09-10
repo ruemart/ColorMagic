@@ -31,9 +31,6 @@
     <ClCompile Include="spaces\cmyk.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
-    <ClCompile Include="manipulation\color_blend.cpp">
-      <Filter>spaces</Filter>
-    </ClCompile>
     <ClCompile Include="spaces\grey_deepcolor.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
@@ -72,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="spaces\xyz.cpp">
       <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="manipulation\color_blend.cpp">
+      <Filter>manipulation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +117,6 @@
       <Filter>spaces</Filter>
     </ClInclude>
     <ClInclude Include="spaces\color_base.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="manipulation\color_blend.h">
       <Filter>spaces</Filter>
     </ClInclude>
     <ClInclude Include="spaces\gamma.h">
@@ -169,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="spaces\xyz.h">
       <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\color_blend.h">
+      <Filter>manipulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

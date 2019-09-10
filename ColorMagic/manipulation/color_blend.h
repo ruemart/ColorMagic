@@ -13,7 +13,7 @@ namespace color_manipulation
 {
 	//! Static class for color blending operations
 	/*!
-	* This static class implements 16 different color blending operations.
+	* This static class implements 25 different color blending operations.
 	*/
 	class color_blend : protected base_color_blend
 	{
@@ -38,6 +38,28 @@ namespace color_manipulation
 		* \return the combination of source and destination calculated with normal blending.
 		*/
 		static color_space::color_base* normal(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
+		//! Static function that does dissolve blending.
+		/*!
+		* Static function that does dissolve blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being dissolve componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus dissolve). Neither source and destination will produce something simular
+		* to porter duffs in operator with dissolve.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with dissolve blending.
+		*/
+		static color_space::color_base* dissolve(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
 
 		//! Static function that does multiply blending.
 		/*!
@@ -171,6 +193,28 @@ namespace color_manipulation
 		*/
 		static color_space::color_base* color_dodge(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
 
+		//! Static function that does linear-dodge blending.
+		/*!
+		* Static function that does linear-dodge blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being linear-dodge componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus linear-dodge). Neither source and destination will produce something 
+		* simular to porter duffs in operator with linear-dodge.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with linear-dodge blending.
+		*/
+		static color_space::color_base* linear_dodge(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
 		//! Static function that does color-burn blending.
 		/*!
 		* Static function that does color-burn blending. In its default configuration
@@ -192,6 +236,28 @@ namespace color_manipulation
 		* \return the combination of source and destination calculated with color-burn blending.
 		*/
 		static color_space::color_base* color_burn(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
+		//! Static function that does linear-burn blending.
+		/*!
+		* Static function that does linear-burn blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being linear-burn blended componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus linear-burn blending). Neither source and destination will produce 
+		* something simular to porter duffs in operator with linear-burn blending.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with linear-burn blending.
+		*/
+		static color_space::color_base* linear_burn(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
 
 		//! Static function that does hard-light blending.
 		/*!
@@ -237,6 +303,50 @@ namespace color_manipulation
 		*/
 		static color_space::color_base* soft_light(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
 
+		//! Static function that does vivid light blending.
+		/*!
+		* Static function that does vivid light blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being vivid light blended componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus vivid light blending). Neither source and destination will produce 
+		* something simular to porter duffs in operator with vivid light blending.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with lighten blending.
+		*/
+		static color_space::color_base* vivid_light(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
+		//! Static function that does linear-light blending.
+		/*!
+		* Static function that does linear-light blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being linear-light blended componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus linear-light blending). Neither source and destination will produce 
+		* something simular to porter duffs in operator with linear-light blending.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with linear-light blending.
+		*/
+		static color_space::color_base* linear_light(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
 		//! Static function that does difference blending.
 		/*!
 		* Static function that does difference blending. In its default configuration
@@ -258,6 +368,94 @@ namespace color_manipulation
 		* \return the combination of source and destination calculated with difference blending.
 		*/
 		static color_space::color_base* difference(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
+		//! Static function that does subtract blending.
+		/*!
+		* Static function that does subtract blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being subtract blended componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus subtract blending). Neither source and destination will produce something
+		* simular to porter duffs in operator with subtract blending.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with subtract blending.
+		*/
+		static color_space::color_base* subtract(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
+		//! Static function that does divide blending.
+		/*!
+		* Static function that does divide blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being divide blended componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus divide blending). Neither source and destination will produce something
+		* simular to porter duffs in operator with divide blending.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with divide blending.
+		*/
+		static color_space::color_base* divide(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
+		//! Static function that does plus-lighter blending.
+		/*!
+		* Static function that does plus-lighter blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being plus-lighter blended componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus plus-lighter blending). Neither source and destination will produce 
+		* something simular to porter duffs in operator with plus-lighter blending.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with plus-lighter blending.
+		*/
+		static color_space::color_base* plus_lighter(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
+		//! Static function that does plus-darker blending.
+		/*!
+		* Static function that does plus-darker blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being plus-darker blended componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus plus-darker blending). Neither source and destination will produce
+		* something simular to porter duffs in operator with plus-darker blending.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with plus-darker blending.
+		*/
+		static color_space::color_base* plus_darker(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
 
 		//! Static function that does exclusion blending.
 		/*!
@@ -401,34 +599,22 @@ namespace color_manipulation
 		*/
 		static color_space::color_base* luminosity(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
 
-		//! Static function that does custom non-componentwise  blending.
-		/*!
-		* Static function that does custom non-componentwise blending. In its default configuration
-		* (use source and destination region) it will produce the same result like the porter
-		* duff over operator with the overlapping area being custom blended.
-		* Only source and only destination equals porter duffs' source respectively destination
-		* operators (plus custom blending). Neither source and destination will produce something
-		* simular to porter duffs in operator with custom blending.
-		* Note that this blend operator does not work componentwise but consider all components
-		* in a combination.
-		* Since the operation is done in hsl space a conversion will be done first. Therefore
-		* source and destination do not need to have the same color type. However the
-		* rgb color space definitions of both colors must match. The resulting color will be in
-		* the same space like source color.
-		* \param source The source color of the operation.
-		* \param destination The destination color of the operation.
-		* \param use_source_region Whether the source region of the resulting pixel will be blank
-		* or not.
-		* \param use_destination_region Whether the destination region of the resulting pixel will
-		* be blank or not.
-		* \param blend_function The function that does the blending. It awaits source and destination
-		* values as input (in this order) and returns a blended values.
-		* \return the combination of source and destination calculated with custom blending.
-		*/
-		static color_space::color_base* custom_combination_blend(color_space::color_base* source, color_space::color_base* destination, bool use_source_region, bool use_destination_region, std::function<float(float, float)> blend_function);
-
-
 	protected:
+		static float dissolve_func(float s, float d, float alpha_diff)
+		{
+			float rand_val = rand() % 101; // generate a random number in the range 0 - 100
+			float threshold = 25.f; // threshold of random number that defines whether to return s or d
+			if (alpha_diff > 0.f) // source alpha is greater
+			{
+				return (rand_val >= threshold) ? s : d; // return s in 3/4 of the cases
+			}
+			else // destination alpha is greater
+			{
+				return (rand_val >= threshold) ? d : s; // return d in 3/4 of the cases
+			}
+			return 0;
+		}
+
 		static float multiply_func(float s, float d)
 		{
 			return s * d;
@@ -462,12 +648,22 @@ namespace color_manipulation
 			return (tmp <= 1.f) ? tmp : 1.f;
 		}
 
+		static float linear_dodge_func(float s, float d)
+		{
+			return s + d;
+		}
+
 		static float color_burn_func(float s, float d)
 		{
 			if (d == 1.f) return 1.f;
 			else if (s == 0.f) return 0.f;
 			float tmp = (1.f - d) / s;
 			return (tmp <= 1.f) ? tmp : 1.f;
+		}
+
+		static float linear_burn_func(float s, float d)
+		{
+			return s + d - 1.f;
 		}
 
 		static float hard_light_func(float s, float d)
@@ -487,9 +683,42 @@ namespace color_manipulation
 			return d + (2.f * s - 1.f) * (tmp - d);
 		}
 
+		static float vivid_light_func(float s, float d)
+		{
+			if (s > 0.5f) return color_dodge_func(s, d);
+			else return color_burn_func(s, d);
+		}
+
+		static float linear_light_func(float s, float d)
+		{
+			if (s > 0.5f) return linear_dodge_func(s, d);
+			else return linear_burn_func(s, d);
+		}
+
 		static float difference_func(float s, float d)
 		{
 			return fabsf(d - s);
+		}
+
+		static float subtract_func(float s, float d)
+		{
+			return s - d;
+		}
+
+		static float divide_func(float s, float d)
+		{
+			if (s == 0.f) return 1.f;
+			else return d / s;
+		}
+
+		static float plus_lighter_func(float s, float d)
+		{
+			return linear_dodge_func(s, d);
+		}
+
+		static float plus_darker_func(float s, float d)
+		{
+			return linear_dodge_func(s, d) - 1.f;
 		}
 
 		static float exclusion_func(float s, float d)

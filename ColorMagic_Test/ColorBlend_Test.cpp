@@ -239,15 +239,15 @@ TEST_F(ColorBlend_Test, ColorBurnTests)
 {
 	auto result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::color_burn(red_100, blue_100));
 	ASSERT_NEAR(1.f, result->red(), avg_error);
-	ASSERT_NEAR(0.f, result->green(), avg_error);
-	ASSERT_NEAR(1.f, result->blue(), avg_error);
+	ASSERT_NEAR(1.f, result->green(), avg_error);
+	ASSERT_NEAR(0.f, result->blue(), avg_error);
 	ASSERT_NEAR(1.f, result->alpha(), avg_error);
 	delete result;
 
 	result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::color_burn(red_100, blue_50));
 	ASSERT_NEAR(1.f, result->red(), avg_error);
-	ASSERT_NEAR(0.f, result->green(), avg_error);
-	ASSERT_NEAR(0.5f, result->blue(), avg_error);
+	ASSERT_NEAR(0.5f, result->green(), avg_error);
+	ASSERT_NEAR(0.f, result->blue(), avg_error);
 	ASSERT_NEAR(1.f, result->alpha(), avg_error);
 	delete result;
 
@@ -310,16 +310,16 @@ TEST_F(ColorBlend_Test, HardLightTests)
 TEST_F(ColorBlend_Test, SoftLightTests)
 {
 	auto result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::soft_light(red_100, blue_100));
-	ASSERT_NEAR(0.f, result->red(), avg_error);
+	ASSERT_NEAR(0.5f, result->red(), avg_error);
 	ASSERT_NEAR(0.f, result->green(), avg_error);
-	ASSERT_NEAR(1.f, result->blue(), avg_error);
+	ASSERT_NEAR(0.5f, result->blue(), avg_error);
 	ASSERT_NEAR(1.f, result->alpha(), avg_error);
 	delete result;
 
 	result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::soft_light(red_100, blue_50));
-	ASSERT_NEAR(0.5f, result->red(), avg_error);
+	ASSERT_NEAR(0.75f, result->red(), avg_error);
 	ASSERT_NEAR(0.f, result->green(), avg_error);
-	ASSERT_NEAR(0.5f, result->blue(), avg_error);
+	ASSERT_NEAR(0.25f, result->blue(), avg_error);
 	ASSERT_NEAR(1.f, result->alpha(), avg_error);
 	delete result;
 
@@ -372,6 +372,54 @@ TEST_F(ColorBlend_Test, LinearLightTests)
 	delete result;
 
 	result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::linear_light(red_100, blue_0));
+	ASSERT_NEAR(1.f, result->red(), avg_error);
+	ASSERT_NEAR(0.f, result->green(), avg_error);
+	ASSERT_NEAR(0.f, result->blue(), avg_error);
+	ASSERT_NEAR(1.f, result->alpha(), avg_error);
+	delete result;
+}
+
+TEST_F(ColorBlend_Test, PinLightTests)
+{
+	auto result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::pin_light(red_100, blue_100));
+	ASSERT_NEAR(1.f, result->red(), avg_error);
+	ASSERT_NEAR(0.f, result->green(), avg_error);
+	ASSERT_NEAR(0.f, result->blue(), avg_error);
+	ASSERT_NEAR(1.f, result->alpha(), avg_error);
+	delete result;
+
+	result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::pin_light(red_100, blue_50));
+	ASSERT_NEAR(1.f, result->red(), avg_error);
+	ASSERT_NEAR(0.f, result->green(), avg_error);
+	ASSERT_NEAR(0.f, result->blue(), avg_error);
+	ASSERT_NEAR(1.f, result->alpha(), avg_error);
+	delete result;
+
+	result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::pin_light(red_100, blue_0));
+	ASSERT_NEAR(1.f, result->red(), avg_error);
+	ASSERT_NEAR(0.f, result->green(), avg_error);
+	ASSERT_NEAR(0.f, result->blue(), avg_error);
+	ASSERT_NEAR(1.f, result->alpha(), avg_error);
+	delete result;
+}
+
+TEST_F(ColorBlend_Test, HardMixTests)
+{
+	auto result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::hard_mix(red_100, blue_100));
+	ASSERT_NEAR(1.f, result->red(), avg_error);
+	ASSERT_NEAR(0.f, result->green(), avg_error);
+	ASSERT_NEAR(1.f, result->blue(), avg_error);
+	ASSERT_NEAR(1.f, result->alpha(), avg_error);
+	delete result;
+
+	result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::hard_mix(red_100, blue_50));
+	ASSERT_NEAR(1.f, result->red(), avg_error);
+	ASSERT_NEAR(0.f, result->green(), avg_error);
+	ASSERT_NEAR(0.5f, result->blue(), avg_error);
+	ASSERT_NEAR(1.f, result->alpha(), avg_error);
+	delete result;
+
+	result = color_manipulation::color_converter::to_rgb_deep(color_manipulation::color_blend::hard_mix(red_100, blue_0));
 	ASSERT_NEAR(1.f, result->red(), avg_error);
 	ASSERT_NEAR(0.f, result->green(), avg_error);
 	ASSERT_NEAR(0.f, result->blue(), avg_error);

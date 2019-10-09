@@ -278,6 +278,42 @@ color_space::color_base * color_manipulation::color_blend::linear_light(color_sp
 		source->get_color_type());
 }
 
+color_space::color_base* color_manipulation::color_blend::pin_light(color_space::color_base* source, color_space::color_base* destination, bool use_source_region, bool use_destination_region)
+{
+	// Check input params
+	if (source == nullptr) throw new std::invalid_argument("source color is null.");
+	if (destination == nullptr) throw new std::invalid_argument("destination color is null.");
+	if (source->get_rgb_color_space() != destination->get_rgb_color_space()) throw new std::invalid_argument("The rgb color space definitions of both colors do not match.");
+
+	return color_converter::convertTo(
+		(new color_blend())->general_porter_duff(
+			color_converter::to_rgb_deep(source),
+			color_converter::to_rgb_deep(destination),
+			use_source_region,
+			use_destination_region,
+			true,
+			[](float s_component, float d_component) { return pin_light_func(s_component, d_component); }),
+		source->get_color_type());
+}
+
+color_space::color_base* color_manipulation::color_blend::hard_mix(color_space::color_base* source, color_space::color_base* destination, bool use_source_region, bool use_destination_region)
+{
+	// Check input params
+	if (source == nullptr) throw new std::invalid_argument("source color is null.");
+	if (destination == nullptr) throw new std::invalid_argument("destination color is null.");
+	if (source->get_rgb_color_space() != destination->get_rgb_color_space()) throw new std::invalid_argument("The rgb color space definitions of both colors do not match.");
+
+	return color_converter::convertTo(
+		(new color_blend())->general_porter_duff(
+			color_converter::to_rgb_deep(source),
+			color_converter::to_rgb_deep(destination),
+			use_source_region,
+			use_destination_region,
+			true,
+			[](float s_component, float d_component) { return hard_mix_func(s_component, d_component); }),
+		source->get_color_type());
+}
+
 color_space::color_base * color_manipulation::color_blend::difference(color_space::color_base * source, color_space::color_base * destination, bool use_source_region, bool use_destination_region)
 {
 	// Check input params

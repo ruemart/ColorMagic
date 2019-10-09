@@ -347,6 +347,50 @@ namespace color_manipulation
 		*/
 		static color_space::color_base* linear_light(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
 
+		//! Static function that does pin-light blending.
+		/*!
+		* Static function that does pin-light blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being pin-light blended componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus pin-light blending). Neither source and destination will produce
+		* something simular to porter duffs in operator with pin-light blending.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with pin-light blending.
+		*/
+		static color_space::color_base* pin_light(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
+		//! Static function that does hard-mix blending.
+		/*!
+		* Static function that does hard-mix blending. In its default configuration
+		* (use source and destination region) it will produce the same result like the porter
+		* duff over operator with the overlapping area being hard-mix blended componentwise.
+		* Only source and only destination equals porter duffs' source respectively destination
+		* operators (plus hard-mix blending). Neither source and destination will produce
+		* something simular to porter duffs in operator with hard-mix blending.
+		* Since the operation is done in rgb deep color space a conversion will be done first.
+		* Therefore source and destination do not need to have the same color type. However the
+		* rgb color space definitions of both colors must match. The resulting color will be in
+		* the same space like source color.
+		* \param source The source color of the operation.
+		* \param destination The destination color of the operation.
+		* \param use_source_region Whether the source region of the resulting pixel will be blank
+		* or not.
+		* \param use_destination_region Whether the destination region of the resulting pixel will
+		* be blank or not.
+		* \return the combination of source and destination calculated with hard-mix blending.
+		*/
+		static color_space::color_base* hard_mix(color_space::color_base* source, color_space::color_base* destination, bool use_source_region = true, bool use_destination_region = true);
+
 		//! Static function that does difference blending.
 		/*!
 		* Static function that does difference blending. In its default configuration
@@ -622,7 +666,7 @@ namespace color_manipulation
 
 		static float screen_func(float s, float d)
 		{
-			return s + d - (s * d);
+			return 1.f - (1.f - d) * (1.f - s);
 		}
 
 		static float overlay_func(float s, float d)
@@ -632,12 +676,12 @@ namespace color_manipulation
 
 		static float darken_func(float s, float d)
 		{
-			return (s <= d) ? s : d;
+			return std::fminf(s, d);
 		}
 
 		static float lighten_func(float s, float d)
 		{
-			return (s <= d) ? d : s;
+			return std::fmaxf(s, d);
 		}
 
 		static float color_dodge_func(float s, float d)
@@ -655,44 +699,61 @@ namespace color_manipulation
 
 		static float color_burn_func(float s, float d)
 		{
-			if (d == 1.f) return 1.f;
-			else if (s == 0.f) return 0.f;
+			if (d == 1.f) return 0.f;
+			else if (s == 0.f) return 1.f;
 			float tmp = (1.f - d) / s;
 			return (tmp <= 1.f) ? tmp : 1.f;
 		}
 
 		static float linear_burn_func(float s, float d)
 		{
-			return s + d - 1.f;
+			return d + s - 1.f;
 		}
 
 		static float hard_light_func(float s, float d)
 		{
-			if (s <= 0.5f) return multiply_func(2.f * s, d);
-			return screen_func(2.f * s - 1.f, d);
+			if (s <= 0.5f) return d * 2.f * s;
+			else return 1.f - (1.f - d) * (1.f - 2.f * (s - 0.5f));
 		}
 
 		static float soft_light_func(float s, float d)
 		{
-			if (s <= 0.5f) return d - (1.f - 2.f * s) * d * (1.f - d);
-
-			float tmp;
-			if (d <= 0.25f) tmp = ((16.f * d - 12.f) * d + 4.f) * d;
-			else tmp = sqrtf(d);
-
-			return d + (2.f * s - 1.f) * (tmp - d);
+			if (s <= 0.5f) return d * (s + 0.5f);
+			else return 1.f - (1.f - d) * (1.f * (s - 0.5f));
 		}
 
 		static float vivid_light_func(float s, float d)
 		{
-			if (s > 0.5f) return color_dodge_func(s, d);
-			else return color_burn_func(s, d);
+			if (s <= 0.5f)
+			{
+				if (d == 0.f) return 0.f;
+				else if (s == 0.5f) return 1.f;
+				else return d / (1.f - 2.f * s);
+			}
+			else
+			{
+				if (d == 1.f) return 1.f;
+				else if (s == 1.f) return 0.f;
+				else return 1.f - (1.f - d) / (2.f * (s - 0.5f));
+			}
 		}
 
 		static float linear_light_func(float s, float d)
 		{
-			if (s > 0.5f) return linear_dodge_func(s, d);
-			else return linear_burn_func(s, d);
+			if (s <= 0.5f) return d + 2.f * s - 1.f;
+			else return d + 2.f * (s - 0.5f);
+		}
+
+		static float pin_light_func(float s, float d)
+		{
+			if (s <= 0.5f) return std::fminf(d, 2.f * s);
+			else return std::fmaxf(d, 2.f * (s - 0.5f));
+		}
+
+		static float hard_mix_func(float s, float d)
+		{
+			if (s < 1.f - d) return 0.f;
+			else return 1.f;
 		}
 
 		static float difference_func(float s, float d)

@@ -40,6 +40,7 @@
     <ClCompile Include="CIELUV_Test.cpp" />
     <ClCompile Include="CMYK_Test.cpp" />
     <ClCompile Include="ColorAdjustments.cpp" />
+    <ClCompile Include="ColorBlend_Test.cpp" />
     <ClCompile Include="ColorCalculator_Test.cpp" />
     <ClCompile Include="ColorCombinations_Test.cpp" />
     <ClCompile Include="ColorConverter_Test.cpp" />

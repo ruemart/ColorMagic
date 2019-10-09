@@ -707,6 +707,7 @@ namespace color_manipulation
 
 		static float divide_func(float s, float d)
 		{
+			if (d == 0.f) return 0.f;
 			if (s == 0.f) return 1.f;
 			else return d / s;
 		}

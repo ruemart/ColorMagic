@@ -33,16 +33,16 @@ protected:
 		rgb_t_orange = new rgb_truecolor(255, 128, 0, 255, srgb);
 		rgb_t_yellow = new rgb_truecolor(204, 255, 0, 255, srgb);
 		rgb_t_green = new rgb_truecolor(0, 255, 0, 255, srgb);
-		rgb_t_light_green = new rgb_truecolor(0, 255, 127, 255, srgb);
+		rgb_t_light_green = new rgb_truecolor(0, 255, 128, 255, srgb);
 		rgb_t_mint = new rgb_truecolor(0, 255, 102, 255, srgb);
-		rgb_t_lime = new rgb_truecolor(127, 255, 0, 255, srgb);
+		rgb_t_lime = new rgb_truecolor(128, 255, 0, 255, srgb);
 		rgb_t_blue = new rgb_truecolor(0, 0, 255, 255, srgb);
 		rgb_t_light_blue = new rgb_truecolor(0, 102, 255, 255, srgb);
 		rgb_t_light_blue2 = new rgb_truecolor(0, 128, 255, 255, srgb);
 		rgb_t_cyan = new rgb_truecolor(0, 255, 255, 255, srgb);
 		rgb_t_violet = new rgb_truecolor(128, 0, 255, 255, srgb);
 		rgb_t_pink = new rgb_truecolor(204, 0, 255, 255, srgb);
-		rgb_t_pink2 = new rgb_truecolor(255, 0, 127, 255, srgb);
+		rgb_t_pink2 = new rgb_truecolor(255, 0, 128, 255, srgb);
 	}
 
 	virtual void TearDown()

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ColorMagic", "ColorMagic\ColorMagic.vcxproj", "{A0E4800E-0721-4EF8-B92A-6157508C9DA8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ColorMagic_Test", "ColorMagic_Test\ColorMagic_Test.vcxproj", "{474B379C-947D-4247-8168-5DC52B8F6D10}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ColorMagic_Test", "ColorMagic_Test\ColorMagic_Test.vcxproj", "{82C82C15-B54F-4F42-B893-B0E97E9FBBF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,14 @@ Global
 		{A0E4800E-0721-4EF8-B92A-6157508C9DA8}.Release|x64.Build.0 = Release|x64
 		{A0E4800E-0721-4EF8-B92A-6157508C9DA8}.Release|x86.ActiveCfg = Release|Win32
 		{A0E4800E-0721-4EF8-B92A-6157508C9DA8}.Release|x86.Build.0 = Release|Win32
-		{474B379C-947D-4247-8168-5DC52B8F6D10}.Debug|x64.ActiveCfg = Debug|x64
-		{474B379C-947D-4247-8168-5DC52B8F6D10}.Debug|x64.Build.0 = Debug|x64
-		{474B379C-947D-4247-8168-5DC52B8F6D10}.Debug|x86.ActiveCfg = Debug|Win32
-		{474B379C-947D-4247-8168-5DC52B8F6D10}.Debug|x86.Build.0 = Debug|Win32
-		{474B379C-947D-4247-8168-5DC52B8F6D10}.Release|x64.ActiveCfg = Release|x64
-		{474B379C-947D-4247-8168-5DC52B8F6D10}.Release|x64.Build.0 = Release|x64
-		{474B379C-947D-4247-8168-5DC52B8F6D10}.Release|x86.ActiveCfg = Release|Win32
-		{474B379C-947D-4247-8168-5DC52B8F6D10}.Release|x86.Build.0 = Release|Win32
+		{82C82C15-B54F-4F42-B893-B0E97E9FBBF2}.Debug|x64.ActiveCfg = Debug|x64
+		{82C82C15-B54F-4F42-B893-B0E97E9FBBF2}.Debug|x64.Build.0 = Debug|x64
+		{82C82C15-B54F-4F42-B893-B0E97E9FBBF2}.Debug|x86.ActiveCfg = Debug|Win32
+		{82C82C15-B54F-4F42-B893-B0E97E9FBBF2}.Debug|x86.Build.0 = Debug|Win32
+		{82C82C15-B54F-4F42-B893-B0E97E9FBBF2}.Release|x64.ActiveCfg = Release|x64
+		{82C82C15-B54F-4F42-B893-B0E97E9FBBF2}.Release|x64.Build.0 = Release|x64
+		{82C82C15-B54F-4F42-B893-B0E97E9FBBF2}.Release|x86.ActiveCfg = Release|Win32
+		{82C82C15-B54F-4F42-B893-B0E97E9FBBF2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -90,6 +90,18 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* add(color_space::cmyk* color1, color_space::cmyk* color2, float weight1 = 1.f, float weight2 = 1.f, bool include_alpha = false);
 
+		//! Static function that adds two hsi colors.
+		/*!
+		* Adds both hsi colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::hsi* add(color_space::hsi* color1, color_space::hsi* color2, float weight1 = 1.f, float weight2 = 1.f, bool include_alpha = false);
+
 		//! Static function that adds two hsv colors.
 		/*!
 		* Adds both hsv colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
@@ -114,6 +126,18 @@ namespace color_manipulation
 		* \return a new color object with the resulting color of this calculation.
 		*/
 		static color_space::hsl* add(color_space::hsl* color1, color_space::hsl* color2, float weight1 = 1.f, float weight2 = 1.f, bool include_alpha = false);
+
+		//! Static function that adds two hcy colors.
+		/*!
+		* Adds both hcy colors in an additive way. The amount of the two colors can be varied in the range [0,1] by using their corresponding weights.
+		* \param color1 The first of the two colors to add.
+		* \param color2 The second of the two colors to add.
+		* \param weight1 The first colors weight in the range [0,1].
+		* \param weight2 The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::hcy* add(color_space::hcy* color1, color_space::hcy* color2, float weight1 = 1.f, float weight2 = 1.f, bool include_alpha = false);
 
 		//! Static function that adds two xyz colors.
 		/*!
@@ -262,6 +286,18 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* mix(color_space::cmyk* color1, color_space::cmyk* color2, float weight = 0.5f, bool include_alpha = false);
 
+		//! Static function that mixes two colors in hsi color space.
+		/*!
+		* Performs an additive color mix of both hsi colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
+		* \param color1 The first of the two hsv colors to add.
+		* \param color2 The second of the two hsv colors to add.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::hsi* mix(color_space::hsi* color1, color_space::hsi* color2, float weight = 0.5f, bool include_alpha = false);
+
 		//! Static function that mixes two colors in hsv color space.
 		/*!
 		* Performs an additive color mix of both hsv colors. The mix ratio of the two colors can be varied in the range [0,1]
@@ -285,6 +321,18 @@ namespace color_manipulation
 		* \return a new color object with the resulting color of this calculation.
 		*/
 		static color_space::hsl* mix(color_space::hsl* color1, color_space::hsl* color2, float weight = 0.5f, bool include_alpha = false);
+
+		//! Static function that mixes two colors in hcy color space.
+		/*!
+		* Performs an additive color mix of both hcy colors. The mix ratio of the two colors can be varied in the range [0,1]
+		* by using their corresponding weights.
+		* \param color1 The first of the two hsl colors to add.
+		* \param color2 The second of the two hsl colors to add.
+		* \param weight The first colors weight in the range [0,1]. The second colors weight will be 1 - weight.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::hcy* mix(color_space::hcy* color1, color_space::hcy* color2, float weight = 0.5f, bool include_alpha = false);
 
 		//! Static function that mixes two colors in xyz color space.
 		/*!
@@ -424,6 +472,17 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* subtract(color_space::cmyk* color1, color_space::cmyk* color2, float weight = 1.f, bool include_alpha = false);
 
+		//! Static function that subtracts two colors in hsi color space.
+		/*!
+		* Subtracts both hsi colors.
+		* \param color1 The first of the two hsv colors to subtract.
+		* \param color2 The second of the two hsv colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::hsi* subtract(color_space::hsi* color1, color_space::hsi* color2, float weight = 1.f, bool include_alpha = false);
+
 		//! Static function that subtracts two colors in hsv color space.
 		/*!
 		* Subtracts both hsv colors.
@@ -445,6 +504,17 @@ namespace color_manipulation
 		* \return a new color object with the resulting color of this calculation.
 		*/
 		static color_space::hsl* subtract(color_space::hsl* color1, color_space::hsl* color2, float weight = 1.f, bool include_alpha = false);
+
+		//! Static function that subtracts two colors in hcy color space.
+		/*!
+		* Subtracts both hcy colors.
+		* \param color1 The first of the two hsv colors to subtract.
+		* \param color2 The second of the two hsv colors to subtract.
+		* \param weight The second colors weight in the range [0,1].
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::hcy* subtract(color_space::hcy* color1, color_space::hcy* color2, float weight = 1.f, bool include_alpha = false);
 
 		//! Static function that subtracts two colors in xyz color space.
 		/*!
@@ -557,6 +627,15 @@ namespace color_manipulation
 		*/
 		static color_space::cmyk* average_cmyk(std::vector<color_space::cmyk*> colors, bool include_alpha = false);
 
+		//! Static function that averages a vector of hsi colors.
+		/*!
+		* Averages each hsi component of the colors seperately.
+		* \param colors The vector of colors to average.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::hsi* average_hsi(std::vector<color_space::hsi*> colors, bool include_alpha = false);
+
 		//! Static function that averages a vector of hsv colors.
 		/*!
 		* Averages each hsv component of the colors seperately.
@@ -574,6 +653,15 @@ namespace color_manipulation
 		* \return a new color object with the resulting color of this calculation.
 		*/
 		static color_space::hsl* average_hsl(std::vector<color_space::hsl*> colors, bool include_alpha = false);
+
+		//! Static function that averages a vector of hcy colors.
+		/*!
+		* Averages each hcy component of the colors seperately.
+		* \param colors The vector of colors to average.
+		* \param include_alpha Whether alpha should be included in the calculation or not.
+		* \return a new color object with the resulting color of this calculation.
+		*/
+		static color_space::hcy* average_hcy(std::vector<color_space::hcy*> colors, bool include_alpha = false);
 
 		//! Static function that averages a vector of xyz colors.
 		/*!

@@ -23,32 +23,32 @@
     <ProjectGuid>{A0E4800E-0721-4EF8-B92A-6157508C9DA8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ColorMagic</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -153,16 +153,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="manipulation\base_color_blend.h" />
     <ClInclude Include="manipulation\chromatic_adaptation.h" />
     <ClInclude Include="manipulation\color_adjustments.h" />
+    <ClInclude Include="manipulation\color_blend.h" />
     <ClInclude Include="manipulation\color_calculation.h" />
     <ClInclude Include="manipulation\color_combinations.h" />
     <ClInclude Include="manipulation\color_converter.h" />
     <ClInclude Include="manipulation\color_distance.h" />
+    <ClInclude Include="manipulation\porter_duff.h" />
     <ClInclude Include="spaces\cmyk.h" />
     <ClInclude Include="spaces\gamma.h" />
     <ClInclude Include="spaces\grey_deepcolor.h" />
     <ClInclude Include="spaces\grey_truecolor.h" />
+    <ClInclude Include="spaces\hcy.h" />
+    <ClInclude Include="spaces\hsi.h" />
     <ClInclude Include="spaces\hsl.h" />
     <ClInclude Include="spaces\hsv.h" />
     <ClInclude Include="spaces\color_base.h" />
@@ -187,14 +192,18 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="manipulation\chromatic_adaptation.cpp" />
     <ClCompile Include="manipulation\color_adjustments.cpp" />
+    <ClCompile Include="manipulation\color_blend.cpp" />
     <ClCompile Include="manipulation\color_calculation.cpp" />
     <ClCompile Include="manipulation\color_combinations.cpp" />
     <ClCompile Include="manipulation\color_converter.cpp" />
     <ClCompile Include="manipulation\color_distance.cpp" />
+    <ClCompile Include="manipulation\porter_duff.cpp" />
     <ClCompile Include="spaces\cieluv.cpp" />
     <ClCompile Include="spaces\cmyk.cpp" />
     <ClCompile Include="spaces\grey_deepcolor.cpp" />
     <ClCompile Include="spaces\grey_truecolor.cpp" />
+    <ClCompile Include="spaces\hcy.cpp" />
+    <ClCompile Include="spaces\hsi.cpp" />
     <ClCompile Include="spaces\hsl.cpp" />
     <ClCompile Include="spaces\hsv.cpp" />
     <ClCompile Include="spaces\lab.cpp" />

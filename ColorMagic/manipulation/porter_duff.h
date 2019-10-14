@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "base_color_blend.h"
 #include "..\spaces\color_base.h"
 #include "color_converter.h"
 
@@ -14,7 +15,7 @@ namespace color_manipulation
 	/*!
 	* This static class implements all 12 porter duff color blending operations.
 	*/
-	class porter_duff
+	class porter_duff : protected base_color_blend
 	{
 	public:
 		//! Static function that combines two colors by using the porter duff src operator.
@@ -200,31 +201,5 @@ namespace color_manipulation
 		* \return the combination of source and destination calculated with the clear operator.
 		*/
 		static color_space::color_base* clear(color_space::color_base* source, color_space::color_base* destination);
-
-	protected:
-		enum region
-		{
-			SOURCE = 0, /*!< SOURCE - the source region of the resulting pixel */
-			DESTINATION, /*!< DESTINATION - the destination region of the resulting pixel */
-			NEITHER /*!< NEITHER - the neither region of the resulting pixel */
-		};
-
-		//! Static function that actually does the combination of both colors by using a porter duff operator.
-		/*!
-		* Static function that actually does the combination of both colors by using a porter duff operator. 
-		* The definition of the operator to use is done with the s, d and b parameters. These parameters 
-		* define wether the source, destination or both areas of the resulting pixel should be included in
-		* the operation.
-		* \param source The source color of the operation.
-		* \param destination The destination color of the operation.
-		* \param s The destination area of the resulting pixel. Use SOURCE to include the source color in the 
-		* operation or NEITHER to exclude it.
-		* \param d The destination area of the resulting pixel. Use DESTINATION to include the source color in 
-		* the operation or NEITHER to exclude it.
-		* \param b The both area of the resulting pixel. Use SOURCE to include the source color in the
-		* operation, DESTINATION to include the destination color or NEITHER to exclude both colors.
-		* \return the combination of source and destination calculated based on the given s, d, b parameters.
-		*/
-		static color_space::color_base* do_porter_duff(color_space::rgb_deepcolor* source, color_space::rgb_deepcolor* destination, region s, region d, region b);
 	};
 }

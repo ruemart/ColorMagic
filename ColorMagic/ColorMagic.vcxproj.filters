@@ -1,135 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="utils">
-      <UniqueIdentifier>{0d3f104c-b627-436c-bac3-f6c3cd3d0f21}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="manipulation">
-      <UniqueIdentifier>{725c8be8-94fe-44ba-a299-7cf6ae8e72aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="spaces">
-      <UniqueIdentifier>{9ac353fc-d697-4708-8f68-d99ae2cb4207}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\color_type.h">
-      <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\colors.h">
-      <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="manipulation\color_converter.h">
+    <ClCompile Include="ColorMagic.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="manipulation\chromatic_adaptation.cpp">
       <Filter>manipulation</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\cmyk.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\grey_deepcolor.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\grey_truecolor.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\hsl.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\hsv.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\lab.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\rgb_deepcolor.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\rgb_truecolor.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\xyz.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\color_base.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="manipulation\color_distance.h">
-      <Filter>manipulation</Filter>
-    </ClInclude>
-    <ClInclude Include="manipulation\color_adjustments.h">
-      <Filter>manipulation</Filter>
-    </ClInclude>
-    <ClInclude Include="manipulation\color_combinations.h">
-      <Filter>manipulation</Filter>
-    </ClInclude>
-    <ClInclude Include="manipulation\color_calculation.h">
-      <Filter>manipulation</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\rgb_color_space_definition.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\white_point.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\matrix.h">
-      <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\xyy.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\gamma.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\cieluv.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="manipulation\chromatic_adaptation.h">
-      <Filter>manipulation</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\lch_ab.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\lch_uv.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="manipulation\porter_duff.h">
-      <Filter>manipulation</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\hsi.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-    <ClInclude Include="spaces\hcy.h">
-      <Filter>spaces</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ColorMagic.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="manipulation\color_adjustments.cpp">
+      <Filter>manipulation</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="manipulation\color_calculation.cpp">
+      <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="manipulation\color_combinations.cpp">
+      <Filter>manipulation</Filter>
     </ClCompile>
     <ClCompile Include="manipulation\color_converter.cpp">
       <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="manipulation\color_distance.cpp">
+      <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="manipulation\porter_duff.cpp">
+      <Filter>manipulation</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\cieluv.cpp">
+      <Filter>spaces</Filter>
     </ClCompile>
     <ClCompile Include="spaces\cmyk.cpp">
       <Filter>spaces</Filter>
@@ -138,6 +35,12 @@
       <Filter>spaces</Filter>
     </ClCompile>
     <ClCompile Include="spaces\grey_truecolor.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\hcy.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\hsi.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
     <ClCompile Include="spaces\hsl.cpp">
@@ -149,50 +52,134 @@
     <ClCompile Include="spaces\lab.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
-    <ClCompile Include="spaces\rgb_deepcolor.cpp">
-      <Filter>spaces</Filter>
-    </ClCompile>
-    <ClCompile Include="spaces\rgb_truecolor.cpp">
-      <Filter>spaces</Filter>
-    </ClCompile>
-    <ClCompile Include="spaces\xyz.cpp">
-      <Filter>spaces</Filter>
-    </ClCompile>
-    <ClCompile Include="manipulation\color_distance.cpp">
-      <Filter>manipulation</Filter>
-    </ClCompile>
-    <ClCompile Include="manipulation\color_adjustments.cpp">
-      <Filter>manipulation</Filter>
-    </ClCompile>
-    <ClCompile Include="manipulation\color_combinations.cpp">
-      <Filter>manipulation</Filter>
-    </ClCompile>
-    <ClCompile Include="manipulation\color_calculation.cpp">
-      <Filter>manipulation</Filter>
-    </ClCompile>
-    <ClCompile Include="spaces\xyy.cpp">
-      <Filter>spaces</Filter>
-    </ClCompile>
-    <ClCompile Include="spaces\cieluv.cpp">
-      <Filter>spaces</Filter>
-    </ClCompile>
-    <ClCompile Include="manipulation\chromatic_adaptation.cpp">
-      <Filter>manipulation</Filter>
-    </ClCompile>
     <ClCompile Include="spaces\lch_ab.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
     <ClCompile Include="spaces\lch_uv.cpp">
       <Filter>spaces</Filter>
     </ClCompile>
-    <ClCompile Include="manipulation\porter_duff.cpp">
+    <ClCompile Include="spaces\rgb_deepcolor.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\rgb_truecolor.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\xyy.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="spaces\xyz.cpp">
+      <Filter>spaces</Filter>
+    </ClCompile>
+    <ClCompile Include="manipulation\color_blend.cpp">
       <Filter>manipulation</Filter>
     </ClCompile>
-    <ClCompile Include="spaces\hsi.cpp">
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="manipulation\base_color_blend.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\chromatic_adaptation.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\color_adjustments.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\color_calculation.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\color_combinations.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\color_converter.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\color_distance.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\porter_duff.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\color_type.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\matrix.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\colors.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\cieluv.h">
       <Filter>spaces</Filter>
-    </ClCompile>
-    <ClCompile Include="spaces\hcy.cpp">
+    </ClInclude>
+    <ClInclude Include="spaces\cmyk.h">
       <Filter>spaces</Filter>
-    </ClCompile>
+    </ClInclude>
+    <ClInclude Include="spaces\color_base.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\gamma.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\grey_deepcolor.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\grey_truecolor.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\hcy.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\hsi.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\hsl.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\hsv.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\lab.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\lch_ab.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\lch_uv.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\rgb_color_space_definition.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\rgb_deepcolor.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\rgb_truecolor.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\white_point.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\xyy.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="spaces\xyz.h">
+      <Filter>spaces</Filter>
+    </ClInclude>
+    <ClInclude Include="manipulation\color_blend.h">
+      <Filter>manipulation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="manipulation">
+      <UniqueIdentifier>{a8ede595-0fe0-499b-80e5-038016edb024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="spaces">
+      <UniqueIdentifier>{60035efd-0a6f-4364-b8df-fe1fe1c5fcad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{3565557b-25ea-4613-9dae-8b225bdd86e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

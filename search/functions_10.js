@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['to_5fcieluv',['to_cieluv',['../classcolor__manipulation_1_1color__converter.html#a1fd5df432d99f1b35b6e33c48bf4931e',1,'color_manipulation::color_converter']]],
+  ['to_5fcmyk',['to_cmyk',['../classcolor__manipulation_1_1color__converter.html#a0879249b3ffc9023596f4703cf4db4ac',1,'color_manipulation::color_converter']]],
+  ['to_5fdeg',['to_deg',['../classcolor__manipulation_1_1color__distance.html#a50063910d930458ae088bd312ac3e008',1,'color_manipulation::color_distance']]],
+  ['to_5fgrey_5fdeep',['to_grey_deep',['../classcolor__manipulation_1_1color__converter.html#ab5dcfdec1310120b25d1de134a786139',1,'color_manipulation::color_converter']]],
+  ['to_5fgrey_5ftrue',['to_grey_true',['../classcolor__manipulation_1_1color__converter.html#a1ce23405eafd71c1562c5c1ba5ecbe3e',1,'color_manipulation::color_converter']]],
+  ['to_5fhcy',['to_hcy',['../classcolor__manipulation_1_1color__converter.html#a86a48e6c6081027e757860e98a834ae3',1,'color_manipulation::color_converter']]],
+  ['to_5fhsi',['to_hsi',['../classcolor__manipulation_1_1color__converter.html#a51c26ca66e62a105c4f4af87416c5989',1,'color_manipulation::color_converter']]],
+  ['to_5fhsl',['to_hsl',['../classcolor__manipulation_1_1color__converter.html#a3a929321bbf53219e48f3e67b2055844',1,'color_manipulation::color_converter']]],
+  ['to_5fhsv',['to_hsv',['../classcolor__manipulation_1_1color__converter.html#a5a07531dab8e99aba3584eb0773fb16d',1,'color_manipulation::color_converter']]],
+  ['to_5flab',['to_lab',['../classcolor__manipulation_1_1color__converter.html#a822c68a2d92db56f892d98591ed849d4',1,'color_manipulation::color_converter']]],
+  ['to_5flch_5fab',['to_lch_ab',['../classcolor__manipulation_1_1color__converter.html#a0098b56cfb618535831a852369f8e6c9',1,'color_manipulation::color_converter']]],
+  ['to_5flch_5fuv',['to_lch_uv',['../classcolor__manipulation_1_1color__converter.html#abc472374235b4d679e4ddac4f0a06fab',1,'color_manipulation::color_converter']]],
+  ['to_5frad',['to_rad',['../classcolor__manipulation_1_1color__distance.html#ac838420aca20833d5e574782316d800f',1,'color_manipulation::color_distance']]],
+  ['to_5frgb_5fdeep',['to_rgb_deep',['../classcolor__manipulation_1_1color__converter.html#ac9a2689afecce5c389aaa65a4e9149cb',1,'color_manipulation::color_converter']]],
+  ['to_5frgb_5ftrue',['to_rgb_true',['../classcolor__manipulation_1_1color__converter.html#a6226103eacbb97cc57413e552e7637c1',1,'color_manipulation::color_converter']]],
+  ['to_5fxyy',['to_xyy',['../classcolor__manipulation_1_1color__converter.html#a679f72962eee24e97ca69ceb4e2d50a6',1,'color_manipulation::color_converter']]],
+  ['to_5fxyz',['to_xyz',['../classcolor__manipulation_1_1color__converter.html#a2483c1b72d6488ea5b6f7c11b1d8380b',1,'color_manipulation::color_converter']]],
+  ['transpose',['transpose',['../classmatrix.html#a67c4aa5563edc4c49eb0a22d49d5d812',1,'matrix']]],
+  ['tristimulus_5fto_5fchromaticity_5fcoordinate',['tristimulus_to_chromaticity_coordinate',['../classcolor__space_1_1white__point.html#a77c75e5fc7e5f41d3cd9173083e79e46',1,'color_space::white_point']]]
+];

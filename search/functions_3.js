@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['d50_5f10degree',['D50_10Degree',['../classcolor__space_1_1white__point__presets.html#a45fad1765fd3c152391919c5a7a8c46a',1,'color_space::white_point_presets']]],
+  ['d50_5f2degree',['D50_2Degree',['../classcolor__space_1_1white__point__presets.html#af9bcdd21704e4a6c36f7b9db1c36b56e',1,'color_space::white_point_presets']]],
+  ['d55_5f10degree',['D55_10Degree',['../classcolor__space_1_1white__point__presets.html#a26a093fe32fc6ee21074b5f1ad95fb2a',1,'color_space::white_point_presets']]],
+  ['d55_5f2degree',['D55_2Degree',['../classcolor__space_1_1white__point__presets.html#a9eccf8e580030f901f30cd39bb460ad3',1,'color_space::white_point_presets']]],
+  ['d65_5f10degree',['D65_10Degree',['../classcolor__space_1_1white__point__presets.html#ae9f88c60d09b2c244a161da1dec8a441',1,'color_space::white_point_presets']]],
+  ['d65_5f2degree',['D65_2Degree',['../classcolor__space_1_1white__point__presets.html#a4af0b8b649fbc4777eac2578b1b3045d',1,'color_space::white_point_presets']]],
+  ['d75_5f10degree',['D75_10Degree',['../classcolor__space_1_1white__point__presets.html#a32b519ae617c56c97263a3c3a1467c99',1,'color_space::white_point_presets']]],
+  ['d75_5f2degree',['D75_2Degree',['../classcolor__space_1_1white__point__presets.html#a1a5d0904d7b43b9ee4f0a45a45867df7',1,'color_space::white_point_presets']]],
+  ['darken',['darken',['../classcolor__manipulation_1_1color__blend.html#a6bd9bda0bf9739c66805d50a76284840',1,'color_manipulation::color_blend']]],
+  ['dci_5fp3',['dci_p3',['../classcolor__space_1_1rgb__color__space__definition__presets.html#abd54b92a84ed47b755d915b77d126032',1,'color_space::rgb_color_space_definition_presets']]],
+  ['dest',['dest',['../classcolor__manipulation_1_1porter__duff.html#ad5af47a26fe49312abf9f2c3e91cb67f',1,'color_manipulation::porter_duff']]],
+  ['dest_5fatop',['dest_atop',['../classcolor__manipulation_1_1porter__duff.html#a0fec4f67bc6376a2b8d8e5606446603d',1,'color_manipulation::porter_duff']]],
+  ['dest_5fin',['dest_in',['../classcolor__manipulation_1_1porter__duff.html#ad90f4abb9fddce5a4de1d255338393c5',1,'color_manipulation::porter_duff']]],
+  ['dest_5fout',['dest_out',['../classcolor__manipulation_1_1porter__duff.html#a5cc10bf539166f6de220e9a9713fcf37',1,'color_manipulation::porter_duff']]],
+  ['dest_5fover',['dest_over',['../classcolor__manipulation_1_1porter__duff.html#af23d8bfb9df224c2ae35212269cca779',1,'color_manipulation::porter_duff']]],
+  ['determinante',['determinante',['../classmatrix.html#a166c6d1654d26205694e89ce30a79aa1',1,'matrix']]],
+  ['difference',['difference',['../classcolor__manipulation_1_1color__blend.html#abe333470ff1c136c26490ad83efa5365',1,'color_manipulation::color_blend']]],
+  ['dissolve',['dissolve',['../classcolor__manipulation_1_1color__blend.html#a919ec14a652c1fef4e2e2429aa37b159',1,'color_manipulation::color_blend']]],
+  ['divide',['divide',['../classcolor__manipulation_1_1color__blend.html#a46ac01e6d28cbfdcf26e801df9e6610c',1,'color_manipulation::color_blend']]],
+  ['do_5fadaption',['do_adaption',['../classcolor__manipulation_1_1chromatic__adaptation.html#aa3fe6d9aab6dc458edcc1a82a09d55a0',1,'color_manipulation::chromatic_adaptation']]],
+  ['do_5fgamma_5fcorrection',['do_gamma_correction',['../classcolor__space_1_1color__base.html#a207d635127ffedee86565278d482c7a2',1,'color_space::color_base']]],
+  ['do_5finverse_5fgamma_5fcorrection',['do_inverse_gamma_correction',['../classcolor__space_1_1color__base.html#a6cde7a13d27d94bbbe9c2d8149910bd5',1,'color_space::color_base']]],
+  ['donrgb4',['donRGB4',['../classcolor__space_1_1rgb__color__space__definition__presets.html#a7a05f53f3111bfcf193bbe088e04b4b3',1,'color_space::rgb_color_space_definition_presets']]]
+];

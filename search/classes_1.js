@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['chromatic_5fadaptation',['chromatic_adaptation',['../classcolor__manipulation_1_1chromatic__adaptation.html',1,'color_manipulation']]],
+  ['chromaticadaptation_5ftest',['ChromaticAdaptation_Test',['../classChromaticAdaptation__Test.html',1,'']]],
+  ['cieluv',['cieluv',['../classcolor__space_1_1cieluv.html',1,'color_space']]],
+  ['cieluv_5ftest',['CIELUV_Test',['../classCIELUV__Test.html',1,'']]],
+  ['cmyk',['cmyk',['../classcolor__space_1_1cmyk.html',1,'color_space']]],
+  ['cmyk_5ftest',['CMYK_Test',['../classCMYK__Test.html',1,'']]],
+  ['color_5fadjustments',['color_adjustments',['../classcolor__manipulation_1_1color__adjustments.html',1,'color_manipulation']]],
+  ['color_5fbase',['color_base',['../classcolor__space_1_1color__base.html',1,'color_space']]],
+  ['color_5fblend',['color_blend',['../classcolor__manipulation_1_1color__blend.html',1,'color_manipulation']]],
+  ['color_5fcalculation',['color_calculation',['../classcolor__manipulation_1_1color__calculation.html',1,'color_manipulation']]],
+  ['color_5fcombinations',['color_combinations',['../classcolor__manipulation_1_1color__combinations.html',1,'color_manipulation']]],
+  ['color_5fconverter',['color_converter',['../classcolor__manipulation_1_1color__converter.html',1,'color_manipulation']]],
+  ['color_5fdistance',['color_distance',['../classcolor__manipulation_1_1color__distance.html',1,'color_manipulation']]],
+  ['coloradjustments_5ftest',['ColorAdjustments_Test',['../classColorAdjustments__Test.html',1,'']]],
+  ['colorblend_5ftest',['ColorBlend_Test',['../classColorBlend__Test.html',1,'']]],
+  ['colorcalculator_5ftest',['ColorCalculator_Test',['../classColorCalculator__Test.html',1,'']]],
+  ['colorcombinations_5ftest',['ColorCombinations_Test',['../classColorCombinations__Test.html',1,'']]],
+  ['colorconverter_5ftest',['ColorConverter_Test',['../classColorConverter__Test.html',1,'']]],
+  ['colordistance_5ftest',['ColorDistance_Test',['../classColorDistance__Test.html',1,'']]]
+];
